@@ -1,5 +1,5 @@
 import React from 'react';
-import IconHistory from './components/Icons/IconHistory';
+import { IconHistory } from './components/Icons';
 
 function App() {
   return (
