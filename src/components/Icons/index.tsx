@@ -107,3 +107,5 @@ export function IconStar(props: StarProps) {
 }
 
 IconStar.defaultProps = defaultStarProps;
+
+IconStar.defaultProps = defaultStarProps;

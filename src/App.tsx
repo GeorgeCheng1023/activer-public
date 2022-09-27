@@ -1,11 +1,12 @@
 import React from 'react';
-import { IconHistory } from './components/Icons';
+
+// button
+import ButtonFrame, { ButtonColor } from './components/buttons';
 
 function App() {
   return (
     <div>
-      <IconHistory />
-      <div>bruh</div>
+      <ButtonFrame color={ButtonColor.success} />
     </div>
   );
 }
