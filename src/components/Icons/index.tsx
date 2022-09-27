@@ -1,16 +1,12 @@
 import React from 'react';
 
 // icon
-import { FaHistory } from 'react-icons/fa';
+import { FaHistory, FaSearch } from 'react-icons/fa';
 
 export function IconHistory() {
-  return (
-    <FaHistory />
-  );
+  return <FaHistory />;
 }
 
-export function IconDummy() {
-  return (
-    <div />
-  );
+export function IconSearch() {
+  return <FaSearch />;
 }
