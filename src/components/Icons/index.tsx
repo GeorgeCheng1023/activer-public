@@ -2,10 +2,9 @@ import React from 'react';
 import './index.scss';
 
 // icon
-import { AiFillStar, AiFillCaretUp } from 'react-icons/ai';
+import { AiFillStar } from 'react-icons/ai';
 import { FaHistory, FaSearch, FaStarOfLife } from 'react-icons/fa';
 
-/* prettier-ignore */
 import {
   BsPlus,
   BsStar,
@@ -31,96 +30,63 @@ export function IconSearch() {
 }
 export function IconTriangle() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <FaSearch className="icon" />
-    </>
+    <FaSearch className="icon" />
   );
 }
 
 export function IconArrowUp() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <FaSearch className="icon" />
-    </>
+    <FaSearch className="icon" />
   );
 }
 
 export function IconPasswordStar() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <FaStarOfLife className="icon" />
-    </>
+    <FaStarOfLife className="icon" />
   );
 }
 
 export function IconPlus() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <BsPlus className="icon" />
-    </>
+    <BsPlus className="icon" />
   );
 }
 export function IconSecurity() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <BsFillShieldLockFill className="icon" />
-    </>
+    <BsFillShieldLockFill className="icon" />
   );
 }
 export function IconMove() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <BsArrowsMove className="icon" />
-    </>
+    <BsArrowsMove className="icon" />
   );
 }
 
 export function IconCreate() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <GrChapterAdd className="icon" />
-    </>
+    <GrChapterAdd className="icon" />
   );
 }
 
 export function IconGear() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <BsGearFill className="icon" />
-    </>
+    <BsGearFill className="icon" />
   );
 }
 export function IconMinus() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <BiMinus className="icon" />
-    </>
+    <BiMinus className="icon" />
   );
 }
 
 export function IconEdit() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <RiEditFill className="icon" />
-    </>
+    <RiEditFill className="icon" />
   );
 }
 export function IconPeople() {
   return (
-    <>
-      {/* prettier-ignore */}
-      <BsFillPeopleFill className="icon" />
-    </>
+    <BsFillPeopleFill className="icon" />
   );
 }
 
