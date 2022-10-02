@@ -1,0 +1,31 @@
+@mixin none-space {
+  padding:0;
+  margin:0;
+}
+
+@mixin fit-container {
+  width: fit-content;
+  height: fit-content;
+}
+
+@mixin normalize-font {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 500;
+}
+
+@mixin bg-color{
+  .bg-primary{
+    background-color: $primary-color;
+  }
+  .bg-secondary{
+    background-color: $secondary-color;
+  }
+  .bg-success{
+    background-color: $success-color;
+  }
+}
+
+@mixin effect-darker{
+  transition: filter 0.3s;
+  filter: brightness(85%);
+}
