@@ -1,0 +1,35 @@
+@import '../../_variables';
+@import '../../_global';
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: fit-content;
+  height: 20px;
+  padding: 10px 15px;
+  border-radius: 1rem;
+  margin: 1rem;
+
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  @include normalize-font;
+
+  * {
+    margin: 0.5rem;
+  }
+
+  &:hover{
+    @include effect-darker;
+  }
+  
+  
+}
+
+
+
+@include bg-color;

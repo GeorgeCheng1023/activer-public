@@ -1,0 +1,5 @@
+@import '../../../global';
+
+.tag__text {
+  @include fit-container;
+}

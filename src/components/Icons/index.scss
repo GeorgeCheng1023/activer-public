@@ -1,4 +1,9 @@
+@import '../../global';
+@import '../../variables';
+
 .icon {
-  width: 24px;
-  height: 24px;
+  @include none-space;
+  @include fit-container;
 }
+
+

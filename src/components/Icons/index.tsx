@@ -5,7 +5,7 @@ import './index.scss';
 import { AiFillStar } from 'react-icons/ai';
 import { FaHistory, FaSearch, FaStarOfLife } from 'react-icons/fa';
 import {
-  BsPlus,
+  BsPlusLg,
   BsStar,
   BsGearFill,
   BsFillPeopleFill,
@@ -47,7 +47,7 @@ export function IconPasswordStar() {
 
 export function IconPlus() {
   return (
-    <BsPlus className="icon" />
+    <BsPlusLg className="icon" />
   );
 }
 export function IconSecurity() {
@@ -105,7 +105,5 @@ export function IconStar(props: StarProps) {
 
   return <BsStar className="icon" />;
 }
-
-IconStar.defaultProps = defaultStarProps;
 
 IconStar.defaultProps = defaultStarProps;

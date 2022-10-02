@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 type Props = {
-  color : string;
+  color: string;
 };
 
 export const ButtonColor = {
@@ -11,7 +11,7 @@ export const ButtonColor = {
   error: 'error',
 };
 
-function ButtonFrame({ color } : Props) {
+function ButtonFrame({ color }: Props) {
   return (
     <button
       className={`button__frame button--${color || ButtonColor.default}`}
