@@ -1,8 +1,79 @@
+$_primary-color: #F3B755; 
+$_secondary-color: #699FF1;
+$_primary-hover-color: #FBE0B4;
+$_secondary-hover-color: #B0CDF9;
+$_button-fontSize: 20px;
+
+// button base
+@mixin button--base () {
+  padding: 0 39px;
+  border-radius: 21px;
+  font-size: $_button-fontSize;
+  letter-spacing: 1px;
+}
+@mixin button--primary--hover {
+  border: 2px $_primary-color solid;
+  background-color: $_primary-hover-color;
+  color: $_primary-color;
+}
+@mixin button--secondary--hover {
+  border: 2px $_secondary-color solid;
+  background-color: $_secondary-hover-color;
+  color: $_secondary-color;
+}
+
 .button {
-    &--success {
-        background-color: green;
+  width: 141px;
+  height: 54px;
+  @include button--base;
+
+  &--primary {
+    border: 2px $_primary-color solid;
+    background-color: $_primary-color;
+    color: #fff;
+    
+    &:hover {
+      @include button--primary--hover();
     }
-    &--error {
-        background-color: red;
+  }
+  &--secondary {
+    border: 2px $_secondary-color solid;
+    background-color: $_secondary-color;
+    color: #fff;
+    
+    &:hover {
+      @include button--secondary--hover();
     }
+  }
+  &--primaryOutline {
+    border: 2px $_primary-color solid;
+    background-color: #fff;
+    color: $_primary-color;
+
+    &:hover {
+      @include button--primary--hover();
+    }
+  }
+  &--secondaryOutline {
+    border: 2px $_secondary-color solid;
+    background-color: #fff;
+    color: $_secondary-color;
+    
+    &:hover {
+      @include button--secondary--hover();
+    }
+  }
+  &--inputFormButton {
+    width: 108.74px;
+    height: 41.36px;
+    padding: 0;
+    border: 1px $_secondary-color solid;
+    background-color: #fff;
+    font-size: 15.32px;
+    color: $_secondary-color;
+
+    &:hover {
+      @include button--secondary--hover();
+    }
+  }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 
 // button
-import ButtonFrame, { ButtonColor } from './components/buttons';
+import ButtonFrame, { allButtonStyle } from './components/buttons';
 
 function App() {
   return (
     <div>
-      <ButtonFrame color={ButtonColor.success} />
+      <ButtonFrame buttonStyle={allButtonStyle.primary} />
     </div>
   );
 }
