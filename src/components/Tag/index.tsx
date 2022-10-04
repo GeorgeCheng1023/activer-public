@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import TagIcon from './TagIcon';
-
 import TagText from './TagText';
 
 type TagProps = {

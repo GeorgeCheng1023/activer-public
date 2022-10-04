@@ -2,21 +2,28 @@ import React from 'react';
 import './index.scss';
 
 type Props = {
+  buttonColor: string;
   buttonStyle: string;
 };
 
-export const allButtonStyle = {
+export const allButtonColor = {
   primary: 'primary',
   secondary: 'secondary',
-  primaryOutline: 'primaryOutline',
-  secondaryOutline: 'secondaryOutline',
-  inputFormButton: 'inputFormButton',
 };
 
-function ButtonFrame({ buttonStyle } : Props) {
+export const allButtonStyle = {
+  default: 'default',
+  outline: 'outline',
+  small: 'small',
+};
+
+function ButtonFrame({ buttonColor, buttonStyle } : Props) {
   return (
     <button
-      className={`button button--${buttonStyle || allButtonStyle.primary}`}
+      className={
+        `button
+        button--${buttonColor || allButtonColor.primary}--${buttonStyle || allButtonStyle.default}`
+      }
       type="button"
     >
       Button

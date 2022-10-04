@@ -1,12 +1,14 @@
 import React from 'react';
 
 // button
-import ButtonFrame, { allButtonStyle } from './components/buttons';
+import ButtonFrame, { allButtonColor, allButtonStyle } from './components/buttons';
+import Tag from './components/Tag';
 
 function App() {
   return (
     <div>
-      <ButtonFrame buttonStyle={allButtonStyle.primary} />
+      <ButtonFrame buttonColor={allButtonColor.primary} buttonStyle={allButtonStyle.outline} />
+      <Tag color="success" icon="plus" />
     </div>
   );
 }
