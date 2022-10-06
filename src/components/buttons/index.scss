@@ -3,6 +3,7 @@
 $_primary-hover-color: #FBE0B4;
 $_secondary-hover-color: #B0CDF9;
 $_button-fontSize: 20px;
+$_button-hover-duration: 0.3s;
 
 // button base
 @mixin button--base ($borderColor, $textColor, $bgColor) {
@@ -41,6 +42,7 @@ $_button-fontSize: 20px;
 .button {
     width: 141px;
     height: 54px;
+    transition-duration: $_button-hover-duration;
 
     //test
     margin: 20px;
