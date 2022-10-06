@@ -1,0 +1,50 @@
+$_border-color: #A5A5A5;
+
+@mixin inputSection--container {
+  width: 589px;
+  height: 88px;
+}
+@mixin inputSection--base {
+  border: 1px solid $_border-color;
+  border-radius: 15px;
+  padding: 13px 10px 13px 54px;
+}
+@mixin formFontStyle {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.inputSection {
+  position: absolute;
+  bottom: 0;
+
+  width: 589px;
+  height: 88px;
+
+  @include formFontStyle;
+
+  &::placeholder {
+    color: $_border-color
+  }
+}
+
+.inputSection--default,
+.inputSection--withButton,
+.inputSection--withoutLabel {
+  @include inputSection--container();
+  @include inputSection--base();
+}
+.inputSection__button {
+  position: absolute;
+  left: 433px;
+  align-self: center;
+}
+.inputSection--disabled {
+  opacity: 0.5;
+  @include inputSection--container();
+  @include inputSection--base();
+}
+

@@ -16,13 +16,10 @@ function TagIcon(props: TagIconProps) {
   switch (icon) {
     case 'move':
       return <IconMove />;
-      break;
     case 'plus':
       return <IconPlus />;
-      break;
     case 'minus':
       return <IconMinus />;
-      break;
     default:
       return null;
   }

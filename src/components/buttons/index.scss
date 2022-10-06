@@ -14,7 +14,18 @@ $_button-fontSize: 20px;
     font-size: $_button-fontSize;
     letter-spacing: 1px;
 }
-
+@mixin button--small($borderColor, $textColor ,$bgColor) {
+    width: 108.74px;
+    height: 41.36px;
+    padding: 0;
+    border: 1px $borderColor solid;
+    border-radius: 21px;
+    
+    background-color: $bgColor;
+    color: $textColor;
+    
+    font-size: 15.32px;
+}
 @mixin button--primary--hover {
     border: 2px $primary-color solid;
     background-color: $_primary-hover-color;
@@ -30,6 +41,9 @@ $_button-fontSize: 20px;
 .button {
     width: 141px;
     height: 54px;
+
+    //test
+    margin: 20px;
 
     &--primary--default {
         @include button--base($primary-color, #FFF, $primary-color);
@@ -64,16 +78,7 @@ $_button-fontSize: 20px;
     }
 
     &--primary--small {
-        width: 108.74px;
-        height: 41.36px;
-        padding: 0;
-        border: 1px $primary-color solid;
-        border-radius: 21px;
-        
-        background-color: #fff;
-        color: $primary-color;
-        
-        font-size: 15.32px;
+        @include button--small($primary-color, $primary-color, #fff);
 
         &:hover {
             @include button--primary--hover();
@@ -81,16 +86,7 @@ $_button-fontSize: 20px;
     }
 
     &--secondary--small {
-        width: 108.74px;
-        height: 41.36px;
-        padding: 0;
-        border: 1px $secondary-color solid;
-        border-radius: 21px;
-        
-        background-color: #fff;
-        color: $secondary-color;
-        
-        font-size: 15.32px;
+        @include button--small($secondary-color, $secondary-color, #fff);
 
         &:hover {
             @include button--secondary--hover();

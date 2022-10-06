@@ -1,0 +1,43 @@
+$_border-color: #A5A5A5;
+
+.searchBar {
+  width: 235px;
+  height: 57px;
+  //test
+  margin: 20px;
+
+  border: 1px solid #A5A5A5;
+  border-radius: 40px;
+  padding: 17px 27px 17px 27px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 23px;
+  
+  background: #FFFFFF;
+
+  &__section {
+    width: 19px;
+    height: 19px;
+  }
+
+  &__icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  &__main {
+    width: 8rem;
+    border: 0;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 24px;
+
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+}
