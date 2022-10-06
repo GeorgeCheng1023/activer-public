@@ -3,11 +3,15 @@ import React from 'react';
 import './index.scss';
 import { BsGearFill } from 'react-icons/bs';
 
-function SidebarLink() {
+type SidebarLinkProp = {
+  labelText: string
+};
+
+function SidebarLink({ labelText }: SidebarLinkProp) {
   return (
     <div className="label label--style">
       <BsGearFill className="label__icon label__icon--style" />
-      Label
+      {labelText}
     </div>
   );
 }

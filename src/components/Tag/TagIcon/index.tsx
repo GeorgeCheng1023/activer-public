@@ -1,19 +1,13 @@
 import React from 'react';
+import './index.scss';
 import { IconMove, IconPlus, IconMinus } from '../../Icons';
 
 type TagIconProps = {
-  icon?: string;
+  tagIcon: string;
 };
 
-const defaultTagIconProps = {
-  icon: null,
-
-};
-
-function TagIcon(props: TagIconProps) {
-  const { icon } = props;
-
-  switch (icon) {
+function TagIcon({ tagIcon }: TagIconProps) {
+  switch (tagIcon) {
     case 'move':
       return <IconMove />;
     case 'plus':
@@ -24,7 +18,5 @@ function TagIcon(props: TagIconProps) {
       return null;
   }
 }
-
-TagIcon.defaultProps = defaultTagIconProps;
 
 export default TagIcon;

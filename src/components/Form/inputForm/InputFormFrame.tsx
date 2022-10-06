@@ -6,6 +6,7 @@ import InputHeroSection from './Components/inputHeroSection';
 
 type Props = {
   formStyle: string;
+  labelText: string;
 };
 
 export const allInputFormStyle = {
@@ -16,19 +17,19 @@ export const allInputFormStyle = {
   withoutLabel: 'withoutLabel',
 };
 
-function InputFormFrame({ formStyle } : Props) {
+function InputFormFrame({ formStyle, labelText } : Props) {
   return (
-    <form className="inputForm">
+    <form className={`inputForm inputForm--${formStyle}`}>
       { formStyle === 'heroForm'
         ? (
           <>
-            <InputLabel labelStyle={formStyle} />
+            <InputLabel labelStyle={formStyle} labelText={labelText} />
             <InputHeroSection />
           </>
         )
         : (
           <>
-            <InputLabel labelStyle={formStyle} />
+            <InputLabel labelStyle={formStyle} labelText={labelText} />
             <InputSection inputSectionStyle={formStyle} />
           </>
         )}

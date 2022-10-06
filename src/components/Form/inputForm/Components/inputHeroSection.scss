@@ -14,8 +14,11 @@ $_border-color: #A5A5A5;
 }
 
 .inputHeroSection {
-  width: 598px;
-  height: 198px;
+  position: absolute;
+  bottom: 0;
+
+  width: inherit;
+  height: 12rem;
 
   @include formFontStyle;
 

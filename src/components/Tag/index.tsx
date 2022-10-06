@@ -4,26 +4,26 @@ import TagIcon from './TagIcon';
 import TagText from './TagText';
 
 type TagProps = {
-  text: String;
-  color?: String;
-  icon?: String;
-} & typeof defaultTagProps;
-
-const defaultTagProps = {
-  color: 'primary',
-  icon: 'none',
+  tagText: string;
+  tagColor: string;
+  tagIcon: string;
 };
 
-function Tag(props: TagProps) {
-  const { text, icon, color } = props;
+export const allTagColor = {
+  primary: 'primary',
+  secondary: 'secondary',
+  success: 'success',
+};
+
+function Tag({
+  tagColor, tagText, tagIcon,
+}: TagProps) {
   return (
-    <div className={`tag bg-${color}`}>
-      <TagText text={text} />
-      <TagIcon icon={icon} />
+    <div className={`tag tag--${tagColor}`}>
+      <TagText text={tagText} />
+      <TagIcon tagIcon={tagIcon} />
     </div>
   );
 }
-
-Tag.defaultProps = defaultTagProps;
 
 export default Tag;

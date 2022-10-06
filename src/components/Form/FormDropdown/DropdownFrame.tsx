@@ -2,7 +2,8 @@ import React from 'react';
 import './DropdownFrame.scss';
 
 type Props = {
-  dropdownStyle: string
+  dropdownStyle: string;
+  labelText: string;
 };
 
 export const allDropdownStyle = {
@@ -10,11 +11,11 @@ export const allDropdownStyle = {
   withoutLabel: 'withoutLabel',
 };
 
-function DropdownFrame({ dropdownStyle } : Props) {
+function DropdownFrame({ dropdownStyle, labelText } : Props) {
   return (
     <div className={`dropdown dropdown--${dropdownStyle}`}>
       <div className="dropdown__label">
-        Label
+        {labelText}
       </div>
       <select className="dropdown__main">
         <option>Select Choice</option>

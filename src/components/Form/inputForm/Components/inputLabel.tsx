@@ -2,13 +2,14 @@ import React from 'react';
 import './inputLabel.scss';
 
 type Props = {
-  labelStyle: string
+  labelStyle: string;
+  labelText: string;
 };
 
-function InputLabel({ labelStyle } : Props) {
+function InputLabel({ labelStyle, labelText } : Props) {
   return (
     <div className={`inputLabel inputLabel--${labelStyle}`}>
-      InputLabel
+      {labelText}
     </div>
   );
 }

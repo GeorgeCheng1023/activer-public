@@ -2,7 +2,7 @@ $_border-color: #A5A5A5;
 
 @mixin inputSection--container {
   width: 589px;
-  height: 88px;
+  height: 4rem;
 }
 @mixin inputSection--base {
   border: 1px solid $_border-color;

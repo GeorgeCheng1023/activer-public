@@ -28,13 +28,13 @@ $_button-fontSize: 20px;
 }
 @mixin button--primary--hover {
     border: 2px $primary-color solid;
-    background-color: $_primary-hover-color;
+    background-color: #FFF;
     color: $primary-color;
 }
 
 @mixin button--secondary--hover {
     border: 2px $secondary-color solid;
-    background-color: $_secondary-hover-color;
+    background-color: #FFF;
     color: $secondary-color;
 }
 

@@ -6,8 +6,9 @@ $_primary-color: #4A4949;
   left: 14px;
   top: 0px;
   
-  width: 214px;
-  height: 59px;
+  width: fit-content;
+  height: 3rem;
+  padding: 10px 27px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +31,7 @@ $_primary-color: #4A4949;
   color: $_primary-color;
 }
  
-.inputLabel--disabled > p {
+.inputLabel--disabled {
   opacity: 0.5;
 }
  

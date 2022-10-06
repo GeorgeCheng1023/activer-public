@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 type TagTextProps = {
-  text: String;
+  text: string;
 };
 
 function TagText(props: TagTextProps) {
