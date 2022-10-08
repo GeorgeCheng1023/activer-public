@@ -1,5 +1,4 @@
-@import '../../../../global';
-$_primary-color: #4A4949;
+@import '../../../../variables';
 
 .inputLabel {
   position: absolute;
@@ -16,9 +15,8 @@ $_primary-color: #4A4949;
   background-color: #FFF;
   
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 39px;
 
   z-index: 1;
@@ -28,7 +26,7 @@ $_primary-color: #4A4949;
 .inputLabel--heroForm,
 .inputLabel--disabled,
 .inputLabel--withButton {
-  color: $_primary-color;
+  color: $primary-font-color;
 }
  
 .inputLabel--disabled {

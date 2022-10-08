@@ -20,6 +20,7 @@ function InputSection({ inputSectionStyle } : Props) {
             <ButtonFrame
               buttonColor={allButtonColor.secondary}
               buttonStyle={allButtonStyle.small}
+              buttonText=""
             />
           </div>
         )}

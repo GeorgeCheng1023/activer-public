@@ -1,0 +1,18 @@
+@import '../../global';
+
+.header {
+  width: 1400px;
+  height: 9rem;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4.75rem;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 6rem;
+  height: 6rem;
+  background-color: orange;
+}

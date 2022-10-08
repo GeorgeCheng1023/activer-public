@@ -4,6 +4,7 @@ import './index.scss';
 type Props = {
   buttonColor: string;
   buttonStyle: string;
+  buttonText: string;
 };
 
 export const allButtonColor = {
@@ -17,7 +18,7 @@ export const allButtonStyle = {
   small: 'small',
 };
 
-function ButtonFrame({ buttonColor, buttonStyle } : Props) {
+function ButtonFrame({ buttonColor, buttonStyle, buttonText } : Props) {
   return (
     <button
       className={
@@ -26,7 +27,7 @@ function ButtonFrame({ buttonColor, buttonStyle } : Props) {
       }
       type="button"
     >
-      Button
+      {buttonText}
     </button>
   );
 }
