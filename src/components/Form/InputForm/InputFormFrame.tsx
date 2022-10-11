@@ -1,8 +1,8 @@
 import React from 'react';
 import './InputFormFrame.scss';
-import InputLabel from './Components/inputLabel';
-import InputSection from './Components/inputSection';
-import InputHeroSection from './Components/inputHeroSection';
+import InputLabel from './Components/InputLabel';
+import InputSection from './Components/InputSection';
+import InputHeroSection from './Components/InputHeroSection';
 
 type Props = {
   formStyle: string;
@@ -17,10 +17,10 @@ export const allInputFormStyle = {
   withoutLabel: 'withoutLabel',
 };
 
-function InputFormFrame({ formStyle, labelText } : Props) {
+function InputFormFrame({ formStyle, labelText }: Props) {
   return (
     <form className={`inputForm inputForm--${formStyle}`}>
-      { formStyle === 'heroForm'
+      {formStyle === 'heroForm'
         ? (
           <>
             <InputLabel labelStyle={formStyle} labelText={labelText} />
