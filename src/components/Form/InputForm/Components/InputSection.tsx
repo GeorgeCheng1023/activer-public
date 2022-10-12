@@ -17,7 +17,11 @@ function InputSection({ inputSectionStyle } : Props) {
       { inputSectionStyle === 'withButton'
         && (
           <div className="inputSection__button">
-            <ButtonFrame buttonColor={allButtonColor.primary} buttonStyle={allButtonStyle.small} />
+            <ButtonFrame
+              buttonColor={allButtonColor.secondary}
+              buttonStyle={allButtonStyle.small}
+              buttonText=""
+            />
           </div>
         )}
     </div>

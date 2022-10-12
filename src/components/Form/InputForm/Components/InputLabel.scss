@@ -1,13 +1,13 @@
-@import '../../../../global';
-$_primary-color: #4A4949;
+@import '../../../../variables';
 
 .inputLabel {
   position: absolute;
   left: 14px;
   top: 0px;
   
-  width: 214px;
-  height: 59px;
+  width: fit-content;
+  height: 3rem;
+  padding: 10px 27px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,9 +15,8 @@ $_primary-color: #4A4949;
   background-color: #FFF;
   
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 39px;
 
   z-index: 1;
@@ -27,10 +26,10 @@ $_primary-color: #4A4949;
 .inputLabel--heroForm,
 .inputLabel--disabled,
 .inputLabel--withButton {
-  color: $_primary-color;
+  color: $primary-font-color;
 }
  
-.inputLabel--disabled > p {
+.inputLabel--disabled {
   opacity: 0.5;
 }
  

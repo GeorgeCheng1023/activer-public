@@ -1,19 +1,19 @@
 .dropdown {
   position: relative;
 
-  width: 180.13px;
-  height: 75.16px;
-  padding: 24.4611px 0px;
+  width: 180px;
+  height: 76px;
+  padding: 24px 0px;
 
   //test
   margin: 20px;
 
   &__label {
     position: absolute;
-    left: 13.67px;
+    left: 0.75rem;
     top: 0px;
     
-    width: 75px;
+    width: fit-content;
     height: 34px;
     padding: 4.50083px 10.5019px;   
 
@@ -22,7 +22,7 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    font-size: 21.0039px;
+    font-size: 1.5rem;
     line-height: 25px;
     text-align: center;
   }
@@ -39,7 +39,7 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    font-size: 17.9065px;
+    font-size: 1.25rem;
     line-height: 22px;
   }
 

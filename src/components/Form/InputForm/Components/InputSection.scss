@@ -1,21 +1,20 @@
-$_border-color: #A5A5A5;
+@import '../../../../variables';
 
 @mixin inputSection--container {
   width: 589px;
-  height: 88px;
+  height: 4rem;
 }
 
 @mixin inputSection--base {
-  border: 1px solid $_border-color;
+  border: 1px solid $secondary-font-color;
   border-radius: 15px;
   padding: 13px 10px 13px 54px;
 }
 
 @mixin formFontStyle {
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 29px;
 }
 
@@ -29,7 +28,7 @@ $_border-color: #A5A5A5;
   @include formFontStyle;
 
   &::placeholder {
-    color: $_border-color
+    color: $secondary-font-color;
   }
 }
 

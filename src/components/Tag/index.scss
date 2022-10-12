@@ -6,10 +6,9 @@
   align-items: center;
   justify-content: space-between;
   width: fit-content;
-  height: 20px;
+  height: 1.25rem;
   padding: 10px 15px;
   border-radius: 1rem;
-  margin: 1rem;
 
   color: #FFF;
 
@@ -19,16 +18,20 @@
 
   @include normalize-font;
 
-  * {
-    margin: 0.5rem;
-  }
-
   &:hover{
     @include effect-darker;
   }
-  
-}
 
+  &--primary {
+    background-color: $primary-color;
+  }
+  &--success {
+    background-color: $success-color;
+  }
+  &--secondary {
+    background-color: $secondary-color;
+  }
+}
 
 
 @include bg-color;

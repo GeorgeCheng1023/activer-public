@@ -1,0 +1,19 @@
+@import '../../../variables';
+
+.navbar {
+  height: fit-content;
+  width: 30rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: 'Inter';
+  font-weight: bolder;
+  font-size: 1rem;
+
+  & > a {
+    color: $primary-font-color;
+
+    text-decoration: none;
+  }
+}
