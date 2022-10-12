@@ -26,23 +26,11 @@ function createTag(TagsContent: TagsProp) {
 }
 
 function Card({
-<<<<<<< HEAD
   imgUrl, title, tags, animation, altText,
-=======
-<<<<<<< HEAD
-  imgUrl, title, tags, altText,
->>>>>>> 83ed5456d1cdf44468f2bf7f3e0195327aae0e96
 }: CardProps) {
   return (
     <div className={`card card--${animation}`}>
       <img className="card__image" src={imgUrl} alt={altText} />
-=======
-  imgUrl, title, tags, animation,
-}: CardProps) {
-  return (
-    <div className={`card card--${animation}`}>
-      <img className="card__image" src={imgUrl} alt="" />
->>>>>>> f8421382769f1e0a8591e300ac52c9bbb7ad245a
       <h3 className="card__title">{title}</h3>
       <div className="card__tag">
         {tags.map(createTag)}
