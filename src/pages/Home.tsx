@@ -2,10 +2,15 @@ import React from 'react';
 
 // component
 import Header from '../components/Header';
+import Hero from '../components/Hero';
 
 function Home() {
   return (
-    <Header />
+    <div className="home">
+      <Header />
+      <Hero />
+    </div>
+
   );
 }
 

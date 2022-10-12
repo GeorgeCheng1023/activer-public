@@ -2,12 +2,13 @@ import React from 'react';
 import './index.scss';
 import { FiSearch } from 'react-icons/fi';
 
-interface Props {
-  inputValue: string;
-  setInputValue: React.Dispatch<React.SetStateAction<string>>;
-}
+type Props = {
+  inputValue: string,
+  setInputValue: React.Dispatch<React.SetStateAction<string>>,
+  placeHolder: string
+};
 
-function SearchBar({ inputValue, setInputValue } : Props) {
+function SearchBar({ inputValue, setInputValue, placeHolder } : Props) {
   function handleSearchButtonClick() {
     console.log(inputValue, 'submitted!');
   }
@@ -17,7 +18,7 @@ function SearchBar({ inputValue, setInputValue } : Props) {
       <input
         className="searchBar__main"
         type="text"
-        placeholder="Search"
+        placeholder={placeHolder}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
       />
