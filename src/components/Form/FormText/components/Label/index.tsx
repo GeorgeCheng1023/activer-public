@@ -1,12 +1,12 @@
 import React from 'react';
-import './inputLabel.scss';
+import './index.scss';
 
 type Props = {
   labelStyle: string;
   labelText: string;
 };
 
-function InputLabel({ labelStyle, labelText } : Props) {
+function Label({ labelStyle, labelText }: Props) {
   return (
     <div className={`inputLabel inputLabel--${labelStyle}`}>
       {labelText}
@@ -14,4 +14,4 @@ function InputLabel({ labelStyle, labelText } : Props) {
   );
 }
 
-export default InputLabel;
+export default Label;

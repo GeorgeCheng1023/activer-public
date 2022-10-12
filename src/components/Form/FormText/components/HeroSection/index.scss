@@ -1,11 +1,10 @@
-@import '../../../../variables';
+@import '~/src/_variables';
 
 @mixin inputSection--base {
   border: 1px solid $secondary-font-color;
   border-radius: 15px;
   padding: 23px 10px 13px 54px;
 }
-
 @mixin formFontStyle {
   font-family: 'Inter';
   font-weight: 400;

@@ -1,16 +1,14 @@
-@import '../../../../variables';
+@import '~/src/_variables';
 
 @mixin inputSection--container {
   width: 589px;
   height: 4rem;
 }
-
 @mixin inputSection--base {
   border: 1px solid $secondary-font-color;
   border-radius: 15px;
   padding: 13px 10px 13px 54px;
 }
-
 @mixin formFontStyle {
   font-family: 'Inter';
   font-weight: 400;
@@ -38,15 +36,14 @@
   @include inputSection--container();
   @include inputSection--base();
 }
-
 .inputSection__button {
   position: absolute;
   left: 433px;
   align-self: center;
 }
-
 .inputSection--disabled {
   opacity: 0.5;
   @include inputSection--container();
   @include inputSection--base();
 }
+

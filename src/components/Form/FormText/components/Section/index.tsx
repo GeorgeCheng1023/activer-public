@@ -1,12 +1,12 @@
 import React from 'react';
-import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../buttons';
-import './inputSection.scss';
+import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../../buttons';
+import './index.scss';
 
 type Props = {
   inputSectionStyle: string;
 };
 
-function InputSection({ inputSectionStyle } : Props) {
+function Section({ inputSectionStyle }: Props) {
   return (
     <div className="inputSection">
       <input
@@ -14,7 +14,7 @@ function InputSection({ inputSectionStyle } : Props) {
         type="text"
         placeholder="Input Placeholder"
       />
-      { inputSectionStyle === 'withButton'
+      {inputSectionStyle === 'withButton'
         && (
           <div className="inputSection__button">
             <ButtonFrame
@@ -28,4 +28,4 @@ function InputSection({ inputSectionStyle } : Props) {
   );
 }
 
-export default InputSection;
+export default Section;

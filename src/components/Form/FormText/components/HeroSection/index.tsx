@@ -1,7 +1,7 @@
 import React from 'react';
-import './inputHeroSection.scss';
+import './index.scss';
 
-function InputHeroSection() {
+function HeroSection() {
   return (
     <textarea
       className="inputHeroSection inputHeroSection--style"
@@ -10,4 +10,4 @@ function InputHeroSection() {
   );
 }
 
-export default InputHeroSection;
+export default HeroSection;
