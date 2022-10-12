@@ -2,19 +2,19 @@ const TagsContent = [
   {
     id: '1',
     color: 'primary',
-    text: 'Á®ãÂºèË®≠Ë®à',
+    text: 'Á®?Âº?Ë®≠Ë??',
     icon: 'none',
   },
   {
     id: '2',
     color: 'success',
-    text: 'Á∑ö‰∏ä',
+    text: 'Á∑?‰∏?',
     icon: 'plus',
   },
   {
     id: '3',
     color: 'secondary',
-    text: 'ÂÖçË≤ª',
+    text: '???Ë≤?',
     icon: 'move',
   },
 ];

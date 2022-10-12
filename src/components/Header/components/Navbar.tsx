@@ -8,11 +8,11 @@ function Navbar() {
     <div className="navbar">
       <Link className="navbar__item" to="/">搜尋活動</Link>
       <Link className="navbar__item" to="/">熱門活動</Link>
-      <Link className="navbar__item" to="/">興趣探索</Link>
+      <Link className="navbar__item" to="/">活動搜索</Link>
       <ButtonFrame
         buttonColor={allButtonColor.primary}
         buttonStyle={allButtonStyle.default}
-        buttonText="登入\註冊"
+        buttonText="登入/註冊"
       />
     </div>
   );
