@@ -10,6 +10,7 @@ type TagsProp = {
 type CardProps = {
   imgUrl: string,
   title: string,
+  altText: string,
   tags: Array<TagsProp>,
 };
 
@@ -23,10 +24,12 @@ function createTag(TagsContent: TagsProp) {
   );
 }
 
-function Card({ imgUrl, title, tags }: CardProps) {
+function Card({
+  imgUrl, title, tags, altText,
+}: CardProps) {
   return (
     <div className="card">
-      <img className="card__image" src={imgUrl} alt="" />
+      <img className="card__image" src={imgUrl} alt={altText} />
       <h3 className="card__title">{title}</h3>
       <div className="card__tag">
         {tags.map(createTag)}

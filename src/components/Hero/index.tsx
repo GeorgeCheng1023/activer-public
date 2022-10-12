@@ -29,6 +29,7 @@ function Hero() {
         <Card
           imgUrl="https://attach.setn.com/newsimages/2018/10/23/1604390-XXL.jpg"
           title="鼻地大師 國動"
+          altText="巨槌瑞斯 開剁"
           tags={[]}
         />
       </div>
