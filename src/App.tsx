@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ButtonFrame, { allButtonColor, allButtonStyle } from './components/buttons';
 import DropdownFrame, { allDropdownStyle } from './components/Form/FormDropdown/DropdownFrame';
 import SearchBar from './components/Form/FormSearchBar';
@@ -6,6 +6,8 @@ import InputFormFrame, { allInputFormStyle } from './components/Form/inputForm/I
 import SidebarLink from './components/SidebarLink';
 
 function App() {
+  const [searchBarValue, setSearchBarValue] = useState('');
+
   return (
     <>
       <ButtonFrame buttonColor={allButtonColor.primary} buttonStyle={allButtonStyle.default} />
@@ -16,7 +18,7 @@ function App() {
       <hr />
       <SidebarLink />
       <hr />
-      <SearchBar />
+      <SearchBar inputValue={searchBarValue} setInputValue={setSearchBarValue} />
     </>
   );
 }

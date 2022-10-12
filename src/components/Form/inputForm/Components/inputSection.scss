@@ -4,11 +4,13 @@ $_border-color: #A5A5A5;
   width: 589px;
   height: 88px;
 }
+
 @mixin inputSection--base {
   border: 1px solid $_border-color;
   border-radius: 15px;
   padding: 13px 10px 13px 54px;
 }
+
 @mixin formFontStyle {
   font-family: 'Inter';
   font-style: normal;
@@ -37,14 +39,15 @@ $_border-color: #A5A5A5;
   @include inputSection--container();
   @include inputSection--base();
 }
+
 .inputSection__button {
   position: absolute;
   left: 433px;
   align-self: center;
 }
+
 .inputSection--disabled {
   opacity: 0.5;
   @include inputSection--container();
   @include inputSection--base();
 }
-

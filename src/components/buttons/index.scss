@@ -15,18 +15,20 @@ $_button-hover-duration: 0.3s;
     font-size: $_button-fontSize;
     letter-spacing: 1px;
 }
-@mixin button--small($borderColor, $textColor ,$bgColor) {
+
+@mixin button--small($borderColor, $textColor , $bgColor) {
     width: 108.74px;
     height: 41.36px;
     padding: 0;
     border: 1px $borderColor solid;
     border-radius: 21px;
-    
+
     background-color: $bgColor;
     color: $textColor;
-    
+
     font-size: 15.32px;
 }
+
 @mixin button--primary--hover {
     border: 2px $primary-color solid;
     background-color: $_primary-hover-color;
@@ -53,7 +55,9 @@ $_button-hover-duration: 0.3s;
         &:hover {
             @include button--primary--hover();
         }
-    };
+    }
+
+    ;
 
     &--secondary--default {
         @include button--base($secondary-color, #FFF, $secondary-color);
@@ -61,7 +65,9 @@ $_button-hover-duration: 0.3s;
         &:hover {
             @include button--secondary--hover();
         }
-    };
+    }
+
+    ;
 
     &--primary--outline {
         @include button--base($primary-color, $primary-color, #fff);
