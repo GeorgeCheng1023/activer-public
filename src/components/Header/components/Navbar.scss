@@ -11,9 +11,28 @@
   font-weight: bolder;
   font-size: 1rem;
 
-  & > a {
+  &__item {
+    position: relative;
+    height: 34px;
     color: $primary-font-color;
-
     text-decoration: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 25%;
+      height: 2px;
+      background-color: $primary-font-color;
+      border-radius: 14px;
+      bottom: 0;
+      transition: 0.3s;
+    }
+
+    &:hover {
+      &::before {
+        width: 100%;
+      }
+    }
+
   }
 }

@@ -1,8 +1,11 @@
 import React from 'react';
 
+// component
+import Header from '../components/Header';
+
 function Home() {
   return (
-    <div>Home</div>
+    <Header />
   );
 }
 
