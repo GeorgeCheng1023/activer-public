@@ -26,7 +26,7 @@ function createTag(TagsContent: TagsProp) {
 function Card({ imgUrl, title, tags }: CardProps) {
   return (
     <div className="card">
-      <div className="card__image" style={{ backgroundImage: `url( ${imgUrl} )` }} />
+      <img className="card__image" src={imgUrl} alt="" />
       <h3 className="card__title">{title}</h3>
       <div className="card__tag">
         {tags.map(createTag)}
