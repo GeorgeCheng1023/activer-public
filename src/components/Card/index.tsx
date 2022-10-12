@@ -11,6 +11,7 @@ type CardProps = {
   imgUrl: string,
   title: string,
   tags: Array<TagsProp>,
+  animation: string
 };
 
 function createTag(TagsContent: TagsProp) {
@@ -23,9 +24,11 @@ function createTag(TagsContent: TagsProp) {
   );
 }
 
-function Card({ imgUrl, title, tags }: CardProps) {
+function Card({
+  imgUrl, title, tags, animation,
+}: CardProps) {
   return (
-    <div className="card">
+    <div className={`card card--${animation}`}>
       <img className="card__image" src={imgUrl} alt="" />
       <h3 className="card__title">{title}</h3>
       <div className="card__tag">
