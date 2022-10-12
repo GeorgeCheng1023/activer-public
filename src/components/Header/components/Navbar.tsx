@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
-import ButtonFrame, { allButtonColor, allButtonStyle } from '../../buttons';
+import ButtonFrame, { allButtonColor, allButtonStyle } from '../../Button';
 
 function Navbar() {
   return (

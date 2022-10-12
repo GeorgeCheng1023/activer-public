@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../../buttons';
+import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../../Button';
 import './index.scss';
 
 type Props = {
