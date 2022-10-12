@@ -13,6 +13,12 @@ function SearchBar({ inputValue, setInputValue, placeHolder } : Props) {
     console.log(inputValue, 'submitted!');
   }
 
+  function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      handleSearchButtonClick();
+    }
+  }
+
   return (
     <div className="searchBar">
       <input
@@ -21,6 +27,7 @@ function SearchBar({ inputValue, setInputValue, placeHolder } : Props) {
         placeholder={placeHolder}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
+        onKeyUp={(event) => handleKeyPress(event)}
       />
       <button className="button-nostyle searchButton" type="submit" onClick={handleSearchButtonClick}>
         <div className="searchBar__section">
