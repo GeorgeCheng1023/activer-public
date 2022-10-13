@@ -13,7 +13,7 @@ import {
   BsFillShieldLockFill,
 } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
-import { RiEditFill } from 'react-icons/ri';
+import { RiEditFill, RiArrowUpSLine } from 'react-icons/ri';
 import { GrChapterAdd } from 'react-icons/gr';
 
 export function IconHistory() {
@@ -35,7 +35,7 @@ export function IconTriangle() {
 
 export function IconArrowUp() {
   return (
-    <FaSearch className="icon" />
+    <RiArrowUpSLine className="icon" />
   );
 }
 

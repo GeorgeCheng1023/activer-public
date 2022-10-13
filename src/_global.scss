@@ -41,3 +41,9 @@
   transition: filter 0.3s;
   filter: brightness(85%);
 }
+
+@mixin items-center {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
