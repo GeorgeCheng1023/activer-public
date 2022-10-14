@@ -32,7 +32,6 @@ function DropdownFrame({
   }
 
   function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
-    console.log(event);
     if (event.key === 'Enter') {
       handleDropdownClick();
     }

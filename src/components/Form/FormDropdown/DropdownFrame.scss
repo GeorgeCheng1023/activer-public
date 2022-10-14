@@ -9,8 +9,11 @@ $_focus-color: #FEF6D8;
   flex-direction: column;
   height: fit-content;
   width: 10em;
+  background-color: transparent;
 
   font-size: 1.5rem;
+  
+  margin: 1em;
 
   &__label {
     position: absolute;
@@ -37,9 +40,11 @@ $_focus-color: #FEF6D8;
     padding: .5em;
     border: 1px solid $secondary-font-color;
     border-radius: 8px;
-    margin-bottom: .25em;
-    
+    margin-bottom: .5em;
+
     color: $_unselected-color;
+
+ 
     
     cursor: pointer;
 
@@ -73,6 +78,9 @@ $_focus-color: #FEF6D8;
     transition: all 0.4s;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0px 10px 22px 4px rgba(0,0,0,0.21);
+    -webkit-box-shadow: 0px 10px 22px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 10px 22px 4px rgba(0,0,0,0.21);
 
     &__option {
       padding: .25em .5em .25em;
