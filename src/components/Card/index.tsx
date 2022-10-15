@@ -7,13 +7,6 @@ type TagsProp = {
   text: string,
   icon: string,
 };
-type CardProps = {
-  imgUrl: string,
-  title: string,
-  altText: string,
-  tags: Array<TagsProp>,
-  animation: string
-};
 
 function createTag(TagsContent: TagsProp) {
   return (
@@ -27,7 +20,7 @@ function createTag(TagsContent: TagsProp) {
 
 function Card({
   imgUrl, title, tags, animation, altText,
-}: CardProps) {
+}: CardType) {
   return (
     <div className={`card card--${animation}`}>
       <img className="card__image" src={imgUrl} alt={altText} />

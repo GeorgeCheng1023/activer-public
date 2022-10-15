@@ -2,7 +2,7 @@ import React from 'react';
 
 // component
 import Header from '../../components/Header';
-import Hero from '../../components/Hero';
+import Hero from './components/Hero';
 import Trend from './components/Trend';
 
 function Home() {
