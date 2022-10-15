@@ -5,14 +5,16 @@
   height: 6em;
   background-color: #FFF;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 0 2em;
+  padding: 20px 2em;
   margin: 0 auto;
 }
 
 .logo {
   width: 4em;
   height: 4em;
-  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

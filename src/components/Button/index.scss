@@ -46,6 +46,7 @@ $_button-hover-duration: 0.3s;
     width: fit-content;
     height: 3em;
     transition-duration: $_button-hover-duration;
+    cursor: pointer;
 
     &--primary--default {
         @include button--base($primary-color, #FFF, $primary-color);

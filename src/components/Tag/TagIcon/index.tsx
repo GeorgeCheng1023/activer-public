@@ -6,6 +6,12 @@ type TagIconProps = {
   tagIcon: string;
 };
 
+export const TagIconStyle = {
+  move: 'move',
+  plus: 'plus',
+  minus: 'minus',
+};
+
 function TagIcon({ tagIcon }: TagIconProps) {
   switch (tagIcon) {
     case 'move':

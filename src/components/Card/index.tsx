@@ -1,12 +1,18 @@
 import React from 'react';
 import Tag from '../Tag';
 import './index.scss';
-import TagsContents from './TagsContent';
 
 type TagsProp = {
   color: string,
   text: string,
   icon: string,
+};
+type CardProps = {
+  imgUrl: string,
+  title: string,
+  altText: string,
+  tags: Array<TagsProp>,
+  animation: string
 };
 
 function createTag(TagsContent: TagsProp) {
@@ -19,13 +25,15 @@ function createTag(TagsContent: TagsProp) {
   );
 }
 
-function Card() {
+function Card({
+  imgUrl, title, tags, animation, altText,
+}: CardProps) {
   return (
-    <div className="card">
-      <div className="card__image" />
-      <h3 className="card__title">網頁前端工作坊</h3>
+    <div className={`card card--${animation}`}>
+      <img className="card__image" src={imgUrl} alt={altText} />
+      <h3 className="card__title">{title}</h3>
       <div className="card__tag">
-        {TagsContents.map(createTag)}
+        {tags.map(createTag)}
       </div>
     </div>
   );

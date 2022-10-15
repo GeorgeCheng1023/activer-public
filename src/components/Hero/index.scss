@@ -1,6 +1,28 @@
+@import "~/src/_variables";
 
+$hero-background-color: #FEF6D8;
 
 .hero {
   width: 100%;
-  height: 30%;
+  height: 530px;
+  background-color: $hero-background-color;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 70px;
+
+  &__left {
+    height: fit-content;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 70px;
+    color: $primary-font-color;
+  }
+
+  &__left__section {
+    margin-bottom: 20px;
+  }
 }
