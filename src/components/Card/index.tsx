@@ -2,18 +2,12 @@ import React from 'react';
 import Tag from '../Tag';
 import './index.scss';
 
-type TagsProp = {
-  color: string,
-  text: string,
-  icon: string,
-};
-
-function createTag(TagsContent: TagsProp) {
+function createTag(TagsContent: TagType) {
   return (
     <Tag
-      tagColor={TagsContent.color}
-      tagText={TagsContent.text}
-      tagIcon={TagsContent.icon}
+      color={TagsContent.color}
+      text={TagsContent.text}
+      icon={TagsContent.icon}
     />
   );
 }

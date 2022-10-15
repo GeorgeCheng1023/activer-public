@@ -3,7 +3,7 @@ export { };
 declare global {
   type TagType = {
     color: 'primary' | 'secondary' | 'success';
-    icon: 'minus' | 'plus' | 'move',
+    icon?: 'minus' | 'plus' | 'move',
     text: string;
   };
   type CardType = {
