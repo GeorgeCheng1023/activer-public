@@ -11,6 +11,7 @@ import {
   BsFillPeopleFill,
   BsArrowsMove,
   BsFillShieldLockFill,
+  BsBorderAll,
 } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 import { RiEditFill, RiArrowUpSLine } from 'react-icons/ri';
@@ -19,6 +20,12 @@ import { GrChapterAdd } from 'react-icons/gr';
 export function IconHistory() {
   return (
     <FaHistory className="icon" />
+  );
+}
+
+export function IconBorderAll() {
+  return (
+    <BsBorderAll className="icon" />
   );
 }
 
