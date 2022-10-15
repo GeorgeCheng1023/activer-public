@@ -3,8 +3,9 @@ import './index.scss';
 
 // component
 // import Card from '../Card';
-import SearchBar from '../Form/FormSearchBar';
-import Card from '../Card';
+import SearchBar from '../../../../components/Form/FormSearchBar';
+import Card from '../../../../components/Card';
+
 // import CardRoll from './components/CardRoll';
 
 function Hero() {

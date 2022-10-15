@@ -1,27 +1,29 @@
 import React from 'react';
 import './index.scss';
-import TagIcon from './TagIcon';
-import TagText from './TagText';
+import { IconMove, IconPlus, IconMinus } from '../Icons';
 
-type TagProps = {
-  tagText: string;
-  tagColor: string;
-  tagIcon: string;
-};
-
-export const allTagColor = {
-  primary: 'primary',
-  secondary: 'secondary',
-  success: 'success',
-};
+function TagIcon(icon: TagType['icon']) {
+  switch (icon) {
+    case 'move':
+      return <IconMove />;
+    case 'plus':
+      return <IconPlus />;
+    case 'minus':
+      return <IconMinus />;
+    default:
+      return null;
+  }
+}
 
 function Tag({
-  tagColor, tagText, tagIcon,
-}: TagProps) {
+  color, text, icon,
+}: TagType) {
   return (
-    <div className={`tag tag--${tagColor}`}>
-      <TagText text={tagText} />
-      <TagIcon tagIcon={tagIcon} />
+    <div className={`tag tag--${color}`}>
+      <p className="tag__text">
+        {text}
+      </p>
+      {TagIcon(icon)}
     </div>
   );
 }

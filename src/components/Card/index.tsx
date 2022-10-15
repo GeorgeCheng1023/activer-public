@@ -2,32 +2,19 @@ import React from 'react';
 import Tag from '../Tag';
 import './index.scss';
 
-type TagsProp = {
-  color: string,
-  text: string,
-  icon: string,
-};
-type CardProps = {
-  imgUrl: string,
-  title: string,
-  altText: string,
-  tags: Array<TagsProp>,
-  animation: string
-};
-
-function createTag(TagsContent: TagsProp) {
+function createTag(TagsContent: TagType) {
   return (
     <Tag
-      tagColor={TagsContent.color}
-      tagText={TagsContent.text}
-      tagIcon={TagsContent.icon}
+      color={TagsContent.color}
+      text={TagsContent.text}
+      icon={TagsContent.icon}
     />
   );
 }
 
 function Card({
   imgUrl, title, tags, animation, altText,
-}: CardProps) {
+}: CardType) {
   return (
     <div className={`card card--${animation}`}>
       <img className="card__image" src={imgUrl} alt={altText} />
