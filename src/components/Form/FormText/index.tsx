@@ -7,6 +7,7 @@ import HeroSection from './components/HeroSection';
 type Props = {
   formStyle: string;
   labelText: string;
+  buttonText?: string;
 };
 
 export const allInputFormStyle = {
@@ -17,24 +18,30 @@ export const allInputFormStyle = {
   withoutLabel: 'withoutLabel',
 };
 
-function FormText({ formStyle, labelText }: Props) {
+function FormText({ formStyle, labelText, buttonText }: Props) {
   return (
     <form className={`inputForm inputForm--${formStyle}`}>
-      {formStyle === 'heroForm'
-        ? (
-          <>
-            <Label labelStyle={formStyle} labelText={labelText} />
-            <HeroSection />
-          </>
-        )
-        : (
-          <>
-            <Label labelStyle={formStyle} labelText={labelText} />
-            <Section inputSectionStyle={formStyle} />
-          </>
-        )}
+      {
+        formStyle === 'heroForm'
+          ? (
+            <>
+              <Label labelStyle={formStyle} labelText={labelText} />
+              <HeroSection />
+            </>
+          )
+          : (
+            <>
+              <Label labelStyle={formStyle} labelText={labelText} />
+              <Section inputSectionStyle={formStyle} buttonText={buttonText} />
+            </>
+          )
+      }
     </form>
   );
 }
+
+FormText.defaultProps = {
+  buttonText: 'default text',
+};
 
 export default FormText;

@@ -17,11 +17,6 @@ $_hover-color: #FEF6D8;
 
   transition: all 0.5s ease;
 
-  // test
-  margin: 40px;
-  // border: 1px solid $secondary-font-color;
-  // test
-
   @include fit-container;
 
   &__icon {

@@ -4,7 +4,7 @@ import './index.scss';
 type Props = {
   buttonColor: string;
   buttonStyle: string;
-  buttonText: string;
+  buttonText?: string;
 };
 
 export const allButtonColor = {
@@ -31,5 +31,9 @@ function ButtonFrame({ buttonColor, buttonStyle, buttonText } : Props) {
     </button>
   );
 }
+
+ButtonFrame.defaultProps = {
+  buttonText: 'default text',
+};
 
 export default ButtonFrame;

@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 // icon
-import { AiFillStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineQuestionCircle } from 'react-icons/ai';
 import { FaHistory, FaSearch, FaStarOfLife } from 'react-icons/fa';
 import {
   BsPlusLg,
@@ -20,6 +20,12 @@ import { GrChapterAdd } from 'react-icons/gr';
 export function IconHistory() {
   return (
     <FaHistory className="icon" />
+  );
+}
+
+export function IconQuestionCircle() {
+  return (
+    <AiOutlineQuestionCircle className="icon" />
   );
 }
 
