@@ -13,6 +13,9 @@ const defaultProps = { defaultTagsStorage: [] };
 function createTag(tag: TagType) {
   return <Tag color={tag.color} icon={tag.icon} text={tag.text} />;
 }
+function createListTag(tag: TagType) {
+  return <li className="search__tag-li"><Tag color={tag.color} icon={tag.icon} text={tag.text} /></li>;
+}
 
 function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
   const [keywordInput, setKeywordInput] = useState('');
@@ -24,6 +27,22 @@ function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
 
   useEffect(() => {
     setTagsRecommend([{
+      color: 'primary',
+      icon: 'plus',
+      text: 'recommend',
+    }, {
+      color: 'primary',
+      icon: 'plus',
+      text: 'recommend',
+    }, {
+      color: 'primary',
+      icon: 'plus',
+      text: 'recommend',
+    }, {
+      color: 'primary',
+      icon: 'plus',
+      text: 'red',
+    }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
@@ -43,26 +62,36 @@ function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
   return (
     <div className="search">
       <div className="search__keyword">
-        <h1>搜尋活動關鍵字</h1>
-        <SearchBar inputValue={keywordInput} setInputValue={setKeywordInput} placeHolder="搜尋活動關鍵字" />
+        <div className="search__keyword-bar">
+          <SearchBar inputValue={keywordInput} setInputValue={setKeywordInput} placeHolder="搜尋活動關鍵字" />
+        </div>
       </div>
       <div className="search__tag">
+
         <div className="search__tag-search">
-          <SearchBar inputValue={tagInput} setInputValue={setTagInput} placeHolder="搜尋活動關鍵字s" />
+          <div className="search__tag-search-bar">
+            <SearchBar inputValue={tagInput} setInputValue={setTagInput} placeHolder="搜尋活動標籤" />
+          </div>
+
           <div className="search__tag-recommend">
             <h2>推薦標籤</h2>
-            {tagsRecommend.map(createTag)}
+            <div className="search__tag-class">
+              {tagsRecommend.map(createTag)}
+            </div>
           </div>
           <div className="search__tag-stortage">
             <h2>你的標籤庫</h2>
-            {tagsStorage.map(createTag)}
+            <div className="search__tag-class">
+              {tagsStorage.map(createTag)}
+            </div>
           </div>
         </div>
+
         <div className="search__tag-sort">
           <h2>標籤排序</h2>
-          <div className="search__tag-module">
-            {tagsSort.map(createTag)}
-          </div>
+          <ol className="search__tag-sort-ol search__tag-class">
+            {tagsSort.map(createListTag)}
+          </ol>
         </div>
       </div>
     </div>
