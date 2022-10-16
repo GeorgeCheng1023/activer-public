@@ -6,7 +6,7 @@ function Search() {
     <>
       <h1>SearchPopup</h1>
       <p> This is Search Popup </p>
-      <SearchPopUp />
+      <SearchPopUp defaultTagsRecommend={[{ color: 'success', icon: 'move', text: 'blablabla' }]} />
     </>
   );
 }

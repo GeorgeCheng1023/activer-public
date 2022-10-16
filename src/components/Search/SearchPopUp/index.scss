@@ -1,5 +1,11 @@
 @import '~/src/_variables';
 
+@mixin _flex-item {
+  flex-grow: 1;
+  max-width: 50%;
+  margin: 10px 4px;
+}
+
 .search {
   padding:33px;
   border-radius: 15px;
@@ -10,9 +16,18 @@
   flex-direction: column;
   &__tag{
     display:flex;
-    *{
-      margin: 8px 0;
-      width: 100%;
+    &-sort{
+      @include _flex-item;
+      
+    }
+    &-search{
+      @include _flex-item;
+    }
+    &-recommend{
+      margin: 10px 0;
+    }
+    &-module{
+      border: 1px solid $primary-font-color;
     }
   }
 }
