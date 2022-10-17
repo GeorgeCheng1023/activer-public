@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.scss';
-import SearchBar from '../../Form/FormSearchBar';
-import Tag from '../../Tag';
+import SearchBar from '../../../../components/Form/FormSearchBar';
+import Tag from '../../../../components/Tag';
 
 type Props = {
   defaultTagsRecommend: Array<TagType>,
