@@ -3,7 +3,7 @@ export { };
 declare global {
   type TagType = {
     color: 'primary' | 'secondary' | 'success';
-    icon?: 'minus' | 'plus' | 'move',
+    icon?: 'minus' | 'plus' | 'move';
     text: string;
   };
   type CardType = {
@@ -13,5 +13,11 @@ declare global {
     tags: Array<TagType>,
     animation: string,
     detail?: string
+  };
+
+  type ButtonType = {
+    color: 'primary' | 'secondary';
+    style: 'default' | 'outline' | 'small';
+    text: string;
   };
 }

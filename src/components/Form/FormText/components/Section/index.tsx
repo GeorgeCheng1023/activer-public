@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../../Button';
+import ButtonFrame from '../../../../Button';
 import './index.scss';
 
 type Props = {
@@ -19,9 +19,9 @@ function Section({ inputSectionStyle, buttonText }: Props) {
         && (
           <div className="inputSection__button">
             <ButtonFrame
-              buttonColor={allButtonColor.secondary}
-              buttonStyle={allButtonStyle.small}
-              buttonText={buttonText}
+              color="secondary"
+              style="small"
+              text=""
             />
           </div>
         )}
