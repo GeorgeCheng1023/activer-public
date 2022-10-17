@@ -20,7 +20,7 @@ function Section({ inputSectionStyle, buttonText }: Props) {
           <div className="inputSection__button">
             <ButtonFrame
               color="secondary"
-              style="small"
+              decoration="small"
               text=""
             />
           </div>

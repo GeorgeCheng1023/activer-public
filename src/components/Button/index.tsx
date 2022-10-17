@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.scss';
 
-function ButtonFrame({ color, text, style }: ButtonType) {
+function ButtonFrame({ color, text, decoration }: ButtonType) {
   return (
     <button
       className={
         `button
-        button--${color || 'primary'}--${style || 'default'}`
+        button--${color || 'primary'}--${decoration || 'default'}`
       }
       type="button"
     >

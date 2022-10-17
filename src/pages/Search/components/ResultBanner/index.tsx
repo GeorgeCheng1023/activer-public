@@ -5,7 +5,7 @@ function ResultBanner() {
   return (
     <>
       <h1>Search Result</h1>
-      <Button color="primary" style="default" text="edit" />
+      <Button color="primary" decoration="default" text="edit" />
     </>
   );
 }

@@ -11,7 +11,7 @@ function Navbar() {
       <Link className="navbar__item" to="/">活動搜索</Link>
       <ButtonFrame
         color="primary"
-        style="default"
+        decoration="default"
         text="登入/註冊"
       />
     </div>
