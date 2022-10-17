@@ -11,6 +11,7 @@ declare global {
     title: string,
     altText: string,
     tags: Array<TagType>,
-    animation: string
+    animation: string,
+    detail?: string
   };
 }

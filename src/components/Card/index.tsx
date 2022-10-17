@@ -26,4 +26,23 @@ function Card({
   );
 }
 
+export function CardColumn({
+  imgUrl, title, tags, animation, altText, detail,
+}: CardType) {
+  return (
+    <div className={`card-column card--${animation}`}>
+      <img className="card-column__image" src={imgUrl} alt={altText} />
+      <div className="card-column__content">
+        <h3 className="card-column__title">{title}</h3>
+        <div className="card-co lumn__tag">
+          {tags.map(createTag)}
+        </div>
+        <div className="card-column__detail">
+          {detail}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default Card;
