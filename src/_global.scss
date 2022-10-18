@@ -1,9 +1,24 @@
+@import '~/src/_variables';
 // style 
+*{
+  color:$primary-font-color;
+}
+
 .button-nostyle {
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+h1{
+  font-size: 2vw;
+}
+h2{
+  font-size:1.5vw;
+}
+p{
+  font-size:1vw
 }
 
 // mixin
