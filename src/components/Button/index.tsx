@@ -1,28 +1,27 @@
 import React from 'react';
 import './index.scss';
 
-function ButtonFrame({ color, variant, text }: ButtonType) {
+function Button({
+  color, variant, text, disabled, size,
+}: ButtonType) {
+  return (
+    <button
+      type="button"
+      className={`
+        button
+        button--${color || 'primary'}
+        ${variant ? `button--${variant}` : ''}
+        ${size ? `button--${size}` : ''}
+      `}
+      disabled={disabled}
+    >
+      {text}
+    </button>
+  );
+}
 
-  const classNames: string[] = ['button'];
-  switch (variant):
-    case 'outline':
-      classNames.push('')
+Button.defaultProps = {
+  text: 'default text',
+};
 
-      return (
-        <button
-          className={
-            `button
-        button--${color || 'primary'}--${variant || 'default'}`
-          }
-          type="button"
-        >
-          {text}
-        </button>
-      );
-  }
-
-  ButtonFrame.defaultProps = {
-    text: 'default text',
-  };
-
-  export default ButtonFrame;
+export default Button;

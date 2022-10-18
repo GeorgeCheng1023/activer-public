@@ -1,6 +1,7 @@
 import React from 'react';
 // import SearchPopUp from './components/SearchPopUp';
 import { CardColumn } from '../../components/Card';
+import Button from '../../components/Button';
 
 function Search() {
   return (
@@ -16,6 +17,7 @@ function Search() {
         animation=""
         detail="Date: 2022/10/2 ~ 2022/10/3"
       />
+      <Button text="Button" color="secondary" variant="outline" size="sm" disabled />
     </>
   );
 }

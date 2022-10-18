@@ -2,101 +2,114 @@
 
 $_primary-hover-color: #FBE0B4;
 $_secondary-hover-color: #B0CDF9;
-$_button-fontSize: 1em;
 $_button-hover-duration: 0.3s;
 
 // button base
-@mixin button--base ($borderColor, $textColor, $bgColor) {
+@mixin buttonBase{
+  padding: 0.6em 1em;
+  border-radius: 0.8em;
+  letter-spacing: 1px;
+  font-size: 1em;
+  width: fit-content;
+  transition-duration: $_button-hover-duration;
+  cursor: pointer;
+}
+
+@mixin setColor ($borderColor, $textColor, $bgColor) {
     border: 2px $borderColor solid;
     background-color: $bgColor;
     color: $textColor;
-    padding: 0 1.8em;
-    border-radius: 1em;
-    font-family: 'Inter';
-    font-size: $_button-fontSize;
-    letter-spacing: 1px;
+  }
+  
+  
+.button{
+  @include buttonBase;
+  &--lg{
+    font-size: 1.5em;
+  }
+  &--sm{
+    font-size: 0.8em;
+  }
+}
+  
+.button--primary {
+  
+  @include setColor($primary-color, white, $primary-color);
+  &:hover:not([disabled]){
+    @include setColor($primary-color, $primary-color, white);
+  }
+
+  //button--primary button--outline
+  &.button--outline{
+    @include setColor($primary-color, $primary-color, white);
+    &:hover:not([disabled]){
+      @include setColor($primary-color, white, $primary-color);
+    }
+  }
+}
+      
+.button--secondary {
+
+  @include setColor($secondary-color, white, $secondary-color);
+  &:hover:not([disabled]){
+    @include setColor($secondary-color, $secondary-color, white)
+  }
+  
+  //button--primary button--outline
+  &.button--outline{
+    @include setColor($secondary-color, $secondary-color, white);
+    &:hover:not([disabled]){
+      @include setColor($secondary-color,white, $secondary-color);
+    }
+  }
 }
 
-@mixin button--small($borderColor, $textColor , $bgColor) {
-    width: fit-content;
-    height: 2.5rem;
-    padding: 0;
-    border: 1px $borderColor solid;
-    border-radius: 21px;
 
-    background-color: $bgColor;
-    color: $textColor;
-
-    font-size: 15.32px;
+:disabled {
+  opacity: 0.5;
+  cursor: not-allowed
 }
 
-@mixin button--primary--hover {
-    border: 2px $primary-color solid;
-    background-color: #FFF;
-    color: $primary-color;
-}
+    // &--secondary--default {
+    //     @include button--base($secondary-color, #FFF, $secondary-color);
 
-@mixin button--secondary--hover {
-    border: 2px $secondary-color solid;
-    background-color: #FFF;
-    color: $secondary-color;
-}
+    //     &:hover {
+    //         @include button--secondary--hover();
+    //     }
+    // }
 
-.button {
-    width: fit-content;
-    height: 3em;
-    transition-duration: $_button-hover-duration;
-    cursor: pointer;
+    // ;
 
-    &--primary--default {
-        @include button--base($primary-color, #FFF, $primary-color);
+    // &--primary--outline {
+    //     @include button--base($primary-color, $primary-color, #fff);
 
-        &:hover {
-            @include button--primary--hover();
-        }
-    }
+    //     &:hover {
+    //         @include button--primary--hover();
+    //     }
+    // }
 
-    ;
+    // &--secondary--outline {
+    //     @include button--base($secondary-color, $secondary-color, #fff);
 
-    &--secondary--default {
-        @include button--base($secondary-color, #FFF, $secondary-color);
+    //     &:hover {
+    //         @include button--secondary--hover();
+    //     }
+    // }
 
-        &:hover {
-            @include button--secondary--hover();
-        }
-    }
+    // &--primary--small {
+    //     @include button--small($primary-color, $primary-color, #fff);
 
-    ;
+    //     &:hover {
+    //         @include button--primary--hover();
+    //     }
+    // }
 
-    &--primary--outline {
-        @include button--base($primary-color, $primary-color, #fff);
+    // &--secondary--small {
+    //     @include button--small($secondary-color, $secondary-color, #fff);
 
-        &:hover {
-            @include button--primary--hover();
-        }
-    }
+    //     &:hover {
+    //         @include button--secondary--hover();
+    //     }
+    // }
 
-    &--secondary--outline {
-        @include button--base($secondary-color, $secondary-color, #fff);
 
-        &:hover {
-            @include button--secondary--hover();
-        }
-    }
-
-    &--primary--small {
-        @include button--small($primary-color, $primary-color, #fff);
-
-        &:hover {
-            @include button--primary--hover();
-        }
-    }
-
-    &--secondary--small {
-        @include button--small($secondary-color, $secondary-color, #fff);
-
-        &:hover {
-            @include button--secondary--hover();
-        }
-    }
-}
