@@ -4,16 +4,21 @@ import './index.scss';
 
 type Props = {
   inputSectionStyle: string;
+  placeholder: string;
+  inputType: string;
   buttonText?: string;
 };
 
-function Section({ inputSectionStyle, buttonText }: Props) {
-  return (
-    <div className="inputSection">
+const Section = React.forwardRef<HTMLInputElement, Props>(
+  ({
+    inputSectionStyle, placeholder, buttonText, inputType,
+  }, ref) => (
+    <div className="inputSection-container">
       <input
         className={`inputSection inputSection--${inputSectionStyle}`}
-        type="text"
-        placeholder="Input Placeholder"
+        ref={ref}
+        type={inputType}
+        placeholder={placeholder}
       />
       {inputSectionStyle === 'withButton'
         && (
@@ -26,8 +31,8 @@ function Section({ inputSectionStyle, buttonText }: Props) {
           </div>
         )}
     </div>
-  );
-}
+  ),
+);
 
 Section.defaultProps = {
   buttonText: 'default text',

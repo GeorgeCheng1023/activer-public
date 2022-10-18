@@ -1,11 +1,15 @@
 import React from 'react';
 import './index.scss';
 
-function HeroSection() {
+type HeroSectionProps = {
+  placeholder: string;
+};
+
+function HeroSection({ placeholder }: HeroSectionProps) {
   return (
     <textarea
       className="inputHeroSection inputHeroSection--style"
-      placeholder="Input Placeholder"
+      placeholder={placeholder}
     />
   );
 }
