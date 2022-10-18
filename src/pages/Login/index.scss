@@ -1,0 +1,13 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.login-container {
+}
+
+.login-section-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  scale: 0.8;
+}

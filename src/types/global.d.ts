@@ -16,8 +16,10 @@ declare global {
   };
 
   type ButtonType = {
-    color: 'primary' | 'secondary';
-    decoration: 'default' | 'outline' | 'small';
+    color?: 'primary' | 'secondary';
+    variant?: 'outline';
+    size?: 'lg' | 'sm' ;
     text: string;
+    disabled?:boolean;
   };
 }
