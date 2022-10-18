@@ -17,7 +17,7 @@ declare global {
 
   type ButtonType = {
     color: 'primary' | 'secondary';
-    decoration: 'default' | 'outline' | 'small';
+    variant: 'default' | 'outline' | 'small';
     text: string;
   };
 }

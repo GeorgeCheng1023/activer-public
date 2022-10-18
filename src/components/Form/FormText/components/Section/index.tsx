@@ -25,8 +25,8 @@ const Section = React.forwardRef<HTMLInputElement, Props>(
           <div className="inputSection__button">
             <ButtonFrame
               color="secondary"
-              decoration="small"
-              text={buttonText || 'text'}
+              variant="sm"
+              text=""
             />
           </div>
         )}

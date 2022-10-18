@@ -11,14 +11,10 @@ function Navbar() {
       <Link className="navbar__item" to="/">搜尋活動</Link>
       <Link className="navbar__item" to="/">熱門活動</Link>
       <Link className="navbar__item" to="/">活動搜索</Link>
-      <Link to="/login">
-        <ButtonFrame
-          color="primary"
-          decoration="default"
-          text="登入/註冊"
-        />
-      </Link>
-
+      <ButtonFrame
+        color="primary"
+        text="登入/註冊"
+      />
     </div>
   );
 }
