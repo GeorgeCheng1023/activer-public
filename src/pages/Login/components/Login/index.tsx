@@ -41,19 +41,17 @@ function LoginSection() {
       <div className="login-section__btn-group">
         <ButtonFrame
           color="primary"
-          decoration="default"
           text="登入"
         />
         <ButtonFrame
           color="primary"
-          decoration="outline"
+          variant="outline"
           text="註冊"
         />
       </div>
       <div className="login-section__btn-footer">
         <ButtonFrame
           color="secondary"
-          decoration="default"
           text="主辦方登入"
         />
       </div>
