@@ -1,0 +1,13 @@
+
+@import "~/src/variables";
+
+.result__banner{
+  display: flex;
+  background-color: $primary-color;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  &__h1{
+    color: white;
+  }
+}
+
