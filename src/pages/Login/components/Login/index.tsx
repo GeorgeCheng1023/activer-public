@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../../components/Button';
+import ButtonFrame from '../../../../components/Button';
 import FormText, { allInputFormStyle } from '../../../../components/Form/FormText';
 import './index.scss';
 
@@ -20,6 +20,7 @@ function LoginSection() {
     event.preventDefault();
   }
 
+  // 出事 ==
   return (
     <form method="post" className="login-section" onSubmit={handleSubmit}>
       <h1 className="login-section__title">登入</h1>
@@ -39,21 +40,21 @@ function LoginSection() {
       />
       <div className="login-section__btn-group">
         <ButtonFrame
-          buttonColor={allButtonColor.primary}
-          buttonStyle={allButtonStyle.default}
-          buttonText="登入"
+          color="primary"
+          decoration="default"
+          text="登入"
         />
         <ButtonFrame
-          buttonColor={allButtonColor.primary}
-          buttonStyle={allButtonStyle.outline}
-          buttonText="註冊"
+          color="primary"
+          decoration="outline"
+          text="註冊"
         />
       </div>
       <div className="login-section__btn-footer">
         <ButtonFrame
-          buttonColor={allButtonColor.secondary}
-          buttonStyle={allButtonStyle.default}
-          buttonText="主辦方登入"
+          color="secondary"
+          decoration="default"
+          text="主辦方登入"
         />
       </div>
     </form>

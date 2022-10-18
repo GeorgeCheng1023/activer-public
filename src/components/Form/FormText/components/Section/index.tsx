@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonFrame, { allButtonColor, allButtonStyle } from '../../../../Button';
+import ButtonFrame from '../../../../Button';
 import './index.scss';
 
 type Props = {
@@ -24,9 +24,9 @@ const Section = React.forwardRef<HTMLInputElement, Props>(
         && (
           <div className="inputSection__button">
             <ButtonFrame
-              buttonColor={allButtonColor.secondary}
-              buttonStyle={allButtonStyle.small}
-              buttonText={buttonText}
+              color="secondary"
+              decoration="small"
+              text={buttonText || 'text'}
             />
           </div>
         )}
