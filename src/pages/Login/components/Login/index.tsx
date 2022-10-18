@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ButtonFrame from '../../../../components/Button';
 import FormText, { allInputFormStyle } from '../../../../components/Form/FormText';
 import './index.scss';
@@ -6,6 +6,9 @@ import './index.scss';
 function LoginSection() {
   const userRef = useRef<HTMLInputElement | null>(null);
   const passRef = useRef<HTMLInputElement | null>(null);
+
+  const [user, setUser] = useState<string>('');
+  const [pwd, setPwd] = useState<string>('');
 
   /*
   const [errMsg, setErrMsg] = useState('');
@@ -16,8 +19,13 @@ function LoginSection() {
     userRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    console.log(userRef.current?.value, passRef.current?.value);
+  }, [user, pwd]);
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    console.log(userRef.current?.value, passRef.current?.value);
   }
 
   // 出事 ==
@@ -30,6 +38,8 @@ function LoginSection() {
         placeholder="輸入您的帳號名稱或電信箱"
         inputType="text"
         ref={userRef}
+        handleChange={(e: React.ChangeEvent<HTMLInputElement>) => setUser(e.target.value)}
+        value={user}
       />
       <FormText
         formStyle={allInputFormStyle.default}
@@ -37,23 +47,38 @@ function LoginSection() {
         placeholder="輸入您的密碼"
         inputType="password"
         ref={passRef}
+        handleChange={(e: React.ChangeEvent<HTMLInputElement>) => setPwd(e.target.value)}
+        value={pwd}
       />
       <div className="login-section__btn-group">
-        <ButtonFrame
-          color="primary"
-          text="登入"
-        />
-        <ButtonFrame
-          color="primary"
-          variant="outline"
-          text="註冊"
-        />
+        <button
+          type="submit"
+        >
+          <ButtonFrame
+            color="primary"
+            text="登入"
+          />
+        </button>
+
+        <button
+          type="submit"
+        >
+          <ButtonFrame
+            color="primary"
+            variant="outline"
+            text="註冊"
+          />
+        </button>
       </div>
       <div className="login-section__btn-footer">
-        <ButtonFrame
-          color="secondary"
-          text="主辦方登入"
-        />
+        <button
+          type="submit"
+        >
+          <ButtonFrame
+            color="secondary"
+            text="主辦方登入"
+          />
+        </button>
       </div>
     </form>
   );

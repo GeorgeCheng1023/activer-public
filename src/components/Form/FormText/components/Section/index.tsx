@@ -6,12 +6,14 @@ type Props = {
   inputSectionStyle: string;
   placeholder: string;
   inputType: string;
+  value: string;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>
   buttonText?: string;
 };
 
 const Section = React.forwardRef<HTMLInputElement, Props>(
   ({
-    inputSectionStyle, placeholder, buttonText, inputType,
+    inputSectionStyle, placeholder, buttonText, inputType, value, handleChange,
   }, ref) => (
     <div className="inputSection-container">
       <input
@@ -19,6 +21,8 @@ const Section = React.forwardRef<HTMLInputElement, Props>(
         ref={ref}
         type={inputType}
         placeholder={placeholder}
+        onChange={handleChange}
+        value={value}
       />
       {inputSectionStyle === 'withButton'
         && (

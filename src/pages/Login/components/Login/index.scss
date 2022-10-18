@@ -1,6 +1,12 @@
 @import '~/src/_variables';
 @import '~/src/_global';
 
+button {
+  outline: 0;
+  border: 0;
+  background-color: #FFF;
+}
+
 .login-section {
   display: flex;
   align-items: center;
