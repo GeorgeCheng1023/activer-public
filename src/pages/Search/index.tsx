@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchPopUp from './components/SearchPopUp';
 import { CardColumn } from '../../components/Card';
 import ResultBanner from './components/ResultBanner';
 
