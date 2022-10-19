@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 function Button({
-  color, variant, text, disabled, size,
+  color, variant, text, disabled, size, onClick,
 }: ButtonType) {
   return (
     <button
@@ -14,6 +14,7 @@ function Button({
         ${size ? `button--${size}` : ''}
       `}
       disabled={disabled}
+      onClick={onClick}
     >
       {text}
     </button>
@@ -22,6 +23,7 @@ function Button({
 
 Button.defaultProps = {
   text: 'default text',
+  onClick: null,
 };
 
 export default Button;

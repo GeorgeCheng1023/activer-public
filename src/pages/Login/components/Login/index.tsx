@@ -23,14 +23,15 @@ function LoginSection() {
     console.log(userRef.current?.value, passRef.current?.value);
   }, [user, pwd]);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
+    // axios
     event.preventDefault();
     console.log(userRef.current?.value, passRef.current?.value);
-  }
+  };
 
   // 出事 ==
   return (
-    <form method="post" className="login-section" onSubmit={handleSubmit}>
+    <form method="post" className="login-section">
       <h1 className="login-section__title">登入</h1>
       <FormText
         formStyle={allInputFormStyle.default}
@@ -51,34 +52,24 @@ function LoginSection() {
         value={pwd}
       />
       <div className="login-section__btn-group">
-        <button
-          type="submit"
-        >
-          <ButtonFrame
-            color="primary"
-            text="登入"
-          />
-        </button>
-
-        <button
-          type="submit"
-        >
-          <ButtonFrame
-            color="primary"
-            variant="outline"
-            text="註冊"
-          />
-        </button>
+        <ButtonFrame
+          color="primary"
+          text="登入"
+          onClick={handleSubmit}
+        />
+        <ButtonFrame
+          color="primary"
+          variant="outline"
+          text="註冊"
+          onClick={handleSubmit}
+        />
       </div>
       <div className="login-section__btn-footer">
-        <button
-          type="submit"
-        >
-          <ButtonFrame
-            color="secondary"
-            text="主辦方登入"
-          />
-        </button>
+        <ButtonFrame
+          color="secondary"
+          text="主辦方登入"
+          onClick={handleSubmit}
+        />
       </div>
     </form>
   );

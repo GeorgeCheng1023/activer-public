@@ -21,5 +21,6 @@ declare global {
     size?: 'lg' | 'sm' ;
     text: string;
     disabled?:boolean;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
   };
 }
