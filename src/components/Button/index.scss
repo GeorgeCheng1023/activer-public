@@ -43,7 +43,7 @@ $_button-hover-duration: 0.3s;
   &.button--outline{
     @include setColor($primary-color, $primary-color, white);
     &:hover:not([disabled]){
-      @include setColor($primary-color, white, $primary-color);
+      @include setColor($primary-color, white, $_primary-hover-color);
     }
   }
 }
@@ -59,7 +59,7 @@ $_button-hover-duration: 0.3s;
   &.button--outline{
     @include setColor($secondary-color, $secondary-color, white);
     &:hover:not([disabled]){
-      @include setColor($secondary-color,white, $secondary-color);
+      @include setColor($secondary-color,white, $_secondary-hover-color);
     }
   }
 }

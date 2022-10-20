@@ -9,6 +9,8 @@ type Props = {
   labelText: string;
   placeholder: string;
   inputType: string;
+  value: string;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>
   buttonText?: string;
 };
 
@@ -21,7 +23,7 @@ export const allInputFormStyle = {
 };
 
 const FormText = React.forwardRef<HTMLInputElement, Props>(({
-  formStyle, labelText, placeholder, buttonText, inputType,
+  formStyle, labelText, placeholder, buttonText, inputType, value, handleChange,
 }, ref) => (
   <form className={`inputForm inputForm--${formStyle}`}>
     {
@@ -41,6 +43,8 @@ const FormText = React.forwardRef<HTMLInputElement, Props>(({
               inputType={inputType}
               buttonText={buttonText}
               placeholder={placeholder}
+              value={value}
+              handleChange={handleChange}
             />
           </>
         )
