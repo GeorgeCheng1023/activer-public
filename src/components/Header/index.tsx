@@ -11,7 +11,7 @@ import { IconLogoPrimary } from '../Icons';
 function Header() {
   return (
     <div className="header">
-      <Link className="logo" to="/home">
+      <Link to="/">
         <IconLogoPrimary />
       </Link>
       <Navbar />
