@@ -1,31 +1,21 @@
-$_icon-fontSize: 28px;
 
-.label {
-  width: 12rem;
-  height: 5.2rem;
+
+.sidebar-link {
+  width: 100%;
+  height: 3rem;
   padding-right: 1rem;
-  //test 
-  margin: 20px;
+  display: flex;
+  align-items: center;
+  border: 0;
+  font-size: 1em;
+
+  &:hover {
+    background-color: #E2E2E2;
+  }
 
   &__icon {
-    width: 36px;
-    height: 36px;
-
-    &--style {
-      margin-left: 15px;
-      margin-right: 15px;
-      
-    }
+    font-size:1em
+  
   }
 
-  &--style {
-    display: flex;
-    align-items: center;
-    border: 0;
-    font-size: $_icon-fontSize;
-
-    &:hover {
-      background-color: #E2E2E2;
-    }
-  }
 }
