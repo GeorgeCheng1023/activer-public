@@ -10,7 +10,10 @@ type Props = {
   placeholder: string;
   inputType: string;
   value: string;
-  handleChange: React.ChangeEventHandler<HTMLInputElement>
+  required: boolean;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>
   buttonText?: string;
 };
 
@@ -23,7 +26,8 @@ export const allInputFormStyle = {
 };
 
 const FormText = React.forwardRef<HTMLInputElement, Props>(({
-  formStyle, labelText, placeholder, buttonText, inputType, value, handleChange,
+  formStyle, labelText, placeholder, buttonText, inputType,
+  required, value, onFocus, onBlur, onChange,
 }, ref) => (
   <form className={`inputForm inputForm--${formStyle}`}>
     {
@@ -44,7 +48,10 @@ const FormText = React.forwardRef<HTMLInputElement, Props>(({
               buttonText={buttonText}
               placeholder={placeholder}
               value={value}
-              handleChange={handleChange}
+              required={required}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              onChange={onChange}
             />
           </>
         )
@@ -82,6 +89,8 @@ const FormText = React.forwardRef<HTMLInputElement, Props> (
 
 FormText.defaultProps = {
   buttonText: 'default text',
+  onBlur: undefined,
+  onFocus: undefined,
 };
 
 export default FormText;
