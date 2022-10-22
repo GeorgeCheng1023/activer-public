@@ -75,8 +75,6 @@ function LoginSection() {
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
       setSuccess(true);
-      // clear state and controlled inputs
-      // need value attrib on inputs for this
       setUser('');
       setPwd('');
     } catch (err: any) {
@@ -110,7 +108,7 @@ function LoginSection() {
             <FormText
               formStyle="default"
               labelText="帳號"
-              placeholder="輸入您的帳號名稱或電信箱"
+              placeholder="輸入您的帳號名稱或電子信箱"
               inputType="text"
               ref={userRef}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUser(e.target.value)}
@@ -157,11 +155,13 @@ function LoginSection() {
           </p>
 
           <section className="login-section__btn-group">
+            {/* 檢測是否一樣 */}
             <ButtonFrame
               color="primary"
               text="登入"
               onClick={handleClick}
             />
+            {/* 檢測帳號有無重複，以及符合規範 */}
             <ButtonFrame
               color="primary"
               variant="outline"
@@ -170,6 +170,7 @@ function LoginSection() {
             />
           </section>
           <section className="login-section__btn-footer">
+            {/* 檢測是否一樣，提供帳密 */}
             <ButtonFrame
               color="secondary"
               text="主辦方登入"
