@@ -4,7 +4,7 @@ import './index.scss';
 
 // components
 import ButtonFrame from '../../../../components/Button';
-import FormText, { allInputFormStyle } from '../../../../components/Form/FormText';
+import FormText from '../../../../components/Form/FormText';
 
 function LoginSection() {
   const userRef = useRef<HTMLInputElement | null>(null);
@@ -81,7 +81,7 @@ function LoginSection() {
           <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
           <h1 className="login-section__title">登入</h1>
           <FormText
-            formStyle={allInputFormStyle.default}
+            formStyle="default"
             labelText="帳號"
             placeholder="輸入您的帳號名稱或電信箱"
             inputType="text"
@@ -93,7 +93,7 @@ function LoginSection() {
             required
           />
 
-          <p id="uidnote" className={showUserErr ? 'instructions' : 'offscreen'}>
+          <p id="uidnote" className={showUserErr ? 'offscreen' : 'instructions'}>
             4 to 24 characters.
             <br />
             Must begin with a letter.
@@ -102,7 +102,7 @@ function LoginSection() {
           </p>
 
           <FormText
-            formStyle={allInputFormStyle.default}
+            formStyle="default"
             labelText="密碼"
             placeholder="輸入您的密碼"
             inputType="password"
@@ -113,7 +113,7 @@ function LoginSection() {
             required
           />
 
-          <p id="pwdnote" className={showPwdErr ? 'instructions' : 'offscreen'}>
+          <p id="pwdnote" className={showPwdErr ? 'offscreen' : 'instructions'}>
             8 to 24 characters.
             <br />
             Must include uppercase and lowercase letters, a number and a special character.

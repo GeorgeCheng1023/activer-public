@@ -1,31 +1,12 @@
 import React from 'react';
 import './index.scss';
+
+// components
 import Label from './components/Label';
 import Section from './components/Section';
 import HeroSection from './components/HeroSection';
 
-type Props = {
-  formStyle: string;
-  labelText: string;
-  placeholder: string;
-  inputType: string;
-  value: string;
-  required: boolean;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  onChange: React.ChangeEventHandler<HTMLInputElement>
-  buttonText?: string;
-};
-
-export const allInputFormStyle = {
-  default: 'default',
-  heroForm: 'heroForm',
-  disabled: 'disabled',
-  withButton: 'withButton',
-  withoutLabel: 'withoutLabel',
-};
-
-const FormText = React.forwardRef<HTMLInputElement, Props>(({
+const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
   formStyle, labelText, placeholder, buttonText, inputType,
   required, value, onFocus, onBlur, onChange,
 }, ref) => (
