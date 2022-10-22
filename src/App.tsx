@@ -1,10 +1,10 @@
 import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   RouterProvider, createBrowserRouter,
 } from 'react-router-dom';
 
-// components
+// pages
+import Root from './pages/Root';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Search from './pages/Search';
@@ -15,39 +15,45 @@ import User, {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/search',
-    element: <Search />,
-  },
-  {
-    path: '/user',
-    element: <User />,
+    element: <Root />,
     children: [
       {
-        path: 'basic',
-        element: <Basic />,
+        path: '/',
+        element: <Home />,
       },
       {
-        path: 'account',
-        element: <Account />,
+        path: '/login',
+        element: <Login />,
       },
       {
-        path: 'manage',
-        element: <Manage />,
+        path: '/search',
+        element: <Search />,
       },
       {
-        path: 'history',
-        element: <History />,
-      },
-      {
-        path: 'preferences',
-        element: <Preferences />,
+        path: '/user',
+        element: <User />,
+        children: [
+          {
+            path: 'basic',
+            element: <Basic />,
+          },
+          {
+            path: 'account',
+            element: <Account />,
+          },
+          {
+            path: 'manage',
+            element: <Manage />,
+          },
+          {
+            path: 'history',
+            element: <History />,
+          },
+          {
+            path: 'preferences',
+            element: <Preferences />,
+          },
+        ],
       },
     ],
   },

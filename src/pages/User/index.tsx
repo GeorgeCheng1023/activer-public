@@ -5,13 +5,15 @@ import Account from './Account';
 import History from './History';
 import Manage from './Manage';
 import Preferences from './Preferences';
-// import SideBar from './components/SideBar';
+import SideBar from './components/SideBar';
 
 function User() {
   return (
-    <div className="user">
-      <Outlet />
-    </div>
+    <SideBar>
+      <div className="user">
+        <Outlet />
+      </div>
+    </SideBar>
   );
 }
 
