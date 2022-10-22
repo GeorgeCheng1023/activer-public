@@ -8,12 +8,18 @@ type SidebarLinkProp = {
   text: string,
   url: string,
   icon: React.ReactNode;
+  onClickLink: (text: string) => void;
 };
 
-function SidebarLink({ text, url, icon }: SidebarLinkProp) {
-  return (
+function SidebarLink({
+  text, url, icon, onClickLink,
+}: SidebarLinkProp) {
+  const clickHandler = () => {
+    onClickLink(text);
+  };
 
-    <Link to={url} style={{ textDecoration: 'none' }}>
+  return (
+    <Link to={url} style={{ textDecoration: 'none' }} onClick={clickHandler}>
       <div className="sidebar-link">
         <div className="sidebar-link__icon">
           {icon}
