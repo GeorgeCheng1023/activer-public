@@ -1,10 +1,16 @@
 @import '~/src/_variables';
 @import '~/src/_global';
 
+.login-container {
+  // 不會出現scroll 
+  height: 60vh;  
+}
+
 .login-section-container {
   display: flex;
   align-items: center;
   width: fit-content;
+  height: fit-content;
   margin: 0 auto;
   scale: 0.8;
 }

@@ -1,6 +1,8 @@
 @import '~/src/_variables';
 @import '~/src/_global';
 
+$_warning-color: #cc3300;
+
 button {
   outline: 0;
   border: 0;
@@ -9,26 +11,35 @@ button {
 
 .login-section {
   display: flex;
-  align-items: center;
+  // align-items: center;
   flex-direction: column;
-  gap: 2.5rem;
+  // gap: 2.5rem;
   @include fit-container;
 
   &__title {
     font-size: 3rem;
+    align-self: center;
+    // margin-bottom: 2.5rem;
     @include fit-container;
+  }
+
+  &__text-field {
+    margin-top: 2.5rem;
   }
 
   &__btn-group {
     display: flex;
+    align-self: center;
     flex-direction: row;
     justify-content: space-evenly;
     width: 80%;
-    margin-top: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
     scale: 1.4;
   }
 
   &__btn-footer {
+    align-self: center;
     margin-top: 1rem;
     scale: 1.4;
   }
@@ -38,3 +49,14 @@ button {
   position: absolute;
   left: -9999px;
 }
+
+.instructions {
+  margin-top: .5rem;
+  color: $_warning-color;
+  font-weight: 600;
+  
+  & > * {
+    color: $_warning-color;
+    margin-left: .3rem;
+  }
+} 
