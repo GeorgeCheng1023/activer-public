@@ -1,0 +1,9 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.manage-nav {
+  &__button-group {
+    display: flex;
+    flex-direction: row;
+  }
+}
