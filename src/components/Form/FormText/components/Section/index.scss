@@ -17,6 +17,7 @@
 }
 
 .inputSection-container{
+  display: flex;
   position: absolute;
   bottom: 0;
 
@@ -47,3 +48,8 @@
   @include formFontStyle;
 }
 
+.inputSection--default:focus,
+.inputSection--withButton:focus,
+.inputSection--withoutLabel:focus {
+   outline: 1.5px $primary-color solid;
+}

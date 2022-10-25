@@ -1,29 +1,14 @@
 import React from 'react';
 import './index.scss';
+
+// components
 import Label from './components/Label';
 import Section from './components/Section';
 import HeroSection from './components/HeroSection';
 
-type Props = {
-  formStyle: string;
-  labelText: string;
-  placeholder: string;
-  inputType: string;
-  value: string;
-  handleChange: React.ChangeEventHandler<HTMLInputElement>
-  buttonText?: string;
-};
-
-export const allInputFormStyle = {
-  default: 'default',
-  heroForm: 'heroForm',
-  disabled: 'disabled',
-  withButton: 'withButton',
-  withoutLabel: 'withoutLabel',
-};
-
-const FormText = React.forwardRef<HTMLInputElement, Props>(({
-  formStyle, labelText, placeholder, buttonText, inputType, value, handleChange,
+const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
+  formStyle, labelText, placeholder, buttonText, inputType,
+  required, value, onFocus, onBlur, onChange,
 }, ref) => (
   <form className={`inputForm inputForm--${formStyle}`}>
     {
@@ -44,7 +29,10 @@ const FormText = React.forwardRef<HTMLInputElement, Props>(({
               buttonText={buttonText}
               placeholder={placeholder}
               value={value}
-              handleChange={handleChange}
+              required={required}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              onChange={onChange}
             />
           </>
         )
@@ -82,6 +70,8 @@ const FormText = React.forwardRef<HTMLInputElement, Props> (
 
 FormText.defaultProps = {
   buttonText: 'default text',
+  onBlur: undefined,
+  onFocus: undefined,
 };
 
 export default FormText;
