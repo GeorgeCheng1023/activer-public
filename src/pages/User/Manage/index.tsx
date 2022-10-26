@@ -2,9 +2,10 @@ import React from 'react';
 import { BiBorderAll } from 'react-icons/bi';
 import { BsBookmarkHeart } from 'react-icons/bs';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { CardColumn } from '../../../components/Card';
+import { CardColumn, CardType } from '../../../components/Card';
 import ManageNav from './components/ManageNav';
 import dummyActivity from './dummy.json';
+import ManageCardControl from './components/ManageCardControl';
 import './index.scss';
 
 function Manage() {
@@ -36,14 +37,26 @@ function Manage() {
         onChangeFilter={changeFilterHandler}
       />
       <div className="manage-main">
-        {dummyActivity.activities.map((activity) => (
-          <div className="manage-main__card">
-            <CardColumn
-              data={activity as CardType}
-
-            />
-          </div>
-        ))}
+        {dummyActivity.activities.map((activity) => {
+          const {
+            image_url: imgUrl, title, image_alt: altText, tags, date_start, apply_end,
+          } = activity;
+          return (
+            <div className="manage-main__card">
+              <CardColumn
+                data={{
+                  imgUrl, title, altText, tags,
+                } as CardType}
+                control={(
+                  <ManageCardControl
+                    beginTime={new Date(date_start)}
+                    dueTime={new Date(apply_end)}
+                  />
+                )}
+              />
+            </div>
+          );
+        })}
       </div>
 
     </>

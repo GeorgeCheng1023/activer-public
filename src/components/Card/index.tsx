@@ -2,6 +2,15 @@ import React from 'react';
 import Tag from '../Tag';
 import './index.scss';
 
+export type CardType = {
+  imgUrl: string,
+  title: string,
+  altText: string,
+  tags: Array<TagType>,
+  animation?: string,
+  detail?: string
+};
+
 function createTag(TagsContent: TagType) {
   return (
     <Tag
@@ -13,18 +22,26 @@ function createTag(TagsContent: TagType) {
 }
 
 function Card({
-  imgUrl, title, tags, animation, altText,
+  imgUrl, title, tags, animation, altText, detail,
 }: CardType) {
   return (
     <div className={`card card--${animation}`}>
       <img className="card__image" src={imgUrl} alt={altText} />
       <h3 className="card__title">{title}</h3>
+      <div className="card__detaiil">
+        {detail}
+      </div>
       <div className="card__tag">
         {tags.map(createTag)}
       </div>
     </div>
   );
 }
+
+Card.defaultProps = {
+  animation: 'basic',
+  detail: null,
+};
 
 type CardColumnProps = {
   data: CardType;

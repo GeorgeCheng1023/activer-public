@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardColumn } from '../../components/Card';
+import { CardColumn, CardType } from '../../components/Card';
 import ResultBanner from './components/ResultBanner';
 
 const data = {

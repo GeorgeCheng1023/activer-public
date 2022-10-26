@@ -11,8 +11,9 @@ $_focus-color: #FEF6D8;
   width: 10em;
   background-color: transparent;
 
-  font-size: 1.5rem;
-  
+
+  font-size: 1em;
+
   margin: 1em;
 
   &__label {
@@ -25,9 +26,9 @@ $_focus-color: #FEF6D8;
     background-color: #FFF;
 
     font-size: 1em;
-    
+
     z-index: 1;
-    
+
     @include fit-container;
     @include items-center;
   }
@@ -42,8 +43,8 @@ $_focus-color: #FEF6D8;
     border-radius: 8px;
     margin-bottom: .5em;
 
-    color: $_unselected-color; 
-    
+    color: $_unselected-color;
+
     cursor: pointer;
 
     &__icon {
@@ -54,11 +55,15 @@ $_focus-color: #FEF6D8;
       scale: 2.5;
       transition: all 0.8s;
       @include items-center;
-    };
+    }
+
+    ;
 
     &__icon--active {
       transform: rotateX(180deg);
-    };
+    }
+
+    ;
   }
 
   &__selected--select {
@@ -66,34 +71,44 @@ $_focus-color: #FEF6D8;
   }
 
   &__option-container {
+    position: absolute;
+    top: 3em;
+    z-index: 2;
+
     max-height: 0;
-    width: 100%; 
+    width: 100%;
 
     font-weight: 400;
     color: $primary-font-color;
-  
+    background-color: white;
+
     opacity: 0;
     transition: all 0.4s;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0px 10px 22px 4px rgba(0,0,0,0.21);
-    -webkit-box-shadow: 0px 10px 22px 4px rgba(0,0,0,0.21);
-    -moz-box-shadow: 0px 10px 22px 4px rgba(0,0,0,0.21);
+    box-shadow: 0px 10px 22px 4px rgba(0, 0, 0, 0.21);
+    -webkit-box-shadow: 0px 10px 22px 4px rgba(0, 0, 0, 0.21);
+    -moz-box-shadow: 0px 10px 22px 4px rgba(0, 0, 0, 0.21);
 
     &__option {
       padding: .25em .5em .25em;
     }
+
     &__option .option__radio {
       display: none;
     }
+
     &__option:hover {
       background-color: $_focus-color;
     }
+
     &__option,
-    &__option > *{
+    &__option>* {
       cursor: pointer;
     }
-  };
+  }
+
+  ;
 
   &__option-container::-webkit-scrollbar {
     border-radius: 0 8px 8px 0;
@@ -101,9 +116,9 @@ $_focus-color: #FEF6D8;
   }
 
   &__option-container::-webkit-scrollbar-thumb {
-    border-radius: 0 8px 8px 0; 
+    border-radius: 0 8px 8px 0;
     background-color: #000;
-  } 
+  }
 
   &__option-container--active {
     max-height: 10em;
@@ -112,5 +127,7 @@ $_focus-color: #FEF6D8;
 
     opacity: 1;
     overflow-y: scroll;
-  };
+  }
+
+  ;
 }
