@@ -6,11 +6,14 @@ import { CardColumn, CardType } from '../../../components/Card';
 import ManageNav from './components/ManageNav';
 import dummyActivity from './dummy.json';
 import ManageCardControl from './components/ManageCardControl';
+// import { snake_cased } from 'mod';
 import './index.scss';
 
 function Manage() {
   const changeFilterHandler = (id: number) => {
+    /* eslint-disable */
     console.log(id);
+    /* eslint-enable */
   };
 
   return (
@@ -41,17 +44,21 @@ function Manage() {
           const {
             image_url: imgUrl, title, image_alt: altText, tags, date_start, apply_end,
           } = activity;
+
+          const firstImgUrl = imgUrl?.[0];
           return (
             <div className="manage-main__card">
               <CardColumn
                 data={{
-                  imgUrl, title, altText, tags,
+                  imgUrl: firstImgUrl, title, altText, tags,
                 } as CardType}
                 control={(
+
                   <ManageCardControl
-                    beginTime={new Date(date_start)}
-                    dueTime={new Date(apply_end)}
+                    beginDate={date_start}
+                    dueDate={apply_end}
                   />
+
                 )}
               />
             </div>

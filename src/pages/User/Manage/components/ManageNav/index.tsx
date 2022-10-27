@@ -11,7 +11,7 @@ type Props = {
 };
 
 function ManageNav({ buttons, onChangeFilter }: Props) {
-  const [clickedId, setClickedId] = useState(-1);
+  const [clickedId, setClickedId] = useState(0);
 
   const clickHandler = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     setClickedId(id);
