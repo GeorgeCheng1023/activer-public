@@ -4,9 +4,8 @@ import './index.scss';
 // components
 import Label from './components/Label';
 import Section from './components/Section';
-import HeroSection from './components/HeroSection';
+// import HeroSection from './components/HeroSection';
 
-/*eslint-disable*/
 export type FormTextProp = {
   variant: 'default' | 'disabled' | 'withButton' | 'withoutLabel';
   labelText: string;
@@ -20,14 +19,14 @@ export type FormTextProp = {
   buttonText?: string;
 };
 
-export const FormTextArea = React.forwardRef<HTMLInputElement, FormTextProp>(({
-  variant, labelText, placeholder,
-}, ref) => (
-  <>
-    <Label labelStyle={variant} labelText={labelText} />
-    <HeroSection placeholder={placeholder} />
-  </>
-));
+// export const FormTextArea = React.forwardRef<HTMLInputElement, FormTextProp>(({
+//   variant, labelText, placeholder,
+// }, ref) => (
+//   <>
+//     <Label labelStyle={variant} labelText={labelText} />
+//     <HeroSection placeholder={placeholder} />
+//   </>
+// ));
 
 const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
   variant, labelText, placeholder, buttonText, inputType,
@@ -50,33 +49,6 @@ const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
   </form>
 
 ));
-
-/*
-const FormText = React.forwardRef<HTMLInputElement, Props> (
-{ formStyle, labelText, buttonText, placeholder }, ref) => (
-    <form className={`inputForm inputForm--${formStyle}`}>
-      {
-        formStyle === 'heroForm'
-          ? (
-            <>
-              <Label labelStyle={formStyle} labelText={labelText} />
-              <HeroSection placeholder={placeholder} />
-            </>
-          )
-          : (
-            <>
-              <Label labelStyle={formStyle} labelText={labelText} />
-              <Section
-                inputSectionStyle={formStyle}
-                ref={ref}
-                buttonText={buttonText}
-                placeholder={placeholder}
-              />
-            </>
-          )
-      }
-    </form>
-) */
 
 FormText.defaultProps = {
   buttonText: 'default text',

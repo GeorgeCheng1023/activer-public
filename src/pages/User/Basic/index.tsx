@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { FormTextArea } from '../../../components/Form/FormText';
+// import { FormTextArea } from '../../../components/Form/FormText';
 
 /*eslint-disable*/
 const handleChange = (event: any) => {
@@ -17,7 +17,8 @@ function Basic() {
           alt="userHead"
         />
       </div>
-      <FormTextArea variant="default" labelText="暱稱" placeholder="狗勾" inputType="" value="" required onChange={handleChange} />
+      {/* <FormTextArea variant="default"
+      labelText="暱稱" placeholder="狗勾" inputType="" value="" required onChange={handleChange} /> */}
     </div>
   );
 }

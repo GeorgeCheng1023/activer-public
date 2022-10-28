@@ -31,6 +31,7 @@ function LoginSection() {
     userRef.current?.focus();
   }, []);
 
+  /*eslint-disable*/
   useEffect(() => {
     if (showErr) setValidName(USER_REGEX.test(user));
     console.log(validName);
@@ -74,7 +75,10 @@ function LoginSection() {
       console.log(response?.data);
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
+      /* eslint-enable */
+
       setSuccess(true);
+
       // clear state and controlled inputs
       // need value attrib on inputs for this
       setUser('');
@@ -108,7 +112,7 @@ function LoginSection() {
 
           <section className="login-section__text-field">
             <FormText
-              formStyle="default"
+              variant="default"
               labelText="帳號"
               placeholder="輸入您的帳號名稱或電信箱"
               inputType="text"
@@ -131,7 +135,7 @@ function LoginSection() {
 
           <section className="login-section__text-field">
             <FormText
-              formStyle="default"
+              variant="default"
               labelText="密碼"
               placeholder="輸入您的密碼"
               inputType="password"
