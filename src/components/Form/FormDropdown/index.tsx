@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import { IconArrowUp } from '../../Icons';
-import './DropdownFrame.scss';
-import options from './options';
+import './index.scss';
+// import options from './options';
 
-type Props = {
-  dropdownStyle: string;
-  labelText: string;
-  selectedValue: string;
-  setSelectedValue: React.Dispatch<React.SetStateAction<string>>;
+export type FormDropDownType = {
+  dropdownStyle: 'default' | 'withoutLabel',
+  labelText: string,
+  selectedValue: string,
+  setSelectedValue: React.Dispatch<React.SetStateAction<string>>,
+  options: { id: number, value: string }[]
 };
 
-export const allDropdownStyle = {
-  default: 'default',
-  withoutLabel: 'withoutLabel',
-};
-
-function DropdownFrame({
-  dropdownStyle, labelText, selectedValue, setSelectedValue,
-} : Props) {
+function FormDropDown({
+  dropdownStyle, labelText, options, selectedValue, setSelectedValue,
+}: FormDropDownType) {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const [changeValueTheme, setChangeValueTheme] = useState(false);
 
@@ -78,4 +74,4 @@ function DropdownFrame({
   );
 }
 
-export default DropdownFrame;
+export default FormDropDown;

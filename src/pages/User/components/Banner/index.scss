@@ -1,0 +1,17 @@
+@import '~/src/_variables';
+
+.banner {
+  &__container {
+    position: relative;
+    background-color: $primary-color;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__h1 {
+    color: white;
+    font-weight: 400;
+  }
+}

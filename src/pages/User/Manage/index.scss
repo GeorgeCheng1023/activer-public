@@ -1,0 +1,11 @@
+.manage-main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 30px;
+
+  &__card {
+    height: fit-content;
+  }
+}

@@ -1,0 +1,27 @@
+@import '~/src/_variables';
+
+.manage-control {
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+
+  &__date>* {
+    margin: 10px 0;
+  }
+}
+
+.remain-date {
+  margin-top: 1em;
+  font-size: 0.6em;
+  color: $secondary-font-color;
+
+  &__number {
+    width: 1em;
+    height: 1em;
+    background-color: $success-color;
+    color: white;
+    padding: 0.4em 0.8em;
+    border-radius: 1.4em;
+    font-size: 1.3em;
+  }
+}
