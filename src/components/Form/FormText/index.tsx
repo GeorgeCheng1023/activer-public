@@ -10,7 +10,7 @@ const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
   formStyle, labelText, placeholder, buttonText, inputType,
   required, value, onFocus, onBlur, onChange,
 }, ref) => (
-  <form className={`inputForm inputForm--${formStyle}`}>
+  <section className={`inputForm inputForm--${formStyle}`}>
     {
       formStyle === 'heroForm'
         ? (
@@ -37,7 +37,7 @@ const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
           </>
         )
     }
-  </form>
+  </section>
 
 ));
 

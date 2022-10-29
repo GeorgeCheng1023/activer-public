@@ -9,11 +9,18 @@ button {
   background-color: #FFF;
 }
 
+.login-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  gap: 12rem;
+}
+
 .login-section {
   display: flex;
-  // align-items: center;
   flex-direction: column;
-  // gap: 2.5rem;
   @include fit-container;
 
   &__title {
@@ -24,6 +31,7 @@ button {
   }
 
   &__text-field {
+    scale: 0.93;
     margin-top: 2.5rem;
   }
 
@@ -43,6 +51,10 @@ button {
     margin-top: 1rem;
     scale: 1.4;
   }
+}
+
+.other-login-section {
+  @include fit-container;
 }
 
 .offscreen {

@@ -2,7 +2,7 @@
 @import '~/src/_global';
 
 .login-container {
-  // 不會出現scroll 
+  display: flex;
   height: 60vh;  
 }
 
