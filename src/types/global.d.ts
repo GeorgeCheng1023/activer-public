@@ -7,15 +7,6 @@ declare global {
     text: string;
   };
 
-  type ButtonType = {
-    color?: 'primary' | 'secondary';
-    variant?: 'outline';
-    size?: 'lg' | 'sm' ;
-    text: string;
-    disabled?:boolean;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  };
-
   type FormTextProp = {
     formStyle: 'default' | 'heroForm' | 'disabled' | 'withButton' | 'withoutLabel';
     labelText: string;
