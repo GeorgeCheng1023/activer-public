@@ -1,0 +1,47 @@
+@import '~/src/_global.scss';
+@import '~/src/_variables';
+
+.manage-nav {
+  &__button {
+    font-size: 1rem;
+font-weight: 300;
+    
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em 2em;
+    padding-bottom: 0.5em;
+
+    transition: all 1s ease;
+
+    cursor: pointer;
+
+    &__icon {
+      font-size: 2em;
+      @include items-center;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      margin: 0;
+      background-color: $primary-font-color;
+      border-radius: 14px;
+      bottom: 0;
+      transition: 0.2s ease-out;
+    }
+
+    &:active {
+      scale: 1.2
+    }
+
+    &:focus {
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -35,6 +35,7 @@ const router = createBrowserRouter([
         element: <User />,
         children: [
           {
+            index: true,
             path: 'basic',
             element: <Basic />,
           },

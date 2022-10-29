@@ -6,8 +6,8 @@ import './index.scss';
 
 // components
 import ButtonFrame from '../../../../components/Button';
-import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
+import FormText from '../../../../components/Form/FormText';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -34,6 +34,7 @@ function LoginSection() {
     userRef.current?.focus();
   }, []);
 
+  /*eslint-disable*/
   useEffect(() => {
     if (showErr) setValidName(USER_REGEX.test(user));
     // console.log(validName);
@@ -121,7 +122,7 @@ function LoginSection() {
 
             <section className="login-section__text-field">
               <FormText
-                formStyle="default"
+                variant="default"
                 labelText="帳號"
                 placeholder="輸入您的帳號名稱或電子信箱"
                 inputType="text"
@@ -144,7 +145,7 @@ function LoginSection() {
 
             <section className="login-section__text-field">
               <FormText
-                formStyle="default"
+                variant="default"
                 labelText="密碼"
                 placeholder="輸入您的密碼"
                 inputType="password"

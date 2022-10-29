@@ -22,6 +22,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "linebreak-style": ["error","windows"],
         "indent": ["error", 2, { "SwitchCase": 1 }],
         "react/jsx-filename-extension": [
             2, {
@@ -52,6 +53,11 @@
             "required": {
             "some": ["nesting", "id"]
             }
+        }],
+        "@typescript-eslint/naming-convention": ["error", {
+            "selector": ["variable"],
+            "format": ["camelCase", "PascalCase", "snake_case", "UPPER_CASE"]
         }]
     }
+
 }
