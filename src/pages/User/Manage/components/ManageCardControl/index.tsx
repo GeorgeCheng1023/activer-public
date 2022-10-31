@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import FormDropDown from '../../../../../components/Form/FormDropdown';
+import FormDropDown from 'components/Form/FormDropdown';
 
 type Props = {
   beginDate: string,

@@ -9,7 +9,7 @@ function Basic() {
   const [values, setValues] = useState(dummyUserData);
 
   useEffect(() => {
-    console.log(values);
+
   }, [values]);
 
   /*eslint-disable*/
@@ -45,7 +45,7 @@ function Basic() {
             { key: 'male', value: '男性' },
             { key: 'female', value: '女性' },
             { key: 'hide', value: '隱藏' }],
-          defaultKey: 'hide',
+          defaultOptionKey: 'hide',
         }}
         onChange={handleChange}
       />

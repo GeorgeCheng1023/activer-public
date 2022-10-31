@@ -8,8 +8,9 @@ type Props = {
   placeHolder: string
 };
 
-function SearchBar({ inputValue, setInputValue, placeHolder } : Props) {
+function SearchBar({ inputValue, setInputValue, placeHolder }: Props) {
   function handleSearchButtonClick() {
+    // eslint-disable-next-line no-console
     console.log(inputValue, 'submitted!');
   }
 

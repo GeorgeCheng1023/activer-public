@@ -3,11 +3,6 @@
 $_unselected-color: #717171;
 $_focus-color: #FEF6D8;
 
-
-input {
-  -webkit-appearance: none;
-}
-
 .dropdown {
   position: relative;
   display: flex;
@@ -23,14 +18,14 @@ input {
 
   &__label {
     position: absolute;
-    left: 10px;
-    top: -22px;
+    left: 0.6em;
+    top: -1em;
 
     padding: 0 .5em;
 
     background-color: #FFF;
 
-    font-size: 1em;
+    font-size: 1.2em;
 
     z-index: 1;
 
