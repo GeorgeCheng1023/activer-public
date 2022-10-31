@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
@@ -8,10 +8,13 @@ import FormDropDown from '../../../components/Form/FormDropdown';
 function Basic() {
   const [values, setValues] = useState(dummyUserData);
 
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
+
   /*eslint-disable*/
   const handleChange = (key: any, value: any) => {
     setValues({ ...values, [key]: value });
-    console.log(values)
   };
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -38,8 +41,11 @@ function Basic() {
         dropdownProps={{
           label: '性別',
           name: 'gender',
-          options: [{ value: 'male', name: '男性' }, { value: 'female', name: '女性' }, { value: 'hide', name: '隱藏' }],
-          defaultValue: 'hide',
+          options: [
+            { key: 'male', value: '男性' },
+            { key: 'female', value: '女性' },
+            { key: 'hide', value: '隱藏' }],
+          defaultKey: 'hide',
         }}
         onChange={handleChange}
       />
