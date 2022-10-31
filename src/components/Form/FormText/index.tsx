@@ -32,7 +32,7 @@ const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
   variant, labelText, placeholder, buttonText, inputType,
   required, value, onFocus, onBlur, onChange,
 }, ref) => (
-  <form className={`inputForm inputForm--${variant}`}>
+  <section className={`inputForm inputForm--${variant}`}>
     <Label labelStyle={variant} labelText={labelText} />
     <Section
       inputSectionStyle={variant}
@@ -46,7 +46,7 @@ const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
       onBlur={onBlur}
       onChange={onChange}
     />
-  </form>
+  </section>
 
 ));
 

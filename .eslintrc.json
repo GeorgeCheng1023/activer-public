@@ -23,6 +23,8 @@
     ],
     "rules": {
         "linebreak-style": ["error","windows"],
+        // "linebreak-style": 0,
+        "eol-last": ["error", "always"],
         "indent": ["error", 2, { "SwitchCase": 1 }],
         "react/jsx-filename-extension": [
             2, {
@@ -59,5 +61,4 @@
             "format": ["camelCase", "PascalCase", "snake_case", "UPPER_CASE"]
         }]
     }
-
 }

@@ -1,9 +1,14 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import './index.scss';
 
-function GoogleLoginButton() {
+interface type {
+  setSuccess: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+function GoogleLoginButton({ setSuccess }: type) {
   const login = useGoogleLogin({
     onSuccess: async (respose) => {
       try {
@@ -17,9 +22,13 @@ function GoogleLoginButton() {
         );
 
         console.log(data);
+        setSuccess(true);
       } catch (err) {
         console.log(err);
       }
+    },
+    onError: (error :any) => {
+      console.log(error);
     },
   });
 

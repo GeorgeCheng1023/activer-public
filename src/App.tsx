@@ -8,6 +8,7 @@ import {
 import Root from './pages/Root';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Login/components/Register';
 import Search from './pages/Search';
 import User, {
   Basic, Account, History, Preferences, Manage,
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
       {
         path: '/search',

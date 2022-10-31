@@ -1,16 +1,16 @@
 @import '~/src/_variables';
 @import '~/src/_global';
 
-.login-container {
-  display: flex;
-  height: 60vh;  
-}
+.main-section {
+  width: 100%;
+  min-width: 1225px;
+  height: 90vh;
 
-.login-section-container {
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  height: fit-content;
-  margin: 0 auto;
-  scale: 0.8;
+  // background: linear-gradient(180deg, rgba(242, 240, 168, 0.331) 0%, rgba(234, 211, 106, 0.914) 100%);
+
+  // background-image: url('https://images.unsplash.com/photo-1485216983937-749292830fcf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1198&q=80');
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-position-y: -300px;
+  // background-attachment: fixed;
 }

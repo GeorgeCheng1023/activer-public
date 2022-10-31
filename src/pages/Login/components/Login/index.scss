@@ -12,27 +12,31 @@ button {
 .login-container {
   display: flex;
   align-items: center;
-  width: fit-content;
-  height: fit-content;
+  justify-content: center;
+  width: 90vw;
+  min-width: 20rem  ;
   margin: 0 auto;
-  gap: 12rem;
+  height: fit-content;
+  transform: translateY(-20px);
 }
 
 .login-section {
   display: flex;
   flex-direction: column;
-  @include fit-container;
+  padding-bottom: 2rem;
+  background-color: #FFF;
+  scale: 0.7;
 
   &__title {
     font-size: 3rem;
     align-self: center;
-    // margin-bottom: 2.5rem;
     @include fit-container;
   }
 
   &__text-field {
     scale: 0.93;
     margin-top: 2.5rem;
+    margin-bottom: .5rem;
   }
 
   &__btn-group {
@@ -54,7 +58,41 @@ button {
 }
 
 .other-login-section {
-  @include fit-container;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  width: fit-content;
+  margin: 8rem;
+}
+
+.or-aside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3px;
+  height: 22rem;
+  background-color: rgba(154, 133, 133, 0.5);
+
+  &::after {
+    content: 'or';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 4rem;
+    background-color: #FFF;
+    color: rgba(154, 133, 133);
+    font-size: 2rem;
+  }
+}
+
+.errmsg {
+  align-self: center;
+  color: $_warning-color;
+  font-size: 30px;
+  font-weight: bold;
+  transform: translateY(-20px);
 }
 
 .offscreen {
@@ -63,9 +101,9 @@ button {
 }
 
 .instructions {
-  margin-top: .5rem;
   color: $_warning-color;
   font-weight: 600;
+  transform: translateX(20px);
   
   & > * {
     color: $_warning-color;

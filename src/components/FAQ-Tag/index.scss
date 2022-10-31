@@ -12,7 +12,7 @@
   padding-right: 0.25rem;
   border: 0;
   color: #003;
-  background-color: #FFF;
+  background-color: transparent;
   text-decoration: none;
 
   &__icon {
@@ -39,7 +39,8 @@
     content: attr(data-msg);
     position: absolute;
     left: -0.425rem;
-    width: 20ch;
+    width: fit-content;
+    max-width: 20ch;
     bottom: 1.5rem;
     border: 1px solid $secondary-font-color;
     border-radius: .5rem;
