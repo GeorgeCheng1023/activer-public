@@ -3,65 +3,57 @@ import './index.scss';
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
 import dummyUserData from './dummyUserData.json';
-
-type inputType = {
-  id: number,
-  name: string,
-  label: string,
-  type: 'text' | 'password' | 'email',
-  placeholder: string,
-  errorMessage?: string,
-  required?: boolean,
-  pattern?: string,
-};
-
-const inputs: Array<inputType> = [{
-  id: 0,
-  name: 'nickname',
-  label: '暱稱',
-  type: 'text',
-  placeholder: '暱稱',
-  errorMessage: '暱稱只能接受2-16中,英文,數字',
-  pattern: '[\u4E00-\u9FFFA-Za-z0-9]{2,16}',
-  required: true,
-}, {
-  id: 1,
-  name: 'location',
-  label: '居住地',
-  type: 'text',
-  placeholder: '居住地',
-},
-];
+import FormDropDown from '../../../components/Form/FormDropdown';
 
 function Basic() {
   const [values, setValues] = useState(dummyUserData);
 
+  /*eslint-disable*/
+  const handleChange = (key: any, value: any) => {
+    setValues({ ...values, [key]: value });
+    console.log(values)
+  };
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    /*eslint-disable*/
-    console.log(event)
-  };
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
+    console.log(values)
   };
   /* eslint-enable */
 
   return (
     <form onSubmit={handleSubmit}>
-      {inputs.map((input) => (
-        <FormInput
-          key={input.id}
-          label={input.label}
-          placeholder={input.placeholder}
-          value={values[input.name as keyof typeof values]}
-          pattern={input.pattern}
-          errorMessage={input.errorMessage}
-          name={input.name}
-          onChange={handleChange}
-          required={input.required}
-        />
-      ))}
+      <FormInput
+        inputProps={{
+          id: 'realName',
+          name: 'realName',
+          label: '真實姓名',
+          inputType: 'text',
+          placeholder: '輸入真實姓名',
+          errorMessage: '真實只能接受2-6中文字',
+          pattern: '[\u4E00-\u9FFF]{2,6}',
+        }}
+        formValue={values}
+        onChange={handleChange}
+      />
+      <FormDropDown
+        dropdownProps={{
+          label: '性別',
+          name: 'gender',
+          options: [{ value: 'male', name: '男性' }, { value: 'female', name: '女性' }, { value: 'hide', name: '隱藏' }],
+          defaultValue: 'hide',
+        }}
+        onChange={handleChange}
+      />
+      {/* <FormInput
+        inputProps={{
+          id: 'occupation',
+          name: 'occupation',
+          label: '職業',
+          inputType: 'text',
+          placeholder: '輸入職業',
+        }}
+        value={values['occupation' as keyof typeof values]}
+      /> */}
+
       <Button buttonType="submit" text="確認修改" />
     </form>
   );

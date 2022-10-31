@@ -15,6 +15,13 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
   const remainDueDate = parseDueDate.getDate() - today.getDate();
   const remainBeginDate = parseBeginDate.getDate() - today.getDate();
 
+  const handleChange = (key: any, value: any) => {
+    setSelectedValue(value as string);
+    // submit change
+    // eslint-disable-next-line
+    console.log(`submit ${key}: ${selectedValue}`)
+  };
+
   return (
     <div className="manage-control">
       <div className="manage-control__date">
@@ -45,9 +52,19 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
           </p>
         </div>
       </div>
-      <div className="manage-control__select">
-        <FormDropDown dropdownStyle="default" labelText="狀態" selectedValue={selectedValue} setSelectedValue={setSelectedValue} options={[{ id: 1, value: '已報名' }, { id: 2, value: '願望' }]} />
-      </div>
+      <form className="manage-control__select">
+        <FormDropDown
+          dropdownProps={{
+            label: '狀態',
+            name: 'status',
+            options: [
+              { value: 'registered', name: '已報名' },
+              { value: 'dream', name: '願望' },
+            ],
+          }}
+          onChange={handleChange}
+        />
+      </form>
     </div>
   );
 }
