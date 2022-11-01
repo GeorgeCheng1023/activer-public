@@ -114,28 +114,32 @@ function Basic() {
               居住地
             </h3>
             <div className="user-basic__container">
-              <FormDropDown
-                dropdownProps={{
-                  label: '縣市',
-                  name: 'county',
-                  options:
-                    CityCountyData.map((c, id) => ({ key: id.toString(), value: c.CityName })),
-                }}
-                onChange={handleCountyChange}
-              />
-              <FormDropDown
-                dropdownProps={{
-                  label: '區鄉鎮',
-                  name: 'area',
-                  options: CityCountyData.find(
-                    (c) => c.CityName === selectedCounty,
-                  )?.AreaList.map((a) => ({
-                    key: a.ZipCode,
-                    value: a.AreaName,
-                  })),
-                }}
-                onChange={handleChange}
-              />
+              <div className="user-basic__input__location__county">
+                <FormDropDown
+                  dropdownProps={{
+                    label: '縣市',
+                    name: 'county',
+                    options:
+                      CityCountyData.map((c, id) => ({ key: id.toString(), value: c.CityName })),
+                  }}
+                  onChange={handleCountyChange}
+                />
+              </div>
+              <div className="user-basic__input__location__area">
+                <FormDropDown
+                  dropdownProps={{
+                    label: '區鄉鎮',
+                    name: 'area',
+                    options: CityCountyData.find(
+                      (c) => c.CityName === selectedCounty,
+                    )?.AreaList.map((a) => ({
+                      key: a.ZipCode,
+                      value: a.AreaName,
+                    })),
+                  }}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             <FAQTag title="為什麼需要提供居住地?" dataMsg="提供居住地可以讓我們協助搜索鄰近您居住地的活動!" />
           </div>
