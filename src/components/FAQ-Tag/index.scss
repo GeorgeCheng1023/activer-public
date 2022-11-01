@@ -14,6 +14,7 @@
   color: #003;
   background-color: #FFF;
   text-decoration: none;
+  transition: all 0.5s ease;
 
   &__icon {
     padding-right: .25rem;
@@ -47,8 +48,8 @@
     z-index: 2;
     padding: .25rem;
     background-color: #FFF;
-    color: $secondary-font-color;
-    font-size: .5rem;
+    color: $primary-font-color;
+    font-size: 1rem;
   }
 
   &:hover::after,
@@ -57,7 +58,7 @@
     position: absolute;
     width: .3rem;
     height: .3rem;
-    left: .4rem;
+    left: rem;
     bottom: 1.33rem;
     border-left: 0;
     border-top: 0;
