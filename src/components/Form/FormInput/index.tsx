@@ -8,7 +8,7 @@ export type inputType = {
   id: string
   name?: string,
   label: string,
-  inputType?: 'text' | 'password' | 'email',
+  inputType?: 'text' | 'password' | 'email' | 'date',
   placeholder: string,
   errorMessage?: string,
   required?: boolean,

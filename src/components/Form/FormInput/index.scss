@@ -2,82 +2,68 @@
 
 .form-input {
   position: relative;
-
-  width: 37rem;
-  height: 6rem;
   display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 100%;
 
   color: $primary-font-color;
 
   font-size: 1em;
 
-}
-
-//inputLabel
-.form-input__label {
-  position: absolute;
-  left: 14px;
-
-  width: fit-content;
-  padding: 0.3em 0.5em;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: #FFF;
-
-  font-size: 1.2em;
-
-  z-index: 1;
-
-  &--withoutLabel {
-    visibility: hidden;
-  }
-}
-
-
-
-.form-input__section {
-  display: flex;
-  position: absolute;
-  top: 1.5em;
-
-
-  width: 100%;
-  height: 3em;
-
-  &__input {
-    border: 1px solid $secondary-font-color;
-    border-radius: 15px;
-    padding: 1em;
-  }
-
-  &::placeholder {
-    color: $secondary-font-color;
-  }
-
-  &:focus {
-    outline: 1.5px $primary-color solid;
-  }
-
-  &__button {
+  &__label {
     position: absolute;
-    left: 433px;
-    align-self: center;
+    left: 0.6em;
+
+    padding: 0 .5em;
+
+    background-color: #FFF;
+
+    font-size: 1.2em;
+
+    z-index: 1;
+
+    &--withoutLabel {
+      visibility: hidden;
+    }
   }
 
-  &__error-Message {
-    color: red;
-    font-size: 0.8em;
-    display: none;
+  &__section {
+    position: relative;
+
+    padding-top: 1em;
+
+    &__input {
+      border: 1px solid $secondary-font-color;
+      border-radius: .5em;
+      padding: 1em;
+      width: 100%;
+    }
+
+    &::placeholder {
+      color: $secondary-font-color;
+    }
+
+    &:focus {
+      outline: 1.5px $primary-color solid;
+    }
+
+    &__button {
+      position: absolute;
+      left: 433px;
+      align-self: center;
+    }
+
+    &__error-Message {
+      color: red;
+      font-size: 0.8em;
+      display: none;
+    }
   }
-
-
-
 }
 
-input:invalid~span {
+
+.form-input input:invalid~span {
   display: block;
 }
 

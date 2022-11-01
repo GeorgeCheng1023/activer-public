@@ -4,30 +4,35 @@ import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
 import dummyUserData from './dummyUserData.json';
 import FormDropDown from '../../../components/Form/FormDropdown';
+import CityCountyData from './CityCountyData.json';
 
 function Basic() {
   const [values, setValues] = useState(dummyUserData);
+  const [selectedCounty, setSelectCounty] = useState('');
 
   useEffect(() => {
 
   }, [values]);
 
-  /*eslint-disable*/
   const handleChange = (key: any, value: any) => {
     setValues({ ...values, [key]: value });
   };
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log(values)
+    // eslint-disable-next-line no-console
+    console.log(values);
   };
-  /* eslint-enable */
+  const handleCountyChange = (key: any, value: any) => {
+    setSelectCounty(value);
+    handleChange(key, value);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
       <FormInput
         inputProps={{
-          id: 'realName',
-          name: 'realName',
+          id: 'real_name',
+          name: 'real_name',
           label: '真實姓名',
           inputType: 'text',
           placeholder: '輸入真實姓名',
@@ -45,21 +50,65 @@ function Basic() {
             { key: 'male', value: '男性' },
             { key: 'female', value: '女性' },
             { key: 'hide', value: '隱藏' }],
-          defaultOptionKey: 'hide',
+          defaultOptionKey: values.gender,
         }}
         onChange={handleChange}
       />
-      {/* <FormInput
+      <FormInput
         inputProps={{
-          id: 'occupation',
-          name: 'occupation',
+          id: 'birthday',
+          name: 'birthday',
+          label: '生日',
+          inputType: 'date',
+          placeholder: '請選擇出生年月日',
+        }}
+        formValue={values}
+        onChange={handleChange}
+      />
+      <FormInput
+        inputProps={{
+          id: 'profession',
+          name: 'profession',
           label: '職業',
           inputType: 'text',
-          placeholder: '輸入職業',
+          placeholder: '請選擇輸入您的職業',
         }}
-        value={values['occupation' as keyof typeof values]}
-      /> */}
+        formValue={values}
+        onChange={handleChange}
+      />
+      <FormDropDown
+        dropdownProps={{
+          label: '縣市',
+          name: 'county',
+          options: CityCountyData.map((c, id) => ({ key: id.toString(), value: c.CityName })),
+        }}
+        onChange={handleCountyChange}
+      />
+      <FormDropDown
+        dropdownProps={{
+          label: '區鄉鎮',
+          name: 'area',
+          options: CityCountyData.find((c) => c.CityName === selectedCounty)?.AreaList.map((a) => ({
+            key: a.ZipCode,
+            value: a.AreaName,
+          })),
+        }}
+        onChange={handleChange}
+      />
 
+      <FormInput
+        inputProps={{
+          id: 'phone',
+          name: 'phone',
+          label: '電話',
+          inputType: 'text',
+          placeholder: '請選擇輸入您的職業',
+          pattern: '[0-9]{10}',
+          errorMessage: '電話必須是10位數字',
+        }}
+        formValue={values}
+        onChange={handleChange}
+      />
       <Button buttonType="submit" text="確認修改" />
     </form>
   );

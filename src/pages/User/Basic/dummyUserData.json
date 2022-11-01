@@ -1,4 +1,9 @@
 {
-  "realName": "狗勾",
-  "profession": "專業導盲犬"
+  "real_name": "狗勾",
+  "profession": "專業導盲犬",
+  "gender": "male",
+  "birthday": null,
+  "county": null,
+  "area": null,
+  "phone": "0912312312"
 }

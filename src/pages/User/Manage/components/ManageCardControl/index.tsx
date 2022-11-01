@@ -58,8 +58,8 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
             label: '狀態',
             name: 'status',
             options: [
-              { value: 'registered', key: '已報名' },
-              { value: 'dream', key: '願望' },
+              { value: '已報名', key: 'registered' },
+              { value: '願望', key: 'dream' },
             ],
           }}
           onChange={handleChange}

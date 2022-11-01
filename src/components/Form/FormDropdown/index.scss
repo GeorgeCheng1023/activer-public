@@ -9,12 +9,9 @@ $_focus-color: #FEF6D8;
   flex-direction: column;
   height: fit-content;
   width: 10em;
-  background-color: transparent;
-
+  margin-top: 1.2em;
 
   font-size: 1em;
-
-  margin: 1em;
 
   &__label {
     position: absolute;
@@ -40,7 +37,7 @@ $_focus-color: #FEF6D8;
     align-items: center;
     padding: .5em;
     border: 1px solid $secondary-font-color;
-    border-radius: 8px;
+    border-radius: .5em;
     margin-bottom: .5em;
 
     color: $_unselected-color;

@@ -10,7 +10,7 @@ type optionType = {
 export type dropDownType = {
   label: string;
   name: string;
-  options: Array<optionType>
+  options?: Array<optionType>,
   defaultOptionKey?: string;
 };
 
@@ -28,10 +28,12 @@ function FormDropdown({
     label, name, options, defaultOptionKey,
   } = dropdownProps;
 
+  const defaultOptionValue = defaultOptionKey ? (options?.filter((option) => option.key === defaultOptionKey)[0].value) : '請選擇';
+
   // init default selected values
   const [selectedOption, setSelectOption] = useState({
     key: defaultOptionKey,
-    value: options.filter((option) => option.key === defaultOptionKey)[0].value,
+    value: defaultOptionValue,
   });
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -88,14 +90,14 @@ function FormDropdown({
 
       <div className={`dropdown__option-container ${toggleDropdown && 'dropdown__option-container--active'}`}>
 
-        {options.map((option) => (
+        {options?.map((option) => (
           <input
             className="dropdown__option-container__option"
             type="button"
             id={option.key}
             name={name}
             value={option.value}
-            placeholder={option.key || 'Choice'}
+            placeholder={option.value || 'Choice'}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}
