@@ -49,6 +49,7 @@ function FormInput(props: FormInputProps) {
           value={formValue[inputProps.name as keyof typeof formValue]}
           required={inputProps.required}
           pattern={inputProps.pattern}
+          disabled={disabled}
 
         />
         {variant === 'withButton'
