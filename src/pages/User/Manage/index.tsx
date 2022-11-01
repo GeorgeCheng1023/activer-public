@@ -16,7 +16,6 @@ function Manage() {
 
   return (
     <>
-      <h1>This is Manage Page</h1>
       <ManageNav
         // onClick={clickHandler}
         buttons={
