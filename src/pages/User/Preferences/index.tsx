@@ -1,8 +1,14 @@
 import React from 'react';
+import Tag from 'components/Tag';
 
 function Preferences() {
   return (
-    <h1>This is Preferences</h1>
+    <>
+      <h2>您的預設標籤庫</h2>
+      <Tag color="primary" text="預設標籤1" />
+      <h2>搜尋紀錄</h2>
+      <div />
+    </>
   );
 }
 
