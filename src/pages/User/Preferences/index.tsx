@@ -1,8 +1,15 @@
 import React from 'react';
+import TagSort from 'components/TagSort/inde';
 
 function Preferences() {
   return (
-    <h1>This is Preferences</h1>
+    <>
+      <h2>您的預設標籤庫</h2>
+      <h2>搜尋紀錄</h2>
+      <TagSort />
+      <div />
+
+    </>
   );
 }
 

@@ -25,6 +25,7 @@ function Basic() {
   };
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
+
     handleChange(key, value);
   };
 

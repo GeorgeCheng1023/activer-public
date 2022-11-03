@@ -1,15 +1,18 @@
 import React from 'react';
 import './index.scss';
-import { IconMove, IconPlus, IconMinus } from '../Icons';
+import {
+  BsArrowsMove, BsPlus,
+} from 'react-icons/bs';
+import { BiMinus } from 'react-icons/bi';
 
 function TagIcon(icon: TagType['icon']) {
   switch (icon) {
     case 'move':
-      return <IconMove />;
+      return <BsArrowsMove />;
     case 'plus':
-      return <IconPlus />;
+      return <BsPlus />;
     case 'minus':
-      return <IconMinus />;
+      return <BiMinus />;
     default:
       return null;
   }
@@ -23,7 +26,9 @@ function Tag({
       <p className="tag__text">
         {text}
       </p>
-      {TagIcon(icon)}
+      <div className="tag tag__icon">
+        {TagIcon(icon)}
+      </div>
     </div>
   );
 }
