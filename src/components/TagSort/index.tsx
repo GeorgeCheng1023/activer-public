@@ -7,12 +7,12 @@ import DropColumn from './components/DropColumn';
 const defaultTags: Array<TagType> = [{
   color: 'primary',
   text: 'Test',
-  key: 'key',
+  id: 'c1',
 },
 {
   color: 'success',
   text: 'Free',
-  key: 'key',
+  id: 'c2',
 },
 ];
 
@@ -22,7 +22,7 @@ function TagSort() {
 
   const handleMoveTag = (moveTag: any) => {
     console.log(moveTag);
-    const newTags = tags.filter((tag) => tag.key !== moveTag.key);
+    const newTags = tags.filter((tag) => tag.id !== moveTag.key);
     setTags(newTags);
   };
 

@@ -6,17 +6,24 @@ export const DragType = {
   TAG: 'tag',
 };
 
-function DragTag({ color, text, key }: TagType) {
+type Props = {
+  tag: TagType,
+};
+
+function DragTag({ tag }: Props) {
+  const {
+    id, color, text, icon,
+  } = tag;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [collected, dragRef] = useDrag({
     type: DragType.TAG,
     item: {
-      color, text, key,
+      color, text, id,
     },
   });
   return (
     <div ref={dragRef}>
-      <Tag color={color as TagType['color']} text={text} key={key} />
+      <Tag color={color as TagType['color']} text={text} id={id} icon={icon} />
     </div>
   );
 }

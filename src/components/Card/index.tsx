@@ -17,7 +17,7 @@ function createTag(TagsContent: TagType) {
       color={TagsContent.color}
       text={TagsContent.text}
       icon={TagsContent.icon}
-      key={TagsContent.key}
+      id={TagsContent.id}
     />
   );
 }

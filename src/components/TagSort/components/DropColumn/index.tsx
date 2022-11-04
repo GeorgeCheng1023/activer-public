@@ -9,9 +9,8 @@ type Props = {
 };
 
 function DropColumn({ tags, handleMoveTag }: Props) {
-  const listTags = tags.map((tag: TagType) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <DragTag key={tag.key} color={tag.color} text={tag.text} />));
+  const listTags = tags.map((tag) => (
+    <DragTag tag={tag} key={tag.id} />));
 
   // set useDrop
 

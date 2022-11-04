@@ -11,10 +11,10 @@ type Props = {
 const defaultProps = { defaultTagsStorage: [] };
 
 function createTag(tag: TagType) {
-  return <Tag color={tag.color} icon={tag.icon} text={tag.text} key={tag.key} />;
+  return <Tag color={tag.color} icon={tag.icon} text={tag.text} id={tag.id} />;
 }
 function createListTag(tag: TagType) {
-  return <li className="search__tag-li"><Tag color={tag.color} icon={tag.icon} text={tag.text} key={tag.key} /></li>;
+  return <li className="search__tag-li"><Tag color={tag.color} icon={tag.icon} text={tag.text} id={tag.id} /></li>;
 }
 
 function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
@@ -30,39 +30,39 @@ function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
-      key: 'key',
+      id: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
-      key: 'key',
+      id: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
-      key: 'key',
+      id: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'red',
-      key: 'key',
+      id: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
-      key: 'key',
+      id: 'key',
     }]);
     setTagsStorage([{
       color: 'primary',
       icon: 'plus',
       text: 'storage',
-      key: 'key',
+      id: 'key',
     }]);
     setTagsSort([{
       color: 'primary',
       icon: 'move',
       text: 'sort',
-      key: 'key',
+      id: 'key',
     }]);
   }, []);
 
