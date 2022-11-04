@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.scss';
 import SearchBar from '../../../../components/Form/FormSearchBar';
-import Tag from '../../../../components/Tag';
+import Tag, { TagType } from '../../../../components/Tag';
 
 type Props = {
   defaultTagsRecommend: Array<TagType>,
@@ -11,10 +11,10 @@ type Props = {
 const defaultProps = { defaultTagsStorage: [] };
 
 function createTag(tag: TagType) {
-  return <Tag color={tag.color} icon={tag.icon} text={tag.text} />;
+  return <Tag color={tag.color} icon={tag.icon} text={tag.text} key={tag.key} />;
 }
 function createListTag(tag: TagType) {
-  return <li className="search__tag-li"><Tag color={tag.color} icon={tag.icon} text={tag.text} /></li>;
+  return <li className="search__tag-li"><Tag color={tag.color} icon={tag.icon} text={tag.text} key={tag.key} /></li>;
 }
 
 function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
@@ -30,32 +30,39 @@ function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
+      key: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
+      key: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
+      key: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'red',
+      key: 'key',
     }, {
       color: 'primary',
       icon: 'plus',
       text: 'recommend',
+      key: 'key',
     }]);
     setTagsStorage([{
       color: 'primary',
       icon: 'plus',
       text: 'storage',
+      key: 'key',
     }]);
     setTagsSort([{
       color: 'primary',
       icon: 'move',
       text: 'sort',
+      key: 'key',
     }]);
   }, []);
 

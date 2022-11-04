@@ -1,26 +1,32 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
-import DragTag, { DragType } from './DragTag';
+import { TagType } from 'components/Tag';
+import DragTag, { DragType } from '../DragTag';
 
-function DropColumn({ tasks, columnIndex, handleMoveTag }) {
-  // eslint-disable-next-line react/no-array-index-key
-  const cards = tasks.map((task: any, index) => <DragTag key={`${columnIndex}-${index}`} color={task.color} text={task.text} />);
+type Props = {
+  tags: Array<TagType>;
+  handleMoveTag: (moveTag: any) => void;
+};
+
+function DropColumn({ tags, handleMoveTag }: Props) {
+  const listTags = tags.map((tag: TagType) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <DragTag key={tag.key} color={tag.color} text={tag.text} />));
 
   // set useDrop
-  // eslint-disable-next-line eslint/no-empty-pattern
-  const [{}, dropRef] = useDrop({
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [collectedProps, dropRef] = useDrop({
     accept: DragType.TAG,
     drop: (item: any) => {
-      const from = item;
-      const to = { columnIndex };
-      handleMoveTag(from, to);
+      handleMoveTag(item);
     },
 
   });
 
   return (
     <div className="drop-column" ref={dropRef}>
-      {cards}
+      {listTags}
     </div>
   );
 }

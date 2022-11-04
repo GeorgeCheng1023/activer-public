@@ -5,6 +5,13 @@ import {
 } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
 
+export type TagType = {
+  key: string;
+  text: string;
+  color?: 'primary' | 'secondary' | 'success';
+  icon?: 'minus' | 'plus' | 'move';
+};
+
 function TagIcon(icon: TagType['icon']) {
   switch (icon) {
     case 'move':
@@ -19,18 +26,26 @@ function TagIcon(icon: TagType['icon']) {
 }
 
 function Tag({
-  color, text, icon,
+  color, text, icon, key,
 }: TagType) {
   return (
-    <div className={`tag tag--${color}`}>
+    <div className={`tag tag--${color}`} key={key}>
       <p className="tag__text">
         {text}
       </p>
-      <div className="tag tag__icon">
-        {TagIcon(icon)}
-      </div>
+      {icon && (
+        <div className="tag tag__icon">
+          {TagIcon(icon)}
+        </div>
+      ) }
+
     </div>
   );
 }
+
+Tag.defaultProps = {
+  color: 'primary',
+  icon: undefined,
+};
 
 export default Tag;
