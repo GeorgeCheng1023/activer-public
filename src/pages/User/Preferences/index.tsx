@@ -1,5 +1,5 @@
 import React from 'react';
-import TagSort from 'components/TagSort/inde';
+import TagSort from 'components/TagSort';
 
 function Preferences() {
   return (
