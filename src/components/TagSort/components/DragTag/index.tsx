@@ -1,17 +1,29 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
+import Tag from 'components/Tag';
 
-function DragTag({ id, tag }: any) {
-  const [] = useDrag(() => ({
-    type: 'tag',
-    item: { id },
-    collect: (monitor:any) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
-  return ( 
-    <div style={{   ? '30%' : '100%' }}>
-      <Tag color={tag.color} text={tag.text} />
+export const DragType = {
+  TAG: 'tag',
+};
+
+type Props = {
+  color: string,
+  text: string,
+  key: string,
+};
+
+function DragTag({ color, text, key }: Props) {
+  // eslint-disable
+  // @ts-ignore
+  const [{}, dragRef] = useDrag({
+    type: DragType.TAG,
+    item: {
+      color, text, key,
+    },
+  });
+  return (
+    <div ref={dragRef}>
+      <Tag color={color as TagType['color']} text={text} />
     </div>
   );
 }

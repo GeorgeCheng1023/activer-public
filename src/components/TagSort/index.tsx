@@ -17,14 +17,14 @@ function TagSort() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tags, setTags] = useState<Array<TagType>>(defaultTags);
 
-  function createTag(tag: TagType) {
-    return <Tag color={tag.color} text={tag.text} />;
+  function createTag(tag: TagType, index: number) {
+    return <Tag color={tag.color} text={tag.text} key={index} />;
   }
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="tag-sort">
-        {tags.map(createTag)}
+        {tags.map((tag, index) => createTag(tag, index))}
       </div>
     </DndProvider>
   );
