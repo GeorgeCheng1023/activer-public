@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TagType } from 'components/Tag';
-import DropColumn from './components/DropColumn';
+import update from 'immutability-helper';
+import DropColumn from './components/DragTag';
 
 const defaultTags: Array<TagType> = [{
+  color: 'primary',
+  text: 'Test',
+  id: 'c1',
+}, {
+  color: 'secondary',
+  text: 'Test',
+  id: 'c1',
+}, {
   color: 'primary',
   text: 'Test',
   id: 'c1',
@@ -20,15 +29,29 @@ function TagSort() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tags, setTags] = useState<Array<TagType>>(defaultTags);
 
-  const handleMoveTag = (moveTag: any) => {
-    console.log(moveTag);
-    const newTags = tags.filter((tag) => tag.id !== moveTag.key);
-    setTags(newTags);
-  };
+  const handleMoveTag = useCallback((dragIndex: number, hoverIndex: number) => {
+    setTags((prevTags: Array<TagType>) => update(prevTags, {
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, prevTags[dragIndex] as TagType],
+      ],
+    }));
+  }, []);
+
+  const renderTag = useCallback((tag: TagType, index: number) => (
+    <DropColumn
+      color={tag.color}
+      text={tag.text}
+      icon={tag.icon}
+      index={index}
+      id={tag.id}
+      handleMoveTag={handleMoveTag}
+    />
+  ), []);
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <DropColumn tags={tags} handleMoveTag={handleMoveTag} />
+      {tags.map((tag, i) => renderTag(tag, i))}
     </DndProvider>
   );
 }
