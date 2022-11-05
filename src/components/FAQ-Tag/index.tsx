@@ -8,11 +8,12 @@ import { IconQuestionCircle } from '../Icons';
 type FAQTagProps = {
   title: string;
   dataMsg: string;
+  url: string;
 };
 
-function FAQTag({ title, dataMsg }: FAQTagProps) {
+function FAQTag({ title, dataMsg, url }: FAQTagProps) {
   return (
-    <Link to="/search" type="button" className="FAQtag" data-msg={dataMsg}>
+    <Link to={url} type="button" className="FAQtag" data-msg={dataMsg}>
       <span className="FAQtag__icon">
         <IconQuestionCircle />
       </span>

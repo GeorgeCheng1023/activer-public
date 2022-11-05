@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './index.scss';
 
 // components
@@ -16,6 +16,8 @@ const LOGIN_URL = 'http://localhost:3500/api/login';
 
 function LoginSection() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
@@ -56,12 +58,13 @@ function LoginSection() {
   }, [pwdFocus]);
 
   if (success) {
-    navigate('/', {replace : true});
+    navigate(from, {replace : true});
   }
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
     setShowErr(true);
+    setSuccess(true);
 
     // test user and pwd is correct or not
     const v1 = USER_REGEX.test(user);
@@ -73,7 +76,7 @@ function LoginSection() {
       return;
     }
 
-    // axios
+    axios
     try {
       const response: any = await axios.post(
         targetUrl,

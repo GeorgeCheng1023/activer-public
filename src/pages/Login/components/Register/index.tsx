@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './index.scss';
 import axios from 'axios';
 
@@ -15,6 +15,8 @@ const REGISTER_URL = 'http://localhost:3500/api/register';
 
 function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const [user, setUser] = useState('');
   const [validName, setValidName] = useState<boolean>(true);
@@ -43,7 +45,7 @@ function Register() {
   }, [pwd]);
 
   if (success) {
-    navigate('/', { replace: true });
+    navigate(from, { replace: true });
   }
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
@@ -137,7 +139,7 @@ function Register() {
         />
 
         <span className="register-section__tag">
-          <FAQTag title="forget password?" dataMsg="press here" />
+          <FAQTag title="forget password?" dataMsg="press here" url="/Register" />
         </span>
 
         <p id="pwdnote" className={validPwd ? 'offscreen' : 'instructions'}>
