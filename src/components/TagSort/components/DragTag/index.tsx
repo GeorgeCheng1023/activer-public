@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import Tag, { TagType } from 'components/Tag';
 import { useDrop, useDrag } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
+import './index.scss';
 
 const DragType = {
   TAG: 'tag',
@@ -57,9 +58,6 @@ function DropColumn({
       // Get pixels to the top
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
       // Dragging downwards
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -73,9 +71,7 @@ function DropColumn({
       // Time to actually perform the action
       handleMoveTag(dragIndex, hoverIndex);
 
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
+      // Note: we're mutating the monitor for the sake of performance
       // to avoid expensive index searches.
       // eslint-disable-next-line no-param-reassign
       tag.index = hoverIndex;
@@ -96,18 +92,20 @@ function DropColumn({
   drag(drop(ref));
 
   return (
-    <div
-      className={`tag drag-tag ${isDragging ? 'drag-tag--isDragging' : ''}`}
-      ref={ref}
-      data-handler-id={handlerId}
-    >
-      <Tag
-        color={color}
-        text={text}
-        id={id}
-        icon={icon}
-      />
-    </div>
+    <li>
+      <div
+        className={`drag-tag ${isDragging ? 'drag-tag--isDragging' : ''}`}
+        ref={ref}
+        data-handler-id={handlerId}
+      >
+        <Tag
+          color={color}
+          text={text}
+          id={id}
+          icon={icon}
+        />
+      </div>
+    </li>
   );
 }
 
