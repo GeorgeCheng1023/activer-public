@@ -1,0 +1,21 @@
+{
+  "DefaultTags": [
+    {
+      "id": "free",
+      "text": "免費",
+      "type": "other"
+    },
+    {
+      "id": "online",
+      "text": "線上",
+      "type": "location"
+    }
+  ],
+  "RecommendTags": [
+    {
+      "id": "web_development",
+      "text": "網頁開發",
+      "type": "area"
+    }
+  ]
+}
