@@ -1,33 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
 
 // component
-// import Card from '../Card';
-import SearchBar from '../../../../components/Form/FormSearchBar';
-import Card from '../../../../components/Card';
+import SearchBar from 'components/Form/FormSearchBar';
+import Card from 'components/Card';
 
 // import CardRoll from './components/CardRoll';
 
 function Hero() {
-  const [searchInputValue, setSearchInputValue] = useState('');
-  // TEMP
-  // const cardList = [
-  //   <Card
-  //     imgUrl="https://attach.setn.com/newsimages/2018/10/23/1604390-XXL.jpg"
-  //     title="鼻地大師 國動"
-  //     tags={[]}
-  //   />,
-  //   <Card
-  //     imgUrl="https://attach.setn.com/newsimages/2018/10/23/1604390-XXL.jpg"
-  //     title="鼻地大師 國動"
-  //     tags={[]}
-  //   />,
-  //   <Card
-  //     imgUrl="https://attach.setn.com/newsimages/2018/10/23/1604390-XXL.jpg"
-  //     title="鼻地大師 國動"
-  //     tags={[]}
-  //   />,
-  // ];
+  // handle search bar submit
+  const handleSubmit:
+  React.FormEventHandler<HTMLButtonElement | HTMLInputElement> = (e) => {
+    // eslint-disable-next-line no-console
+    console.log((e.target as HTMLButtonElement | HTMLInputElement).value);
+  };
 
   return (
     <div className="hero">
@@ -41,8 +27,7 @@ function Hero() {
         </div>
         <div className="hero__left__section">
           <SearchBar
-            inputValue={searchInputValue}
-            setInputValue={setSearchInputValue}
+            onSubmit={handleSubmit}
             placeHolder="立即搜尋你的活動"
           />
         </div>

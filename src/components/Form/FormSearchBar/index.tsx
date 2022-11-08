@@ -1,41 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import { FiSearch } from 'react-icons/fi';
 
 type Props = {
-  inputValue: string,
-  setInputValue: React.Dispatch<React.SetStateAction<string>>,
+  onSubmit: React.FormEventHandler<HTMLButtonElement | HTMLInputElement>,
   placeHolder: string
 };
 
-function SearchBar({ inputValue, setInputValue, placeHolder }: Props) {
-  function handleSearchButtonClick() {
-    // eslint-disable-next-line no-console
-    console.log(inputValue, 'submitted!');
-  }
+function SearchBar({ onSubmit, placeHolder }: Props) {
+  const [inputValue, setInputValue] = useState('');
 
-  function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      handleSearchButtonClick();
+  // handle submit search
+  const handleSubmit:React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    onSubmit(e);
+  };
+
+  // handle input type change event
+  const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  // handel keyboard press enter and search
+  const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === 'Enter') {
+      onSubmit(e);
     }
-  }
+  };
 
   return (
-    <div className="searchBar">
+    <>
       <input
         className="searchBar__main"
         type="text"
         placeholder={placeHolder}
         value={inputValue}
-        onChange={(event) => setInputValue(event.target.value)}
-        onKeyUp={(event) => handleKeyPress(event)}
+        onChange={handleChange}
+        onKeyUp={handleKeyPress}
       />
-      <button className="button-nostyle searchButton" type="submit" onClick={handleSearchButtonClick}>
+      <button className="button-nostyle searchButton" type="submit" onClick={handleSubmit}>
         <div className="searchBar__section">
           <FiSearch className="searchBar__icon" />
         </div>
       </button>
-    </div>
+    </>
   );
 }
 

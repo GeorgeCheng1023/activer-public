@@ -1,110 +1,119 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './index.scss';
+import TagSort from 'components/TagSort';
+import { TagNoLink as Tag, TagType } from 'components/Tag';
 import SearchBar from '../../../../components/Form/FormSearchBar';
-import Tag, { TagType } from '../../../../components/Tag';
 
 type Props = {
   defaultTagsRecommend: Array<TagType>,
-  defaultTagsStorage?: Array<TagType>,
+  defaultTagsStorage: Array<TagType>,
+  defaultKeyword: string
 };
 
-const defaultProps = { defaultTagsStorage: [] };
-
-function createTag(tag: TagType) {
-  return <Tag color={tag.color} icon={tag.icon} text={tag.text} id={tag.id} />;
-}
-function createListTag(tag: TagType) {
-  return <li className="search__tag-li"><Tag color={tag.color} icon={tag.icon} text={tag.text} id={tag.id} /></li>;
-}
-
-function Search({ defaultTagsRecommend, defaultTagsStorage = [] }: Props) {
-  const [keywordInput, setKeywordInput] = useState('');
-  const [tagInput, setTagInput] = useState('');
-
+// main function
+function Search({ defaultTagsRecommend, defaultTagsStorage, defaultKeyword }: Props) {
   const [tagsRecommend, setTagsRecommend] = useState<TagType[]>(defaultTagsRecommend);
   const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTagsStorage);
-  const [tagsSort, setTagsSort] = useState<TagType[]>(defaultTagsStorage);
+  const [searchValue, setSearchValue] = useState({
+    keyword: '',
+    tags: defaultTagsStorage,
+  });
 
-  useEffect(() => {
-    setTagsRecommend([{
-      color: 'primary',
-      icon: 'plus',
-      text: 'recommend',
-      id: 'key',
-    }, {
-      color: 'primary',
-      icon: 'plus',
-      text: 'recommend',
-      id: 'key',
-    }, {
-      color: 'primary',
-      icon: 'plus',
-      text: 'recommend',
-      id: 'key',
-    }, {
-      color: 'primary',
-      icon: 'plus',
-      text: 'red',
-      id: 'key',
-    }, {
-      color: 'primary',
-      icon: 'plus',
-      text: 'recommend',
-      id: 'key',
-    }]);
-    setTagsStorage([{
-      color: 'primary',
-      icon: 'plus',
-      text: 'storage',
-      id: 'key',
-    }]);
-    setTagsSort([{
-      color: 'primary',
-      icon: 'move',
-      text: 'sort',
-      id: 'key',
-    }]);
-  }, []);
+  // to remove recommend tag from storage
+  const handleRemoveTag = (clickTag: TagType) => {
+    const newTagsStorage = tagsStorage.splice(tagsStorage.indexOf(clickTag), 1);
+    setTagsStorage(newTagsStorage);
+  };
+
+  // to add recommend tag to storage
+  const handleAddTag = (tag: TagType) => {
+    setTagsStorage([...tagsStorage, tag]);
+  };
+
+  //  to render the storage tag
+  function renderStorageTag(tag: TagType) {
+    return (
+      <Tag
+        color={tag.color}
+        icon={tag.icon}
+        text={tag.text}
+        id={tag.id}
+        onClick={handleRemoveTag}
+      />
+    );
+  }
+
+  //  to render the Recommend tag
+  function renderRecommendTag(tag: TagType) {
+    return (
+      <Tag
+        color={tag.color}
+        icon={tag.icon}
+        text={tag.text}
+        id={tag.id}
+        onClick={handleAddTag}
+      />
+    );
+  }
+
+  // handle full search submit event amd update keyword in searchValue
+  const handleSearchSubmit:
+  React.FormEventHandler<HTMLButtonElement | HTMLInputElement> = (e) => {
+    // update keyword in searchValue
+    setSearchValue({
+      ...searchValue,
+      keyword: (e.target as HTMLButtonElement | HTMLInputElement).value,
+    });
+
+    // post
+    // eslint-disable-next-line no-console
+    console.log(searchValue);
+  };
+
+  // handle sort change and update searchValue
+  const handleSortChange = (newTags : Array<TagType>) => {
+    setSearchValue({ ...searchValue, tags: newTags });
+  };
 
   return (
     <div className="search">
       <div className="search__keyword">
         <div className="search__keyword-bar">
-          <SearchBar inputValue={keywordInput} setInputValue={setKeywordInput} placeHolder="搜尋活動關鍵字" />
+          <SearchBar onSubmit={handleSearchSubmit} placeHolder="搜尋活動關鍵字" />
         </div>
       </div>
       <div className="search__tag">
 
         <div className="search__tag-search">
-          <div className="search__tag-search-bar">
-            <SearchBar inputValue={tagInput} setInputValue={setTagInput} placeHolder="搜尋活動標籤" />
-          </div>
+          {/* <div className="search__tag-search-bar">
+            <SearchBar onSubmit={handleTagSubmit} placeHolder="搜尋活動標籤" />
+          </div> */}
 
           <div className="search__tag-recommend">
             <h2>推薦標籤</h2>
             <div className="search__tag-class">
-              {tagsRecommend.map(createTag)}
+              {tagsRecommend.map(renderRecommendTag)}
             </div>
           </div>
           <div className="search__tag-stortage">
             <h2>你的標籤庫</h2>
             <div className="search__tag-class">
-              {tagsStorage.map(createTag)}
+              {tagsStorage.map(renderStorageTag)}
             </div>
           </div>
         </div>
 
         <div className="search__tag-sort">
           <h2>標籤排序</h2>
-          <ol className="search__tag-sort-ol search__tag-class">
-            {tagsSort.map(createListTag)}
-          </ol>
+          <TagSort
+            defaultTags={defaultTagsStorage}
+            onChange={handleSortChange}
+            canDrag
+          />
         </div>
       </div>
     </div>
   );
 }
-
-Search.defaultProps = defaultProps;
 
 export default Search;

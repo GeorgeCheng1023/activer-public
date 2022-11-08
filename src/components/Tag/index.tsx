@@ -25,6 +25,32 @@ function TagIcon(icon: TagType['icon']) {
   }
 }
 
+interface TagNoLinkProps extends TagType {
+  onClick: (clickTag: TagType) => void
+}
+
+export function TagNoLink({
+  color, text, icon, id, onClick,
+}: TagNoLinkProps) {
+  const clickData = {
+    color, text, icon, id,
+  };
+  return (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    <button type="button" onClick={(e) => onClick(clickData)} className={`tag tag--${color}`} id={id}>
+      <p className="tag__text">
+        {text}
+      </p>
+      {icon && (
+        <div className="tag tag__icon">
+          {TagIcon(icon)}
+        </div>
+      ) }
+
+    </button>
+  );
+}
+
 function Tag({
   color, text, icon, id,
 }: TagType) {
