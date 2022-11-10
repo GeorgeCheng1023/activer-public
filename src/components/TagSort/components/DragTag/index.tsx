@@ -18,7 +18,7 @@ interface DragTagType {
 }
 
 function DropColumn({
-  color, text, icon, index, id, handleMoveTag,
+  variant, text, icon, index, id, handleMoveTag,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -99,7 +99,7 @@ function DropColumn({
         data-handler-id={handlerId}
       >
         <Tag
-          color={color}
+          variant={variant}
           text={text}
           id={id}
           icon={icon}

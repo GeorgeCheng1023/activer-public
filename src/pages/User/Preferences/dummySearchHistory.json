@@ -3,16 +3,18 @@
     "HistoryId": "85e3138e-3e8f-4e57-aef0-a7c389c5a9dc",
     "HistoryTags": [
       {
-        "id": "free",
-        "text": "免費"
+        "Id": "free",
+        "Text": "免費",
+        "Type": "other"
       },
       {
-        "id": "online",
-        "text": "線上"
+        "Id": "online",
+        "Text": "線上",
+        "Type": "location"
       },
       {
-        "id": "webDev",
-        "text": "網頁開發"
+        "Id": "webDev",
+        "Text": "網頁開發"
       }
     ],
     "Keyword": "keyword"
@@ -21,16 +23,18 @@
     "HistoryId": "85e3138e-3e8f-4e57-aef0-a7c389c5a9dc",
     "HistoryTags": [
       {
-        "id": "free",
-        "text": "免費"
+        "Id": "free",
+        "Text": "免費",
+        "Type": "other"
       },
       {
-        "id": "online",
-        "text": "線上"
+        "Id": "online",
+        "Text": "線上",
+        "Type": "location"
       },
       {
-        "id": "webDev",
-        "text": "網頁開發"
+        "Id": "webDev",
+        "Text": "網頁開發"
       }
     ],
     "Keyword": "keyword"

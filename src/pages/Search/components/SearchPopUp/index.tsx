@@ -5,18 +5,29 @@ import { TagNoLink as Tag, TagType } from 'components/Tag';
 import SearchBar from '../../../../components/Form/FormSearchBar';
 
 type Props = {
-  defaultTagsRecommend: Array<TagType>,
-  defaultTagsStorage: Array<TagType>,
-  defaultKeyword: string
+  recommendTags: any,
+  defaultTags: any
 };
 
 // main function
-function Search({ defaultTagsRecommend, defaultTagsStorage, defaultKeyword }: Props) {
-  const [tagsRecommend, setTagsRecommend] = useState<TagType[]>(defaultTagsRecommend);
-  const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTagsStorage);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function Search({ recommendTags, defaultTags }: Props) {
+  // function to load user default tags and recommendTags
+  // function loader() {
+  //   const parseRecommendTags = defaultTags.map(({ Id, Text, Type }) => ({
+  //     id: Id,
+  //     text: Text,
+  //     type: Type,
+  //   }));
+  // }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [tagsRecommend, setTagsRecommend] = useState<TagType[]>([]);
+  const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTags);
+
+  // init search value
   const [searchValue, setSearchValue] = useState({
     keyword: '',
-    tags: defaultTagsStorage,
+    tags: defaultTags,
   });
 
   // to remove recommend tag from storage
@@ -34,7 +45,7 @@ function Search({ defaultTagsRecommend, defaultTagsStorage, defaultKeyword }: Pr
   function renderStorageTag(tag: TagType) {
     return (
       <Tag
-        color={tag.color}
+        variant={tag.variant}
         icon={tag.icon}
         text={tag.text}
         id={tag.id}
@@ -47,7 +58,7 @@ function Search({ defaultTagsRecommend, defaultTagsStorage, defaultKeyword }: Pr
   function renderRecommendTag(tag: TagType) {
     return (
       <Tag
-        color={tag.color}
+        variant={tag.variant}
         icon={tag.icon}
         text={tag.text}
         id={tag.id}
@@ -106,7 +117,7 @@ function Search({ defaultTagsRecommend, defaultTagsStorage, defaultKeyword }: Pr
         <div className="search__tag-sort">
           <h2>標籤排序</h2>
           <TagSort
-            defaultTags={defaultTagsStorage}
+            defaultTags={tagsStorage}
             onChange={handleSortChange}
             canDrag
           />

@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import { TagType } from 'components/Tag';
 import './index.scss';
 import update from 'immutability-helper';
@@ -27,7 +26,7 @@ function TagSort({ onChange, canDrag, defaultTags }: Props) {
 
   const renderTag = useCallback((tag: TagType, index: number) => (
     <DragTag
-      color={tag.color}
+      variant={tag.variant}
       text={tag.text}
       icon={tag.icon}
       index={index}
@@ -39,9 +38,9 @@ function TagSort({ onChange, canDrag, defaultTags }: Props) {
   if (canDrag) {
     return (
       <ol className="tag-sort">
-        <DndProvider backend={HTML5Backend}>
-          {tags.map((tag, i) => renderTag(tag, i))}
-        </DndProvider>
+
+        {tags.map((tag, i) => renderTag(tag, i))}
+
       </ol>
     );
   }

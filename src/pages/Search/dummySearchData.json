@@ -1,22 +1,21 @@
 {
   "DefaultTags": [
     {
-      "id": "t01",
-      "text": "網頁前端",
-      "type": "area",
+      "Id": "t01",
+      "Text": "網頁前端",
+      "Type": "area"
     }
   ],
-  "HistoryKeyword": "React",
-  "HistoryTags": [
+  "RecommendTags": [
     {
-      "id": "free",
-      "text": "免費",
-      "type": "other"
+      "Id": "free",
+      "Text": "免費",
+      "Type": "other"
     },
     {
-      "id": "online",
-      "text": "線上",
-      "type": "location"
+      "Id": "online",
+      "Text": "線上",
+      "Type": "location"
     }
   ]
 }

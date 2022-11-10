@@ -8,7 +8,7 @@ import { BiMinus } from 'react-icons/bi';
 export type TagType = {
   id: string;
   text: string;
-  color?: 'primary' | 'secondary' | 'success';
+  variant?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
 };
 
@@ -30,11 +30,16 @@ interface TagNoLinkProps extends TagType {
 }
 
 export function TagNoLink({
-  color, text, icon, id, onClick,
+  variant, text, icon, id, onClick,
 }: TagNoLinkProps) {
   const clickData = {
-    color, text, icon, id,
+    variant, text, icon, id,
   };
+
+  let color;
+  if (variant === 'area') color = 'primary';
+  if (variant === 'location') color = 'secondary';
+  if (variant === 'other') color = 'success';
   return (
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     <button type="button" onClick={(e) => onClick(clickData)} className={`tag tag--${color}`} id={id}>
@@ -51,9 +56,18 @@ export function TagNoLink({
   );
 }
 
+TagNoLink.defaultProps = {
+  variant: 'area',
+  icon: undefined,
+};
+
 function Tag({
-  color, text, icon, id,
+  variant, text, icon, id,
 }: TagType) {
+  let color;
+  if (variant === 'area') color = 'primary';
+  if (variant === 'location') color = 'secondary';
+  if (variant === 'other') color = 'success';
   return (
     <div className={`tag tag--${color}`} id={id}>
       <p className="tag__text">
@@ -70,7 +84,7 @@ function Tag({
 }
 
 Tag.defaultProps = {
-  color: 'primary',
+  variant: 'area',
   icon: undefined,
 };
 
