@@ -2,26 +2,20 @@ import React, { useState } from 'react';
 import './index.scss';
 import TagSort from 'components/TagSort';
 import { TagNoLink as Tag, TagType } from 'components/Tag';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import SearchBar from '../../../../components/Form/FormSearchBar';
 
 type Props = {
-  recommendTags: any,
-  defaultTags: any
+  recommendTags: TagType[],
+  defaultTags: TagType[]
 };
 
 // main function
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Search({ recommendTags, defaultTags }: Props) {
-  // function to load user default tags and recommendTags
-  // function loader() {
-  //   const parseRecommendTags = defaultTags.map(({ Id, Text, Type }) => ({
-  //     id: Id,
-  //     text: Text,
-  //     type: Type,
-  //   }));
-  // }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [tagsRecommend, setTagsRecommend] = useState<TagType[]>([]);
+  const [tagsRecommend, setTagsRecommend] = useState<TagType[]>(recommendTags);
   const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTags);
 
   // init search value
@@ -31,22 +25,36 @@ function Search({ recommendTags, defaultTags }: Props) {
   });
 
   // to remove recommend tag from storage
-  const handleRemoveTag = (clickTag: TagType) => {
-    const newTagsStorage = tagsStorage.splice(tagsStorage.indexOf(clickTag), 1);
+  const handleRemoveTag = (clickedTag: TagType) => {
+    // remove from storage
+    const newTagsStorage = tagsStorage.filter((tag) => tag.id !== clickedTag.id);
+    // check if exist in recommend
+    if (!(tagsRecommend.map((tag) => tag.id).includes(clickedTag.id))) {
+      // add to recommend
+      setTagsRecommend([...tagsRecommend, clickedTag]);
+    }
+    // update
     setTagsStorage(newTagsStorage);
   };
 
   // to add recommend tag to storage
-  const handleAddTag = (tag: TagType) => {
-    setTagsStorage([...tagsStorage, tag]);
+  const handleAddTag = (clickedTag: TagType) => {
+    const newsTagsRecommend = tagsRecommend.filter((tag) => tag.id !== clickedTag.id);
+    setTagsRecommend(newsTagsRecommend);
+    // check if already exists in tagStorage
+    if (tagsStorage.map((tag) => tag.id).includes(clickedTag.id)) {
+      return;
+    }
+    setTagsStorage([...tagsStorage, clickedTag]);
   };
 
   //  to render the storage tag
   function renderStorageTag(tag: TagType) {
     return (
       <Tag
+        key={tag.id}
         variant={tag.variant}
-        icon={tag.icon}
+        icon="minus"
         text={tag.text}
         id={tag.id}
         onClick={handleRemoveTag}
@@ -58,8 +66,9 @@ function Search({ recommendTags, defaultTags }: Props) {
   function renderRecommendTag(tag: TagType) {
     return (
       <Tag
+        key={tag.id}
         variant={tag.variant}
-        icon={tag.icon}
+        icon="plus"
         text={tag.text}
         id={tag.id}
         onClick={handleAddTag}
@@ -67,7 +76,7 @@ function Search({ recommendTags, defaultTags }: Props) {
     );
   }
 
-  // handle full search submit event amd update keyword in searchValue
+  // handle search submit event amd update keyword in searchValue
   const handleSearchSubmit:
   React.FormEventHandler<HTMLButtonElement | HTMLInputElement> = (e) => {
     // update keyword in searchValue
@@ -116,11 +125,13 @@ function Search({ recommendTags, defaultTags }: Props) {
 
         <div className="search__tag-sort">
           <h2>標籤排序</h2>
-          <TagSort
-            defaultTags={tagsStorage}
-            onChange={handleSortChange}
-            canDrag
-          />
+          <DndProvider backend={HTML5Backend}>
+            <TagSort
+              defaultTags={tagsStorage}
+              onChange={handleSortChange}
+              canDrag
+            />
+          </DndProvider>
         </div>
       </div>
     </div>

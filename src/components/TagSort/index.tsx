@@ -28,9 +28,10 @@ function TagSort({ onChange, canDrag, defaultTags }: Props) {
     <DragTag
       variant={tag.variant}
       text={tag.text}
-      icon={tag.icon}
+      icon="move"
       index={index}
       id={tag.id}
+      key={tag.id}
       handleMoveTag={handleMoveTag}
     />
   ), []);
