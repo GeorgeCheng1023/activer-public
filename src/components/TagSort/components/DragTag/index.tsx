@@ -17,7 +17,7 @@ interface DragTagType {
   index: number;
 }
 
-function DropColumn({
+function DragTag({
   variant, text, icon, index, id, handleMoveTag,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
@@ -109,4 +109,4 @@ function DropColumn({
   );
 }
 
-export default DropColumn;
+export default DragTag;
