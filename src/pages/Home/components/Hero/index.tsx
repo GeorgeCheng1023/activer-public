@@ -9,10 +9,9 @@ import Card from 'components/Card';
 
 function Hero() {
   // handle search bar submit
-  const handleSubmit:
-  React.FormEventHandler<HTMLButtonElement | HTMLInputElement> = (e) => {
+  const handleSubmit = (inputValue: String) => {
     // eslint-disable-next-line no-console
-    console.log((e.target as HTMLButtonElement | HTMLInputElement).value);
+    console.log(inputValue);
   };
 
   return (

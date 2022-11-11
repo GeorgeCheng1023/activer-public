@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import TagSort from 'components/TagSort';
 import { TagNoLink as Tag, TagType } from 'components/Tag';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import SearchBar from '../../../../components/Form/FormSearchBar';
+import SearchBar from 'components/Form/FormSearchBar';
+import dummyAllTags from './dummyAllTagText.json';
+import dummyAllActivity from './dummyAllActivityTitle.json';
 
 type Props = {
   recommendTags: TagType[],
@@ -24,9 +26,12 @@ function Search({ recommendTags, defaultTags }: Props) {
     tags: defaultTags,
   });
 
+  useEffect(() => {
+    console.log(searchValue);
+  }, [searchValue]);
+
   // to remove recommend tag from storage
   const handleRemoveTag = (clickedTag: TagType) => {
-<<<<<<< HEAD
     // remove from storage
     const newTagsStorage = tagsStorage.filter((tag) => tag.id !== clickedTag.id);
     // check if exist in recommend
@@ -35,12 +40,6 @@ function Search({ recommendTags, defaultTags }: Props) {
       setTagsRecommend([...tagsRecommend, clickedTag]);
     }
     // update
-=======
-    const newTagsStorage = tagsStorage.filter((tag) => tag.id !== clickedTag.id);
-    if (!(tagsRecommend.map((tag) => tag.id).includes(clickedTag.id))) {
-      setTagsRecommend([...tagsRecommend, clickedTag]);
-    }
->>>>>>> 1cc457efe788ade6e5775892b5ebb02dfb328591
     setTagsStorage(newTagsStorage);
   };
 
@@ -83,18 +82,17 @@ function Search({ recommendTags, defaultTags }: Props) {
     );
   }
 
-  // handle search submit event amd update keyword in searchValue
-  const handleSearchSubmit:
-  React.FormEventHandler<HTMLButtonElement | HTMLInputElement> = (e) => {
-    // update keyword in searchValue
+  // handle search submit event and update keyword in searchValue
+  const handleSearchSubmit = (inputValue: string) => {
     setSearchValue({
       ...searchValue,
-      keyword: (e.target as HTMLButtonElement | HTMLInputElement).value,
+      keyword: inputValue,
     });
+  };
 
-    // post
-    // eslint-disable-next-line no-console
-    console.log(searchValue);
+  const handleTagSubmit = (inputValue: string) => {
+    // do something
+    console.log(inputValue);
   };
 
   // handle sort change and update searchValue
@@ -104,17 +102,31 @@ function Search({ recommendTags, defaultTags }: Props) {
 
   return (
     <div className="search">
+      {/* activity keyword search */}
       <div className="search__keyword">
         <div className="search__keyword-bar">
-          <SearchBar onSubmit={handleSearchSubmit} placeHolder="搜尋活動關鍵字" />
+          <SearchBar
+            onSubmit={handleSearchSubmit}
+            placeHolder="搜尋活動關鍵字"
+            suggestion={
+              dummyAllActivity.map((activity) => activity.title)
+            }
+          />
         </div>
       </div>
+
       <div className="search__tag">
 
         <div className="search__tag-search">
-          {/* <div className="search__tag-search-bar">
-            <SearchBar onSubmit={handleTagSubmit} placeHolder="搜尋活動標籤" />
-          </div> */}
+          <div className="search__tag-search-bar">
+            <SearchBar
+              onSubmit={handleTagSubmit}
+              placeHolder="搜尋活動標籤"
+              suggestion={
+                dummyAllTags.map((tag) => tag)
+              }
+            />
+          </div>
 
           <div className="search__tag-recommend">
             <h2>推薦標籤</h2>

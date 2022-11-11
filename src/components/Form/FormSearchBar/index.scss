@@ -6,6 +6,8 @@ $_border-color: #A5A5A5;
   width: 100%;
   height: 57px;
 
+  font-size: 1em;
+
   border: 1px solid $_border-color;
   border-radius: 40px;
   padding: 4px 20px;
@@ -35,12 +37,6 @@ $_border-color: #A5A5A5;
     width: 8rem;
     border: 0;
 
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.20rem;
-    line-height: 24px;
-
     flex-grow: 1;
 
     &:focus-visible {
@@ -58,5 +54,27 @@ $_border-color: #A5A5A5;
       background-color: $primary-color;
       color: white;
     }
+  }
+}
+
+.suggestion {
+  position: absolute;
+  width: 80%;
+  margin-left: 0.5em;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  background-color: white;
+
+
+  &__choice {
+    margin-left: 1em;
+    padding: 1em;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
   }
 }

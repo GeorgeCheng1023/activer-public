@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import FormDropDown from 'components/Form/FormDropdown';
 
@@ -15,11 +15,13 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
   const remainDueDate = parseDueDate.getDate() - today.getDate();
   const remainBeginDate = parseBeginDate.getDate() - today.getDate();
 
+  useEffect(() => {
+    // submit change
+    console.log(selectedValue);
+  }, [selectedValue]);
+
   const handleChange = (key: any, value: any) => {
     setSelectedValue(value as string);
-    // submit change
-    // eslint-disable-next-line
-    console.log(`submit ${key}: ${selectedValue}`)
   };
 
   return (
