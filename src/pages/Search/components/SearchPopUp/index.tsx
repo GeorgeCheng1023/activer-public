@@ -26,6 +26,7 @@ function Search({ recommendTags, defaultTags }: Props) {
 
   // to remove recommend tag from storage
   const handleRemoveTag = (clickedTag: TagType) => {
+<<<<<<< HEAD
     // remove from storage
     const newTagsStorage = tagsStorage.filter((tag) => tag.id !== clickedTag.id);
     // check if exist in recommend
@@ -34,6 +35,12 @@ function Search({ recommendTags, defaultTags }: Props) {
       setTagsRecommend([...tagsRecommend, clickedTag]);
     }
     // update
+=======
+    const newTagsStorage = tagsStorage.filter((tag) => tag.id !== clickedTag.id);
+    if (!(tagsRecommend.map((tag) => tag.id).includes(clickedTag.id))) {
+      setTagsRecommend([...tagsRecommend, clickedTag]);
+    }
+>>>>>>> 1cc457efe788ade6e5775892b5ebb02dfb328591
     setTagsStorage(newTagsStorage);
   };
 
