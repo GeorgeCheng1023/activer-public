@@ -13,7 +13,7 @@ function Preferences() {
       <DndProvider backend={HTML5Backend}>
         {
           dummySearchHistory.map((history: any) => (
-            <TagSort defaultTags={history.DefaultTags} />
+            <TagSort tags={history.DefaultTags} />
           ))
         }
       </DndProvider>

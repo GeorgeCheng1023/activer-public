@@ -1,8 +1,8 @@
+import React, { useState } from 'react';
 import { TagType } from 'components/Tag';
-import React from 'react';
-// import { CardColumn, CardType } from '../../components/Card';
+import Popup from 'components/Popup';
 import ResultBanner from './components/ResultBanner';
-import SearchPopup from './components/SearchPopUp';
+import SearchPanel from './components/SearchPanel';
 import dummySearchData from './dummySearchData.json';
 
 //  parse data
@@ -24,13 +24,20 @@ const parseData = {
 };
 
 function Search() {
+  const [displaySearchPanel, setDisplaySearchPanel] = useState(false);
+
   return (
     <>
-      <ResultBanner />
-      <SearchPopup
-        defaultTags={parseData.defaultTags as TagType[]}
-        recommendTags={parseData.recommendTags as TagType[]}
-      />
+      <ResultBanner setTrigger={setDisplaySearchPanel} />
+      <Popup
+        trigger={displaySearchPanel}
+        setTrigger={setDisplaySearchPanel}
+      >
+        <SearchPanel
+          defaultTags={parseData.defaultTags as TagType[]}
+          recommendTags={parseData.recommendTags as TagType[]}
+        />
+      </Popup>
 
     </>
 

@@ -51,7 +51,13 @@ function Search({ recommendTags, defaultTags }: Props) {
     if (tagsStorage.map((tag) => tag.id).includes(clickedTag.id)) {
       return;
     }
+    // add in storage
     setTagsStorage([...tagsStorage, clickedTag]);
+    // add in sort
+    setSearchValue({
+      ...searchValue,
+      tags: [...tagsStorage, clickedTag],
+    });
   };
 
   //  to render the storage tag
@@ -95,13 +101,15 @@ function Search({ recommendTags, defaultTags }: Props) {
     console.log(inputValue);
   };
 
-  // handle sort change and update searchValue
+  // handle sort change and update tag sorting in searchValue
   const handleSortChange = (newTags : Array<TagType>) => {
     setSearchValue({ ...searchValue, tags: newTags });
   };
 
   return (
+
     <div className="search">
+
       {/* activity keyword search */}
       <div className="search__keyword">
         <div className="search__keyword-bar">
@@ -115,10 +123,14 @@ function Search({ recommendTags, defaultTags }: Props) {
         </div>
       </div>
 
+      {/* search tag box  */}
       <div className="search__tag">
 
-        <div className="search__tag-search">
-          <div className="search__tag-search-bar">
+        {/* tag manage: search, recommend, storage */}
+        <div className="search__tag tag-manage">
+
+          {/* tag searching */}
+          <div className="search__tag tag-manage__search">
             <SearchBar
               onSubmit={handleTagSubmit}
               placeHolder="搜尋活動標籤"
@@ -128,25 +140,29 @@ function Search({ recommendTags, defaultTags }: Props) {
             />
           </div>
 
-          <div className="search__tag-recommend">
-            <h2>推薦標籤</h2>
-            <div className="search__tag-class">
+          {/* recommend tag */}
+          <div className="search__tag tag-recommend">
+            <h2 className="search__h2">推薦標籤</h2>
+            <div className="search--flex">
               {tagsRecommend.map(renderRecommendTag)}
             </div>
           </div>
-          <div className="search__tag-stortage">
-            <h2>你的標籤庫</h2>
-            <div className="search__tag-class">
+
+          {/* tag stortage */}
+          <div className="search__tag tag-storage">
+            <h2 className="search__h2">你的標籤庫</h2>
+            <div className="search--flex">
               {tagsStorage.map(renderStorageTag)}
             </div>
           </div>
         </div>
 
-        <div className="search__tag-sort">
-          <h2>標籤排序</h2>
+        {/* tag sorting */}
+        <div className="search__tag tag-sorting">
+          <h2 className="search__h2">標籤排序</h2>
           <DndProvider backend={HTML5Backend}>
             <TagSort
-              defaultTags={tagsStorage}
+              tags={tagsStorage}
               onChange={handleSortChange}
               canDrag
             />
@@ -154,6 +170,7 @@ function Search({ recommendTags, defaultTags }: Props) {
         </div>
       </div>
     </div>
+
   );
 }
 

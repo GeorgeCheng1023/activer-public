@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import { TagType } from 'components/Tag';
 import './index.scss';
@@ -8,11 +8,15 @@ import DragTag from './components/DragTag';
 type Props = {
   canDrag?: boolean;
   onChange?: (tag: TagType[]) => void;
-  defaultTags: Array<TagType>
+  tags: Array<TagType>
 };
 
-function TagSort({ onChange, canDrag, defaultTags }: Props) {
-  const [tags, setTags] = useState<Array<TagType>>(defaultTags);
+function TagSort({ onChange, canDrag, tags: tagsInput }: Props) {
+  const [tags, setTags] = useState<Array<TagType>>(tagsInput);
+
+  useEffect(() => {
+    setTags(tagsInput);
+  }, [tagsInput]);
 
   const handleMoveTag = useCallback((dragIndex: number, hoverIndex: number) => {
     setTags((prevTags: Array<TagType>) => update(prevTags, {
@@ -39,9 +43,7 @@ function TagSort({ onChange, canDrag, defaultTags }: Props) {
   if (canDrag) {
     return (
       <ol className="tag-sort">
-
         {tags.map((tag, i) => renderTag(tag, i))}
-
       </ol>
     );
   }
