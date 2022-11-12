@@ -136,7 +136,7 @@ function Basic() {
                     )?.AreaList.map((a) => ({
                       key: a.ZipCode,
                       value: a.AreaName,
-                    })),
+                    })) || [],
                   }}
                   onChange={handleChange}
                 />

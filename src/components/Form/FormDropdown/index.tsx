@@ -10,7 +10,7 @@ type optionType = {
 export type dropDownType = {
   label: string;
   name: string;
-  options?: Array<optionType>,
+  options: Array<optionType>,
   defaultOptionKey?: string;
 };
 
