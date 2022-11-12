@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import FormInput from '../../../components/Form/FormInput';
@@ -11,13 +11,10 @@ function Basic() {
   const [values, setValues] = useState(dummyUserData);
   const [selectedCounty, setSelectCounty] = useState('');
 
-  useEffect(() => {
-
-  }, [values]);
-
   const handleChange = (key: any, value: any) => {
     setValues({ ...values, [key]: value });
   };
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console

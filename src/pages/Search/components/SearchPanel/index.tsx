@@ -14,9 +14,7 @@ type Props = {
 };
 
 // main function
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Search({ recommendTags, defaultTags }: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tagsRecommend, setTagsRecommend] = useState<TagType[]>(recommendTags);
   const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTags);
 

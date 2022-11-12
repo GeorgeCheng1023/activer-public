@@ -55,7 +55,7 @@ function FormSearchBar({ onSubmit, placeHolder, suggestion = [] }: Props) {
           onChange={handleChange}
           onKeyUp={handleKeyPress}
           onFocus={handleToggleSuggestion}
-          // onBlur={handleToggleSuggestion}
+          onBlur={handleToggleSuggestion}
         />
         <button className="button-nostyle searchButton" type="submit" onClick={handleSubmit}>
           <div className="searchBar__section">

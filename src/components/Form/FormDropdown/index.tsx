@@ -28,7 +28,10 @@ function FormDropdown({
     label, name, options, defaultOptionKey,
   } = dropdownProps;
 
-  const defaultOptionValue = defaultOptionKey ? (options?.filter((option) => option.key === defaultOptionKey)[0].value) : '請選擇';
+  // if passin defaultOptionKey  will return Default Value, otherwise return placeorder "請選擇"
+  const defaultOptionValue = defaultOptionKey
+    ? options.find((option) => option.key === defaultOptionKey)?.value
+    : null;
 
   // init default selected values
   const [selectedOption, setSelectOption] = useState({
@@ -36,26 +39,32 @@ function FormDropdown({
     value: defaultOptionValue,
   });
 
-  const [toggleDropdown, setToggleDropdown] = useState(false);
+  // state for toogle dropdown
+  const [displayDropdown, setDisplayDropdown] = useState(false);
+  // state for change style className
   const [changeValueTheme, setChangeValueTheme] = useState(false);
 
+  // when selectedOption Change , will pass up bt onChange function
   useEffect(() => {
     onChange(name, selectedOption.value);
   }, [selectedOption]);
+
   // toggle dropdown: mouse click
-  function handleDropdownClick() {
-    setToggleDropdown((prevToggleDropdown) => !prevToggleDropdown);
-  }
+  const handleClickDropdown:
+  React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    setDisplayDropdown(true);
+  };
   // toggle dropdwon: keyboard 'Enter' event
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === 'Enter') {
-      handleDropdownClick();
+      setDisplayDropdown(false);
     }
   };
 
   // handle dropdown click and change form value
-  const handleClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
-    handleDropdownClick();
+  const handleChoiceClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
+    setDisplayDropdown(false);
     setChangeValueTheme(true);
     setSelectOption({
       key: (event.target as HTMLInputElement).id,
@@ -63,32 +72,36 @@ function FormDropdown({
     });
   };
 
+  const handleBlur:
+  React.FocusEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    setDisplayDropdown(false);
+  };
+
   return (
-    <div className={`dropdown dropdown--${variant}`}>
+    <div className={`dropdown dropdown--${variant}`} onBlur={handleBlur}>
       <div className="dropdown__label">
         {label || 'Label'}
       </div>
 
       <div
         className={`dropdown__selected ${changeValueTheme && 'dropdown__selected--select'}`}
-        onClick={handleDropdownClick}
+        onClick={handleClickDropdown}
         onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
       >
-        {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-        <>
-          {selectedOption.value || 'Select Choice'}
-          <div
-            className={`dropdown__selected__icon ${toggleDropdown && 'dropdown__selected__icon--active'}`}
-          >
-            <IconArrowUp />
 
-          </div>
-        </>
+        {selectedOption.value || 'Select Choice'}
+        <div
+          className={`dropdown__selected__icon ${displayDropdown && 'dropdown__selected__icon--active'}`}
+        >
+          <IconArrowUp />
+        </div>
+
       </div>
 
-      <div className={`dropdown__option-container ${toggleDropdown && 'dropdown__option-container--active'}`}>
+      <div className={`dropdown__option-container ${displayDropdown && 'dropdown__option-container--active'}`}>
 
         {options?.map((option) => (
           <input
@@ -98,9 +111,10 @@ function FormDropdown({
             name={name}
             value={option.value}
             placeholder={option.value || 'Choice'}
-            onClick={handleClick}
+            onClick={handleChoiceClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}
+
           />
 
         ))}
