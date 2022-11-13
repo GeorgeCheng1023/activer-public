@@ -1,115 +1,117 @@
 @import '../../variables';
 
-$_primary-hover-color: #FBE0B4;
-$_secondary-hover-color: #B0CDF9;
-$_button-hover-duration: 0.3s;
-
-// button base
-@mixin buttonBase{
-  padding: 0.6em 1.8em;
-  border-radius: 0.8em;
-  letter-spacing: 1px;
-  font-size: 1em;
-  width: fit-content;
-  transition-duration: $_button-hover-duration;
-  cursor: pointer;
-}
+$_btn-config:(primary:(class: 'primary',
+    color: white,
+    hover-color: #fdf5e7,
+    bg: $primary-color,
+  ),
+  secondary:(class: 'secondary',
+    color: white,
+    hover-color: #B0CDF9,
+    bg: $secondary-color,
+  ),
+  success:(class: 'success',
+    color: white,
+    hover-color: #efffef,
+    bg: $success-color,
+  ));
 
 @mixin setColor ($borderColor, $textColor, $bgColor) {
-    border: 2px $borderColor solid;
-    background-color: $bgColor;
-    color: $textColor;
-  }
-  
-  
-.button{
-  @include buttonBase;
-  &--lg{
+  border: 2px $borderColor solid;
+  background-color: $bgColor;
+  color: $textColor;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  width: fit-content;
+  padding: 0.6em 1.8em;
+  border-radius: 0.8em;
+
+  letter-spacing: 1px;
+  font-size: 1em;
+
+  transition-duration: 0.3s;
+  cursor: pointer;
+
+  &--lg {
     font-size: 1.5em;
   }
-  &--sm{
+
+  &--sm {
     font-size: 0.8em;
   }
-}
-  
-.button--primary {
-  
-  @include setColor($primary-color, white, $primary-color);
-  &:hover:not([disabled]){
-    @include setColor($primary-color, $primary-color, white);
-  }
 
-  //button--primary button--outline
-  &.button--outline{
-    @include setColor($primary-color, $primary-color, white);
-    &:hover:not([disabled]){
-      @include setColor($primary-color, white, $_primary-hover-color);
+  @each $name,
+  $value in $_btn-config {
+    $class: map-get($value, class);
+    $color: map-get($value, color);
+    $bg: map-get($value, bg);
+    $hover-color: map-get($value, hover-color);
+
+    &--#{$class} {
+      @include setColor($bg, $color, $bg);
+
+      &:hover:not([disabled]) {
+        @include setColor($bg, $bg, $hover-color);
+
+      }
     }
   }
-}
-      
-.button--secondary {
 
-  @include setColor($secondary-color, white, $secondary-color);
-  &:hover:not([disabled]){
-    @include setColor($secondary-color, $secondary-color, white)
+  * {
+    color: inherit;
+    background-color: transparent;
+    text-align: center;
   }
-  
-  //button--primary button--outline
-  &.button--outline{
-    @include setColor($secondary-color, $secondary-color, white);
-    &:hover:not([disabled]){
-      @include setColor($secondary-color,white, $_secondary-hover-color);
-    }
+
+  &__icon {
+    display: flex;
+    align-items: center;
   }
 }
 
+// .button--primary {
+
+//   @include setColor($_main-color, white, $_main-color);
+
+//   &:hover:not([disabled]) {
+//     @include setColor($_main-color, $_main-color, white);
+//   }
+
+//   //button--primary button--outline
+//   &.button--outline {
+//     @include setColor($_main-color, $_main-color, white);
+
+//     &:hover:not([disabled]) {
+//       @include setColor($_main-color, white, $_primary-hover-color);
+//     }
+//   }
+// }
+
+// .button--secondary {
+
+//   @include setColor($secondary-color, white, $secondary-color);
+
+//   &:hover:not([disabled]) {
+//     @include setColor($secondary-color, $secondary-color, white)
+//   }
+
+//   //button--primary button--outline
+//   &.button--outline {
+//     @include setColor($secondary-color, $secondary-color, white);
+
+//     &:hover:not([disabled]) {
+//       @include setColor($secondary-color, white, $_secondary-hover-color);
+//     }
+//   }
+// }
 
 :disabled {
   opacity: 0.5;
   cursor: not-allowed
 }
-
-    // &--secondary--default {
-    //     @include button--base($secondary-color, #FFF, $secondary-color);
-
-    //     &:hover {
-    //         @include button--secondary--hover();
-    //     }
-    // }
-
-    // ;
-
-    // &--primary--outline {
-    //     @include button--base($primary-color, $primary-color, #fff);
-
-    //     &:hover {
-    //         @include button--primary--hover();
-    //     }
-    // }
-
-    // &--secondary--outline {
-    //     @include button--base($secondary-color, $secondary-color, #fff);
-
-    //     &:hover {
-    //         @include button--secondary--hover();
-    //     }
-    // }
-
-    // &--primary--small {
-    //     @include button--small($primary-color, $primary-color, #fff);
-
-    //     &:hover {
-    //         @include button--primary--hover();
-    //     }
-    // }
-
-    // &--secondary--small {
-    //     @include button--small($secondary-color, $secondary-color, #fff);
-
-    //     &:hover {
-    //         @include button--secondary--hover();
-    //     }
-    // }
-
-
