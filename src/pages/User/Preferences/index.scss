@@ -1,0 +1,24 @@
+@import '~/src/variables';
+
+.preferences {
+  &__h2 {
+    font-size: 1.5em;
+    color: $primary-font-color;
+  }
+
+  &__history {
+    display: flex;
+
+    .history__container {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+      gap: 10px;
+
+      .history__keyword {
+        width: 80%;
+      }
+    }
+
+  }
+}

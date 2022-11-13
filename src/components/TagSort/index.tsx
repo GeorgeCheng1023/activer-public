@@ -1,17 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-import { TagType } from 'components/Tag';
+import Tag, { TagType } from 'components/Tag';
 import './index.scss';
 import update from 'immutability-helper';
 import DragTag from './components/DragTag';
 
 type Props = {
-  canDrag?: boolean;
+  disable?: boolean;
   onChange?: (tag: TagType[]) => void;
   tags: Array<TagType>
 };
 
-function TagSort({ onChange, canDrag, tags: tagsInput }: Props) {
+function TagSort({ onChange, disable, tags: tagsInput }: Props) {
   const [tags, setTags] = useState<Array<TagType>>(tagsInput);
 
   useEffect(() => {
@@ -40,10 +40,24 @@ function TagSort({ onChange, canDrag, tags: tagsInput }: Props) {
     />
   ), []);
 
-  if (canDrag) {
+  if (disable) {
     return (
       <ol className="tag-sort">
-        {tags.map((tag, i) => renderTag(tag, i))}
+        {tags.map((tag) => (
+          <li>
+            <div
+              className="drag-tag"
+            >
+              <Tag
+                id={tag.id}
+                variant={tag.variant}
+                key={tag.id}
+                text={tag.text}
+                icon="move"
+              />
+            </div>
+          </li>
+        ))}
       </ol>
     );
   }
@@ -57,7 +71,7 @@ function TagSort({ onChange, canDrag, tags: tagsInput }: Props) {
 
 TagSort.defaultProps = {
   onChange: undefined,
-  canDrag: true,
+  disable: true,
 };
 
 export default TagSort;

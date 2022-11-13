@@ -91,7 +91,6 @@ function FormDropdown({
         role="button"
         tabIndex={0}
       >
-
         {selectedOption.value || 'Select Choice'}
         <div
           className={`dropdown__selected__icon ${displayDropdown && 'dropdown__selected__icon--active'}`}

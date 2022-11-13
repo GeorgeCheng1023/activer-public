@@ -1,23 +1,56 @@
 import React from 'react';
 import TagSort from 'components/TagSort';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import SearchBar from 'components/Form/FormSearchBar';
+import Button from 'components/Button';
+import { BiSend } from 'react-icons/bi';
 import dummySearchHistory from './dummySearchHistory.json';
+import './index.scss';
+
+// parseData
+const parseDummySearchHistory = dummySearchHistory.map((history) => ({
+  ...history,
+  HistoryTags: history.HistoryTags.map((tag) => (
+    {
+      id: tag.Id,
+      text: tag.Text,
+      variant: tag.Type,
+    }
+  )),
+}));
+
+const handleSubmit = (input: string) => {
+  console.log(input);
+};
 
 function Preferences() {
   return (
-    <>
-      <h2>您的預設標籤庫</h2>
+    <div className="preferences">
+      <h2 className="preferences__h2">您的預設標籤庫</h2>
 
-      <h2>搜尋紀錄</h2>
-      <DndProvider backend={HTML5Backend}>
+      <h2 className="preferences__h2">搜尋紀錄</h2>
+      <div className="preferences__history">
         {
-          dummySearchHistory.map((history: any) => (
-            <TagSort tags={history.DefaultTags} />
+          parseDummySearchHistory.map((history: any) => (
+            <div className=" history__container">
+              <div className="history__keyword">
+                <SearchBar onSubmit={handleSubmit} placeHolder={history.Keyword} disabled />
+              </div>
+              <div className=" history__tag-sort">
+                <TagSort tags={history.HistoryTags} disable />
+              </div>
+              <div className=" history__button">
+                <Button
+                  variant="outline"
+                  text="前往搜尋"
+                  icon={<BiSend />}
+                  color="success"
+                />
+              </div>
+            </div>
           ))
         }
-      </DndProvider>
-    </>
+      </div>
+    </div>
   );
 }
 

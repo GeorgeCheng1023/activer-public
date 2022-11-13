@@ -162,7 +162,7 @@ function Search({ recommendTags, defaultTags }: Props) {
             <TagSort
               tags={tagsStorage}
               onChange={handleSortChange}
-              canDrag
+
             />
           </DndProvider>
         </div>

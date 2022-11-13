@@ -75,42 +75,6 @@ $_btn-config:(primary:(class: 'primary',
   }
 }
 
-// .button--primary {
-
-//   @include setColor($_main-color, white, $_main-color);
-
-//   &:hover:not([disabled]) {
-//     @include setColor($_main-color, $_main-color, white);
-//   }
-
-//   //button--primary button--outline
-//   &.button--outline {
-//     @include setColor($_main-color, $_main-color, white);
-
-//     &:hover:not([disabled]) {
-//       @include setColor($_main-color, white, $_primary-hover-color);
-//     }
-//   }
-// }
-
-// .button--secondary {
-
-//   @include setColor($secondary-color, white, $secondary-color);
-
-//   &:hover:not([disabled]) {
-//     @include setColor($secondary-color, $secondary-color, white)
-//   }
-
-//   //button--primary button--outline
-//   &.button--outline {
-//     @include setColor($secondary-color, $secondary-color, white);
-
-//     &:hover:not([disabled]) {
-//       @include setColor($secondary-color, white, $_secondary-hover-color);
-//     }
-//   }
-// }
-
 :disabled {
   opacity: 0.5;
   cursor: not-allowed

@@ -6,9 +6,12 @@ type Props = {
   onSubmit: (inputValue: string) => void,
   placeHolder: string,
   suggestion?: Array<string>,
+  disabled?: boolean
 };
 
-function FormSearchBar({ onSubmit, placeHolder, suggestion = [] }: Props) {
+function FormSearchBar({
+  onSubmit, placeHolder, suggestion = [], disabled,
+}: Props) {
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState('');
   // suggstionDisplay is a boolean that show or hide the suggestion
@@ -56,6 +59,7 @@ function FormSearchBar({ onSubmit, placeHolder, suggestion = [] }: Props) {
           onKeyUp={handleKeyPress}
           onFocus={handleToggleSuggestion}
           onBlur={handleToggleSuggestion}
+          disabled={disabled}
         />
         <button className="button-nostyle searchButton" type="submit" onClick={handleSubmit}>
           <div className="searchBar__section">
@@ -87,6 +91,7 @@ function FormSearchBar({ onSubmit, placeHolder, suggestion = [] }: Props) {
 
 FormSearchBar.defaultProps = {
   suggestion: [],
+  disabled: false,
 };
 
 export default FormSearchBar;
