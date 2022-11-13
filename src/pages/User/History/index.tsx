@@ -1,9 +1,13 @@
 import React from 'react';
+import ChartHistoryTag from './components/ChartHistoryTag';
 
-function History() {
+export default function History() {
   return (
-    <h1>This is History Page</h1>
+    <div className="history__tag-freq">
+      <ChartHistoryTag />
+    </div>
+    <div className='history__area-freq'>
+      
+    </div>
   );
 }
-
-export default History;
