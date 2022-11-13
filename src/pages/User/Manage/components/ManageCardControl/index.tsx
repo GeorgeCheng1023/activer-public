@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
-import FormDropDown from '../../../../../components/Form/FormDropdown';
+import FormDropDown from 'components/Form/FormDropdown';
 
 type Props = {
   beginDate: string,
@@ -14,6 +14,15 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
   const parseDueDate = new Date(dueDate);
   const remainDueDate = parseDueDate.getDate() - today.getDate();
   const remainBeginDate = parseBeginDate.getDate() - today.getDate();
+
+  useEffect(() => {
+    // submit change
+    console.log(selectedValue);
+  }, [selectedValue]);
+
+  const handleChange = (key: any, value: any) => {
+    setSelectedValue(value as string);
+  };
 
   return (
     <div className="manage-control">
@@ -45,9 +54,19 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
           </p>
         </div>
       </div>
-      <div className="manage-control__select">
-        <FormDropDown dropdownStyle="default" labelText="狀態" selectedValue={selectedValue} setSelectedValue={setSelectedValue} options={[{ id: 1, value: '已報名' }, { id: 2, value: '願望' }]} />
-      </div>
+      <form className="manage-control__select">
+        <FormDropDown
+          dropdownProps={{
+            label: '狀態',
+            name: 'status',
+            options: [
+              { value: '已報名', key: 'registered' },
+              { value: '願望', key: 'dream' },
+            ],
+          }}
+          onChange={handleChange}
+        />
+      </form>
     </div>
   );
 }

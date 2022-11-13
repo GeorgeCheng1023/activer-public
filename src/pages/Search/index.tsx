@@ -1,23 +1,44 @@
-import React from 'react';
-import { CardColumn, CardType } from '../../components/Card';
+import React, { useState } from 'react';
+import { TagType } from 'components/Tag';
+import Popup from 'components/Popup';
 import ResultBanner from './components/ResultBanner';
+import SearchPanel from './components/SearchPanel';
+import dummySearchData from './dummySearchData.json';
 
-const data = {
-  imgUrl: 'https://plus.unsplash.com/premium_photo-1661329835271-c130b1ea3f28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
-  title: 'img',
-  altText: 'img',
-  tags: [{ color: 'primary', text: 'tag' }],
-  animation: '',
-  detail: 'Date: 2022/10/2 ~ 2022/10/3',
+//  parse data
+const parseData = {
+  defaultTags: dummySearchData.DefaultTags.map((tag) => (
+    {
+      id: tag.Id,
+      text: tag.Text,
+      variant: tag.Type,
+    }
+  )),
+  recommendTags: dummySearchData.RecommendTags.map((tag) => (
+    {
+      id: tag.Id,
+      text: tag.Text,
+      variant: tag.Type,
+    }
+  )),
 };
 
 function Search() {
+  const [displaySearchPanel, setDisplaySearchPanel] = useState(false);
+
   return (
     <>
-      <ResultBanner />
-      <CardColumn
-        data={data as CardType}
-      />
+      <ResultBanner setTrigger={setDisplaySearchPanel} />
+      <Popup
+        trigger={displaySearchPanel}
+        setTrigger={setDisplaySearchPanel}
+      >
+        <SearchPanel
+          defaultTags={parseData.defaultTags as TagType[]}
+          recommendTags={parseData.recommendTags as TagType[]}
+        />
+      </Popup>
+
     </>
 
   );

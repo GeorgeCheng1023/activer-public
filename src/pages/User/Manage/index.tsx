@@ -6,19 +6,16 @@ import { CardColumn, CardType } from '../../../components/Card';
 import ManageNav from './components/ManageNav';
 import dummyActivity from './dummy.json';
 import ManageCardControl from './components/ManageCardControl';
-// import { snake_cased } from 'mod';
 import './index.scss';
 
 function Manage() {
   const changeFilterHandler = (id: number) => {
-    /* eslint-disable */
+    // eslint-disable-next-line no-console
     console.log(id);
-    /* eslint-enable */
   };
 
   return (
     <>
-      <h1>This is Manage Page</h1>
       <ManageNav
         // onClick={clickHandler}
         buttons={
