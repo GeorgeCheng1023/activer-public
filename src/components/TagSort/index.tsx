@@ -44,7 +44,7 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
     return (
       <ol className="tag-sort">
         {tags.map((tag) => (
-          <li>
+          <li key={tag.id}>
             <div
               className="drag-tag"
             >
@@ -71,7 +71,7 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
 
 TagSort.defaultProps = {
   onChange: undefined,
-  disable: true,
+  disable: false,
 };
 
 export default TagSort;

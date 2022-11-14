@@ -25,8 +25,8 @@ function Search({ recommendTags, defaultTags }: Props) {
   });
 
   useEffect(() => {
-    console.log(searchValue);
-  }, [searchValue]);
+    setTagsStorage(tagsStorage);
+  }, [tagsStorage]);
 
   // to remove recommend tag from storage
   const handleRemoveTag = (clickedTag: TagType) => {
@@ -162,7 +162,6 @@ function Search({ recommendTags, defaultTags }: Props) {
             <TagSort
               tags={tagsStorage}
               onChange={handleSortChange}
-
             />
           </DndProvider>
         </div>

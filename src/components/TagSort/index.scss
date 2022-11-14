@@ -7,9 +7,10 @@
   border: 1px solid $secondary-font-color;
   border-radius: .5rem;
 
+  background-color: transparent;
+
   overflow-y: scroll;
   scroll-behavior: smooth;
-
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -33,4 +34,9 @@
         transparent)
   }
 
+}
+
+.drag-tag {
+  user-select: none;
+  background-color: transparent;
 }
