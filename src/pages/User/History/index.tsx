@@ -28,9 +28,8 @@ function History() {
       <h2 className="history__h2">歷史活動</h2>
       <div className="history__activity">
         {dummyActivityHistory.map((history) => {
-          const parseTags:TagType[] = history.Tags.map((tag) => {
+          const parseTags:TagType[] = history.Activity?.Tags.map((tag) => {
             const variant = tag.Type as TagType['variant'];
-
             return ({
               id: tag.Id,
               text: tag.Text,
@@ -40,13 +39,13 @@ function History() {
 
           return (
             <Card
-              key={history.Title}
+              key={history.Activity?.ActivityId}
               data={{
-                imgUrl: history.Image[0].ImageUrl,
-                title: history.Title,
-                altText: history.Title,
+                imgUrl: history.Activity?.Image[0].ImageUrl,
+                title: history.Activity?.Title,
+                altText: history.Activity?.Title,
                 tags: parseTags,
-                detail: `${history.Date.DateStart} - ${history.Date.DateEnd}`,
+                detail: `${history.Activity?.Date.DateStart} - ${history.Activity?.Date.DateEnd}`,
               }}
               control={<HistoryControl />}
             />
