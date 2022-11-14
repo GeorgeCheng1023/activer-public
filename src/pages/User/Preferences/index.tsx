@@ -42,7 +42,7 @@ function Preferences() {
                 <Button
                   variant="outline"
                   text="前往搜尋"
-                  icon={<BiSend />}
+                  iconAfter={<BiSend />}
                   color="success"
                 />
               </div>

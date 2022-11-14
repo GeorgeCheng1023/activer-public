@@ -27,7 +27,7 @@ export const options = {
       display: false,
     },
     tooltip: {
-      displayColoˇrs: true,
+      displayColors: true,
       boxWidth: 1,
     },
   },
@@ -55,10 +55,7 @@ export const data = {
 
 function ChartHistoryTag() {
   return (
-    <>
-      <h1>This is Preferences</h1>
-      <Bar options={options} data={data} />
-    </>
+    <Bar options={options} data={data} />
   );
 }
 

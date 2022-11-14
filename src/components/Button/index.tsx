@@ -2,18 +2,19 @@ import React from 'react';
 import './index.scss';
 
 export type ButtonType = {
-  color?: 'primary' | 'secondary' | 'success';
+  color?: 'primary' | 'secondary' | 'success' | 'white';
   variant?: 'outline';
   size?: 'lg' | 'sm';
   text?: string;
   buttonType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  icon?: JSX.Element;
+  iconAfter?: JSX.Element;
+  iconBefore? : JSX.Element;
 };
 
 function Button({
-  color, variant, text, disabled, size, onClick, buttonType, icon,
+  color, variant, text, disabled, size, onClick, buttonType, iconAfter, iconBefore,
 }: ButtonType) {
   return (
     <button
@@ -29,15 +30,25 @@ function Button({
       disabled={disabled}
       onClick={onClick}
     >
-      {text}
-      <span className={`
-        
-        
+      {iconBefore
+      && (
+        <span className={`
         button__icon
         `}
-      >
-        {icon}
-      </span>
+        >
+          {iconBefore}
+        </span>
+      )}
+      {text}
+      {iconAfter
+      && (
+        <span className={`
+        button__icon
+        `}
+        >
+          {iconAfter}
+        </span>
+      )}
     </button>
   );
 }
@@ -50,7 +61,8 @@ Button.defaultProps = {
   variant: undefined,
   size: undefined,
   disabled: false,
-  icon: null,
+  iconAfter: null,
+  iconBefore: null,
 };
 
 export default Button;

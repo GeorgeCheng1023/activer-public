@@ -14,6 +14,7 @@ export type CardType = {
 function createTag(TagsContent: TagType) {
   return (
     <Tag
+      key={TagsContent.id}
       variant={TagsContent.variant}
       text={TagsContent.text}
       icon={TagsContent.icon}

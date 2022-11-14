@@ -14,6 +14,11 @@ $_btn-config:(primary:(class: 'primary',
     color: white,
     hover-color: #efffef,
     bg: $success-color,
+  ),
+  white:(class: 'white',
+    color: $primary-font-color,
+    hover-color: #e4e4e4,
+    bg: white,
   ));
 
 @mixin setColor ($borderColor, $textColor, $bgColor) {
@@ -26,7 +31,7 @@ $_btn-config:(primary:(class: 'primary',
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 10px;
 
   width: fit-content;
   padding: 0.6em 1.8em;

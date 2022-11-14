@@ -1,0 +1,62 @@
+[
+  {
+    "Title": "簡報表達工作坊",
+    "Date": {
+      "DateStart": "2022-10-1",
+      "DateEnd": "2022-10-2"
+    },
+    "Tags": [
+      {
+        "Text": "簡報表達",
+        "Id": "t01",
+        "Type": "area"
+      },
+      {
+        "Text": "社會科學",
+        "Id": "t02",
+        "Type": "area"
+      },
+      {
+        "Text": "免費",
+        "Id": "t03",
+        "Type": "other"
+      }
+    ],
+    "Image": [
+      {
+        "ImageUrl": "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFsa3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+        "ImageAlt": "照片"
+      }
+    ]
+  },
+  {
+    "Title": "網頁前端設計培訓營",
+    "Date": {
+      "DateStart": "2022-10-1",
+      "DateEnd": "2022-10-2"
+    },
+    "Tags": [
+      {
+        "Text": "網頁前端",
+        "Id": "t01",
+        "Type": "area"
+      },
+      {
+        "Text": "資訊科學",
+        "Id": "t02",
+        "Type": "area"
+      },
+      {
+        "Text": "線上",
+        "Id": "t03",
+        "Type": "other"
+      }
+    ],
+    "Image": [
+      {
+        "ImageUrl": "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFsa3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+        "ImageAlt": "照片"
+      }
+    ]
+  }
+]
