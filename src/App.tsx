@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Login/components/Register';
 import Search from './pages/Search';
+import Detail from './pages/Detail';
 import User, {
   Basic, Account, History, Preferences, Manage,
 } from './pages/User';
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
             element: <Preferences />,
           },
         ],
+      },
+      {
+        path: '/detail',
+        element: <Detail />,
       },
     ],
   },
