@@ -37,18 +37,23 @@ function FormSearchBar({
     }
   };
 
-  const handleToggleSuggestion = () => {
-    setTimeout(() => setSuggestionDisplay(!suggestionDisplay), 100);
-  };
-
   // handle search suggestion click
   const handleSuggestionClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     setInputValue((e.target as HTMLButtonElement).innerText);
-    handleToggleSuggestion();
+    setSuggestionDisplay(false);
+  };
+
+  // handle blur event when click outside of suggestion
+  const handleBlur:React.FocusEventHandler<HTMLInputElement> = (e) => {
+    if (!e.relatedTarget) {
+      setSuggestionDisplay(false);
+    }
   };
 
   return (
-    <div className="searchBar__container">
+    <div
+      className="searchBar__container"
+    >
       <div className="searchBar">
         <input
           className="searchBar__main"
@@ -57,8 +62,7 @@ function FormSearchBar({
           value={inputValue}
           onChange={handleChange}
           onKeyUp={handleKeyPress}
-          onFocus={handleToggleSuggestion}
-          onBlur={handleToggleSuggestion}
+          onBlur={handleBlur}
           disabled={disabled}
         />
         <button className="button-nostyle searchButton" type="submit" onClick={handleSubmit}>
@@ -75,6 +79,7 @@ function FormSearchBar({
           .slice(0, 5)
           .map((item: string, index: number) => (
             <button
+              tabIndex={-1}
               type="button"
               className="suggestion__choice"
               onClick={handleSuggestionClick}
