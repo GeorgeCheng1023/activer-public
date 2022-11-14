@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <Link className="navbar__item" to="/search">搜尋活動</Link>
-      <Link className="navbar__item" to="/">熱門活動</Link>
+      <Link className="navbar__item" to="/detail">熱門活動</Link>
       <Link to="/user">
         <Button
           color="primary"

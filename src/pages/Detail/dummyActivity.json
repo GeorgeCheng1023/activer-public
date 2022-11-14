@@ -1,0 +1,90 @@
+{
+  "ActivityId": "aa01",
+  "Title": "112年Young飛全球行動計畫培訓營",
+  "Subtitle": null,
+  "Holder": "教育部青年發展署",
+  "Image": [
+    {
+      "ImageUrl": "https://www.yda.gov.tw/upload/event/evt_e24980ad-faef-48f6-8ecf-914e1ab08eaf.jpg",
+      "ImageAlt": "this is a picture"
+    }
+  ],
+  "Object": "（一） 18-35歲具中華民國國籍之青年（限民國76年1月1日至94年12月31日間出生）。（二） 具良好外語表達及溝通能力。",
+  "Connection": "Young飛全球行動計畫工作小組\ne-mail: 2023youngfly@gmail.com\n潘小姐 02-2332-8558#377；\n張小姐\n02-2332-8558#326",
+  "Content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  "Source": "https://www.yda.gov.tw/eventDoc.aspx?uid=101&pid=56&eid=45",
+  "Tags": [
+    {
+      "id": "t00",
+      "Text": "永續行動",
+      "Type": "area",
+      "TagCount": 100
+    },
+    {
+      "id": "t02",
+      "Text": "培訓營",
+      "Type": "other",
+      "TagCount": 54
+    },
+    {
+      "id": "t03",
+      "Text": "免費",
+      "Type": "other",
+      "TagCount": 20
+    },
+    {
+      "id": "t04",
+      "Text": "台北市",
+      "Type": "location",
+      "TagCount": 6
+    },
+    {
+      "id": "t05",
+      "Text": "高雄市",
+      "Type": "location",
+      "TagCount": 5
+    },
+    {
+      "id": "t06",
+      "Text": "花蓮",
+      "Type": "location",
+      "TagCount": 5
+    },
+    {
+      "id": "t07",
+      "Text": "台中",
+      "Type": "location",
+      "TagCount": 5
+    }
+  ],
+  "Branch": [
+    {
+      "BranchName": "北區培訓營",
+      "Apply": {
+        "ApplyStart": null,
+        "ApplyEnd": "2022-12-12",
+        "ApplyForm": "https://iyouth.youthhub.tw",
+        "ApplyFee": "free"
+      },
+      "Location": "格萊天漾大飯店(臺北市萬華區艋舺大道101號)",
+      "Date": {
+        "DateStart": "2023-01-10",
+        "DateEnd": "2023-01-10"
+      }
+    },
+    {
+      "BranchName": "南區培訓營",
+      "Apply": {
+        "ApplyStart": null,
+        "ApplyEnd": "2022-12-12",
+        "ApplyForm": "https://iyouth.youthhub.tw",
+        "ApplyFee": "free"
+      },
+      "Location": "蓮潭國際會館(高雄市左營區崇德路801號)",
+      "Date": {
+        "DateStart": "2023-01-16",
+        "DateEnd": "2023-01-16"
+      }
+    }
+  ]
+}
