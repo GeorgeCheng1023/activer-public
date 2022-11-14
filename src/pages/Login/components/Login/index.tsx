@@ -1,18 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, {
+  useState, useEffect, useRef,
+} from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './index.scss';
+import axios from '../../api/axios';
 
-// components
+// Components
 import ButtonFrame from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
 
+// Hook
+import useAuth from '../../hooks/useAuth';
+import useLogout from '../../hooks/useLogout';
+
 // Regex
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-// const REGISTER_URL = 'http://localhost:3500/api/register';
-const LOGIN_URL = 'http://localhost:3500/api/login';
+
+// Url
+const LOGIN_URL = '/api/login';
 
 function LoginSection() {
   const navigate = useNavigate();
@@ -61,6 +68,14 @@ function LoginSection() {
     navigate(from, {replace : true});
   }
 
+  const { setAuth } : any = useAuth();
+  const logout = useLogout();
+
+  const signOut = async () => {
+    await logout();
+    navigate('/');
+  }
+
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
     setShowErr(true);
@@ -76,7 +91,6 @@ function LoginSection() {
       return;
     }
 
-    axios
     try {
       const response: any = await axios.post(
         targetUrl,
@@ -86,12 +100,13 @@ function LoginSection() {
           withCredentials: true,
         },
       );
-
-      console.log(response?.data);
       
-      const correct = response?.data.correct;
+      console.log(response);
+      
+      const userCorrect = response?.data.correct;
+      const accessToken = response?.data.accessToken;
 
-      if (!correct) {
+      if (!userCorrect) {
         setErrMsg('login failed');
       } else {
         setSuccess(true);
@@ -99,8 +114,9 @@ function LoginSection() {
 
       setUser('');
       setPwd('');
+      setAuth({ user, pwd, accessToken })
 
-      console.log('Submit Successfully');
+      // console.log('Submit Successfully');
       // console.log(response?.data);
       // console.log(response?.accessToken);
       // console.log(JSON.stringify(response));
@@ -196,6 +212,13 @@ function LoginSection() {
             onClick={(e) => handleClick(e, LOGIN_URL)}
           />
         </section>
+        
+        <br/>
+        <br/>
+        <br/>
+
+        <button type='button' onClick={() => signOut()}>Sign out</button>
+
       </form>
 
       <aside className='or-aside'></aside>
