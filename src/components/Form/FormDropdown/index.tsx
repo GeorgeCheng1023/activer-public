@@ -1,72 +1,121 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconArrowUp } from '../../Icons';
 import './index.scss';
 // import options from './options';
-
-export type FormDropDownType = {
-  dropdownStyle: 'default' | 'withoutLabel',
-  labelText: string,
-  selectedValue: string,
-  setSelectedValue: React.Dispatch<React.SetStateAction<string>>,
-  options: { id: number, value: string }[]
+type optionType = {
+  key: string,
+  value: string,
 };
 
-function FormDropDown({
-  dropdownStyle, labelText, options, selectedValue, setSelectedValue,
+export type dropDownType = {
+  label: string;
+  name: string;
+  options: Array<optionType>,
+  defaultOptionKey?: string;
+};
+
+export type FormDropDownType = {
+  dropdownProps: dropDownType,
+  variant?: 'withoutLabel',
+  onChange: (key: any, value: any) => void
+};
+
+function FormDropdown({
+  dropdownProps, variant, onChange,
 }: FormDropDownType) {
-  const [toggleDropdown, setToggleDropdown] = useState(false);
+  // destructing dropdown props
+  const {
+    label, name, options, defaultOptionKey,
+  } = dropdownProps;
+
+  // if passin defaultOptionKey  will return Default Value, otherwise return placeorder "請選擇"
+  const defaultOptionValue = defaultOptionKey
+    ? options.find((option) => option.key === defaultOptionKey)?.value
+    : null;
+
+  // init default selected values
+  const [selectedOption, setSelectOption] = useState({
+    key: defaultOptionKey,
+    value: defaultOptionValue,
+  });
+
+  // state for toogle dropdown
+  const [displayDropdown, setDisplayDropdown] = useState(false);
+  // state for change style className
   const [changeValueTheme, setChangeValueTheme] = useState(false);
 
-  function handleDropdownClick() {
-    setToggleDropdown((prevToggleDropdown) => !prevToggleDropdown);
-  }
+  // when selectedOption Change , will pass up bt onChange function
+  useEffect(() => {
+    onChange(name, selectedOption.value);
+  }, [selectedOption]);
 
-  function handleOptionClick(value: string) {
-    setSelectedValue(value);
-    handleDropdownClick();
-    setChangeValueTheme(true);
-  }
-
-  function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+  // toggle dropdown: mouse click
+  const handleClickDropdown:
+  React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    setDisplayDropdown(true);
+  };
+  // toggle dropdwon: keyboard 'Enter' event
+  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === 'Enter') {
-      handleDropdownClick();
+      setDisplayDropdown(false);
     }
-  }
+  };
+
+  // handle dropdown click and change form value
+  const handleChoiceClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
+    setDisplayDropdown(false);
+    setChangeValueTheme(true);
+    setSelectOption({
+      key: (event.target as HTMLInputElement).id,
+      value: (event.target as HTMLInputElement).value,
+    });
+  };
+
+  const handleBlur:
+  React.FocusEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    setDisplayDropdown(false);
+  };
 
   return (
-    <div className={`dropdown dropdown--${dropdownStyle}`}>
+    <div className={`dropdown dropdown--${variant}`} onBlur={handleBlur}>
       <div className="dropdown__label">
-        {labelText || 'Label'}
+        {label || 'Label'}
       </div>
 
       <div
         className={`dropdown__selected ${changeValueTheme && 'dropdown__selected--select'}`}
-        onClick={handleDropdownClick}
-        onKeyDown={(event) => handleKeyPress(event)}
+        onClick={handleClickDropdown}
+        onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
       >
-        {selectedValue || 'Select Choice'}
+        {selectedOption.value || 'Select Choice'}
         <div
-          className={`dropdown__selected__icon ${toggleDropdown && 'dropdown__selected__icon--active'}`}
+          className={`dropdown__selected__icon ${displayDropdown && 'dropdown__selected__icon--active'}`}
         >
           <IconArrowUp />
         </div>
+
       </div>
 
-      <div className={`dropdown__option-container ${toggleDropdown && 'dropdown__option-container--active'}`}>
+      <div className={`dropdown__option-container ${displayDropdown && 'dropdown__option-container--active'}`}>
 
-        {options.map((option) => (
-          <div
+        {options?.map((option) => (
+          <input
             className="dropdown__option-container__option"
-            key={option.id}
-            onClick={() => handleOptionClick(option.value)}
-            onKeyDown={(event) => handleKeyPress(event)}
-            role="button"
+            type="button"
+            id={option.key}
+            name={name}
+            value={option.value}
+            placeholder={option.value || 'Choice'}
+            onClick={handleChoiceClick}
+            onKeyDown={handleKeyDown}
             tabIndex={0}
-          >
-            {option.value}
-          </div>
+
+          />
+
         ))}
 
       </div>
@@ -74,4 +123,8 @@ function FormDropDown({
   );
 }
 
-export default FormDropDown;
+FormDropdown.defaultProps = {
+  variant: 'default',
+};
+
+export default FormDropdown;

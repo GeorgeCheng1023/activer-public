@@ -1,5 +1,5 @@
 import React from 'react';
-import Tag from '../Tag';
+import Tag, { TagType } from '../Tag';
 import './index.scss';
 
 export type CardType = {
@@ -14,9 +14,10 @@ export type CardType = {
 function createTag(TagsContent: TagType) {
   return (
     <Tag
-      color={TagsContent.color}
+      variant={TagsContent.variant}
       text={TagsContent.text}
       icon={TagsContent.icon}
+      id={TagsContent.id}
     />
   );
 }
