@@ -1,7 +1,8 @@
 @import '~/src/_variables';
+
 // style 
-*{
-  color:$primary-font-color;
+* {
+  color: $primary-font-color;
 }
 
 .button-nostyle {
@@ -11,14 +12,20 @@
   cursor: pointer;
 }
 
-h1{
+h1 {
   font-size: 2vw;
 }
-h2{
-  font-size:1.5vw;
+
+h2 {
+  font-size: 1.5vw;
 }
-p{
-  font-size:1vw
+
+p {
+  font-size: 1vw
+}
+
+a {
+  text-decoration: none;
 }
 
 // mixin
