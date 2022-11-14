@@ -22,7 +22,6 @@ function Basic() {
   };
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
-
     handleChange(key, value);
   };
 
@@ -31,13 +30,13 @@ function Basic() {
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__img">
-            <img src="https://images.unsplash.com/photo-1561495376-dc9c7c5b8726?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZG9nfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="dog" />
+            <img src={dummyUserData.Portrait} alt="user_portrait" />
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput
               inputProps={{
                 id: 'nick_name',
-                name: 'nick_name',
+                name: 'NickName',
                 label: '暱稱',
                 inputType: 'text',
                 placeholder: '輸入暱稱姓名',
@@ -54,7 +53,7 @@ function Basic() {
             <FormInput
               inputProps={{
                 id: 'real_name',
-                name: 'real_name',
+                name: 'RealName',
                 label: '真實姓名',
                 inputType: 'text',
                 placeholder: '輸入真實姓名',
@@ -70,12 +69,9 @@ function Basic() {
               <FormDropDown
                 dropdownProps={{
                   label: '性別',
-                  name: 'gender',
-                  options: [
-                    { key: 'male', value: '男性' },
-                    { key: 'female', value: '女性' },
-                    { key: 'hide', value: '隱藏' }],
-                  defaultOptionKey: values.gender,
+                  name: 'Gender',
+                  options: ['男性', '女性', '其他', '隱藏'],
+                  defaultOption: values.Gender,
                 }}
                 onChange={handleChange}
               />
@@ -83,8 +79,8 @@ function Basic() {
             <div className="user-basic__input user-basic__input__birthday">
               <FormInput
                 inputProps={{
-                  id: 'birthday',
-                  name: 'birthday',
+                  id: 'Birthday',
+                  name: 'Birthday',
                   label: '生日',
                   inputType: 'date',
                   placeholder: '請選擇出生年月日',
@@ -97,8 +93,8 @@ function Basic() {
           <div className="user-basic__input user-basic__input__profession">
             <FormInput
               inputProps={{
-                id: 'profession',
-                name: 'profession',
+                id: 'Profession',
+                name: 'Profession',
                 label: '職業',
                 inputType: 'text',
                 placeholder: '請選擇輸入您的職業',
@@ -116,9 +112,9 @@ function Basic() {
                 <FormDropDown
                   dropdownProps={{
                     label: '縣市',
-                    name: 'county',
-                    options:
-                      CityCountyData.map((c, id) => ({ key: id.toString(), value: c.CityName })),
+                    name: 'County',
+                    options: CityCountyData.map((c) => c.CityName),
+                    defaultOption: dummyUserData.County,
                   }}
                   onChange={handleCountyChange}
                 />
@@ -127,13 +123,10 @@ function Basic() {
                 <FormDropDown
                   dropdownProps={{
                     label: '區鄉鎮',
-                    name: 'area',
+                    name: 'Area',
                     options: CityCountyData.find(
                       (c) => c.CityName === selectedCounty,
-                    )?.AreaList.map((a) => ({
-                      key: a.ZipCode,
-                      value: a.AreaName,
-                    })) || [],
+                    )?.AreaList.map((a) => a.AreaName) || [],
                   }}
                   onChange={handleChange}
                 />
@@ -146,7 +139,7 @@ function Basic() {
             <FormInput
               inputProps={{
                 id: 'phone',
-                name: 'phone',
+                name: 'Phone',
                 label: '電話',
                 inputType: 'text',
                 placeholder: '請選擇輸入您的職業',

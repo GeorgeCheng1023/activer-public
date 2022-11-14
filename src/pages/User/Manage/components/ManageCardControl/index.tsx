@@ -59,10 +59,7 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
           dropdownProps={{
             label: '狀態',
             name: 'status',
-            options: [
-              { value: '已報名', key: 'registered' },
-              { value: '願望', key: 'dream' },
-            ],
+            options: ['registered', 'dream'],
           }}
           onChange={handleChange}
         />

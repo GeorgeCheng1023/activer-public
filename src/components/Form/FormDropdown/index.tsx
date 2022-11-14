@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { IconArrowUp } from '../../Icons';
 import './index.scss';
 // import options from './options';
-type optionType = {
-  key: string,
-  value: string,
-};
 
 export type dropDownType = {
   label: string;
   name: string;
-  options: Array<optionType>,
-  defaultOptionKey?: string;
+  options: string[],
+  defaultOption?: string;
 };
 
 export type FormDropDownType = {
@@ -25,19 +21,11 @@ function FormDropdown({
 }: FormDropDownType) {
   // destructing dropdown props
   const {
-    label, name, options, defaultOptionKey,
+    label, name, options, defaultOption,
   } = dropdownProps;
 
-  // if passin defaultOptionKey  will return Default Value, otherwise return placeorder "請選擇"
-  const defaultOptionValue = defaultOptionKey
-    ? options.find((option) => option.key === defaultOptionKey)?.value
-    : null;
-
   // init default selected values
-  const [selectedOption, setSelectOption] = useState({
-    key: defaultOptionKey,
-    value: defaultOptionValue,
-  });
+  const [selectedOption, setSelectOption] = useState(defaultOption);
 
   // state for toogle dropdown
   const [displayDropdown, setDisplayDropdown] = useState(false);
@@ -46,7 +34,7 @@ function FormDropdown({
 
   // when selectedOption Change , will pass up bt onChange function
   useEffect(() => {
-    onChange(name, selectedOption.value);
+    onChange(name, selectedOption);
   }, [selectedOption]);
 
   // toggle dropdown: mouse click
@@ -66,10 +54,7 @@ function FormDropdown({
   const handleChoiceClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
     setDisplayDropdown(false);
     setChangeValueTheme(true);
-    setSelectOption({
-      key: (event.target as HTMLInputElement).id,
-      value: (event.target as HTMLInputElement).value,
-    });
+    setSelectOption((event.target as HTMLInputElement).value);
   };
 
   const handleBlur:
@@ -91,7 +76,7 @@ function FormDropdown({
         role="button"
         tabIndex={0}
       >
-        {selectedOption.value || 'Select Choice'}
+        {selectedOption || 'Select Choice'}
         <div
           className={`dropdown__selected__icon ${displayDropdown && 'dropdown__selected__icon--active'}`}
         >
@@ -102,14 +87,14 @@ function FormDropdown({
 
       <div className={`dropdown__option-container ${displayDropdown && 'dropdown__option-container--active'}`}>
 
-        {options?.map((option) => (
+        {options?.map((option, index) => (
           <input
             className="dropdown__option-container__option"
             type="button"
-            id={option.key}
+            id={`dropdown-${name}-option${index}`}
             name={name}
-            value={option.value}
-            placeholder={option.value || 'Choice'}
+            value={option}
+            placeholder={option || 'Choice'}
             onClick={handleChoiceClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}
