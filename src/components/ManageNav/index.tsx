@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
-import ManageNavButton from '../ManageNavButton';
+import ManageNavButton from './ManageNavButton';
 
 type Props = {
   buttons: {
