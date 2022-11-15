@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 import ManageNavButton from './ManageNavButton';
 
 type Props = {
   buttons: {
     title: string,
-    icon: JSX.Element,
+    icon?: JSX.Element,
   }[],
   onChangeFilter: (id: number) => void;
 };
@@ -13,17 +13,21 @@ type Props = {
 function ManageNav({ buttons, onChangeFilter }: Props) {
   const [clickedId, setClickedId] = useState(0);
 
-  const handleClick = (id: number) => {
-    console.log(id);
-    setClickedId(id);
+  useEffect(() => {
     // upload
     onChangeFilter(clickedId);
+  }, [clickedId]);
+
+  const handleClick = (id: number) => {
+    setClickedId(id);
   };
 
   return (
     <div className="manage-nav__button-group">
       {buttons.map((button, id) => (
         <ManageNavButton
+          // eslint-disable-next-line  react/no-array-index-key
+          key={`manage-nav-${id}`}
           title={button.title}
           icon={button.icon}
           id={id}

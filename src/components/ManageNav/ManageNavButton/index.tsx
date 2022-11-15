@@ -4,7 +4,7 @@ import './index.scss';
 type Props = {
   id: number,
   onClick: (clickedId: number) => void,
-  icon: JSX.Element,
+  icon?: JSX.Element,
   title: string,
   active: boolean
 };
@@ -24,14 +24,21 @@ function ManageNavButton({
       className={`manage-nav__button ${active ? 'active focus' : ''}`}
       onClick={handleClick}
     >
-      <span className="manage-nav__button__icon">
-        {icon}
-      </span>
+      {icon
+      && (
+        <span className="manage-nav__button__icon">
+          {icon}
+        </span>
+      )}
       <h3 className="manage-nav__button__title">
         {title}
       </h3>
     </button>
   );
 }
+
+ManageNavButton.defaultProps = {
+  icon: null,
+};
 
 export default ManageNavButton;
