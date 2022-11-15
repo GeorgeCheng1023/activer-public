@@ -1,0 +1,11 @@
+@import '~/src/_variables';
+
+.detail__properties {
+  padding: 2em;
+
+  >:not(:last-child) {
+    border-bottom: 1px solid $primary-font-color;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+  }
+}

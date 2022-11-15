@@ -1,0 +1,10 @@
+.detail {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10%;
+  margin-top: 3em;
+
+  &__properties__container {
+    width: 60%;
+  }
+}

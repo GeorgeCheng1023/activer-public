@@ -1,0 +1,18 @@
+@import '~/src/_variables';
+
+.detail__property {
+  >* {
+    margin-bottom: 0.4em;
+  }
+
+  >.detail__p,
+  .detail__a {
+    margin-left: 1em;
+  }
+
+  >.detail__a {
+    &:hover {
+      color: $secondary-font-color;
+    }
+  }
+}
