@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
 // components
-import Card from 'components/Card';
-import { TagType } from 'components/Tag';
+import Carousel from 'components/Carousel';
+import Tag, { TagType } from 'components/Tag';
 import ManageNav from 'components/ManageNav';
 import DetailProperties from './components/DetailProperties';
 // data
 import dummyActivityData from './dummyActivity.json';
+
 // style
 import './index.scss';
 
@@ -21,6 +22,14 @@ function Detail() {
       });
     })
     .slice(0, 5);
+    // eslint-disable-next-line
+  const parseImages = dummyActivityData.Images
+    .map((Image:any) => (
+      {
+        url: Image.ImageUrl,
+        alt: Image.ImageAlt,
+      }
+    ));
 
   const branches = dummyActivityData.Branch;
   const [currentBranch, setCurrentBranch] = useState(branches[0]);
@@ -31,12 +40,17 @@ function Detail() {
   return (
     <div className="detail">
       <div className="detail__card__container">
-        <Card
-          imgUrl={dummyActivityData.Image[0].ImageUrl}
-          tags={parseTags}
-          altText={dummyActivityData.Image[0].ImageAlt}
-          title="網頁前端工作坊"
-        />
+        <Carousel />
+        <h2 className="detaul__h2">
+          {dummyActivityData.Title}
+        </h2>
+        {parseTags.map((tag) => (
+          <Tag
+            variant={tag.variant}
+            text={tag.text}
+            id={tag.id}
+          />
+        ))}
       </div>
       <div className="detail__properties__container">
         <ManageNav
