@@ -3,21 +3,26 @@ import './index.scss';
 
 type Props = {
   id: number,
-  clickHandler: React.MouseEventHandler<HTMLButtonElement>,
+  onClick: (clickedId: number) => void,
   icon: JSX.Element,
   title: string,
   active: boolean
 };
 
 function ManageNavButton({
-  id, clickHandler, icon, title, active,
+  id, onClick, icon, title, active,
 }: Props) {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    onClick(id);
+  };
+
   return (
     <button
       key={id}
       type="button"
       className={`manage-nav__button ${active ? 'active focus' : ''}`}
-      onClick={(event) => clickHandler(event)}
+      onClick={handleClick}
     >
       <span className="manage-nav__button__icon">
         {icon}

@@ -17,7 +17,7 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
 
   useEffect(() => {
     // submit change
-    console.log(selectedValue);
+    // console.log(selectedValue);
   }, [selectedValue]);
 
   const handleChange = (key: any, value: any) => {

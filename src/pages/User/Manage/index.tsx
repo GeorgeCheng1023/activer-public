@@ -9,9 +9,10 @@ import ManageCardControl from './components/ManageCardControl';
 import './index.scss';
 
 function Manage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const changeFilterHandler = (id: number) => {
     // eslint-disable-next-line no-console
-    console.log(id);
+    // console.log(id);
   };
 
   return (

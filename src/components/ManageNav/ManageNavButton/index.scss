@@ -4,8 +4,8 @@
 .manage-nav {
   &__button {
     font-size: 1rem;
-font-weight: 300;
-    
+    font-weight: 300;
+
     position: relative;
     display: flex;
     align-items: center;
@@ -38,7 +38,7 @@ font-weight: 300;
       scale: 1.2
     }
 
-    &:focus {
+    &.focus {
       &::before {
         width: 100%;
       }
