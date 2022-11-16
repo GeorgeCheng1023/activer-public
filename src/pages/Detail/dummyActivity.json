@@ -16,7 +16,9 @@
   "Object": "（一） 18-35歲具中華民國國籍之青年（限民國76年1月1日至94年12月31日間出生）。（二） 具良好外語表達及溝通能力。",
   "Connection": "Young飛全球行動計畫工作小組\ne-mail: 2023youngfly@gmail.com\n潘小姐 02-2332-8558#377；\n張小姐\n02-2332-8558#326",
   "Content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  "Source": "https://www.yda.gov.tw/eventDoc.aspx?uid=101&pid=56&eid=45",
+  "Source": [
+    "https://www.yda.gov.tw/eventDoc.aspx?uid=101&pid=56&eid=45"
+  ],
   "Tags": [
     {
       "id": "t00",

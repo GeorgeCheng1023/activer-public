@@ -1,10 +1,36 @@
 .detail {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin: 0 10%;
   margin-top: 3em;
 
-  &__properties__container {
-    width: 60%;
+  &__h2 {
+    margin-bottom: 0.5em;
+  }
+
+  &__tags {
+    display: flex;
+    margin: 1em;
+    display: flex;
+    flex-wrap: 1;
+    gap: 1em;
+  }
+
+  &__container {
+    &--top {
+      display: flex;
+
+    }
+
+    &--card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &--properties {
+      width: 60%;
+    }
   }
 }

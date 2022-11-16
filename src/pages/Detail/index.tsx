@@ -39,30 +39,67 @@ function Detail() {
   };
   return (
     <div className="detail">
-      <div className="detail__card__container">
-        <Carousel />
-        <h2 className="detaul__h2">
-          {dummyActivityData.Title}
-        </h2>
-        {parseTags.map((tag) => (
-          <Tag
-            variant={tag.variant}
-            text={tag.text}
-            id={tag.id}
+      <div className="detail__container--top">
+        <div className="detail__container--card">
+          <Carousel slides={parseImages.map((img) => (
+            <img src={img.url} alt={img.alt} />
+          ))}
           />
-        ))}
+          <h2 className="detail__h2">
+            {dummyActivityData.Title}
+          </h2>
+          <h3 className="detail__h3">
+            {dummyActivityData.Subtitle}
+          </h3>
+          <div className="detail__tags">
+            {parseTags.map((tag) => (
+              <Tag
+                variant={tag.variant}
+                text={tag.text}
+                id={tag.id}
+              />
+            ))}
+          </div>
+          <span>
+            主辦單位:
+            {dummyActivityData.Holder}
+          </span>
+        </div>
+        <div className="detail__container--properties">
+          <ManageNav
+            buttons={
+              branches.map((branch) => ({
+                title: branch.BranchName,
+              }))
+            }
+            onChangeFilter={handleChangeFilter}
+          />
+          <DetailProperties branch={currentBranch} />
+        </div>
       </div>
-      <div className="detail__properties__container">
-        <ManageNav
-          buttons={
-            branches.map((branch) => ({
-              title: branch.BranchName,
-            }))
-          }
-          onChangeFilter={handleChangeFilter}
-        />
-        <DetailProperties branch={currentBranch} />
+      <div className="detail__content">
+        <h2 className="detail__h2">
+          活動內容
+        </h2>
+        <p>
+          {dummyActivityData.Content}
+        </p>
+        <br />
+        <h2 className="detail__h2">
+          原始來源
+        </h2>
+        <p>
+          {dummyActivityData.Holder}
+          :
+          {' '}
+          {dummyActivityData.Source.map((s) => (
+            <a className="detail__a" href={s}>{s}</a>
+          ))}
+
+        </p>
+
       </div>
+      <br />
     </div>
   );
 }
