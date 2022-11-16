@@ -30,7 +30,7 @@ function Card({
     <div className={`card card--${animation}`}>
       <img className="card__image" src={imgUrl} alt={altText} />
       <h3 className="card__title">{title}</h3>
-      <div className="card__detaiil">
+      <div className="card__detail">
         {detail}
       </div>
       <div className="card__tag">

@@ -1,17 +1,68 @@
 import React from 'react';
+// components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Card from 'components/Card';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import 'swiper/css/navigation';
 import './index.scss';
 
-type Props = {
-  cardList: Array<any>
-};
+// import required modules
+import { EffectCards, Navigation } from 'swiper';
 
-function CardRoll({ cardList }: Props) {
-  // const pivotCardIndex = 0;
+export default function CardRoll() {
   return (
-    <div>
-      {cardList.map((item) => item)}
-    </div>
+    <Swiper
+      navigation
+      loop
+      effect="cards"
+      grabCursor
+      modules={[EffectCards, Navigation]}
+      className="hero__card-roll"
+    >
+      <SwiperSlide>
+        <Card
+          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
+          title="test"
+          tags={[{
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }]}
+          altText="Test"
+        />
+
+      </SwiperSlide>
+      <SwiperSlide>
+        <Card
+          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
+          title="test2"
+          tags={[{
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }]}
+          altText="Test"
+        />
+
+      </SwiperSlide>
+      <SwiperSlide>
+        <Card
+          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
+          title="test3"
+          tags={[{
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }]}
+          detail="2022-10-1 ~ 2022-10-3"
+          altText="Test"
+        />
+
+      </SwiperSlide>
+
+    </Swiper>
   );
 }
-
-export default CardRoll;
