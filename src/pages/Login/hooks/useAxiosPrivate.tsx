@@ -19,6 +19,11 @@ const useAxiosPrivate = () => {
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => response,
       async (error) => {
+        if (error.code === 'ERR_CANCELED') {
+          // aborted in useEffect cleanup
+          return Promise.resolve({ status: 499 });
+        }
+
         const prevRequest = error?.config;
         if (error?.response?.status === 403 && !prevRequest?.sent) {
           prevRequest.sent = true;

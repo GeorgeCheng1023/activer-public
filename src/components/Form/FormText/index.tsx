@@ -16,6 +16,7 @@ export type FormTextProp = {
   onChange: React.ChangeEventHandler<HTMLInputElement>
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onkeydown?: React.KeyboardEventHandler<HTMLInputElement>;
   buttonText?: string;
 };
 
@@ -30,7 +31,7 @@ export type FormTextProp = {
 
 const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
   variant, labelText, placeholder, buttonText, inputType,
-  required, value, onFocus, onBlur, onChange,
+  required, value, onFocus, onBlur, onChange, onkeydown,
 }, ref) => (
   <section className={`inputForm inputForm--${variant}`}>
     <Label labelStyle={variant} labelText={labelText} />
@@ -45,6 +46,7 @@ const FormText = React.forwardRef<HTMLInputElement, FormTextProp>(({
       onFocus={onFocus}
       onBlur={onBlur}
       onChange={onChange}
+      onkeydown={onkeydown}
     />
   </section>
 
@@ -54,6 +56,7 @@ FormText.defaultProps = {
   buttonText: 'default text',
   onBlur: undefined,
   onFocus: undefined,
+  onkeydown: undefined,
 };
 
 export default FormText;

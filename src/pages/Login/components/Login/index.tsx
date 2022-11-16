@@ -13,6 +13,8 @@ import GoogleLoginButton from '../GoogleLogin';
 // Hook
 import useAuth from '../../hooks/useAuth';
 import useLogout from '../../hooks/useLogout';
+// test
+import useRefreshToken from '../../hooks/useRefreshToken';
 
 // Regex
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -22,6 +24,9 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const LOGIN_URL = '/api/login';
 
 function LoginSection() {
+  // test
+  const refresh = useRefreshToken();
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
@@ -68,18 +73,23 @@ function LoginSection() {
     navigate(from, {replace : true});
   }
 
-  const { setAuth } : any = useAuth();
+  const { setAuth, persist, setPersist } : any = useAuth();
   const logout = useLogout();
 
   const signOut = async () => {
     await logout();
-    navigate('/');
+    navigate('/', { replace: true });
+  }
+
+  const togglePersist = () => {
+    localStorage.setItem('persist', persist);
+    setPersist((prev: any) => !prev);
   }
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
     setShowErr(true);
-    setSuccess(true);
+    setSuccess(true); 
 
     // test user and pwd is correct or not
     const v1 = USER_REGEX.test(user);
@@ -114,7 +124,7 @@ function LoginSection() {
 
       setUser('');
       setPwd('');
-      setAuth({ user, pwd, accessToken })
+      setAuth({ username: user, password: pwd, accessToken })
 
       // console.log('Submit Successfully');
       // console.log(response?.data);
@@ -175,6 +185,11 @@ function LoginSection() {
           />
         </section>
 
+        <section className='login-section__check-persist-section'>
+          <input type='checkbox' id='persist' onChange={togglePersist} />
+          <label htmlFor='persist'>Trust This Device</label>
+        </section>
+
         <p id="pwdnote" className={validPwd ? 'offscreen' : 'instructions'}>
           8 to 24 characters.
           <br />
@@ -218,6 +233,7 @@ function LoginSection() {
         <br/>
 
         <button type='button' onClick={() => signOut()}>Sign out</button>
+        <button type='button' onClick={() => refresh()}>refresh</button>
 
       </form>
 

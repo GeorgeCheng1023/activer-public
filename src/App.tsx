@@ -15,6 +15,8 @@ import Register from './pages/Login/components/Register';
 import PersistLogin from './pages/Login/components/PersistLogin';
 import Admin from './pages/Login/components/Admin';
 import Root from './pages/Root';
+import Search from './pages/Search';
+import User from './pages/User';
 
 // const router = createBrowserRouter([
 //   {
@@ -73,12 +75,14 @@ function App() {
     // <RouterProvider router={router} />
     <Routes>
       <Route element={<Root />}>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         <Route element={<PersistLogin />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
           <Route path="admin" element={<Admin />} />
+          <Route path="/user" element={<User />} />
         </Route>
       </Route>
 
