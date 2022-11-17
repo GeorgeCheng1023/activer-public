@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, {
+  useState, useEffect, useRef,
+} from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './index.scss';
+import axios from '../../../../api/axios';
 
-// components
+// Components
 import ButtonFrame from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
 
+// Hook
+import useAuth from '../../../../hooks/useAuth';
+
 // Regex
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-// const REGISTER_URL = 'http://localhost:3500/api/register';
-const LOGIN_URL = 'http://localhost:3500/api/login';
+
+// Url
+const LOGIN_URL = '/api/login';
 
 function LoginSection() {
   const navigate = useNavigate();
@@ -33,6 +39,8 @@ function LoginSection() {
   const [errMsg, setErrMsg] = useState<string>('');
   const [showErr, setShowErr] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+
+  const { setAuth, persist, setPersist } : any = useAuth();
 
   useEffect(() => {
     userRef.current?.focus();
@@ -57,14 +65,18 @@ function LoginSection() {
     setErrMsg('');
   }, [pwdFocus]);
 
-  if (success) {
-    navigate(from, {replace : true});
+
+  success && navigate(from, {replace : true});
+
+  const togglePersist = () => {
+    localStorage.setItem('persist', persist);
+    setPersist((prev: any) => !prev);
   }
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
     setShowErr(true);
-    setSuccess(true);
+    setSuccess(true); 
 
     // test user and pwd is correct or not
     const v1 = USER_REGEX.test(user);
@@ -76,7 +88,6 @@ function LoginSection() {
       return;
     }
 
-    axios
     try {
       const response: any = await axios.post(
         targetUrl,
@@ -86,12 +97,13 @@ function LoginSection() {
           withCredentials: true,
         },
       );
-
-      console.log(response?.data);
       
-      const correct = response?.data.correct;
+      console.log(response);
+      
+      const userCorrect = response?.data.correct;
+      const accessToken = response?.data.accessToken;
 
-      if (!correct) {
+      if (!userCorrect) {
         setErrMsg('login failed');
       } else {
         setSuccess(true);
@@ -99,8 +111,9 @@ function LoginSection() {
 
       setUser('');
       setPwd('');
+      setAuth({ username: user, password: pwd, accessToken })
 
-      console.log('Submit Successfully');
+      // console.log('Submit Successfully');
       // console.log(response?.data);
       // console.log(response?.accessToken);
       // console.log(JSON.stringify(response));
@@ -159,6 +172,11 @@ function LoginSection() {
           />
         </section>
 
+        <section className='login-section__check-persist-section'>
+          <input type='checkbox' id='persist' onChange={togglePersist} />
+          <label htmlFor='persist'>Trust This Device</label>
+        </section>
+
         <p id="pwdnote" className={validPwd ? 'offscreen' : 'instructions'}>
           8 to 24 characters.
           <br />
@@ -177,7 +195,7 @@ function LoginSection() {
           <ButtonFrame
             color="primary"
             text="登入"
-            onClick={(e) => handleClick(e, LOGIN_URL)}
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e, LOGIN_URL)}
           />
           {/* 檢測帳號有無重複，以及符合規範 */}
           <Link to='/register'>
@@ -196,6 +214,7 @@ function LoginSection() {
             onClick={(e) => handleClick(e, LOGIN_URL)}
           />
         </section>
+
       </form>
 
       <aside className='or-aside'></aside>

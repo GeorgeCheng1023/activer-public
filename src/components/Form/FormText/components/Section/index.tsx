@@ -10,14 +10,15 @@ type Props = {
   required: boolean;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  onChange: React.ChangeEventHandler<HTMLInputElement>
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onkeydown?: React.KeyboardEventHandler<HTMLInputElement>;
   buttonText?: string;
 };
 
 const Section = React.forwardRef<HTMLInputElement, Props>(
   ({
     inputSectionStyle, placeholder, buttonText, inputType,
-    required, value, onBlur, onFocus, onChange,
+    required, value, onBlur, onFocus, onChange, onkeydown,
   }, ref) => (
     <div className="inputSection-container">
       <input
@@ -29,6 +30,7 @@ const Section = React.forwardRef<HTMLInputElement, Props>(
         value={value}
         onBlur={onBlur}
         onFocus={onFocus}
+        onKeyDown={onkeydown}
         required={required}
       />
       {inputSectionStyle === 'withButton'
@@ -49,6 +51,7 @@ Section.defaultProps = {
   buttonText: 'default text',
   onBlur: undefined,
   onFocus: undefined,
+  onkeydown: undefined,
 };
 
 export default Section;

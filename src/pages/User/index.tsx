@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import './index.scss';
+
+// components
 import Basic from './Basic';
 import Account from './Account';
 import History from './History';
@@ -7,7 +10,6 @@ import Manage from './Manage';
 import Preferences from './Preferences';
 import SideBar from './components/SideBar';
 import Banner from './components/Banner';
-import './index.scss';
 
 function User() {
   const [currentText, setCurrentText] = useState('');

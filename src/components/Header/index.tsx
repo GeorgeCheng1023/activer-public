@@ -4,6 +4,7 @@ import './index.scss';
 
 // component
 import Navbar from './components/Navbar';
+import UserState from './components/UserState';
 
 // icon
 import { IconLogoPrimary } from '../Icons';
@@ -14,6 +15,7 @@ function Header() {
       <Link to="/">
         <IconLogoPrimary />
       </Link>
+      <UserState />
       <Navbar />
     </div>
   );

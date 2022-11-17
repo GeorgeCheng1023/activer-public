@@ -1,0 +1,33 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.user-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  gap: 10px;
+  color: $primary-font-color;
+
+  &__portrait {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+  }
+  &__username {
+    margin-left: .5rem;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    scale: 1.5;
+    cursor: pointer;
+  }
+
+  &__login:hover,
+  &__logout:hover {
+    fill: $primary-color;
+  }
+}

@@ -4,11 +4,16 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import './index.scss';
 
+// hook
+import useAuth from 'hooks/useAuth';
+
 interface type {
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 function GoogleLoginButton({ setSuccess }: type) {
+  const { setAuth } : any = useAuth();
+
   const login = useGoogleLogin({
     onSuccess: async (respose) => {
       try {
@@ -21,6 +26,11 @@ function GoogleLoginButton({ setSuccess }: type) {
           },
         );
 
+        setAuth({
+          username: data.data.name,
+          picture: data.data.picture,
+          accessToken: respose.access_token,
+        });
         console.log(data);
         setSuccess(true);
       } catch (err) {
