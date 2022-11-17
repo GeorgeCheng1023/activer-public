@@ -9,7 +9,7 @@ import useLogout from '../../../pages/Login/hooks/useLogout';
 
 interface type {
   state: boolean,
-  username: string
+  username: string,
 }
 
 function UserState({ state, username } : type) {
@@ -27,15 +27,17 @@ function UserState({ state, username } : type) {
 
   return (
     <div className="user-state">
-      {state
-        ? (
-          <h3>
-            Welcome
-            <span className="user-state__username">{ username }</span>
-            !
-          </h3>
-        )
-        : <h3>log in</h3>}
+      {
+        state
+          ? (
+            <h3>
+              Welcome
+              <span className="user-state__username">{ username }</span>
+              !
+            </h3>
+          )
+          : <h3>log in</h3>
+      }
 
       {state
         ? (
