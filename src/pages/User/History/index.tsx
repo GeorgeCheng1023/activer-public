@@ -4,7 +4,7 @@ import React from 'react';
 import { CardColumn as Card } from 'components/Card';
 import { TagType } from 'components/Tag';
 import HistoryControl from './HistoryControl';
-import ChartHistoryTag from './components/ChartHistoryTag';
+import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 import ChartArea from './components/ChartArea';
 
 // style
@@ -12,6 +12,7 @@ import './index.scss';
 
 // data
 import dummyActivityHistory from './dummyActivityHistory.json';
+import dummyUserTagHistory from './dummyUserTagHistory.json';
 
 function History() {
   return (
@@ -19,7 +20,19 @@ function History() {
       <h2 className="history__h2">興趣分析</h2>
       <div className="history__analytics">
         <div className="history__tag-freq">
-          <ChartHistoryTag />
+          <ChartHistoryTag data={
+            dummyUserTagHistory.map((Tag):dataType => (
+              {
+                tag: {
+                  id: Tag.Id,
+                  text: Tag.Text,
+                  variant: Tag.Type as TagType['variant'],
+                },
+                count: Tag.TagCount,
+              }
+            ))
+          }
+          />
         </div>
         <div className="history__area-freq">
           <ChartArea />

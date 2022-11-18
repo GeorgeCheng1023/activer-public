@@ -7,12 +7,10 @@
   justify-content: space-between;
   width: fit-content;
   height: 1.25rem;
-  padding: 0.8em 1em;
-  border-radius: 0.4em;
-
+  padding: 1.2em 1em;
+  border-radius: 0.8em;
+  margin: 0;
   color: #FFF;
-
-  font-size: 1em;
 
   cursor: pointer;
 
@@ -40,5 +38,10 @@
 
   &__text {
     color: #FFFFFF;
+
+  }
+
+  &--sm {
+    font-size: 0.03em;
   }
 }
