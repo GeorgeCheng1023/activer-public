@@ -9,10 +9,8 @@
   height: 1.25rem;
   padding: 1.2em 1em;
   border-radius: 0.8em;
-
+  margin: 0;
   color: #FFF;
-
-  font-size: 1em;
 
   cursor: pointer;
 
@@ -40,5 +38,10 @@
 
   &__text {
     color: #FFFFFF;
+
+  }
+
+  &--sm {
+    font-size: 0.03em;
   }
 }

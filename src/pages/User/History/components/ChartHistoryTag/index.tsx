@@ -1,61 +1,58 @@
 import React from 'react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import dummyUserTagHistory from '../../dmmyUserTagHistory.json';
+  BarChart, Bar, ResponsiveContainer, XAxis, Tooltip, Cell, LabelList,
+} from 'recharts';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+// components
+import { TagType } from 'components/Tag';
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      displayColors: true,
-      boxWidth: 1,
-    },
-  },
+// style
+import './index.scss';
+
+export type dataType = {
+  tag: TagType,
+  count: number,
 };
 
-const labels = dummyUserTagHistory.map((history) => history.Text);
-
-const barColor = (history: any) : string => {
-  if (history.Type === 'area') return 'rgba(243, 183, 85, 0.8)';
-  if (history.Type === 'location') return 'rgba(105, 159, 241, 0.8)';
-  if (history.Type === 'other') return 'rgba(147, 197, 134, 0.8)';
-  return 'rgba(255, 255, 255, 0.5)';
+type Props = {
+  data: dataType[]
 };
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: dummyUserTagHistory.map((history) => history.TagCount),
-      backgroundColor: dummyUserTagHistory.map((history) => barColor(history)),
-    },
-  ],
-};
-
-function ChartHistoryTag() {
+function ChartHistoryTag({ data }: Props) {
+  const parseData = data.map((d) => ({
+    name: d.tag.text,
+    count: d.count,
+  }));
+  const barColor = (variant : TagType['variant']) => {
+    switch (variant) {
+      case ('area'):
+        return '#93C586';
+        break;
+      case ('location'):
+        return '#699FF1';
+        break;
+      case ('other'):
+        return '#F3B755';
+        break;
+      default:
+        return '#93C586';
+    }
+  };
   return (
-    <Bar options={options} data={data} />
+    <div className="chart__tag">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={parseData} height={400}>
+          <XAxis dataKey="name" height={40} />
+          <Tooltip />
+          <Bar dataKey="count" fill="#000" barSize={25} label>
+            {data.map((d) => (
+              <Cell fill={barColor(d.tag.variant)} />
+            ))}
+            <LabelList dataKey="count" position="top" />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
 
