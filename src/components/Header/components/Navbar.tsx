@@ -1,14 +1,18 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-
+// style
 import './Navbar.scss';
-
+// redux
+import { display } from 'store/searchPanel/searchPanelSlice';
+import { useDispatch } from 'react-redux';
 // hook
 import useAuth from 'hooks/useAuth';
 // components
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../../Button';
 
 function Navbar() {
+  // setting hook
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { auth } : any = useAuth();
 
@@ -22,8 +26,10 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <Link className="navbar__item" to="/search">搜尋活動</Link>
-      <Link className="navbar__item" to="/detail">熱門活動</Link>
+      <button type="button" className="navbar__item" onClick={() => dispatch(display())}>搜尋活動</button>
+      <Link to="/detail">
+        <button type="button" className="navbar__item">熱門活動</button>
+      </Link>
       <Button
         color="primary"
         text="登入/註冊"

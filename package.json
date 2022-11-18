@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-oauth/google": "^0.2.8",
+    "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -25,10 +26,12 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "recharts": "^2.1.16",
+    "redux": "^4.2.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
     "swiper": "^8.4.4",
@@ -61,6 +64,7 @@
   },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.1.2",
+    "@types/swipe": "^2.0.28",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "eslint": "^7.32.0 || ^8.2.0",
