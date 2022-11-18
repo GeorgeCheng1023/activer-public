@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TagType } from 'components/Tag';
 import Popup from 'components/Popup';
+import SearchPanel from 'components/SearchPanel';
 import ResultBanner from './components/ResultBanner';
-import SearchPanel from './components/SearchPanel';
 import dummySearchData from './dummySearchData.json';
 
 //  parse data
