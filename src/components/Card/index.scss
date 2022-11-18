@@ -1,42 +1,42 @@
 @import "~/src/variables";
 
 .card {
-  width: 298px;
-  height: 375px;
+  height: 100%;
   padding: 26px 30px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  gap: 10px;
 
   background: #FFFFFF;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset -2px -4px 6px rgba(153, 153, 153, 0.25);
+
   border-radius: 11px;
 
   &__image {
     width: 100%;
-    height: 50%;
+    height: fit-content;
     object-fit: cover;
-    border: 1px solid $secondary-font-color;
     border-radius: 11px;
-    margin-bottom: 1.25rem;
+    flex-grow: 0.4;
   }
 
   &__title {
-    margin-bottom: 1rem;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
+    line-height: 1em;
   }
 
   &__tag {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.25rem 0px;
     gap: 0.5rem;
     flex-wrap: wrap;
+  }
+
+  &__detail {
+    color: $primary-font-color;
+    font-size: 0.8em;
   }
 }
 

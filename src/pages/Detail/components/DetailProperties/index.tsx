@@ -11,10 +11,18 @@ type Props = {
 };
 
 function DetailProperties({ branch } : Props) {
-  const { Apply, Location, Date } = branch;
+  const {
+    ApplyStart,
+    ApplyEnd,
+    ApplyForm,
+    ApplyFee,
+    Location,
+    DateStart,
+    DateEnd,
+  } = branch;
 
-  const date = `${Date.DateStart ? Date.DateStart.toString() : '即日起'} - ${Date.DateEnd ? Date.DateEnd.toString() : '請見活動原始連結'}`;
-  const applyDate = `${Apply.ApplyStart ? Apply.ApplyStart.toString() : '即日起'} - ${Apply.ApplyEnd ? Apply.ApplyEnd.toString() : '請見活動原始連結'}`;
+  const date = `${DateStart ? DateStart.toString() : '即日起'} - ${DateEnd ? DateEnd.toString() : '請見活動原始連結'}`;
+  const applyDate = `${ApplyStart ? ApplyStart.toString() : '即日起'} - ${ApplyEnd ? ApplyEnd.toString() : '請見活動原始連結'}`;
 
   return (
     <div className="detail__properties">
@@ -36,13 +44,13 @@ function DetailProperties({ branch } : Props) {
       <Property
         name="form"
         label="報名連結"
-        innerText={Apply.ApplyForm}
+        innerText={ApplyForm}
         propertyType="link"
       />
       <Property
         name="fee"
         label="報名費"
-        innerText={Apply.ApplyFee}
+        innerText={ApplyFee}
       />
     </div>
   );

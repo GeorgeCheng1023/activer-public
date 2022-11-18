@@ -12,18 +12,31 @@ import dummyActivityData from './dummyActivity.json';
 import './index.scss';
 
 function Detail() {
-  const parseTags:TagType[] = dummyActivityData.Tags
+  const {
+    Title,
+    Subtitle,
+    Holder,
+    Images,
+    Objective,
+    Connection,
+    Content,
+    Source,
+    Tags,
+    Branches,
+  } = dummyActivityData;
+
+  const parseTags:TagType[] = Tags
     .map((tag) => {
       const variant = tag.Type as TagType['variant'];
       return ({
-        id: tag.id,
+        id: tag.TagId.toString(),
         text: tag.Text,
         variant,
       });
     })
     .slice(0, 5);
     // eslint-disable-next-line
-  const parseImages = dummyActivityData.Images
+  const parseImages =Images
     .map((Image:any) => (
       {
         url: Image.ImageUrl,
@@ -31,11 +44,10 @@ function Detail() {
       }
     ));
 
-  const branches = dummyActivityData.Branch;
-  const [currentBranch, setCurrentBranch] = useState(branches[0]);
+  const [currentBranch, setCurrentBranch] = useState(Branches[0]);
 
   const handleChangeFilter = (selectedId : number) => {
-    setCurrentBranch(branches[selectedId]);
+    setCurrentBranch(Branches[selectedId]);
   };
   return (
     <div className="detail">
@@ -46,10 +58,10 @@ function Detail() {
           ))}
           />
           <h2 className="detail__h2">
-            {dummyActivityData.Title}
+            {Title}
           </h2>
           <h3 className="detail__h3">
-            {dummyActivityData.Subtitle}
+            {Subtitle}
           </h3>
           <div className="detail__tags">
             {parseTags.map((tag) => (
@@ -62,13 +74,13 @@ function Detail() {
           </div>
           <span>
             主辦單位:
-            {dummyActivityData.Holder}
+            {Holder}
           </span>
         </div>
         <div className="detail__container--properties">
           <ManageNav
             buttons={
-              branches.map((branch) => ({
+              Branches.map((branch: any) => ({
                 title: branch.BranchName,
               }))
             }
@@ -79,25 +91,39 @@ function Detail() {
       </div>
       <div className="detail__content">
         <h2 className="detail__h2">
+          活動對象
+        </h2>
+        <p>
+          {Objective}
+        </p>
+        <br />
+        <h2 className="detail__h2">
           活動內容
         </h2>
         <p>
-          {dummyActivityData.Content}
+          {Content}
         </p>
         <br />
         <h2 className="detail__h2">
           原始來源
         </h2>
         <p>
-          {dummyActivityData.Holder}
+          {Holder}
           :
           {' '}
-          {dummyActivityData.Source.map((s) => (
+          {Source.map((s) => (
             <a className="detail__a" href={s}>{s}</a>
           ))}
 
         </p>
 
+        <h2 className="detail__h2">
+          聯絡資訊
+        </h2>
+        <p>
+          {Connection}
+        </p>
+        <br />
       </div>
       <br />
     </div>
