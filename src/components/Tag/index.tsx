@@ -10,6 +10,7 @@ export type TagType = {
   text: string;
   variant?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
+  size?: 'sm' | 'lg';
 };
 
 function TagIcon(icon: TagType['icon']) {
@@ -30,7 +31,7 @@ interface TagNoLinkProps extends TagType {
 }
 
 export function TagNoLink({
-  variant, text, icon, id, onClick,
+  variant, text, icon, id, onClick, size,
 }: TagNoLinkProps) {
   const clickData = {
     variant, text, icon, id,
@@ -41,8 +42,16 @@ export function TagNoLink({
   if (variant === 'location') color = 'secondary';
   if (variant === 'other') color = 'success';
   return (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    <button type="button" onClick={(e) => onClick(clickData)} className={`tag tag--${color}`} id={id}>
+    <button
+      type="button"
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onClick={(e) => onClick(clickData)}
+      className={`
+        tag 
+        tag--${color}  
+        ${size ? `tag--${size}` : ''}`}
+      id={id}
+    >
       <p className="tag__text">
         {text}
       </p>
@@ -59,17 +68,25 @@ export function TagNoLink({
 TagNoLink.defaultProps = {
   variant: 'area',
   icon: undefined,
+  size: undefined,
 };
 
 function Tag({
-  variant, text, icon, id,
+  variant, text, icon, id, size,
 }: TagType) {
   let color;
   if (variant === 'area') color = 'primary';
   if (variant === 'location') color = 'secondary';
   if (variant === 'other') color = 'success';
   return (
-    <div className={`tag tag--${color}`} id={id}>
+    <div
+      className={`
+      tag 
+      tag--${color} 
+      ${size ? `tag--${size}` : ''}
+      `}
+      id={id}
+    >
       <p className="tag__text">
         {text}
       </p>
@@ -86,6 +103,7 @@ function Tag({
 Tag.defaultProps = {
   variant: 'area',
   icon: undefined,
+  size: undefined,
 };
 
 export default Tag;

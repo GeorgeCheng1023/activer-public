@@ -21,4 +21,30 @@
     }
 
   }
+
+  &__default-tags {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+
+    &__control {
+      display: flex;
+      justify-content: space-between;
+
+      &__right {
+        display: flex;
+        gap: 1em;
+      }
+    }
+
+    &__container {
+      display: flex;
+      gap: 1em;
+      margin: 0.5em;
+      border: 1px solid $primary-font-color;
+      border-radius: 1em;
+      padding: 2em;
+    }
+  }
+
 }

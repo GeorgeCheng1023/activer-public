@@ -1,0 +1,14 @@
+{
+  "DefaultTags": [
+    {
+      "TagId": 123,
+      "Text": "線上",
+      "Type": "other"
+    },
+    {
+      "TagId": 124,
+      "Text": "網頁開發",
+      "Type": "area"
+    }
+  ]
+}
