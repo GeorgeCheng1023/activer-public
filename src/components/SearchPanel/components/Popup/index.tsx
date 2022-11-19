@@ -3,7 +3,7 @@ import { GrClose } from 'react-icons/gr';
 import { createPortal } from 'react-dom';
 import './index.scss';
 import { useAppDispatch } from 'hooks/redux';
-import { hide } from 'store/searchPanel/searchPanelSlice';
+import { hide } from 'store/searchPanel';
 
 type Props = {
   display: boolean,
@@ -19,16 +19,18 @@ function Popup({ display, children }: Props) {
 
   if (display) {
     return createPortal(
-      <div className="popup">
-        <div className="popup__inner">
-          <button
-            type="button"
-            className="popup__close-button"
-            onClick={handleClick}
-          >
-            <GrClose />
-          </button>
-          {children}
+      <div className="popup__back">
+        <div className="popup">
+          <div className="popup__inner">
+            <button
+              type="button"
+              className="popup__close-button"
+              onClick={handleClick}
+            >
+              <GrClose />
+            </button>
+            {children}
+          </div>
         </div>
       </div>,
       document.getElementById('root')!,

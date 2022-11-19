@@ -1,6 +1,9 @@
 @import '~/src/_variables';
 
 .search {
+  position: absolute;
+  top: 0;
+
   border-radius: 15px;
   background-color: #f8f8f8;
   color: $primary-font-color;

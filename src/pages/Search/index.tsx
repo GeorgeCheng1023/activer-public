@@ -27,14 +27,7 @@ function Search() {
   const [displaySearchPanel, setDisplaySearchPanel] = useState(false);
 
   return (
-    <>
-      <ResultBanner setTrigger={setDisplaySearchPanel} />
-      <SearchPanel
-        defaultTags={parseData.defaultTags as TagType[]}
-        recommendTags={parseData.recommendTags as TagType[]}
-      />
-
-    </>
+    <ResultBanner setTrigger={setDisplaySearchPanel} />
 
   );
 }

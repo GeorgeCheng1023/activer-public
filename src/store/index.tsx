@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchPanelReducer from './searchPanel/searchPanelSlice';
+import searchPanelReducer from './searchPanel';
 
 const store = configureStore({
   reducer: {

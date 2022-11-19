@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
+import type { TagType } from 'components/Tag';
 
 interface SearchPanelState {
   display: boolean;
+  defaultTags: TagType[],
+  sortTags: TagType[],
+  recommendTags: TagType[],
 }
 
 const initialState: SearchPanelState = {
-  display: true,
+  display: false,
+  defaultTags: [],
+  sortTags: [],
+  recommendTags: [],
 };
 
 export const searchPanelSlice = createSlice({
@@ -31,5 +38,8 @@ export const searchPanelSlice = createSlice({
 export const { show, hide, toggle } = searchPanelSlice.actions;
 // export value
 export const selectDisplay = (state: RootState) => state.searchPanel.display;
+export const defaultTags = (state: RootState) => state.searchPanel.defaultTags;
+export const sortTags = (state: RootState) => state.searchPanel.sortTags;
+export const recommendTags = (state: RootState) => state.searchPanel.recommendTags;
 
 export default searchPanelSlice.reducer;

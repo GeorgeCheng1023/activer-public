@@ -2,7 +2,7 @@ import React from 'react';
 // style
 import './Navbar.scss';
 // redux
-import { show } from 'store/searchPanel/searchPanelSlice';
+import { show } from 'store/searchPanel';
 // hook
 import useAuth from 'hooks/useAuth';
 import { useAppDispatch } from 'hooks/redux';

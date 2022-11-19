@@ -1,5 +1,8 @@
 .popup {
-  position: relative;
+  position: absolute;
+  top: 15%;
+  z-index: 1;
+  width: 80%;
 
   &__close-button {
     cursor: pointer;
@@ -7,6 +10,11 @@
     position: absolute;
     right: 10px;
     top: 10px;
+  }
+
+  &__back {
+    height: 100%;
+    width: 100%;
     
   }
 }
