@@ -1,18 +1,21 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
 import './index.scss';
 
 // hook
 import useAuth from 'hooks/useAuth';
+
+// axios
+import axios from 'axios';
+import rAxios from '../../../../api/axios';
 
 interface type {
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 function GoogleLoginButton({ setSuccess }: type) {
-  const { setAuth } : any = useAuth();
+  const { setAuth }: any = useAuth();
 
   const login = useGoogleLogin({
     onSuccess: async (respose) => {
@@ -26,12 +29,20 @@ function GoogleLoginButton({ setSuccess }: type) {
           },
         );
 
+        const response = await rAxios.post(
+          '/google/login',
+          JSON.stringify(data.data),
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          },
+        );
+
         setAuth({
-          username: data.data.name,
-          picture: data.data.picture,
-          accessToken: respose.access_token,
+          username: response.data.userData.name,
+          accessToken: response.data.accessToken,
+          picture: response.data.userData.picture,
         });
-        console.log(data);
         setSuccess(true);
       } catch (err) {
         console.log(err);

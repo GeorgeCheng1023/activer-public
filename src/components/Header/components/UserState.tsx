@@ -15,6 +15,7 @@ function UserState() {
   const logout = useLogout();
 
   const { auth } : any = useAuth();
+  console.log(auth);
   const state = auth.accessToken;
 
   const signOut = async () => {

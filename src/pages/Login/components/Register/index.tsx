@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './index.scss';
 import axios from 'axios';
 
@@ -15,8 +15,6 @@ const REGISTER_URL = 'http://localhost:3500/api/register';
 
 function Register() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
   const [user, setUser] = useState('');
   const [validName, setValidName] = useState<boolean>(true);
@@ -45,7 +43,7 @@ function Register() {
   }, [pwd]);
 
   if (success) {
-    navigate(from, { replace: true });
+    navigate('/login', { replace: true });
   }
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {

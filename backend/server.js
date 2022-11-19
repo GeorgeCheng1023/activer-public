@@ -2,49 +2,19 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const passport = require('passport');
+const passport = require('passport/lib');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
 const bcrpyt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const passportLocalMongoose = require("passport-local-mongoose");
-const passportLocal = require('passport-local');
+const passportLocal = require('passport-local/lib');
 const bodyParser = require('body-parser');
 
 // google strategy
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20/lib').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const verifyJWT = require('./middleware/verifyJWT');
-
-// mongodb
-mongoose.connect("mongodb://127.0.0.1:27017/activerUserDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}, (err) => {
-  if (err) throw err;
-  console.log("Connect TO MongoDB");
-});
-// User Schema
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-    require
-  },
-  password: {
-    type: String,
-    require
-  },
-  // isAdmin: {
-  //   type: Boolean,
-  //   default: false
-  // },
-  refreshToken: String,
-});
-
-const User = new mongoose.model("User", userSchema);
-
-userSchema.plugin(findOrCreate);
 
 // preprocess
 const app = express();
@@ -72,8 +42,71 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// mongodb
+mongoose.connect("mongodb://127.0.0.1:27017/activerUserDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, (err) => {
+  if (err) throw err;
+  console.log("Connect TO MongoDB");
+});
+// User Schema
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    require
+  },
+  password: {
+    type: String,
+    require
+  },
+  // isAdmin: {
+  //   type: Boolean,
+  //   default: false
+  // },
+  refreshToken: String,
+  userData: {
+    type: Object,
+    require
+  },
+});
+
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
+
+const User = new mongoose.model("User", userSchema);
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+// Google Strategy
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/activer",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      console.log(profile);
+      return cb(err, user);
+    });
+  }
+));
+
 // router
 app.get('/', (req, res) => {
+  console.log('0.0');
   res.send('0.0');
 })
 
@@ -94,10 +127,10 @@ app.post('/api/login', (req, res) => {
         bcrpyt.compare(password, foundUser.password, (err, result) => {
           if (result) {
 
-            const user = { username: foundUser.username };
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'});
+            const userData = { username: foundUser.username };
+            const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'});
 
-            const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'});
+            const refreshToken = jwt.sign(userData, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'});
 
             // Saving refreshToken with current user
             foundUser.refreshToken = refreshToken;
@@ -108,15 +141,58 @@ app.post('/api/login', (req, res) => {
 
             return res.json({correct: true, accessToken, refreshToken, foundUser});
           } else {
-            return res.send('error');
+            return res.json({correct: false});
           }
         })
       } else {
-        return res.status(401); //Unauthorized 
+        return res.json({correct: false}).status(401); //Unauthorized 
       }
 
     } 
   })
+});
+
+app.post('/google/login', (req, res) => {
+  const userData = req.body; 
+
+  const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15s'});
+  const refreshToken = jwt.sign(userData, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'});
+
+  User.findOne({userData: userData}, (err, foundUser) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      if (!foundUser) {
+        const newUser = new User({
+          username: userData.name,
+          userData: userData,
+          refreshToken: refreshToken,
+        });
+        
+        newUser.save((err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('User save successfully');
+          }
+        });
+      } else {
+        foundUser.refreshToken = refreshToken
+        foundUser.save((err) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('User save successfully');
+          }
+        });
+      }
+    }
+  })
+
+  // Creates Secure Cookie with refresh token
+  res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+
+  return res.json({correct: true, accessToken, refreshToken, userData});
 });
 
 app.post('/api/register', (req, res) => {
@@ -140,7 +216,8 @@ app.post('/api/register', (req, res) => {
     } else {
       const newUser = new User({
         username: username,
-        password: hash
+        password: hash,
+        userData: {username: username}
       });   
   
       await newUser.save((err) => {
@@ -161,16 +238,19 @@ app.get('/refresh', (req, res) => {
   // console.log(cookies);
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;
-  User.findOne({ refreshToken: refreshToken}, (err, foundUser) => {
+  // console.log(refreshToken);
+  User.findOne({ refreshToken: refreshToken }, (err, foundUser) => {
     if (err || !foundUser) {
       return res.sendStatus(403);
     }
     if (foundUser) {
       jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-        if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
-        const user = {"username": decoded.username};
-        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
-        res.json({ username: decoded.username, accessToken: accessToken })
+        // console.log(foundUser.userData, decoded);
+        if (err || foundUser.userData.name !== decoded.name) return res.sendStatus(403);
+        const username = foundUser.username;
+        const userData = foundUser.userData;
+        const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
+        res.json({ username: username, accessToken: accessToken, userData: userData })
       })
     }
   })
@@ -197,27 +277,14 @@ app.get('/logout', (req, res) => {
   })
 });
 
-// Google Strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/activer",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      console.log(profile);
-      return cb(err, user);
-    });
-  }
-));
+// Google
 
 app.get("/auth/google",
   passport.authenticate('google', { scope: ["profile"] })
 );
 
-app.get('/auth/google/activer', 
-  passport.authenticate('google', { failureRedirect: '/api/login' }),
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/api/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');

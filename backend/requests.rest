@@ -28,3 +28,13 @@ GET http://localhost:3500/
 
 GET http://localhost:3500/logout
 
+###
+
+POST  http://localhost:3500/google/login
+Content-Type: application/json
+
+{
+  "user": "wowaaa",
+  "pwd": "123456"
+}
+

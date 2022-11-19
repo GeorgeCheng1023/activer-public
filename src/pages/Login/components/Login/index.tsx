@@ -76,7 +76,6 @@ function LoginSection() {
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
     setShowErr(true);
-    setSuccess(true); 
 
     // test user and pwd is correct or not
     const v1 = USER_REGEX.test(user);
@@ -98,7 +97,7 @@ function LoginSection() {
         },
       );
       
-      console.log(response);
+      // console.log(response);
       
       const userCorrect = response?.data.correct;
       const accessToken = response?.data.accessToken;
@@ -177,7 +176,7 @@ function LoginSection() {
           <label htmlFor='persist'>Trust This Device</label>
         </section>
 
-        <p id="pwdnote" className={validPwd ? 'offscreen' : 'instructions'}>
+        <p id="pwdnote" className={validPwd ? 'offscreen' : 'pwd-instructions'}>
           8 to 24 characters.
           <br />
           Must include uppercase and lowercase letters, a number and a special character.
