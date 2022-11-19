@@ -1,21 +1,24 @@
 import React from 'react';
 import { GrClose } from 'react-icons/gr';
+import { createPortal } from 'react-dom';
 import './index.scss';
+import { useAppDispatch } from 'hooks/redux';
+import { hide } from 'store/searchPanel/searchPanelSlice';
 
 type Props = {
-  trigger?: boolean,
-  setTrigger: React.Dispatch<React.SetStateAction<boolean>>
+  display: boolean,
   children: React.ReactNode,
 };
 
-function Popup({ trigger, children, setTrigger }: Props) {
+function Popup({ display, children }: Props) {
+  const dispatch = useAppDispatch();
   const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setTrigger(false);
+    dispatch(hide());
   };
 
-  if (trigger) {
-    return (
+  if (display) {
+    return createPortal(
       <div className="popup">
         <div className="popup__inner">
           <button
@@ -27,14 +30,11 @@ function Popup({ trigger, children, setTrigger }: Props) {
           </button>
           {children}
         </div>
-      </div>
+      </div>,
+      document.getElementById('root')!,
     );
   }
   return (null);
 }
-
-Popup.defaultProps = {
-  trigger: false,
-};
 
 export default Popup;

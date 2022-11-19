@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { RootState } from 'store';
+
+interface SearchPanelState {
+  display: boolean;
+}
+
+const initialState: SearchPanelState = {
+  display: true,
+};
 
 export const searchPanelSlice = createSlice({
   name: 'searchPanel',
-  initialState: {
-    display: true,
-  },
+  initialState,
   reducers: {
-    display: (state) => ({
+    show: (state) => ({
       ...state,
       display: true,
     }),
@@ -21,8 +28,8 @@ export const searchPanelSlice = createSlice({
   },
 });
 // export actions
-export const { display, hide, toggle } = searchPanelSlice.actions;
+export const { show, hide, toggle } = searchPanelSlice.actions;
 // export value
-export const selectDisplay = (state) => state.searchPanel.value;
+export const selectDisplay = (state: RootState) => state.searchPanel.display;
 
 export default searchPanelSlice.reducer;
