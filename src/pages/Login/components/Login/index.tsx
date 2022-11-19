@@ -219,7 +219,7 @@ function LoginSection() {
       <aside className='or-aside'></aside>
 
       <section className="other-login-section">
-        <GoogleLoginButton setSuccess={setSuccess} />
+        <GoogleLoginButton />
       </section>
     </div>
   );
