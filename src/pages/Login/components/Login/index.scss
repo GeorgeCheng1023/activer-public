@@ -116,9 +116,21 @@ button {
 }
 
 .instructions {
+  margin-left: 20px;
   color: $_warning-color;
   font-weight: 600;
-  transform: translateX(20px);
+  
+  & > * {
+    color: $_warning-color;
+    margin-left: .3rem;
+  }
+} 
+
+.pwd-instructions {
+  margin-left: 20px;
+  margin-top: 5px;
+  color: $_warning-color;
+  font-weight: 600;
   
   & > * {
     color: $_warning-color;

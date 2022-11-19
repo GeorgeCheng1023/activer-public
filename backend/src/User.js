@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { stringify } = require('querystring');
 
 const user = new mongoose.Schema({
   username: {
@@ -9,7 +10,9 @@ const user = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false
-  }
+  },
+  refreshToken: String,
+  data: Object,
 })
 
 module.exports = mongoose.model('User', user)
