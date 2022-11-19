@@ -43,7 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // mongodb
-mongoose.connect("mongodb://127.0.0.1:27017/activerUserDB", {
+mongoose.connect("mongodb+srv://admin-pig:test123@cluster0.lfftfsj.mongodb.net/?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, (err) => {
