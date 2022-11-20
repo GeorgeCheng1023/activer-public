@@ -1,0 +1,17 @@
+[
+  {
+    "TagId": 1,
+    "Text": "特殊教育",
+    "Type": "area"
+  },
+  {
+    "TagId": 2,
+    "Text": "幼兒教育",
+    "Type": "area"
+  },
+  {
+    "TagId": 3,
+    "Text": "免費",
+    "Type": "other"
+  }
+]

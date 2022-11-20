@@ -8,14 +8,17 @@
   align-items: center;
 
   font-family: 'Inter';
-  font-weight: bolder;
   font-size: 1rem;
 
   &__item {
+    all: initial;
     position: relative;
     height: 34px;
     color: $primary-font-color;
     text-decoration: none;
+
+    font-weight: bolder;
+    font-size: 1em;
 
     &::before {
       content: "";

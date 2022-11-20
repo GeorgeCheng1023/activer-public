@@ -78,9 +78,9 @@ $_btn-config:(primary:(class: 'primary',
     display: flex;
     align-items: center;
   }
-}
 
-:disabled {
-  opacity: 0.5;
-  cursor: not-allowed
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed
+  }
 }

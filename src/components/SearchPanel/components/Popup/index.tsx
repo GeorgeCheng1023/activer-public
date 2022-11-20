@@ -1,22 +1,26 @@
 import React from 'react';
 import { GrClose } from 'react-icons/gr';
+
 import './index.scss';
+import { useAppDispatch } from 'hooks/redux';
+import { hide } from 'store/searchPanel';
 
 type Props = {
-  trigger?: boolean,
-  setTrigger: React.Dispatch<React.SetStateAction<boolean>>
+  display: boolean,
   children: React.ReactNode,
 };
 
-function Popup({ trigger, children, setTrigger }: Props) {
+function Popup({ display, children }: Props) {
+  const dispatch = useAppDispatch();
   const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setTrigger(false);
+    dispatch(hide());
   };
 
-  if (trigger) {
+  if (display) {
     return (
       <div className="popup">
+        <div className="popup__back" />
         <div className="popup__inner">
           <button
             type="button"
@@ -26,15 +30,12 @@ function Popup({ trigger, children, setTrigger }: Props) {
             <GrClose />
           </button>
           {children}
+
         </div>
       </div>
     );
   }
   return (null);
 }
-
-Popup.defaultProps = {
-  trigger: false,
-};
 
 export default Popup;

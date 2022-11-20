@@ -6,13 +6,17 @@ import SearchBar from 'components/Form/FormSearchBar';
 import Button from 'components/Button';
 import { BiSend } from 'react-icons/bi';
 import Tag, { TagType } from 'components/Tag';
-
+// redux
+import { addHistoryTags, setKeyword } from 'store/searchPanel';
+import { useAppDispatch } from 'hooks/redux';
 // data
 import dummyUserDefaultTags from './dummyUserDefaultTags.json';
 import dummySearchHistory from './dummySearchHistory.json';
 
 // style
 import './index.scss';
+
+// redux
 
 // parseData
 const parseDummySearchHistory = dummySearchHistory.map((history) => ({
@@ -52,6 +56,12 @@ function Preferences() {
     console.log(defaultTags);
   };
 
+  const dispatch = useAppDispatch();
+  const handleSearchHistory = (tags: TagType[], keyword: string) => {
+    dispatch(addHistoryTags(tags));
+    dispatch(setKeyword(keyword));
+  };
+
   return (
     <div className="preferences">
       <div className="preferences__default-tags">
@@ -79,13 +89,14 @@ function Preferences() {
       <h2 className="preferences__h2">搜尋紀錄</h2>
       <div className="preferences__history">
         {
-          parseDummySearchHistory.map((history: any) => (
-            <div className=" history__container">
+          parseDummySearchHistory.map((history: any, index) => (
+            // eslint-disable-next-line
+            <div className="history__container" key={`history-${index}`}>
               <div className="history__keyword">
                 <SearchBar onSubmit={handleSubmit} placeHolder={history.Keyword} disabled />
               </div>
               <div className=" history__tag-sort">
-                <TagSort tags={history.HistoryTags} disable />
+                <TagSort tags={history.HistoryTags} disabled />
               </div>
               <div className=" history__button">
                 <Button
@@ -93,6 +104,10 @@ function Preferences() {
                   text="前往搜尋"
                   iconAfter={<BiSend />}
                   color="success"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSearchHistory(history.HistoryTags, history.Keyword);
+                  }}
                 />
               </div>
             </div>

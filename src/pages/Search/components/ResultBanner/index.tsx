@@ -1,15 +1,15 @@
 import React from 'react';
-import Button from '../../../../components/Button';
+import Button from 'components/Button';
 import './index.scss';
+import { show } from 'store/searchPanel';
+import { useAppDispatch } from 'hooks/redux';
 
-type Props = {
-  setTrigger: React.Dispatch<React.SetStateAction<boolean>>;
-};
+function ResultBanner() {
+  const dispatch = useAppDispatch();
 
-function ResultBanner({ setTrigger } : Props) {
   const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setTrigger(true);
+    dispatch(show());
   };
 
   return (

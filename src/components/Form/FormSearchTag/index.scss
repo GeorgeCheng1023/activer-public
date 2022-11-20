@@ -56,11 +56,10 @@ $_border-color: #A5A5A5;
       color: white;
     }
 
-    &:disabled,
-    &:disabled * {
-      cursor: default;
+    &.dsiabled {
 
-      &:hover {
+      &:hover,
+      &:hover * {
         background-color: transparent;
         color: $primary-font-color;
       }
