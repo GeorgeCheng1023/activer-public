@@ -39,6 +39,9 @@ function GoogleLoginButton() {
           },
         );
 
+        console.log('0.0');
+        console.log(response);
+
         setAuth({
           username: response.data.userData.name,
           accessToken: response.data.accessToken,

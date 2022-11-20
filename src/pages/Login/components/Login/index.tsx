@@ -40,7 +40,9 @@ function LoginSection() {
   const [showErr, setShowErr] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const { setAuth, persist, setPersist } : any = useAuth();
+  const {
+    auth, setAuth, persist, setPersist,
+  } : any = useAuth();
 
   useEffect(() => {
     userRef.current?.focus();
@@ -66,7 +68,7 @@ function LoginSection() {
   }, [pwdFocus]);
 
 
-  success && navigate(from, {replace : true});
+  ( auth.accessToken || success ) && navigate(from, {replace : true});
 
   const togglePersist = () => {
     localStorage.setItem('persist', persist);
