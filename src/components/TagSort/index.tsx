@@ -16,7 +16,8 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
 
   useEffect(() => {
     setTags(tagsInput);
-  }, [tagsInput]);
+    if (onChange) { onChange(tags); }
+  }, [tags]);
 
   const handleMoveTag = useCallback((dragIndex: number, hoverIndex: number) => {
     setTags((prevTags: Array<TagType>) => update(prevTags, {
@@ -25,7 +26,6 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
         [hoverIndex, 0, prevTags[dragIndex] as TagType],
       ],
     }));
-    if (onChange) { onChange(tags); }
   }, []);
 
   const renderTag = useCallback((tag: TagType, index: number) => (

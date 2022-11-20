@@ -1,6 +1,6 @@
 import React from 'react';
 import { GrClose } from 'react-icons/gr';
-import { createPortal } from 'react-dom';
+
 import './index.scss';
 import { useAppDispatch } from 'hooks/redux';
 import { hide } from 'store/searchPanel';
@@ -18,22 +18,21 @@ function Popup({ display, children }: Props) {
   };
 
   if (display) {
-    return createPortal(
-      <div className="popup__back">
-        <div className="popup">
-          <div className="popup__inner">
-            <button
-              type="button"
-              className="popup__close-button"
-              onClick={handleClick}
-            >
-              <GrClose />
-            </button>
-            {children}
-          </div>
+    return (
+      <div className="popup">
+        <div className="popup__back" />
+        <div className="popup__inner">
+          <button
+            type="button"
+            className="popup__close-button"
+            onClick={handleClick}
+          >
+            <GrClose />
+          </button>
+          {children}
+
         </div>
-      </div>,
-      document.getElementById('root')!,
+      </div>
     );
   }
   return (null);

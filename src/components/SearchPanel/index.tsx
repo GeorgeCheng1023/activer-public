@@ -4,7 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // hooks
-import { useAppSelector } from 'hooks/redux';
+import { useAppSelector, useAppDispatch } from 'hooks/redux';
 
 // style
 import './index.scss';
@@ -13,9 +13,9 @@ import TagSort from 'components/TagSort';
 import { TagNoLink as Tag, TagType } from 'components/Tag';
 import SearchBar from 'components/Form/FormSearchBar';
 import Popup from 'components/SearchPanel/components/Popup';
-// actions
 
 // data
+import { setSortTag } from 'store/searchPanel';
 import dummyAllTags from './dummyAllTagText.json';
 import dummyAllActivity from './dummyAllActivityTitle.json';
 
@@ -26,6 +26,7 @@ type Props = {
 
 // main function
 function Search({ recommendTags, defaultTags }: Props) {
+  const dispatch = useAppDispatch();
   const [tagsRecommend, setTagsRecommend] = useState<TagType[]>(recommendTags);
   const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTags);
 
@@ -113,12 +114,13 @@ function Search({ recommendTags, defaultTags }: Props) {
 
   // handle sort change and update tag sorting in searchValue
   const handleSortChange = (newTags : Array<TagType>) => {
-    setSearchValue({ ...searchValue, tags: newTags });
+    // console.log(newTags);
+    dispatch(setSortTag(newTags));
   };
 
   // redux
   const display = useAppSelector((state) => state.searchPanel.display);
-
+  const sortTags = useAppSelector((state) => state.searchPanel.sortTags);
   return (
 
     <Popup display={display}>
@@ -176,7 +178,7 @@ function Search({ recommendTags, defaultTags }: Props) {
             <h2 className="search__h2">標籤排序</h2>
             <DndProvider backend={HTML5Backend}>
               <TagSort
-                tags={tagsStorage}
+                tags={sortTags}
                 onChange={handleSortChange}
               />
             </DndProvider>

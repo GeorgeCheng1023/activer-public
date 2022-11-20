@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 import type { TagType } from 'components/Tag';
 
@@ -32,10 +32,16 @@ export const searchPanelSlice = createSlice({
       ...state,
       display: !state.display,
     }),
+    setSortTag: (state, action: PayloadAction<TagType[]>) => ({
+      ...state,
+      sortTags: action.payload,
+    }),
   },
 });
 // export actions
-export const { show, hide, toggle } = searchPanelSlice.actions;
+export const {
+  show, hide, toggle, setSortTag,
+} = searchPanelSlice.actions;
 // export value
 export const selectDisplay = (state: RootState) => state.searchPanel.display;
 export const defaultTags = (state: RootState) => state.searchPanel.defaultTags;
