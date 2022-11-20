@@ -15,9 +15,11 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
   const [tags, setTags] = useState<Array<TagType>>(tagsInput);
 
   useEffect(() => {
-    setTags(tagsInput);
     if (onChange) { onChange(tags); }
   }, [tags]);
+  useEffect(() => {
+    setTags(tagsInput);
+  }, [tagsInput]);
 
   const handleMoveTag = useCallback((dragIndex: number, hoverIndex: number) => {
     setTags((prevTags: Array<TagType>) => update(prevTags, {

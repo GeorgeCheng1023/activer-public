@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import { BiSend } from 'react-icons/bi';
 import Tag, { TagType } from 'components/Tag';
 // redux
-import { setSortTag } from 'store/searchPanel';
+import { addHistoryTags } from 'store/searchPanel';
 import { useAppDispatch } from 'hooks/redux';
 // data
 import dummyUserDefaultTags from './dummyUserDefaultTags.json';
@@ -58,7 +58,7 @@ function Preferences() {
 
   const dispatch = useAppDispatch();
   const handleSearchHistory = (tags: TagType[]) => {
-    dispatch(setSortTag(tags));
+    dispatch(addHistoryTags(tags));
   };
 
   return (

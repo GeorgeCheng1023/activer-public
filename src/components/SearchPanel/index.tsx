@@ -1,5 +1,4 @@
-// package
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
@@ -12,62 +11,39 @@ import './index.scss';
 import TagSort from 'components/TagSort';
 import { TagNoLink as Tag, TagType } from 'components/Tag';
 import SearchBar from 'components/Form/FormSearchBar';
+import SearchTag from 'components/Form/FormSearchTag';
 import Popup from 'components/SearchPanel/components/Popup';
 
-// data
-import { setSortTag } from 'store/searchPanel';
-import dummyAllTags from './dummyAllTagText.json';
+// store
+import {
+  setSortTag,
+  addStorage,
+  removeStorage,
+  selectRecommendTags,
+  selectStorageTags,
+  selectDisplay,
+  selectSortTags,
+} from 'store/searchPanel';
+
+// hooks
 import dummyAllActivity from './dummyAllActivityTitle.json';
 
-type Props = {
-  recommendTags: TagType[],
-  defaultTags: TagType[]
-};
-
 // main function
-function Search({ recommendTags, defaultTags }: Props) {
+function Search() {
   const dispatch = useAppDispatch();
-  const [tagsRecommend, setTagsRecommend] = useState<TagType[]>(recommendTags);
-  const [tagsStorage, setTagsStorage] = useState<TagType[]>(defaultTags);
-
-  // init search value
-  const [searchValue, setSearchValue] = useState({
-    keyword: '',
-    tags: defaultTags,
-  });
-
-  useEffect(() => {
-    setTagsStorage(tagsStorage);
-  }, [tagsStorage]);
+  const tagsStorage = useAppSelector(selectStorageTags);
+  const tagsRecommend = useAppSelector(selectRecommendTags);
+  const display = useAppSelector(selectDisplay);
+  const sortTags = useAppSelector(selectSortTags);
 
   // to remove recommend tag from storage
   const handleRemoveTag = (clickedTag: TagType) => {
-    // remove from storage
-    const newTagsStorage = tagsStorage.filter((tag) => tag.id !== clickedTag.id);
-    // check if exist in recommend
-    if (!(tagsRecommend.map((tag) => tag.id).includes(clickedTag.id))) {
-      // add to recommend
-      setTagsRecommend([...tagsRecommend, clickedTag]);
-    }
-    // update
-    setTagsStorage(newTagsStorage);
+    dispatch(removeStorage(clickedTag));
   };
 
   // to add recommend tag to storage
   const handleAddTag = (clickedTag: TagType) => {
-    const newsTagsRecommend = tagsRecommend.filter((tag) => tag.id !== clickedTag.id);
-    setTagsRecommend(newsTagsRecommend);
-    // check if already exists in tagStorage
-    if (tagsStorage.map((tag) => tag.id).includes(clickedTag.id)) {
-      return;
-    }
-    // add in storage
-    setTagsStorage([...tagsStorage, clickedTag]);
-    // add in sort
-    setSearchValue({
-      ...searchValue,
-      tags: [...tagsStorage, clickedTag],
-    });
+    dispatch(addStorage(clickedTag));
   };
 
   //  to render the storage tag
@@ -100,27 +76,17 @@ function Search({ recommendTags, defaultTags }: Props) {
   }
 
   // handle search submit event and update keyword in searchValue
+  // eslint-disable-next-line
   const handleSearchSubmit = (inputValue: string) => {
-    setSearchValue({
-      ...searchValue,
-      keyword: inputValue,
-    });
-  };
-
-  const handleTagSubmit = (inputValue: string) => {
-    // do something
-    console.log(inputValue);
+    console.log('submit');
   };
 
   // handle sort change and update tag sorting in searchValue
   const handleSortChange = (newTags : Array<TagType>) => {
-    // console.log(newTags);
     dispatch(setSortTag(newTags));
   };
 
   // redux
-  const display = useAppSelector((state) => state.searchPanel.display);
-  const sortTags = useAppSelector((state) => state.searchPanel.sortTags);
   return (
 
     <Popup display={display}>
@@ -147,12 +113,8 @@ function Search({ recommendTags, defaultTags }: Props) {
 
             {/* tag searching */}
             <div className="search__tag tag-manage__search">
-              <SearchBar
-                onSubmit={handleTagSubmit}
+              <SearchTag
                 placeHolder="搜尋活動標籤"
-                suggestion={
-                  dummyAllTags.map((tag) => tag)
-                }
               />
             </div>
 
