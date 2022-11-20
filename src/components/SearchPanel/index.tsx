@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from 'hooks/redux';
 
 // style
 import './index.scss';
+
 // components
 import TagSort from 'components/TagSort';
 import { TagNoLink as Tag, TagType } from 'components/Tag';
@@ -23,10 +24,8 @@ import {
   selectStorageTags,
   selectDisplay,
   selectSortTags,
+  selectKeyword,
 } from 'store/searchPanel';
-
-// hooks
-import dummyAllActivity from './dummyAllActivityTitle.json';
 
 // main function
 function Search() {
@@ -35,7 +34,7 @@ function Search() {
   const tagsRecommend = useAppSelector(selectRecommendTags);
   const display = useAppSelector(selectDisplay);
   const sortTags = useAppSelector(selectSortTags);
-
+  const keyword = useAppSelector(selectKeyword);
   // to remove recommend tag from storage
   const handleRemoveTag = (clickedTag: TagType) => {
     dispatch(removeStorage(clickedTag));
@@ -98,9 +97,7 @@ function Search() {
             <SearchBar
               onSubmit={handleSearchSubmit}
               placeHolder="搜尋活動關鍵字"
-              suggestion={
-                dummyAllActivity.map((activity) => activity.title)
-              }
+              defaultText={keyword}
             />
           </div>
         </div>

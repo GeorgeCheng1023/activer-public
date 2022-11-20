@@ -4,10 +4,11 @@ import type { TagType } from 'components/Tag';
 
 interface SearchPanelState {
   display: boolean;
+  keyword: string,
   defaultTags: TagType[],
   sortTags: TagType[],
   recommendTags: TagType[],
-  storageTags: TagType[]
+  storageTags: TagType[],
 }
 
 const initialState: SearchPanelState = {
@@ -16,6 +17,7 @@ const initialState: SearchPanelState = {
   sortTags: [],
   recommendTags: [],
   storageTags: [],
+  keyword: '',
 };
 
 export const searchPanelSlice = createSlice({
@@ -81,11 +83,16 @@ export const searchPanelSlice = createSlice({
         sortTags: newTags,
       });
     },
+    setKeyword: (state, action: PayloadAction<string>) => ({
+      ...state,
+      keyword: action.payload,
+    }),
+
   },
 });
 // export actions
 export const {
-  show, hide, toggle, setSortTag, addStorage, removeStorage, addHistoryTags,
+  show, hide, toggle, setSortTag, addStorage, removeStorage, addHistoryTags, setKeyword,
 } = searchPanelSlice.actions;
 // export selector
 export const selectDisplay = (state: RootState) => state.searchPanel.display;
@@ -93,6 +100,7 @@ export const selectDefaultTags = (state: RootState) => state.searchPanel.default
 export const selectSortTags = (state: RootState) => state.searchPanel.sortTags;
 export const selectStorageTags = (state: RootState) => state.searchPanel.storageTags;
 export const selectRecommendTags = (state: RootState) => state.searchPanel.recommendTags;
+export const selectKeyword = (state: RootState) => state.searchPanel.keyword;
 
 // export reducer
 export default searchPanelSlice.reducer;

@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import { BiSend } from 'react-icons/bi';
 import Tag, { TagType } from 'components/Tag';
 // redux
-import { addHistoryTags } from 'store/searchPanel';
+import { addHistoryTags, setKeyword } from 'store/searchPanel';
 import { useAppDispatch } from 'hooks/redux';
 // data
 import dummyUserDefaultTags from './dummyUserDefaultTags.json';
@@ -57,8 +57,9 @@ function Preferences() {
   };
 
   const dispatch = useAppDispatch();
-  const handleSearchHistory = (tags: TagType[]) => {
+  const handleSearchHistory = (tags: TagType[], keyword: string) => {
     dispatch(addHistoryTags(tags));
+    dispatch(setKeyword(keyword));
   };
 
   return (
@@ -104,7 +105,8 @@ function Preferences() {
                   iconAfter={<BiSend />}
                   color="success"
                   onClick={(e) => {
-                    e.preventDefault(); handleSearchHistory(history.HistoryTags);
+                    e.preventDefault();
+                    handleSearchHistory(history.HistoryTags, history.Keyword);
                   }}
                 />
               </div>
