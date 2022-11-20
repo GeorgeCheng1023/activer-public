@@ -96,7 +96,7 @@ function Preferences() {
                 <SearchBar onSubmit={handleSubmit} placeHolder={history.Keyword} disabled />
               </div>
               <div className=" history__tag-sort">
-                <TagSort tags={history.HistoryTags} disable />
+                <TagSort tags={history.HistoryTags} disabled />
               </div>
               <div className=" history__button">
                 <Button

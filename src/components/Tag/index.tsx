@@ -8,9 +8,11 @@ import { BiMinus } from 'react-icons/bi';
 export type TagType = {
   id: string;
   text: string;
+  disabled?: boolean;
   variant?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
   size?: 'sm' | 'lg';
+  onClick?: (clickedTag: TagType) => void;
 };
 
 function TagIcon(icon: TagType['icon']) {
@@ -26,66 +28,34 @@ function TagIcon(icon: TagType['icon']) {
   }
 }
 
-interface TagNoLinkProps extends TagType {
-  onClick: (clickTag: TagType) => void
-}
-
-export function TagNoLink({
-  variant, text, icon, id, onClick, size,
-}: TagNoLinkProps) {
-  const clickData = {
-    variant, text, icon, id,
-  };
-
-  let color;
-  if (variant === 'area') color = 'primary';
-  if (variant === 'location') color = 'secondary';
-  if (variant === 'other') color = 'success';
-  return (
-    <button
-      type="button"
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onClick={(e) => onClick(clickData)}
-      className={`
-        tag 
-        tag--${color}  
-        ${size ? `tag--${size}` : ''}`}
-      id={id}
-    >
-      <p className="tag__text">
-        {text}
-      </p>
-      {icon && (
-        <div className="tag tag__icon">
-          {TagIcon(icon)}
-        </div>
-      ) }
-
-    </button>
-  );
-}
-
-TagNoLink.defaultProps = {
-  variant: 'area',
-  icon: undefined,
-  size: undefined,
+const getColor = (variant: TagType['variant']) : string => {
+  switch (variant) {
+    case 'area': return 'primary';
+    case 'location': return 'secondary';
+    case 'other': return 'success';
+    default: return 'primary';
+  }
 };
 
 function Tag({
-  variant, text, icon, id, size,
+  variant, text, icon, id, size, onClick, disabled,
 }: TagType) {
-  let color;
-  if (variant === 'area') color = 'primary';
-  if (variant === 'location') color = 'secondary';
-  if (variant === 'other') color = 'success';
+  const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    if (onClick) { onClick({ variant, text, id }); }
+  };
+
   return (
-    <div
+    <button
+      type="button"
       className={`
       tag 
-      tag--${color} 
+      tag--${getColor(variant)}  
       ${size ? `tag--${size}` : ''}
       `}
       id={id}
+      onClick={handleClick}
+      disabled={disabled}
     >
       <p className="tag__text">
         {text}
@@ -95,8 +65,7 @@ function Tag({
           {TagIcon(icon)}
         </div>
       ) }
-
-    </div>
+    </button>
   );
 }
 
@@ -104,6 +73,8 @@ Tag.defaultProps = {
   variant: 'area',
   icon: undefined,
   size: undefined,
+  onClick: undefined,
+  disabled: false,
 };
 
 export default Tag;

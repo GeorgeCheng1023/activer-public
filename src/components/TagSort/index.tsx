@@ -6,12 +6,12 @@ import update from 'immutability-helper';
 import DragTag from './components/DragTag';
 
 type Props = {
-  disable?: boolean;
+  disabled?: boolean;
   onChange?: (tag: TagType[]) => void;
   tags: Array<TagType>
 };
 
-function TagSort({ onChange, disable, tags: tagsInput }: Props) {
+function TagSort({ onChange, disabled, tags: tagsInput }: Props) {
   const [tags, setTags] = useState<Array<TagType>>(tagsInput);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
     />
   ), []);
 
-  if (disable) {
+  if (disabled) {
     return (
       <ol className="tag-sort">
         {tags.map((tag) => (
@@ -56,6 +56,7 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
                 key={tag.id}
                 text={tag.text}
                 icon="move"
+                disabled={disabled}
               />
             </div>
           </li>
@@ -73,7 +74,7 @@ function TagSort({ onChange, disable, tags: tagsInput }: Props) {
 
 TagSort.defaultProps = {
   onChange: undefined,
-  disable: false,
+  disabled: false,
 };
 
 export default TagSort;

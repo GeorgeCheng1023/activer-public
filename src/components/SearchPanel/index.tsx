@@ -10,7 +10,7 @@ import './index.scss';
 
 // components
 import TagSort from 'components/TagSort';
-import { TagNoLink as Tag, TagType } from 'components/Tag';
+import Tag, { TagType } from 'components/Tag';
 import SearchBar from 'components/Form/FormSearchBar';
 import SearchTag from 'components/Form/FormSearchTag';
 import Popup from 'components/SearchPanel/components/Popup';

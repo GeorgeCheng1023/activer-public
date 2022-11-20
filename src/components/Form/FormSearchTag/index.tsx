@@ -65,7 +65,7 @@ function FormSearchBar({
           disabled={disabled}
         />
         <button className="button-nostyle searchButton" type="submit">
-          <div className="searchBar__section">
+          <div className={`searchBar__section ${disabled || ''}`}>
             <FiSearch className="searchBar__icon" />
           </div>
         </button>

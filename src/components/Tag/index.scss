@@ -1,21 +1,27 @@
 @import '../../_variables';
 @import '../../_global';
 
+
+
 .tag {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   width: fit-content;
   height: 1.25rem;
   padding: 1.2em 1em;
-  border-radius: 0.8em;
   margin: 0;
+  border-radius: 0.8em;
+
   color: #FFF;
+
+  transition: filter 0.3s;
 
   cursor: pointer;
 
   &:hover {
-    @include effect-darker;
+    filter: brightness(85%);
   }
 
   &--primary {
@@ -33,7 +39,6 @@
   &__icon * {
     color: white;
     font-size: 1.4em;
-
   }
 
   &__text {
@@ -43,5 +48,16 @@
 
   &--sm {
     font-size: 0.03em;
+  }
+
+  &:disabled,
+  &:disabled * {
+
+    cursor: default;
+
+    &:hover {
+      filter: brightness(100%);
+    }
+
   }
 }

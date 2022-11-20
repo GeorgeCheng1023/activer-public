@@ -47,7 +47,7 @@ function FormSearchBar({
           onKeyUp={handleKeyPress}
           disabled={disabled}
         />
-        <button className="button-nostyle searchButton" type="submit" onClick={handleSubmit}>
+        <button className="button-nostyle searchButton" disabled={disabled} type="submit" onClick={handleSubmit}>
           <div className="searchBar__section">
             <FiSearch className="searchBar__icon" />
           </div>
