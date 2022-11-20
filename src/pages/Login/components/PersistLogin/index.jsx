@@ -22,7 +22,12 @@ function PersistLogin() {
     setAuth((prev) => {
       // console.log(JSON.stringify(prev));
       // console.log(response.data.accessToken);
-      return { ...prev, username: response.data.username, accessToken: response.data.accessToken };
+      return {
+        ...prev,
+        username: response.data.username,
+        accessToken: response.data.accessToken,
+        userData: response.data.userData,
+      };
     });
 
     return response.data.accessToken;

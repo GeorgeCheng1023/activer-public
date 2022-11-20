@@ -33,7 +33,7 @@ function UserState() {
         state
           ? (
             <>
-              {auth.picture && <img className="user-state__portrait" src={auth.picture} alt="" srcSet="" />}
+              {auth.userData?.picture && <img className="user-state__portrait" src={auth.userData.picture} alt="" />}
               <h3>
                 Welcome
                 <span className="user-state__username">{ auth.username }</span>

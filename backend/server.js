@@ -250,7 +250,8 @@ app.get('/refresh', (req, res) => {
         const username = foundUser.username;
         const userData = foundUser.userData;
         const accessToken = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
-        res.json({ username: username, accessToken: accessToken, userData: userData })
+        console.log(userData);
+        return res.json({ username: username, accessToken: accessToken, userData: userData })
       })
     }
   })

@@ -8,14 +8,15 @@ import useAuth from 'hooks/useAuth';
 
 // axios
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 import rAxios from '../../../../api/axios';
 
-interface type {
-  setSuccess: React.Dispatch<React.SetStateAction<boolean>>,
-}
-
-function GoogleLoginButton({ setSuccess }: type) {
+function GoogleLoginButton() {
   const { setAuth }: any = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const login = useGoogleLogin({
     onSuccess: async (respose) => {
@@ -41,9 +42,10 @@ function GoogleLoginButton({ setSuccess }: type) {
         setAuth({
           username: response.data.userData.name,
           accessToken: response.data.accessToken,
-          picture: response.data.userData.picture,
+          userData: response.data.userData,
         });
-        setSuccess(true);
+
+        navigate(from, { replace: true });
       } catch (err) {
         console.log(err);
       }
