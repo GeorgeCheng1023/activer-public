@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
+import Crop from 'components/Crop';
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
 import dummyUserData from './dummyUserData.json';
@@ -25,12 +26,22 @@ function Basic() {
     handleChange(key, value);
   };
 
+  // image crop display
+  const [displayCrop, setDisplayCrop] = useState(false);
+
   return (
     <form onSubmit={handleSubmit} className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__img">
-            <img src={dummyUserData.Portrait} alt="user_portrait" />
+            <Button onClick={(e) => setDisplayCrop(true)} text="上傳" />
+            {displayCrop
+              && (
+                <Crop
+                  photoUrl={dummyUserData.Portrait}
+                  setDisplayCrop={setDisplayCrop}
+                />
+              )}
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput
