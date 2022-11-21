@@ -1,0 +1,23 @@
+.crop-item {
+
+
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 200px   ;
+    background: '#333';
+  }
+
+  &__control {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  &__slider {
+    display: flex;
+    align-items: center;
+  }
+
+}

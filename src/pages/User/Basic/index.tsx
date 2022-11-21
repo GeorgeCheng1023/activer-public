@@ -26,22 +26,12 @@ function Basic() {
     handleChange(key, value);
   };
 
-  // image crop display
-  const [displayCrop, setDisplayCrop] = useState(false);
-
   return (
     <form onSubmit={handleSubmit} className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__img">
-            <Button onClick={(e) => setDisplayCrop(true)} text="上傳" />
-            {displayCrop
-              && (
-                <Crop
-                  photoUrl={dummyUserData.Portrait}
-                  setDisplayCrop={setDisplayCrop}
-                />
-              )}
+            <Crop />
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput

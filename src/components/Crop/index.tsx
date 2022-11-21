@@ -1,34 +1,31 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Cropper from 'react-easy-crop';
 import Button from 'components/Button';
 
-import { setLabels } from 'react-chartjs-2/dist/utils';
+import { Area } from 'react-easy-crop/types';
 import getCroppedImg from './utils/cropImages';
+
+// style
+import './index.scss';
+
+const dummyDogImage = 'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG9nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60';
 
 const zoomPercent = (value: number) => `${Math.round(value * 100)}`;
 
-type Props = {
-  photoUrl: string,
-  setDisplayCrop: React.Dispatch<React.SetStateAction<boolean>>
-  setPhotoUrl:React.Dispatch<React.SetStateAction<string>>,
-  setFile: React.Dispatch<React.SetStateAction<any>>,
-};
-
-function Crop({
-  photoUrl, setDisplayCrop, setPhotoUrl, setFile,
-}: Props) {
+function Crop() {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
+  const [croppedImage, setCroppedImage] = useState();
 
-  const cropComplete = (cropArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  };
+  const handleCropComplete = useCallback((cropArea: Area, cropPixels: Area) => {
+    setCroppedAreaPixels(cropPixels);
+  }, []);
 
   // handle zoom control input
   const handleChangeZoom:React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setZoom(parseInt(e.target.value, 10));
+    setZoom(parseInt(e.target.value, 10) / 100);
   };
   const handleChangeRotation:React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setRotation(parseInt(e.target.value, 10));
@@ -36,59 +33,72 @@ function Crop({
 
   // handle submit crop image
 
-  const handleCropImage = async (e) => {
-    e.preventDefault();
-
-    const file = await getCroppedImg(photoUrl, croppedAreaPixels, rotation);
-    setPhotoUrl(url);
-    setFile(file);
-    setDisplayCrop(false);
-  };
+  const handleCropImage = useCallback(async () => {
+    try {
+      const getCroppedImage = await getCroppedImg(
+        dummyDogImage,
+        croppedAreaPixels,
+        rotation,
+      );
+      setCroppedImage(getCroppedImage);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [croppedAreaPixels, rotation]);
 
   return (
-    <>
-      <Cropper
-        image={photoUrl}
-        crop={crop}
-        zoom={zoom}
-        rotation={rotation}
-        aspect={1}
-        onCropChange={setCrop}
-        onZoomChange={setZoom}
-        onRotationChange={setRotation}
-        onCropComplete={cropComplete}
-      />
-      <label htmlFor="zoom">
-        Zoom:
-        {' '}
-        {zoomPercent(zoom)}
-      </label>
-      <input
-        type="range"
-        id="zoom"
-        min={1}
-        max={3}
-        step={0.01}
-        value={zoom}
-        onChange={handleChangeZoom}
-      />
-      <label htmlFor="rotation">
-        Zoom:
-        {' '}
-        {zoomPercent(zoom)}
-      </label>
-      <input
-        type="range"
-        id="rotation"
-        min={0}
-        max={360}
-        step={1}
-        value={rotation}
-        onChange={handleChangeRotation}
-      />
-      <Button text="取消" onClick={setDisplayCrop} />
+    <div className="crop-item">
+      <div className="crop-item__container">
+        <Cropper
+          image={dummyDogImage}
+          crop={crop}
+          zoom={zoom}
+          rotation={rotation}
+          aspect={1}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onRotationChange={setRotation}
+          onCropComplete={handleCropComplete}
+        />
+      </div>
+      <div className="crop-item__control">
+        <div className="crop-item__slider">
+          <label htmlFor="zoom">
+            Zoom:
+            {' '}
+            {zoomPercent(zoom)}
+            %
+          </label>
+          <input
+            type="range"
+            id="zoom"
+            min={100}
+            max={300}
+            step={1}
+            value={zoom * 100}
+            onChange={handleChangeZoom}
+          />
+        </div>
+        <div className="crop-item__slider">
+          <label htmlFor="rotation">
+            Rotation:
+            {' '}
+            {rotation}
+          </label>
+          <input
+            type="range"
+            id="rotation"
+            min={0}
+            max={360}
+            step={1}
+            value={rotation}
+            onChange={handleChangeRotation}
+          />
+        </div>
+      </div>
       <Button text="裁切" onClick={handleCropImage} />
-    </>
+      <img src={croppedImage} alt="crop" />
+    </div>
   );
 }
 

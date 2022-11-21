@@ -3,15 +3,10 @@
   font-size: 1.2em;
 
   &__img {
+    position: 'relative';
+    padding: 16;
     display: flex;
-    justify-content: center;
-    margin-top: 30px;
 
-
-    img {
-      border-radius: 50%;
-      width: 50%;
-    }
   }
 
   &__input {
@@ -31,7 +26,7 @@
 
     >div {
       flex-grow: 1;
-      
+
     }
 
     &--column {
@@ -46,6 +41,7 @@
 
 
 @media (max-width: 1120px) {
+
   // 修改當中 0.0
   .user-basic {
     &__container {
