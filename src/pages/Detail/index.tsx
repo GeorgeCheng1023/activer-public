@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Carousel from 'components/Carousel';
 import Tag, { TagType } from 'components/Tag';
 import ManageNav from 'components/ManageNav';
+import Button from 'components/Button';
+import { FaEdit } from 'react-icons/fa';
 import DetailProperties from './components/DetailProperties';
 import Comment from './components/Comment';
 // data
@@ -115,7 +117,6 @@ function Detail() {
           {Source.map((s) => (
             <a className="detail__a" href={s}>{s}</a>
           ))}
-
         </p>
 
         <h2 className="detail__h2">
@@ -126,6 +127,12 @@ function Detail() {
         </p>
         <br />
         <div className="detail__comment">
+          <div className="detail__comment__title">
+            <h2 className="detail__h2">
+              活動評論
+            </h2>
+            <Button text="撰寫評論" iconBefore={<FaEdit />} size="sm" />
+          </div>
           <Comment />
         </div>
       </div>
