@@ -5,6 +5,7 @@ import Carousel from 'components/Carousel';
 import Tag, { TagType } from 'components/Tag';
 import ManageNav from 'components/ManageNav';
 import DetailProperties from './components/DetailProperties';
+import Comment from './components/Comment';
 // data
 import dummyActivityData from './dummyActivity.json';
 
@@ -124,6 +125,9 @@ function Detail() {
           {Connection}
         </p>
         <br />
+        <div className="detail__comment">
+          <Comment />
+        </div>
       </div>
       <br />
     </div>
