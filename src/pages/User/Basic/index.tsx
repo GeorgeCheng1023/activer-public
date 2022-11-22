@@ -11,6 +11,7 @@ import CityCountyData from './CityCountyData.json';
 function Basic() {
   const [values, setValues] = useState(dummyUserData);
   const [selectedCounty, setSelectCounty] = useState('');
+  const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
   const handleChange = (key: any, value: any) => {
     setValues({ ...values, [key]: value });
@@ -26,12 +27,31 @@ function Basic() {
     handleChange(key, value);
   };
 
+  // handle the portrait crop
+  const handleCropped = (croppedImage: string) => {
+    handleChange('Portrait', croppedImage);
+  };
+
+  const handleCropPanelShow:
+  React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    setDisplayCropPanel(true);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__img">
-            <Crop />
+            {displayCropPanel
+            && (
+              <Crop
+                onCropped={handleCropped}
+                setDisplayCropPanel={setDisplayCropPanel}
+              />
+            )}
+            <img src={values.Portrait} alt="user-portrait" />
+            <Button text="上傳頭像" onClick={handleCropPanelShow} />
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput

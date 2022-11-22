@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import Cropper from 'react-easy-crop';
 import Button from 'components/Button';
 
@@ -12,12 +12,17 @@ const dummyDogImage = 'https://images.unsplash.com/photo-1552053831-71594a27632d
 
 const zoomPercent = (value: number) => `${Math.round(value * 100)}`;
 
-function Crop() {
+type Props = {
+  onCropped: (croppedImage: string) => void,
+  setDisplayCropPanel: React.Dispatch<React.SetStateAction<boolean>>
+};
+
+function Crop({ onCropped, setDisplayCropPanel }: Props) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
-  const [croppedImage, setCroppedImage] = useState();
+  const croppedImage = useRef('');
 
   const handleCropComplete = useCallback((cropArea: Area, cropPixels: Area) => {
     setCroppedAreaPixels(cropPixels);
@@ -31,8 +36,7 @@ function Crop() {
     setRotation(parseInt(e.target.value, 10));
   };
 
-  // handle submit crop image
-
+  // handle crop image
   const handleCropImage = useCallback(async () => {
     try {
       const getCroppedImage = await getCroppedImg(
@@ -40,7 +44,11 @@ function Crop() {
         croppedAreaPixels,
         rotation,
       );
-      setCroppedImage(getCroppedImage);
+      if (getCroppedImage) {
+        croppedImage.current = getCroppedImage;
+        onCropped(croppedImage.current);
+        setDisplayCropPanel(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -97,7 +105,6 @@ function Crop() {
         </div>
       </div>
       <Button text="裁切" onClick={handleCropImage} />
-      <img src={croppedImage} alt="crop" />
     </div>
   );
 }

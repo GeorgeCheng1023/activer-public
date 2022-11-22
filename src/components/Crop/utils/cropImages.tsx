@@ -32,7 +32,7 @@ const getCroppedImg = async (
   pixelCrop:any,
   rotation = 0,
   flip = { horizontal: false, vertical: false },
-) : Promise<any> => {
+) : Promise<string | null> => {
   const image = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -85,7 +85,9 @@ const getCroppedImg = async (
   // As a blob
   return new Promise((resolve) => {
     canvas.toBlob((file) => {
-      resolve(URL.createObjectURL(file!));
+      if (file) {
+        resolve(URL.createObjectURL(file));
+      }
     }, 'image/jpeg');
   });
 };
