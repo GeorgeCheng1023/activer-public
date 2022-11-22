@@ -12,7 +12,7 @@ type Props = {
 
 function Popup({ display, children }: Props) {
   const dispatch = useAppDispatch();
-  const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleClick:React.MouseEventHandler<HTMLButtonElement | HTMLDivElement> = (e) => {
     e.preventDefault();
     dispatch(hide());
   };
@@ -20,17 +20,16 @@ function Popup({ display, children }: Props) {
   if (display) {
     return (
       <div className="popup">
-        <div className="popup__back" />
+        <div className="popup__back" onClick={handleClick} aria-hidden="true" />
+        <button
+          type="button"
+          className="popup__close-button"
+          onClick={handleClick}
+        >
+          <GrClose />
+        </button>
         <div className="popup__inner">
-          <button
-            type="button"
-            className="popup__close-button"
-            onClick={handleClick}
-          >
-            <GrClose />
-          </button>
           {children}
-
         </div>
       </div>
     );
