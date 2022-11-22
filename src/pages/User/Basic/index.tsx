@@ -42,7 +42,7 @@ function Basic() {
     <form onSubmit={handleSubmit} className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
-          <div className="user-basic__img">
+          <div className="user-basic__portrait">
             {displayCropPanel
             && (
               <Crop
@@ -50,8 +50,13 @@ function Basic() {
                 setDisplayCropPanel={setDisplayCropPanel}
               />
             )}
-            <img src={values.Portrait} alt="user-portrait" />
-            <Button text="上傳頭像" onClick={handleCropPanelShow} />
+            <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
+            <div className="user-basic__portrait upload-button">
+              <Button
+                text="上傳頭像"
+                onClick={handleCropPanelShow}
+              />
+            </div>
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput
