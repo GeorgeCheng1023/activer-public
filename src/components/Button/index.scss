@@ -19,7 +19,8 @@ $_btn-config:(primary:(class: 'primary',
     color: $primary-font-color,
     hover-color: #e4e4e4,
     bg: white,
-  ));
+  ),
+);
 
 @mixin setColor ($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;
@@ -48,10 +49,12 @@ $_btn-config:(primary:(class: 'primary',
   }
 
   &--sm {
-    font-size: 0.6em;
+    font-size: 0.8em;
     padding: 0.4em 1.8em;
   }
 
+
+  // default variant
   @each $name,
   $value in $_btn-config {
     $class: map-get($value, class);
@@ -65,6 +68,26 @@ $_btn-config:(primary:(class: 'primary',
       &:hover:not([disabled]) {
         @include setColor($bg, $bg, $hover-color);
 
+      }
+    }
+  }
+
+  &.button--outline {
+
+    @each $name,
+    $value in $_btn-config {
+      $class: map-get($value, class);
+      $color: map-get($value, color);
+      $bg: map-get($value, bg);
+      $hover-color: map-get($value, hover-color);
+
+      &.button--#{$class} {
+        @include setColor($bg, $bg, $color);
+
+        &:hover:not([disabled]) {
+          @include setColor($bg, $bg, $hover-color);
+
+        }
       }
     }
   }
