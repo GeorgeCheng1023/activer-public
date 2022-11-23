@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-// router
-import { BrowserRouter } from 'react-router-dom';
-
 // provider
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -22,13 +19,12 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
   <ReduxProvider store={store}>
-    <BrowserRouter>
-      <AuthProvider>
-        <GoogleOAuthProvider clientId="844622130486-tg3voh22qmia7rf2723gnmpkop983j23.apps.googleusercontent.com">
-          <App />
-        </GoogleOAuthProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <GoogleOAuthProvider clientId="844622130486-tg3voh22qmia7rf2723gnmpkop983j23.apps.googleusercontent.com">
+        <App />
+      </GoogleOAuthProvider>
+    </AuthProvider>
   </ReduxProvider>,
+
   /* </React.StrictMode> */
 );
