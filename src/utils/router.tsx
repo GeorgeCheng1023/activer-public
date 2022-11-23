@@ -6,20 +6,18 @@ import Register from 'pages/Login/components/Register';
 import User, {
   Basic, Account, History, Preferences, Manage,
 } from 'pages/User';
-import Record from 'pages/User/History/Record';
+// import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search from 'pages/Search';
 import Detail from 'pages/Detail';
+import PersistLogin from 'pages/Login/components/PersistLogin';
+import Admin from 'pages/Login/components/Admin';
 
 export const routerConfig = [
   {
     path: '/',
     element: <Root />,
     children: [
-      {
-        path: '/',
-        element: <Home />,
-      },
       {
         path: '/login',
         element: <Login />,
@@ -28,44 +26,62 @@ export const routerConfig = [
         path: '/register',
         element: <Register />,
       },
+
       {
-        path: '/search',
-        element: <Search />,
-      },
-      {
-        path: '/user',
-        element: <User />,
+        element: <PersistLogin />,
         children: [
           {
-            index: true,
-            path: 'basic',
-            element: <Basic />,
+            path: '/',
+            element: <Home />,
           },
           {
-            path: 'account',
-            element: <Account />,
+            path: '/search',
+            element: <Search />,
           },
+
           {
-            path: 'manage',
-            element: <Manage />,
+            element: <Admin />,
+            children: [
+              {
+                path: '/user',
+                element: <User />,
+                children: [
+                  {
+                    index: true,
+                    path: 'basic',
+                    element: <Basic />,
+                  },
+                  {
+                    path: 'account',
+                    element: <Account />,
+                  },
+                  {
+                    path: 'manage',
+                    element: <Manage />,
+                  },
+                  {
+                    path: 'history',
+                    element: <History />,
+                  },
+                  {
+                    path: 'preferences',
+                    element: <Preferences />,
+                  },
+                  // {
+                  //   path: 'record',
+                  //   element: <Record />,
+                  // },
+                ],
+              },
+            ],
           },
+
           {
-            path: 'history',
-            element: <History />,
+            path: '/detail',
+            element: <Detail />,
           },
-          {
-            path: 'preferences',
-            element: <Preferences />,
-          },
-          {
-            path: 'record',
-            element: <Record />,
-          },
+
         ],
-      },
-      {
-        path: '/detail',
-        element: <Detail />,
       },
     ],
   },
