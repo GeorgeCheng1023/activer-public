@@ -4,10 +4,13 @@ import ReactStars from 'react-stars';
 type Props = {
   onChangeRating?: (newRating: number) => void;
   edit? :boolean;
-  value?: number
+  value?: number,
+  size?: number
 };
 
-function Star({ onChangeRating, edit, value }:Props) {
+function Star({
+  onChangeRating, edit, value, size,
+}:Props) {
   const handleChange = (newRating: number) => {
     if (onChangeRating) { onChangeRating(newRating); }
   };
@@ -17,6 +20,7 @@ function Star({ onChangeRating, edit, value }:Props) {
       count={5}
       edit={edit}
       value={value}
+      size={size}
       onChange={handleChange}
     />
   );
@@ -26,6 +30,7 @@ Star.defaultProps = {
   onChangeRating: undefined,
   edit: false,
   value: 0,
+  size: 24,
 };
 
 export default Star;
