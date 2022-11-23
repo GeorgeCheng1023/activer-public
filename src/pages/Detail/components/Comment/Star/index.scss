@@ -1,0 +1,15 @@
+.star {
+  &--fill svg {
+
+    >path:first-child {
+      fill: yellow;
+    }
+
+    >path:last-child {
+      fill: gray;
+
+    }
+
+
+  }
+}
