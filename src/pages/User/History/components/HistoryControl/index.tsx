@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // components
 import Button from 'components/Button';
@@ -13,12 +14,14 @@ function HistoryControl() {
         text="評論"
         size="lg"
       />
-      <Button
-        color="white"
-        iconBefore={<FaEdit />}
-        text="心得記錄"
-        size="lg"
-      />
+      <Link to="/user/record">
+        <Button
+          color="white"
+          iconBefore={<FaEdit />}
+          text="心得記錄"
+          size="lg"
+        />
+      </Link>
     </>
   );
 }
