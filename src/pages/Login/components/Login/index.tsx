@@ -14,7 +14,6 @@ import GoogleLoginButton from '../GoogleLogin';
 import useAuth from '../../../../hooks/useAuth';
 
 // Regex
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 // Url
@@ -29,7 +28,6 @@ function LoginSection() {
   const errRef = useRef<HTMLInputElement | null>(null);
 
   const [user, setUser] = useState('');
-  const [validName, setValidName] = useState<boolean>(true);
   const [userFocus, setUserFocus] = useState<boolean>(false);
 
   const [pwd, setPwd] = useState('');
@@ -48,12 +46,6 @@ function LoginSection() {
     userRef.current?.focus();
   }, []);
 
-  /*eslint-disable*/
-  useEffect(() => {
-    if (showErr) setValidName(USER_REGEX.test(user));
-    // console.log(validName);
-  }, [user]);
-
   useEffect(() => {
     if (showErr) setValidPwd(PWD_REGEX.test(pwd));
     // console.log(validPwd);
@@ -67,25 +59,23 @@ function LoginSection() {
     setErrMsg('');
   }, [pwdFocus]);
 
-
-  ( auth.accessToken || success ) && navigate(from, {replace : true});
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  (auth.accessToken || success) && navigate(from, { replace: true });
 
   const togglePersist = () => {
     localStorage.setItem('persist', persist);
     setPersist((prev: any) => !prev);
-  }
+  };
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
     setShowErr(true);
 
     // test user and pwd is correct or not
-    const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
-    if (!v1 || !v2) {
-      if (!v1) setValidName(false);
+    if (!v2) {
       if (!v2) setValidPwd(false);
-      setErrMsg('Invalid Entry');
+      setErrMsg('');
       return;
     }
 
@@ -98,21 +88,13 @@ function LoginSection() {
           withCredentials: true,
         },
       );
-      
-      // console.log(response);
-      
-      const userCorrect = response?.data.correct;
-      const accessToken = response?.data.accessToken;
 
-      if (!userCorrect) {
-        setErrMsg('login failed');
-      } else {
-        setSuccess(true);
-      }
+      const accessToken = response?.data.accessToken;
 
       setUser('');
       setPwd('');
-      setAuth({ username: user, password: pwd, accessToken })
+      setSuccess(true);
+      setAuth({ username: user, password: pwd, accessToken });
 
       // console.log('Submit Successfully');
       // console.log(response?.data);
@@ -120,11 +102,13 @@ function LoginSection() {
       // console.log(JSON.stringify(response));
     } catch (err: any) {
       if (!err?.response) {
-        setErrMsg('No Server Response');
-      } else if (err.response?.status === 409) {
-        setErrMsg('Username Taken');
+        setErrMsg('伺服器無回應');
+      } else if (err.response?.status === 400) {
+        setErrMsg('帳號和密碼不能空白');
+      } else if (err.response?.status === 401) {
+        setErrMsg('帳號或密碼有誤');
       } else {
-        setErrMsg('Registration Failed');
+        setErrMsg('登入錯誤');
       }
       errRef.current?.focus();
     }
@@ -151,14 +135,6 @@ function LoginSection() {
           />
         </section>
 
-        <p id="uidnote" className={validName ? 'offscreen' : 'instructions'}>
-          4 to 24 characters.
-          <br />
-          Must begin with a letter.
-          <br />
-          Letters, numbers, underscores, hyphens allowed.
-        </p>
-
         <section className="login-section__text-field">
           <FormText
             variant="default"
@@ -173,17 +149,15 @@ function LoginSection() {
           />
         </section>
 
-        <section className='login-section__check-persist-section'>
-          <input type='checkbox' id='persist' onChange={togglePersist} />
-          <label htmlFor='persist'>Trust This Device</label>
+        <section className="login-section__check-persist-section">
+          <input type="checkbox" id="persist" onChange={togglePersist} />
+          <label htmlFor="persist">Trust This Device</label>
         </section>
 
         <p id="pwdnote" className={validPwd ? 'offscreen' : 'pwd-instructions'}>
-          8 to 24 characters.
+          密碼至少八位字元，需要包含至少一個數字、一個大寫英文、一個小寫英文、一個特殊字元
           <br />
-          Must include uppercase and lowercase letters, a number and a special character.
-          <br />
-          Allowed special characters:
+          特殊字元為 :
           <span aria-label="exclamation mark">!</span>
           <span aria-label="at symbol">@</span>
           <span aria-label="hashtag">#</span>
@@ -196,10 +170,12 @@ function LoginSection() {
           <ButtonFrame
             color="primary"
             text="登入"
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e, LOGIN_URL)}
+            onClick={
+              (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e, LOGIN_URL)
+            }
           />
           {/* 檢測帳號有無重複，以及符合規範 */}
-          <Link to='/register'>
+          <Link to="/register">
             <ButtonFrame
               color="primary"
               variant="outline"
@@ -218,7 +194,7 @@ function LoginSection() {
 
       </form>
 
-      <aside className='or-aside'></aside>
+      <aside className="or-aside" />
 
       <section className="other-login-section">
         <GoogleLoginButton />

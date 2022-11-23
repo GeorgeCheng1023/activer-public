@@ -98,7 +98,7 @@ function Register() {
     <div className="register-container">
       <section className="register-section">
         <p className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
-        <h1 className="register-section__title">Sign Up</h1>
+        <h1 className="register-section__title">註冊</h1>
 
         <input
           className="register-section__text-field"
