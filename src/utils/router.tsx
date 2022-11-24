@@ -6,7 +6,7 @@ import Register from 'pages/Login/components/Register';
 import User, {
   Basic, Account, History, Preferences, Manage,
 } from 'pages/User';
-// import Record from 'pages/User/History/Record';
+import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search from 'pages/Search';
 import Detail from 'pages/Detail';
@@ -62,15 +62,17 @@ export const routerConfig = [
                   {
                     path: 'history',
                     element: <History />,
+
                   },
                   {
                     path: 'preferences',
                     element: <Preferences />,
                   },
-                  // {
-                  //   path: 'record',
-                  //   element: <Record />,
-                  // },
+                  {
+                    path: 'record',
+                    element: <Record />,
+                  },
+
                 ],
               },
             ],

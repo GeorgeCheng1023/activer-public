@@ -31,6 +31,8 @@ import MarkButton from './components/MarkButton';
 import Leaf from './components/Leaf';
 import Element from './components/Element';
 
+import './index.scss';
+
 const HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
@@ -114,29 +116,33 @@ function TextEditor() {
 
   return (
     <Slate editor={editor} value={initialValue}>
-      <div className="text-editor__toolbar">
-        <MarkButton format="bold" icon={<BsTypeBold />} />
-        <MarkButton format="italic" icon={<BsTypeItalic />} />
-        <MarkButton format="underline" icon={<BsTypeUnderline />} />
-        <MarkButton format="code" icon={<BsCode />} />
-        <BlockButton format="heading-one" icon={<BsTypeH1 />} />
-        <BlockButton format="heading-two" icon={<BsTypeH2 />} />
-        <BlockButton format="block-quote" icon={<MdFormatQuote />} />
-        <BlockButton format="numbered-list" icon={<MdOutlineFormatListNumbered />} />
-        <BlockButton format="bulleted-list" icon={<MdOutlineFormatListBulleted />} />
-        <BlockButton format="left" icon={<MdOutlineFormatAlignLeft />} />
-        <BlockButton format="center" icon={<MdOutlineFormatAlignCenter />} />
-        <BlockButton format="right" icon={<MdOutlineFormatAlignRight />} />
-        <BlockButton format="justify" icon={<MdOutlineFormatAlignJustify />} />
+      <div className="text-editor">
+        <div className="text-editor__toolbar">
+          <MarkButton format="bold" icon={<BsTypeBold />} />
+          <MarkButton format="italic" icon={<BsTypeItalic />} />
+          <MarkButton format="underline" icon={<BsTypeUnderline />} />
+          <MarkButton format="code" icon={<BsCode />} />
+          <BlockButton format="heading-one" icon={<BsTypeH1 />} />
+          <BlockButton format="heading-two" icon={<BsTypeH2 />} />
+          <BlockButton format="block-quote" icon={<MdFormatQuote />} />
+          <BlockButton format="numbered-list" icon={<MdOutlineFormatListNumbered />} />
+          <BlockButton format="bulleted-list" icon={<MdOutlineFormatListBulleted />} />
+          <BlockButton format="left" icon={<MdOutlineFormatAlignLeft />} />
+          <BlockButton format="center" icon={<MdOutlineFormatAlignCenter />} />
+          <BlockButton format="right" icon={<MdOutlineFormatAlignRight />} />
+          <BlockButton format="justify" icon={<MdOutlineFormatAlignJustify />} />
+        </div>
+        <Editable
+          className="text-editor__textarea"
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          placeholder="Enter some rich text…"
+          spellCheck
+          autoFocus
+          onKeyDown={handleKeyDown}
+        />
       </div>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        placeholder="Enter some rich text…"
-        spellCheck
-        autoFocus
-        onKeyDown={handleKeyDown}
-      />
+
     </Slate>
   );
 }

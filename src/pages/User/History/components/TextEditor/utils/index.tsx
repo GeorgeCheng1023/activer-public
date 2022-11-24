@@ -2,7 +2,7 @@ import {
   BaseText, Editor, Element as SlateElement, Transforms,
 } from 'slate';
 import {
-  TEXT_ALIGN_TYPES, LIST_TYPES, CustomEditor, CustomText, ElementType, CustomElement,
+  TEXT_ALIGN_TYPES, LIST_TYPES, CustomEditor, CustomText, ElementType,
 } from '../types';
 
 declare module 'slate' {
