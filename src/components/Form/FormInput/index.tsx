@@ -7,7 +7,7 @@ import Button from '../../Button';
 export type inputType = {
   id: string
   name?: string,
-  label: string,
+  label?: string,
   inputType?: 'text' | 'password' | 'email' | 'date',
   placeholder: string,
   errorMessage?: string,
@@ -35,9 +35,12 @@ function FormInput(props: FormInputProps) {
 
   return (
     <div className={`form-input ${disabled ? 'disabled' : ''}`}>
-      <div className={`form-input__label ${variant ? `form-input__label--${variant}` : ''}`}>
-        {inputProps.label}
-      </div>
+      {variant === 'withoutLabel' ? ''
+        : (
+          <div className={`form-input__label ${variant ? `form-input__label--${variant}` : ''}`}>
+            {inputProps.label}
+          </div>
+        )}
       <div className={`form-input__section ${variant ? `form-input__section--${variant}` : ''}`}>
         <input
           id={inputProps.id}

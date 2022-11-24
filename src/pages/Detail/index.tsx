@@ -4,7 +4,11 @@ import React, { useState } from 'react';
 import Carousel from 'components/Carousel';
 import Tag, { TagType } from 'components/Tag';
 import ManageNav from 'components/ManageNav';
+import Button from 'components/Button';
+import { FaEdit } from 'react-icons/fa';
 import DetailProperties from './components/DetailProperties';
+import Comment from './components/Comment';
+import CommentPanel from './components/CommentPanel';
 // data
 import dummyActivityData from './dummyActivity.json';
 
@@ -35,8 +39,8 @@ function Detail() {
       });
     })
     .slice(0, 5);
-    // eslint-disable-next-line
-  const parseImages =Images
+
+  const parseImages = Images
     .map((Image:any) => (
       {
         url: Image.ImageUrl,
@@ -44,11 +48,21 @@ function Detail() {
       }
     ));
 
+  // branch manage
   const [currentBranch, setCurrentBranch] = useState(Branches[0]);
 
   const handleChangeFilter = (selectedId : number) => {
     setCurrentBranch(Branches[selectedId]);
   };
+
+  // display comment push panel
+
+  const [displayCommentPanel, setDisplayCommentPanel] = useState(false);
+  const handleOpenCommentPanel = (e: any) => {
+    e.preventDefault();
+    setDisplayCommentPanel(true);
+  };
+
   return (
     <div className="detail">
       <div className="detail__container--top">
@@ -114,7 +128,6 @@ function Detail() {
           {Source.map((s) => (
             <a className="detail__a" href={s}>{s}</a>
           ))}
-
         </p>
 
         <h2 className="detail__h2">
@@ -124,6 +137,23 @@ function Detail() {
           {Connection}
         </p>
         <br />
+        <div className="detail__comment">
+          <div className="detail__comment__title">
+            <h2 className="detail__h2">
+              活動評論
+            </h2>
+            <Button
+              text="撰寫評論"
+              iconBefore={<FaEdit />}
+              size="sm"
+              onClick={handleOpenCommentPanel}
+            />
+
+          </div>
+          <Comment />
+          {displayCommentPanel
+          && <CommentPanel setDisplayCommentPanel={setDisplayCommentPanel} />}
+        </div>
       </div>
       <br />
     </div>
