@@ -1,17 +1,11 @@
 import {
-  BaseText, Editor, Element as SlateElement, Transforms,
+  Editor, Element as SlateElement, Transforms,
 } from 'slate';
 import {
-  TEXT_ALIGN_TYPES, LIST_TYPES, CustomEditor, CustomText, ElementType,
+  TEXT_ALIGN_TYPES, LIST_TYPES, ElementType,
 } from '../types';
 
-declare module 'slate' {
-  export interface BaseElement {
-    type: string;
-  }
-}
-
-export const isBlockActive = (editor: CustomEditor, format: Omit<CustomText, 'text'>, blockType:string = 'type') => {
+export const isBlockActive = (editor: Editor, format: string, blockType:string = 'type') => {
   const { selection } = editor;
   if (!selection) return false;
 
@@ -26,25 +20,25 @@ export const isBlockActive = (editor: CustomEditor, format: Omit<CustomText, 'te
   return !!match;
 };
 
-export const toggleBlock = (editor: CustomEditor, format: Omit<CustomText, 'text'>) => {
+export const toggleBlock = (editor: Editor, format: string) => {
   const isActive = isBlockActive(
     editor,
     format,
-    TEXT_ALIGN_TYPES.includes(format.toString()) ? 'align' : 'type',
+    TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type',
   );
-  const isList = LIST_TYPES.includes(format.toString());
+  const isList = LIST_TYPES.includes(format);
 
   Transforms.unwrapNodes(editor, {
     match: (n) => !Editor.isEditor(n)
       && SlateElement.isElement(n)
       && LIST_TYPES.includes(n.type)
-      && !TEXT_ALIGN_TYPES.includes(format.toString()),
+      && !TEXT_ALIGN_TYPES.includes(format),
     split: true,
   });
   let newProperties: Partial<SlateElement>;
-  if (TEXT_ALIGN_TYPES.includes(format.toString())) {
+  if (TEXT_ALIGN_TYPES.includes(format)) {
     newProperties = {
-      align: isActive ? undefined : format.toString(),
+      align: isActive ? undefined : format,
     };
   } else {
     const getFormatType = (isActiveType:boolean, isListType:boolean) : ElementType => {
@@ -53,7 +47,7 @@ export const toggleBlock = (editor: CustomEditor, format: Omit<CustomText, 'text
       } if (isActiveType) {
         return 'bulleted-list' as ElementType;
       }
-      return format.toString() as ElementType;
+      return format as ElementType;
     };
     newProperties = {
       type: getFormatType(isActive, isList),
@@ -67,17 +61,17 @@ export const toggleBlock = (editor: CustomEditor, format: Omit<CustomText, 'text
   // }
 };
 
-export const isMarkActive = (editor: CustomEditor, format:Omit<BaseText, 'text'>) => {
+export const isMarkActive = (editor: Editor, format: string) => {
   const marks = Editor.marks(editor);
-  return marks ? marks[format as keyof typeof format] === true : false;
+  return marks ? marks[format as keyof typeof marks] === true : false;
 };
 
-export const toggleMark = (editor: CustomEditor, format: Omit<BaseText, 'text'>) => {
+export const toggleMark = (editor: Editor, format: string) => {
   const isActive = isMarkActive(editor, format);
 
   if (isActive) {
-    Editor.removeMark(editor, format.toString());
+    Editor.removeMark(editor, format);
   } else {
-    Editor.addMark(editor, format.toString(), true);
+    Editor.addMark(editor, format, true);
   }
 };

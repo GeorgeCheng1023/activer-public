@@ -6,6 +6,9 @@
   margin: 1em;
   padding: 1.5em;
 
+  font-size: 1.3em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
   &__toolbar {
     position: relative;
     padding: 1px 18px 17px;
@@ -28,6 +31,16 @@
 
     &:hover {
       filter: brightness(85%)
+    }
+  }
+
+  code {
+    background-color: rgb(222, 222, 222);
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+
+    >* {
+      color: rgb(244, 159, 159);
     }
   }
 

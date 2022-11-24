@@ -12,7 +12,7 @@ function BlockButton({ format, icon }: FormatButtonProps) {
       active={isBlockActive(
         editor,
         format,
-        TEXT_ALIGN_TYPES.includes(format.toString()) ? 'align' : 'type',
+        TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type',
       )}
       onMouseDown={(event: any) => {
         event.preventDefault();

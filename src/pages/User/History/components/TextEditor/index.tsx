@@ -37,7 +37,7 @@ const HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
   'mod+u': 'underline',
-  'mod+`': 'code',
+  'mod+e`': 'code',
 };
 
 const initialValue: Descendant[] = [
@@ -81,6 +81,7 @@ const initialValue: Descendant[] = [
 function TextEditor() {
   const renderElement = useCallback(
     (props: RenderElementProps) => (
+
       <Element
         element={props.element}
         attributes={props.attributes}

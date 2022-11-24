@@ -1,9 +1,9 @@
-import { BaseEditor, BaseText, Descendant } from 'slate';
+import { BaseEditor, Descendant } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 
 export type FormatButtonProps = {
-  format: Omit<BaseText, 'text'>,
+  format: string,
   icon: React.ReactNode
 };
 export const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
@@ -73,9 +73,10 @@ export type CustomElement =
   | NumberedListElement;
 
 export type CustomText = {
-  bold?: boolean
-  italic?: boolean
-  code?: boolean
+  bold?: boolean,
+  italic?: boolean,
+  code?: boolean,
+  underline?: boolean,
   text: string
 };
 
