@@ -4,7 +4,7 @@ import {
   Editable, withReact, Slate, RenderLeafProps, RenderElementProps,
 } from 'slate-react';
 import {
-  createEditor, CustomTypes,
+  createEditor, Descendant,
 } from 'slate';
 import { withHistory } from 'slate-history';
 import {
@@ -30,7 +30,6 @@ import BlockButton from './components/BlockButton';
 import MarkButton from './components/MarkButton';
 import Leaf from './components/Leaf';
 import Element from './components/Element';
-import Toolbar from './components/Toolbar';
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -39,7 +38,7 @@ const HOTKEYS = {
   'mod+`': 'code',
 };
 
-const initialValue = [
+const initialValue: Descendant[] = [
   {
     type: 'paragraph',
     children: [
@@ -115,7 +114,7 @@ function TextEditor() {
 
   return (
     <Slate editor={editor} value={initialValue}>
-      <Toolbar>
+      <div className="text-editor__toolbar">
         <MarkButton format="bold" icon={<BsTypeBold />} />
         <MarkButton format="italic" icon={<BsTypeItalic />} />
         <MarkButton format="underline" icon={<BsTypeUnderline />} />
@@ -129,7 +128,7 @@ function TextEditor() {
         <BlockButton format="center" icon={<MdOutlineFormatAlignCenter />} />
         <BlockButton format="right" icon={<MdOutlineFormatAlignRight />} />
         <BlockButton format="justify" icon={<MdOutlineFormatAlignJustify />} />
-      </Toolbar>
+      </div>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}

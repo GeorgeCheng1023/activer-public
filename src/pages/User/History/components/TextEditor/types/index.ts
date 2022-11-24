@@ -21,6 +21,14 @@ export type LeafProps = {
   attribute: string
 };
 
+export type ElementType =
+'block-quote'
+| 'bulleted-list'
+| 'numbered-list'
+| 'heading'
+| 'heading-two'
+| 'paragraph';
+
 export type BlockQuoteElement = {
   type: 'block-quote'
   align?: string
@@ -33,6 +41,11 @@ export type BulletedListElement = {
   children: Descendant[]
 };
 
+export type NumberedListElement = {
+  type: 'numbered-list'
+  align?: string
+  children: Descendant[]
+};
 export type HeadingElement = {
   type: 'heading'
   align?: string
@@ -51,12 +64,13 @@ export type ParagraphElement = {
   children: Descendant[]
 };
 
-type CustomElement =
+export type CustomElement =
   | BlockQuoteElement
   | BulletedListElement
   | HeadingElement
   | HeadingTwoElement
-  | ParagraphElement;
+  | ParagraphElement
+  | NumberedListElement;
 
 export type CustomText = {
   bold?: boolean

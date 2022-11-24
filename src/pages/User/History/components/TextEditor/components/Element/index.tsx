@@ -1,56 +1,61 @@
+/* eslint-disable react/jsx-props-no-spreading  */
+// disable upper rule for passin "attributes" value better
 import React from 'react';
 import { RenderElementProps } from 'slate-react';
-import {TEXT_ALIGN_TYPES} from '../../types'
 
 function Element({ attributes, children, element }: RenderElementProps) {
-  const style = {
-    textAlign: element.align as  CSS.Properties;
-  
-  };
-
   switch (element.type) {
     case 'block-quote':
       return (
         <blockquote
-          style={style}
-
+          className={element.align}
+          {...attributes}
         >
           {children}
         </blockquote>
       );
-    case 'bulleted-list': number;
+    case 'bulleted-list':
       return (
-        <ul style={style} {...attributes}>
+        <ul
+          className={element.align}
+          {...attributes}
+        >
           {children}
         </ul>
       );
-    case 'heading-one':
+    case 'heading':
       return (
-        <h1 style={style} {...attributes}>
+        <h1
+          className={element.align}
+          {...attributes}
+        >
           {children}
         </h1>
       );
     case 'heading-two':
       return (
-        <h2 style={style} {...attributes}>
+        <h2
+          className={element.align}
+          {...attributes}
+        >
           {children}
         </h2>
       );
-    case 'list-item':
-      return (
-        <li style={style} {...attributes}>
-          {children}
-        </li>
-      );
     case 'numbered-list':
       return (
-        <ol style={style} {...attributes}>
+        <ol
+          className={element.align}
+          {...attributes}
+        >
           {children}
         </ol>
       );
     default:
       return (
-        <p style={style} {...attributes}>
+        <p
+          className={element.align}
+          {...attributes}
+        >
           {children}
         </p>
       );
