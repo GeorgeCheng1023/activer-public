@@ -13,22 +13,6 @@ input {
   display: flex;
   justify-content: center;
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    // background: url('https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80');
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    // background-attachment: fixed;
-    // background-position: center;
-    opacity: 0.5;
-    z-index: -9999;
-  }
-  
 }
 
 .register-section {
@@ -37,28 +21,18 @@ input {
   // justify-content: center;
   // align-items: center;
   flex-direction: column;
-  width: 24vw;
+  width: 30vw;
   height: 84vh;
 
   &__title {
     align-self: center;
+    font-size: 2.5rem;
     font-weight: 600;
   }
   &__text-field {
-    align-self: center;
-    height: 3rem;
-    width: 100%;
-    min-width: 255px;
-    padding: 0 2rem;
-    margin-top: 1.5rem;
-    border-radius: 20px;
-    border: 1px solid rgba(125, 114, 114, 0.5);
-    // color: $primary-font-color;
-    color: black;
-    font-size: 16px;
-    font-weight: 600;
-    opacity: 0.7;
+    margin-top: 1rem;
   }
+
   &__tag {
     align-self: flex-end;
     margin-top: 2px;
@@ -69,4 +43,3 @@ input {
     margin-top: 2rem;
   }
 } 
-

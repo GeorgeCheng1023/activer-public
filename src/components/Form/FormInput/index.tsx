@@ -19,7 +19,7 @@ export interface FormInputProps {
   inputProps: inputType;
   variant?: 'withButton' | 'withoutLabel';
   disabled?: boolean;
-  formValue: object;
+  formValue: object | string;
   onChange: (key: any, value: any) => void;
   buttonText?: string;
 }
@@ -50,7 +50,6 @@ function FormInput(props: FormInputProps) {
           required={inputProps.required}
           pattern={inputProps.pattern}
           disabled={disabled}
-
         />
         {variant === 'withButton'
           && (

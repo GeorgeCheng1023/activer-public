@@ -39,7 +39,7 @@ function LoginSection() {
   const [success, setSuccess] = useState<boolean>(false);
 
   const {
-    auth, setAuth, persist, setPersist,
+    auth, setAuth,
   } : any = useAuth();
 
   useEffect(() => {
@@ -62,10 +62,10 @@ function LoginSection() {
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   (auth.accessToken || success) && navigate(from, { replace: true });
 
-  const togglePersist = () => {
-    localStorage.setItem('persist', persist);
-    setPersist((prev: any) => !prev);
-  };
+  // const togglePersist = () => {
+  //   localStorage.setItem('persist', persist);
+  //   setPersist((prev: any) => !prev);
+  // };
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
     event.preventDefault();
@@ -96,9 +96,6 @@ function LoginSection() {
       setSuccess(true);
       setAuth({ username: user, password: pwd, accessToken });
 
-      // console.log('Submit Successfully');
-      // console.log(response?.data);
-      // console.log(response?.accessToken);
       // console.log(JSON.stringify(response));
     } catch (err: any) {
       if (!err?.response) {
@@ -108,7 +105,7 @@ function LoginSection() {
       } else if (err.response?.status === 401) {
         setErrMsg('帳號或密碼有誤');
       } else {
-        setErrMsg('登入錯誤');
+        setErrMsg('登入失敗');
       }
       errRef.current?.focus();
     }
@@ -149,10 +146,10 @@ function LoginSection() {
           />
         </section>
 
-        <section className="login-section__check-persist-section">
+        {/* <section className="login-section__check-persist-section">
           <input type="checkbox" id="persist" onChange={togglePersist} />
           <label htmlFor="persist">Trust This Device</label>
-        </section>
+        </section> */}
 
         <p id="pwdnote" className={validPwd ? 'offscreen' : 'pwd-instructions'}>
           密碼至少八位字元，需要包含至少一個數字、一個大寫英文、一個小寫英文、一個特殊字元

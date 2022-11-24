@@ -145,7 +145,7 @@ app.post('/google/login', (req, res) => {
 
   User.findOne({userData: userData}, (err, foundUser) => {
     if (err) {
-      res.sendStatus(403);
+      return res.sendStatus(403);
     } else {
       if (!foundUser) {
         const newUser = new User({
@@ -181,10 +181,10 @@ app.post('/google/login', (req, res) => {
 });
 
 app.post('/api/register', (req, res) => {
-  const {user : username, pwd : password} = req.body;
+  const {user : username, pwd : password, email: email} = req.body;
   if (!username || !password) return res.status(400).json({'message': 'Username and password are requried'})
 
-  // duplicate
+  // username is duplicate or not
   User.findOne({username: username}, (err, foundUser) => {
     if (err) {
       return res.sendStatus(403);
@@ -197,21 +197,20 @@ app.post('/api/register', (req, res) => {
 
   bcrpyt.hash(password, 5, async (err, hash) => {
     if (err) {
-      console.log(err);
+      return res.sendStatus(403);
     } else {
       const newUser = new User({
         username: username,
         password: hash,
-        userData: {username: username}
+        userData: {email: email}
       });   
   
       await newUser.save((err) => {
         if (err) {
-          console.log(err);
-          return res.send(err);
+          return res.sendStatus(403);
         } else {
           console.log('User save successfully');
-          return res.json({ isRegister: true });
+          return res.json({username});
         }
       });
     }
@@ -266,8 +265,6 @@ app.get('/logout', (req, res) => {
 app.use(verifyJWT);
 
 app.get('/data', async (req, res) => {
-  console.log(req.user);
-  // res.json(req.user);
   res.send('0.0');
 });
 
