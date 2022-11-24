@@ -33,4 +33,13 @@
       width: 60%;
     }
   }
+
+  &__comment {
+    &__title {
+      display: flex;
+      align-items: center;
+      gap: 2em;
+      margin: 0.5em 0;
+    }
+  }
 }

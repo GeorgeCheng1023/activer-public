@@ -89,21 +89,6 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-// Google Strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/activer",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      console.log(profile);
-      return cb(err, user);
-    });
-  }
-));
-
 // router
 app.get('/', (req, res) => {
   console.log('0.0');
@@ -139,13 +124,13 @@ app.post('/api/login', (req, res) => {
             // Creates Secure Cookie with refresh token
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 * 1000 });
 
-            return res.json({correct: true, accessToken, refreshToken, foundUser});
+            return res.json({accessToken, refreshToken, foundUser});
           } else {
-            return res.json({correct: false});
+            return res.sendStatus(401);
           }
         })
       } else {
-        return res.json({correct: false}).status(401); //Unauthorized 
+        return res.sendStatus(401); //Unauthorized 
       }
 
     } 
@@ -205,7 +190,7 @@ app.post('/api/register', (req, res) => {
       return res.sendStatus(403);
     } else {
       if (foundUser) {
-        return res.sendStatus(409);
+        return res.status(409).send('該名稱已註冊過');
       } 
     }
   });
@@ -276,19 +261,6 @@ app.get('/logout', (req, res) => {
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true }) 
     return res.sendStatus(204);
   })
-});
-
-// Google
-
-app.get("/auth/google",
-  passport.authenticate('google', { scope: ["profile"] })
-);
-
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/api/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
 });
 
 app.use(verifyJWT);
