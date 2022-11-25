@@ -7,6 +7,7 @@ export type FormatButtonProps = {
   icon: React.ReactNode
 };
 export const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
+export type TextAlignType = 'left' | 'center' | 'right' | 'justify';
 
 export const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
@@ -21,31 +22,12 @@ export type LeafProps = {
   attribute: string
 };
 
-export type ElementType =
-'block-quote'
-| 'bulleted-list'
-| 'numbered-list'
-| 'heading'
-| 'heading-two'
-| 'paragraph';
-
 export type BlockQuoteElement = {
   type: 'block-quote'
   align?: string
   children: Descendant[]
 };
 
-export type BulletedListElement = {
-  type: 'bulleted-list'
-  align?: string
-  children: Descendant[]
-};
-
-export type NumberedListElement = {
-  type: 'numbered-list'
-  align?: string
-  children: Descendant[]
-};
 export type HeadingElement = {
   type: 'heading'
   align?: string
@@ -64,13 +46,31 @@ export type ParagraphElement = {
   children: Descendant[]
 };
 
+export type BulletedListElement = {
+  type: 'bulleted-list'
+  align?: string
+  children: Descendant[]
+};
+
+export type NumberedListElement = {
+  type: 'numbered-list'
+  align?: string
+  children: Descendant[]
+};
+
+export type ListItemElement = {
+  type: 'list-item',
+  align?: string,
+  children: Descendant[]
+};
 export type CustomElement =
-  | BlockQuoteElement
-  | BulletedListElement
-  | HeadingElement
-  | HeadingTwoElement
-  | ParagraphElement
-  | NumberedListElement;
+| BlockQuoteElement
+| BulletedListElement
+| HeadingElement
+| HeadingTwoElement
+| ParagraphElement
+| ListItemElement
+| NumberedListElement;
 
 export type CustomText = {
   bold?: boolean,

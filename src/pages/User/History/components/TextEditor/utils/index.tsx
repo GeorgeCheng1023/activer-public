@@ -1,8 +1,8 @@
 import {
-  Editor, Element as SlateElement, Transforms,
+  Editor, Element, Transforms,
 } from 'slate';
 import {
-  TEXT_ALIGN_TYPES, LIST_TYPES, ElementType,
+  TEXT_ALIGN_TYPES, LIST_TYPES,
 } from '../types';
 
 export const isBlockActive = (editor: Editor, format: string, blockType:string = 'type') => {
@@ -12,9 +12,11 @@ export const isBlockActive = (editor: Editor, format: string, blockType:string =
   const [match] = Array.from(
     Editor.nodes(editor, {
       at: Editor.unhangRange(editor, selection),
-      match: (n) => !Editor.isEditor(n)
-        && SlateElement.isElement(n)
-        && n[blockType as keyof typeof n] === format,
+      match: (n: any) => (
+        !Editor.isEditor(n)
+        && Element.isElement(n)
+        && n[blockType as keyof typeof n] === format
+      ),
     }),
   );
   return !!match;
@@ -29,36 +31,41 @@ export const toggleBlock = (editor: Editor, format: string) => {
   const isList = LIST_TYPES.includes(format);
 
   Transforms.unwrapNodes(editor, {
-    match: (n) => !Editor.isEditor(n)
-      && SlateElement.isElement(n)
+    match: (n: any) => !Editor.isEditor(n)
+      && Element.isElement(n)
       && LIST_TYPES.includes(n.type)
       && !TEXT_ALIGN_TYPES.includes(format),
     split: true,
   });
-  let newProperties: Partial<SlateElement>;
+
+  let newProperties: Partial<Element>;
+
   if (TEXT_ALIGN_TYPES.includes(format)) {
     newProperties = {
       align: isActive ? undefined : format,
     };
   } else {
-    const getFormatType = (isActiveType:boolean, isListType:boolean) : ElementType => {
-      if (isListType) {
-        return 'paragraph' as ElementType;
-      } if (isActiveType) {
-        return 'bulleted-list' as ElementType;
+    const getFormatType = (isActiveType:boolean, isListType:boolean) : Element['type'] => {
+      if (isActiveType) {
+        return 'paragraph';
+      } if (isListType) {
+        return 'list-item';
       }
-      return format as ElementType;
+      return format as Element['type'];
     };
     newProperties = {
       type: getFormatType(isActive, isList),
     };
   }
-  Transforms.setNodes<SlateElement>(editor, newProperties);
+  Transforms.setNodes<Element>(editor, newProperties);
 
-  // if (!isActive && isList) {
-  //   const block: CustomElement = { type: format, children: [] };
-  //   Transforms.wrapNodes(editor, block);
-  // }
+  if (!isActive && isList) {
+    const block: Element = {
+      type: format as Element['type'],
+      children: [],
+    };
+    Transforms.wrapNodes(editor, block);
+  }
 };
 
 export const isMarkActive = (editor: Editor, format: string) => {

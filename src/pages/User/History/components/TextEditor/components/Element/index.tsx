@@ -1,14 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading  */
 // disable upper rule for passin "attributes" value better
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { RenderElementProps } from 'slate-react';
+import { TextAlignType } from '../../types';
 
 function Element({ attributes, children, element }: RenderElementProps) {
+  const style: CSSProperties = { textAlign: element.align as TextAlignType };
+
   switch (element.type) {
     case 'block-quote':
       return (
         <blockquote
-          className={element.align}
+          style={{ ...style }}
           {...attributes}
         >
           {children}
@@ -17,7 +20,7 @@ function Element({ attributes, children, element }: RenderElementProps) {
     case 'bulleted-list':
       return (
         <ul
-          className={element.align}
+          style={{ ...style }}
           {...attributes}
         >
           {children}
@@ -26,7 +29,7 @@ function Element({ attributes, children, element }: RenderElementProps) {
     case 'heading':
       return (
         <h1
-          className={element.align}
+          style={{ ...style }}
           {...attributes}
         >
           {children}
@@ -35,16 +38,25 @@ function Element({ attributes, children, element }: RenderElementProps) {
     case 'heading-two':
       return (
         <h2
-          className={element.align}
+          style={{ ...style }}
           {...attributes}
         >
           {children}
         </h2>
       );
+    case 'list-item':
+      return (
+        <li
+          style={{ ...style }}
+          {...attributes}
+        >
+          {children}
+        </li>
+      );
     case 'numbered-list':
       return (
         <ol
-          className={element.align}
+          style={{ ...style }}
           {...attributes}
         >
           {children}
@@ -53,7 +65,7 @@ function Element({ attributes, children, element }: RenderElementProps) {
     default:
       return (
         <p
-          className={element.align}
+          style={{ ...style }}
           {...attributes}
         >
           {children}

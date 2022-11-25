@@ -123,7 +123,7 @@ function TextEditor() {
           <MarkButton format="italic" icon={<BsTypeItalic />} />
           <MarkButton format="underline" icon={<BsTypeUnderline />} />
           <MarkButton format="code" icon={<BsCode />} />
-          <BlockButton format="heading-one" icon={<BsTypeH1 />} />
+          <BlockButton format="heading" icon={<BsTypeH1 />} />
           <BlockButton format="heading-two" icon={<BsTypeH2 />} />
           <BlockButton format="block-quote" icon={<MdFormatQuote />} />
           <BlockButton format="numbered-list" icon={<MdOutlineFormatListNumbered />} />
