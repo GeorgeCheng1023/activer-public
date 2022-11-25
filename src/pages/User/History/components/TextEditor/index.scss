@@ -27,9 +27,17 @@
 
   &__button {
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 0.2em;
+    font-size: 1em;
+
+    padding: 0.2em;
+
 
     &:hover {
+      filter: brightness(85%)
+    }
+
+    &.active {
       filter: brightness(85%)
     }
   }

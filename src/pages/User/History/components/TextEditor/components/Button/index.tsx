@@ -14,7 +14,7 @@ const Button = React.forwardRef(
     <button
       type="button"
       onMouseDown={onMouseDown}
-      className={`text-editor__button ${active && active}`}
+      className={`text-editor__button ${active ? 'active' : ''}`}
       ref={ref}
     >
       {children}

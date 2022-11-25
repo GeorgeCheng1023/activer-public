@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import isHotkey from 'is-hotkey';
+
 import {
   Editable, withReact, Slate, RenderLeafProps, RenderElementProps,
 } from 'slate-react';
@@ -24,7 +24,8 @@ import {
   MdOutlineFormatAlignRight,
   MdOutlineFormatAlignJustify,
 } from 'react-icons/md';
-import { toggleMark } from './utils';
+
+import withShortcuts from './utils/withShortcuts';
 
 import BlockButton from './components/BlockButton';
 import MarkButton from './components/MarkButton';
@@ -33,12 +34,7 @@ import Element from './components/Element';
 
 import './index.scss';
 
-const HOTKEYS = {
-  'mod+b': 'bold',
-  'mod+i': 'italic',
-  'mod+u': 'underline',
-  'mod+e`': 'code',
-};
+import { handleKeyDown, handleDOMBeforeInput } from './handlers';
 
 const initialValue: Descendant[] = [
   {
@@ -103,17 +99,7 @@ function TextEditor() {
     ),
     [],
   );
-  const editor = useMemo(() => withHistory(withReact(createEditor())), []);
-
-  const handleKeyDown = (event: any) => {
-    Object.keys(HOTKEYS).forEach((hotkey) => {
-      if (isHotkey(hotkey, event as any)) {
-        event.preventDefault();
-        const mark = HOTKEYS[hotkey as keyof typeof HOTKEYS];
-        toggleMark(editor, mark);
-      }
-    });
-  };
+  const editor = useMemo(() => withShortcuts(withHistory(withReact(createEditor()))), []);
 
   return (
     <Slate editor={editor} value={initialValue}>
@@ -123,8 +109,9 @@ function TextEditor() {
           <MarkButton format="italic" icon={<BsTypeItalic />} />
           <MarkButton format="underline" icon={<BsTypeUnderline />} />
           <MarkButton format="code" icon={<BsCode />} />
-          <BlockButton format="heading" icon={<BsTypeH1 />} />
+          <BlockButton format="heading-one" icon={<BsTypeH1 />} />
           <BlockButton format="heading-two" icon={<BsTypeH2 />} />
+          <BlockButton format="heading-three" icon={<BsTypeH2 />} />
           <BlockButton format="block-quote" icon={<MdFormatQuote />} />
           <BlockButton format="numbered-list" icon={<MdOutlineFormatListNumbered />} />
           <BlockButton format="bulleted-list" icon={<MdOutlineFormatListBulleted />} />
@@ -140,7 +127,8 @@ function TextEditor() {
           placeholder="Enter some rich text…"
           spellCheck
           autoFocus
-          onKeyDown={handleKeyDown}
+          onDOMBeforeInput={() => handleDOMBeforeInput(editor)}
+          onKeyDown={(e) => handleKeyDown(e, editor)}
         />
       </div>
 

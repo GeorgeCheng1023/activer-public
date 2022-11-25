@@ -29,13 +29,18 @@ export type BlockQuoteElement = {
 };
 
 export type HeadingElement = {
-  type: 'heading'
+  type: 'heading-one'
   align?: string
   children: Descendant[]
 };
 
 export type HeadingTwoElement = {
   type: 'heading-two'
+  align?: string
+  children: Descendant[]
+};
+export type HeadingThreeElement = {
+  type: 'heading-three'
   align?: string
   children: Descendant[]
 };
@@ -68,6 +73,7 @@ export type CustomElement =
 | BulletedListElement
 | HeadingElement
 | HeadingTwoElement
+| HeadingThreeElement
 | ParagraphElement
 | ListItemElement
 | NumberedListElement;

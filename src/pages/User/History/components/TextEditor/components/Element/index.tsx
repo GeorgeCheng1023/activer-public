@@ -26,7 +26,7 @@ function Element({ attributes, children, element }: RenderElementProps) {
           {children}
         </ul>
       );
-    case 'heading':
+    case 'heading-one':
       return (
         <h1
           style={{ ...style }}
@@ -43,6 +43,15 @@ function Element({ attributes, children, element }: RenderElementProps) {
         >
           {children}
         </h2>
+      );
+    case 'heading-three':
+      return (
+        <h3
+          style={{ ...style }}
+          {...attributes}
+        >
+          {children}
+        </h3>
       );
     case 'list-item':
       return (
