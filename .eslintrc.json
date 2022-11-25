@@ -15,20 +15,33 @@
         },
         "ecmaVersion": "latest",
         "sourceType": "module",
-		"project": "./tsconfig.json",
-		"parser": "@typescript-eslint/parser"
+        "project": "./tsconfig.json",
+        "parser": "@typescript-eslint/parser"
     },
     "plugins": [
         "react",
         "@typescript-eslint"
     ],
     "rules": {
-        "linebreak-style": ["error","windows"],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
         // "linebreak-style": 0,
-        "eol-last": ["error", "always"],
-        "indent": ["error", 2, { "SwitchCase": 1 }],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "indent": [
+            "error",
+            2,
+            {
+                "SwitchCase": 1
+            }
+        ],
         "react/jsx-filename-extension": [
-            2, {
+            2,
+            {
                 "extensions": [
                     ".js",
                     ".jsx",
@@ -41,25 +54,48 @@
             "error",
             "ignorePackages",
             {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
             }
         ],
-        "jsx-a11y/label-has-associated-control": ["error", {
-            "required": {
-            "some": ["nesting", "id"]
+        "jsx-a11y/label-has-associated-control": [
+            "error",
+            {
+                "required": {
+                    "some": [
+                        "nesting",
+                        "id"
+                    ]
+                }
             }
-        }],
-        "jsx-a11y/label-has-for": ["error", {
-            "required": {
-            "some": ["nesting", "id"]
+        ],
+        "jsx-a11y/label-has-for": [
+            "error",
+            {
+                "required": {
+                    "some": [
+                        "nesting",
+                        "id"
+                    ]
+                }
             }
-        }],
-        "@typescript-eslint/naming-convention": ["error", {
-            "selector": ["variable"],
-            "format": ["camelCase", "PascalCase", "snake_case", "UPPER_CASE"]
-        }]
+        ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": [
+                    "variable"
+                ],
+                "format": [
+                    "camelCase",
+                    "PascalCase",
+                    "snake_case",
+                    "UPPER_CASE"
+                ]
+            }
+        ],
+        "consistent-return": "off"
     }
 }
