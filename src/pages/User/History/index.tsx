@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import { CardColumn as Card } from 'components/Card';
 import { TagType } from 'components/Tag';
-import HistoryControl from './HistoryControl';
+import HistoryControl from './components/HistoryControl';
 import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 import ChartArea from './components/ChartArea';
 
