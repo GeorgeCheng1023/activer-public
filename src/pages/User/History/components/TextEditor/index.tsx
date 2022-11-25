@@ -26,9 +26,11 @@ import {
 } from 'react-icons/md';
 
 import withShortcuts from './utils/withShortcuts';
+import withImages from './utils/withImages';
 
 import BlockButton from './components/BlockButton';
 import MarkButton from './components/MarkButton';
+import InsertImageButton from './components/InsertImageButton';
 import Leaf from './components/Leaf';
 import Element from './components/Element';
 
@@ -99,7 +101,16 @@ function TextEditor() {
     ),
     [],
   );
-  const editor = useMemo(() => withShortcuts(withHistory(withReact(createEditor()))), []);
+  const editor = useMemo(
+    () => withImages(
+      withShortcuts(
+        withHistory(
+          withReact(createEditor()),
+        ),
+      ),
+    ),
+    [],
+  );
 
   return (
     <Slate editor={editor} value={initialValue}>
@@ -119,6 +130,7 @@ function TextEditor() {
           <BlockButton format="center" icon={<MdOutlineFormatAlignCenter />} />
           <BlockButton format="right" icon={<MdOutlineFormatAlignRight />} />
           <BlockButton format="justify" icon={<MdOutlineFormatAlignJustify />} />
+          <InsertImageButton />
         </div>
         <Editable
           className="text-editor__textarea"

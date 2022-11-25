@@ -68,12 +68,21 @@ export type ListItemElement = {
   align?: string,
   children: Descendant[]
 };
+
+export type ImageElement = {
+  type: 'image'
+  url?: string,
+  align?: string,
+  children: EmptyText[]
+};
+
 export type CustomElement =
 | BlockQuoteElement
 | BulletedListElement
 | HeadingElement
 | HeadingTwoElement
 | HeadingThreeElement
+| ImageElement
 | ParagraphElement
 | ListItemElement
 | NumberedListElement;

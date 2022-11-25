@@ -2,6 +2,7 @@
 // disable upper rule for passin "attributes" value better
 import React, { CSSProperties } from 'react';
 import { RenderElementProps } from 'slate-react';
+import Image from '../Image';
 import { TextAlignType } from '../../types';
 
 function Element({ attributes, children, element }: RenderElementProps) {
@@ -70,6 +71,15 @@ function Element({ attributes, children, element }: RenderElementProps) {
         >
           {children}
         </ol>
+      );
+    case 'image':
+      return (
+        <Image
+          attributes={attributes}
+          element={element}
+        >
+          {children}
+        </Image>
       );
     default:
       return (
