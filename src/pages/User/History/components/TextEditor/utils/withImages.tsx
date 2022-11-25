@@ -27,7 +27,7 @@ export const isImageUrl = (url :string) => {
   if (!url) return false;
   if (!isUrl(url)) return false;
   const ext = new URL(url).pathname.split('.').pop();
-  return imageExtensions.includes(ext);
+  return imageExtensions.includes(ext!);
 };
 
 const withImages = (editor: Editor) => {

@@ -9,10 +9,6 @@ function InsertImageButton() {
   const handleMouseDown = (event: any) => {
     event.preventDefault();
     const url = window.prompt('Enter the URL of the image:');
-    // if (url && !isImageUrl(url)) {
-    //   alert('URL is not an image');
-    //   return;
-    // }
     if (url) { insertImage(editor, url); }
   };
 
