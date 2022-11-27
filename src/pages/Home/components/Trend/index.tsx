@@ -7,7 +7,7 @@ import CardSlide from '../CardSlide';
 function Trend() {
   return (
     <div className="trend">
-      <h1 className="trend__title">熱門活動</h1>
+      <h2 className="trend__title">熱門活動</h2>
       <CardSlide />
     </div>
   );
