@@ -19,7 +19,9 @@
 
     &__icon {
       font-size: 2em;
-      @include items-center;
+      display: flex;
+      align-items: center;
+      justify-items: center;
     }
 
     &::before {

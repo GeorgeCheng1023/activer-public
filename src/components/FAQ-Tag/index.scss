@@ -18,7 +18,9 @@
 
   &__icon {
     padding-right: .25rem;
-    @include items-center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
   }
 
   &__title {
@@ -55,7 +57,9 @@
 
   &__icon {
     padding-right: .25rem;
-    @include items-center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
   }
 
   &__title {

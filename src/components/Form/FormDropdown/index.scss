@@ -18,16 +18,21 @@ $_focus-color: #FEF6D8;
     left: 0.6em;
     top: -1em;
 
+    width: fit-content;
+    height: fit-content;
     padding: 0 .5em;
 
     background-color: #FFF;
+
+    display: flex;
+    align-items: center;
+    justify-items: center;
 
     font-size: 1.2em;
 
     z-index: 1;
 
-    @include fit-container;
-    @include items-center;
+
   }
 
   &__selected {
@@ -51,7 +56,9 @@ $_focus-color: #FEF6D8;
       margin: 0;
       scale: 2.5;
       transition: all 0.8s;
-      @include items-center;
+      display: flex;
+      align-items: center;
+      justify-items: center;
     }
 
     ;

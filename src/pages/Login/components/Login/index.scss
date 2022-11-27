@@ -14,7 +14,7 @@ button {
   align-items: center;
   justify-content: center;
   width: 90vw;
-  min-width: 20rem  ;
+  min-width: 20rem;
   margin: 0 auto;
   height: fit-content;
   transform: translateY(-20px);
@@ -31,7 +31,8 @@ button {
   &__title {
     font-size: 3rem;
     align-self: center;
-    @include fit-container;
+    width: fit-content;
+    height: fit-content;
   }
 
   &__text-field {
@@ -67,6 +68,7 @@ button {
     gap: 5px;
     margin-left: 2rem;
   }
+
   &__check-persist-section input {
     scale: 1.2;
   }
@@ -119,21 +121,21 @@ button {
   margin-left: 20px;
   color: $_warning-color;
   font-weight: 600;
-  
-  & > * {
+
+  &>* {
     color: $_warning-color;
     margin-left: .3rem;
   }
-} 
+}
 
 .pwd-instructions {
   margin-left: 20px;
   margin-top: 5px;
   color: $_warning-color;
   font-weight: 600;
-  
-  & > * {
+
+  &>* {
     color: $_warning-color;
     margin-left: .3rem;
   }
-} 
+}
