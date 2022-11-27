@@ -79,7 +79,7 @@ export const routerConfig = [
           },
 
           {
-            path: '/detail',
+            path: '/detail/:id',
             element: <Detail />,
           },
 

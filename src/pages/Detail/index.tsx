@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
+// api
+import { apiActivityGet } from 'api/axios';
 // components
 import Carousel from 'components/Carousel';
 import Tag, { TagType } from 'components/Tag';
@@ -16,6 +19,21 @@ import dummyActivityData from './dummyActivity.json';
 import './index.scss';
 
 function Detail() {
+  // eslint-disable-next-line
+  const { id } = useParams();
+  useEffect(() => {
+    const dataFetch = async () => {
+      try {
+        const { data } = await apiActivityGet();
+        console.table(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    dataFetch();
+  }, []);
+
   const {
     Title,
     Subtitle,
