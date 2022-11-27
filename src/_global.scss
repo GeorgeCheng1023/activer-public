@@ -41,8 +41,22 @@ h2 {
   }
 }
 
+h3 {
+  font-size: 1.5vw;
+
+  @include media(mobile) {
+    font-size: 6vw;
+    font-weight: 200;
+  }
+}
+
 p {
-  font-size: 1vw
+  font-size: 1vw;
+
+  @include media(mobile) {
+    font-size: 4vw;
+    font-weight: 200;
+  }
 }
 
 a {

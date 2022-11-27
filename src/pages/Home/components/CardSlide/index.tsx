@@ -13,10 +13,18 @@ import './index.scss';
 // import required modules
 import { Pagination, Navigation } from 'swiper';
 
+const breakpoints = {
+  480: {
+    slidesPerView: 4,
+  },
+
+};
+
 export default function App() {
   return (
     <Swiper
-      slidesPerView={3}
+      slidesPerView={1}
+      breakpoints={breakpoints}
       spaceBetween={30}
       pagination={{ clickable: true }}
       navigation

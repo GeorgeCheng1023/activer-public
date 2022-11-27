@@ -28,7 +28,9 @@ function Card({
 }: CardType) {
   return (
     <div className={`card card--${animation}`}>
-      <img className="card__image" src={imgUrl} alt={altText} />
+      <div className="card__image__container">
+        <img className="card__image" src={imgUrl} alt={altText} />
+      </div>
       <h3 className="card__title">{title}</h3>
       <div className="card__detail">
         {detail}
