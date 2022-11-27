@@ -1,6 +1,17 @@
 @import '~/src/_variables';
 
-// style 
+// responsive
+$breakpoints: (mobile : 480px,
+  desktop: 960px);
+
+@mixin media($keys...) {
+  @each $key in $keys {
+    @media (max-width: map-get($breakpoints, $key)) {
+      @content
+    }
+  }
+}
+
 * {
   color: $primary-font-color;
 }
@@ -13,11 +24,21 @@
 }
 
 h1 {
-  font-size: 2vw;
+  font-size: 3vw;
+
+  @include media(mobile) {
+    font-size: 13vw;
+    font-weight: 200;
+  }
 }
 
 h2 {
-  font-size: 1.5vw;
+  font-size: 2vw;
+
+  @include media(mobile) {
+    font-size: 8vw;
+    font-weight: 200;
+  }
 }
 
 p {
@@ -26,40 +47,4 @@ p {
 
 a {
   text-decoration: none;
-}
-
-// responsive
-$pc-media:960px;
-$pcs-media:959px;
-$pad-media:760px;
-$pads-media:759px;
-$phone-media:480px;
-$phones-media:479px;
-
-// pc
-@mixin pc-width() {
-  @media all and (min-width: $pc-media) {
-    @content;
-  }
-}
-
-//pad
-@mixin pad-width() {
-  @media all and (min-width:$pad-media) and (max-width: $pcs-media) {
-    @content;
-  }
-}
-
-//small pad
-@mixin small-pad-width() {
-  @media all and (min-width: $phone-media) and (max-width:$pads-media) {
-    @content;
-  }
-}
-
-//phone
-@mixin phone-width() {
-  @media all and (max-width: $phones-media) {
-    @content;
-  }
 }
