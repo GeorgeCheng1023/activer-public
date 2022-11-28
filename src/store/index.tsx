@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchPanelReducer from './searchPanel';
+import loginReducer from './Login';
 
 const store = configureStore({
   reducer: {
     searchPanel: searchPanelReducer,
+    login: loginReducer,
   },
   devTools: true,
 });

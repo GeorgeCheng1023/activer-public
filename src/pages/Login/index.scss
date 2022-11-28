@@ -3,8 +3,10 @@
 
 .main-section {
   width: 100%;
-  min-width: 1225px;
   height: 90vh;
+  display: flex;
+  // align-items: center;
+  justify-content: center;
 
   // background: linear-gradient(180deg, rgba(242, 240, 168, 0.331) 0%, rgba(234, 211, 106, 0.914) 100%);
 

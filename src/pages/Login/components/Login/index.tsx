@@ -3,21 +3,23 @@ import React, {
 } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './index.scss';
-import axios from '../../../../api/axios';
+
+// Slice
+// import loginSlice from 'store/Login';
+
+// Hook
+import useAuth from '../../../../hooks/useAuth';
+
+// axios
+import { apiUserLogin } from '../../../../api/axios';
 
 // Components
 import ButtonFrame from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
 
-// Hook
-import useAuth from '../../../../hooks/useAuth';
-
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-
-// Url
-const LOGIN_URL = '/api/login';
 
 function LoginSection() {
   const navigate = useNavigate();
@@ -27,10 +29,10 @@ function LoginSection() {
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
 
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState<string>('');
   const [userFocus, setUserFocus] = useState<boolean>(false);
 
-  const [pwd, setPwd] = useState('');
+  const [pwd, setPwd] = useState<string>('');
   const [validPwd, setValidPwd] = useState<boolean>(true);
   const [pwdFocus, setPwdFocus] = useState<boolean>(false);
 
@@ -38,9 +40,7 @@ function LoginSection() {
   const [showErr, setShowErr] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const {
-    auth, setAuth,
-  } : any = useAuth();
+  const { auth } : any = useAuth();
 
   useEffect(() => {
     userRef.current?.focus();
@@ -67,7 +67,7 @@ function LoginSection() {
   //   setPersist((prev: any) => !prev);
   // };
 
-  const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
+  const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setShowErr(true);
 
@@ -80,23 +80,28 @@ function LoginSection() {
     }
 
     try {
-      const response: any = await axios.post(
-        targetUrl,
-        JSON.stringify({ user, pwd }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        },
-      );
+      // const response: any = await axios.post(
+      //   targetUrl,
+      //   JSON.stringify({ user, pwd }),
+      //   {
+      //     headers: { 'Content-Type': 'application/json' },
+      //     withCredentials: true,
+      //   },
+      // );
 
-      const accessToken = response?.data.accessToken;
+      const response = await apiUserLogin(user, pwd);
 
-      setUser('');
-      setPwd('');
+      if (response.data?.Status === 0) {
+        setErrMsg('帳號或密碼有誤');
+        return;
+      }
+
+      // setUser('');
+      // setPwd('');
       setSuccess(true);
-      setAuth({ username: user, password: pwd, accessToken });
+      // setAuth({ username: user, password: pwd, accessToken });
 
-      // console.log(JSON.stringify(response));
+      console.log(response);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');
@@ -121,8 +126,8 @@ function LoginSection() {
           <FormText
             variant="default"
             labelText="帳號"
-            placeholder="輸入您的帳號名稱或電子信箱"
-            inputType="text"
+            placeholder="輸入您的電子信箱"
+            inputType="email"
             ref={userRef}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUser(e.target.value)}
             value={user}
@@ -163,15 +168,13 @@ function LoginSection() {
         </p>
 
         <section className="login-section__btn-group">
-          {/* 檢測是否一樣 */}
           <ButtonFrame
             color="primary"
             text="登入"
             onClick={
-              (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e, LOGIN_URL)
+              (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e)
             }
           />
-          {/* 檢測帳號有無重複，以及符合規範 */}
           <Link to="/register">
             <ButtonFrame
               color="primary"
@@ -181,11 +184,10 @@ function LoginSection() {
           </Link>
         </section>
         <section className="login-section__btn-footer">
-          {/* 檢測是否一樣，提供帳密 */}
           <ButtonFrame
             color="secondary"
             text="主辦方登入"
-            onClick={(e) => handleClick(e, LOGIN_URL)}
+            onClick={(e) => handleClick(e)}
           />
         </section>
 
