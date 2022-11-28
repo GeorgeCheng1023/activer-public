@@ -1,13 +1,17 @@
+@import '~/src/_global';
+
 .popup {
   position: fixed;
   z-index: 2;
+
   width: 100%;
 
   &__close-button {
     position: absolute;
-    cursor: pointer;
     font-size: 2rem;
     background-color: transparent;
+
+    cursor: pointer;
 
     * {
       color: white;
@@ -18,14 +22,22 @@
   }
 
   &__inner {
-    z-index: 10;
     position: absolute;
-    width: fit-content;
-    height: fit-content;
+    z-index: 10;
     top: 50%;
     left: 50%;
-
     transform: translate(-50%, 25%);
+
+    width: 80%;
+    min-height: 70%;
+
+    @include media(laptop, desktop) {
+      height: 70vh;
+    }
+
+    @include media(mobile, tablet) {
+      transform: translate(-50%, 10%);
+    }
   }
 
   &__back {

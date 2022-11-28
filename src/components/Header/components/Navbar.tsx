@@ -10,7 +10,11 @@ import { useAppDispatch } from 'hooks/redux';
 import { useNavigate, Link } from 'react-router-dom';
 import Button from '../../Button';
 
-function Navbar() {
+type Props = {
+  expended: boolean
+};
+
+function Navbar({ expended } : Props) {
   // setting hook
 
   const navigate = useNavigate();
@@ -26,7 +30,9 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${expended ? 'navbar--expended' : ''
+    }`}
+    >
       <button type="button" className="navbar__item" onClick={() => dispatch(show())}>搜尋活動</button>
       <Link to="/detail">
         <button type="button" className="navbar__item">熱門活動</button>

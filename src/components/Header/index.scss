@@ -1,6 +1,7 @@
 @import '../../global';
 
 .header {
+  position: relative;
   width: 100%;
   height: 6em;
   background-color: #FFF;
@@ -9,12 +10,21 @@
   justify-content: space-between;
   padding: 20px 2em;
   margin: 0 auto;
-}
 
-.logo {
-  width: 4em;
-  height: 4em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  &__logo {
+    width: 4em;
+    height: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__navbar-toggle-button {
+    display: none;
+    font-size: 2em;
+
+    @include media(mobile) {
+      display: block;
+    }
+  }
 }

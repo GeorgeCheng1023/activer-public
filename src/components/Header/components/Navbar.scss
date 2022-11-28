@@ -1,14 +1,13 @@
 @import '~/src/_variables';
+@import '~/src/_global';
 
 .navbar {
   height: fit-content;
   width: 30rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  font-family: 'Inter';
-  font-size: 1rem;
 
   &__item {
     all: initial;
@@ -37,5 +36,28 @@
       }
     }
 
+
+  }
+
+  @include media(mobile) {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: none;
+    flex-direction: column;
+    align-items: end;
+    gap: 1em;
+
+    width: 100%;
+    margin-top: 6em;
+    padding-bottom: 1em;
+    padding-right: 1.5em;
+
+    background-color: white;
+
+    &--expended {
+      display: flex
+    }
   }
 }

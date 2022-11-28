@@ -61,7 +61,7 @@ function Tag({
         {text}
       </p>
       {icon && (
-        <div className="tag tag__icon">
+        <div className="tag__icon">
           {TagIcon(icon)}
         </div>
       ) }

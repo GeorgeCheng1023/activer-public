@@ -1,14 +1,22 @@
 @import '~/src/_variables';
 
 // responsive
-$breakpoints: (mobile : 480px,
-  desktop: 960px);
+$_min-breakpoints: (mobile: 0px,
+  tablet: 481px,
+  laptop: 769px,
+  desktop: 1025px);
+$_max-breakpoints: (mobile : 480px,
+  tablet:768px,
+  laptop: 1024px,
+  desktop: 3000px);
+
 
 @mixin media($keys...) {
   @each $key in $keys {
-    @media (max-width: map-get($breakpoints, $key)) {
+    @media (max-width: map-get($_max-breakpoints, $key)) and (min-width: map-get($_min-breakpoints, $key)) {
       @content
     }
+
   }
 }
 
@@ -16,7 +24,7 @@ $breakpoints: (mobile : 480px,
   color: $primary-font-color;
 }
 
-.button-nostyle {
+button {
   background: none;
   border: none;
   outline: none;
@@ -52,6 +60,14 @@ h3 {
 
 p {
   font-size: 1vw;
+
+  @include media(laptop) {
+    font-size: 2vw
+  }
+
+  @include media(tablet) {
+    font-size: 2.5vw;
+  }
 
   @include media(mobile) {
     font-size: 4vw;
