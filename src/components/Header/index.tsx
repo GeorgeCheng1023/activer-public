@@ -16,7 +16,7 @@ function Header() {
   const handleToggleNavbar:
   React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setExpended(!expended);
+    setExpended(true);
   };
   return (
     <div className="header">
@@ -27,7 +27,7 @@ function Header() {
       </Link>
       <UserState />
 
-      <Navbar expended={expended} />
+      <Navbar expended={expended} setExpended={setExpended} />
 
       <button
         type="button"

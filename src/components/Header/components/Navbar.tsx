@@ -11,10 +11,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import Button from '../../Button';
 
 type Props = {
-  expended: boolean
+  expended: boolean;
+  setExpended: React.Dispatch<React.SetStateAction<boolean>>,
 };
 
-function Navbar({ expended } : Props) {
+function Navbar({ expended, setExpended } : Props) {
   // setting hook
 
   const navigate = useNavigate();
@@ -22,16 +23,22 @@ function Navbar({ expended } : Props) {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
+    setExpended(false);
     if (!auth.accessToken) {
       navigate('/login', { replace: true });
     } else {
       navigate('/user/basic');
     }
   };
+  const handleBlur = () => {
+    setExpended(false);
+  };
 
   return (
-    <div className={`navbar ${expended ? 'navbar--expended' : ''
-    }`}
+    <div
+      className={`navbar ${expended ? 'navbar--expended' : ''
+      }`}
+      onBlur={handleBlur}
     >
       <button type="button" className="navbar__item" onClick={() => dispatch(show())}>搜尋活動</button>
       <Link to="/detail">
