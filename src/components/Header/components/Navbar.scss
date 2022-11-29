@@ -2,7 +2,7 @@
 @import '~/src/_global';
 
 .navbar {
-  z-index: 9998;
+  z-index: $zindex-navbar;
 
   display: flex;
   justify-content: space-between;

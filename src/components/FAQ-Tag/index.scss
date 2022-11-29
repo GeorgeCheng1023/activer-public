@@ -88,7 +88,7 @@
     bottom: 1.5rem;
     border: 1px solid $secondary-font-color;
     border-radius: 7.5px;
-    z-index: 2;
+    z-index: $zindex-dropdown-label;
     padding: .25rem;
     background-color: #FFF;
     color: $primary-font-color;
@@ -108,7 +108,7 @@
     border-right: 1px solid $secondary-font-color;
     border-bottom: 1px solid $secondary-font-color;
     background-color: #FFF;
-    z-index: 3;
+    z-index: $zindex-dropdown;
     transform: rotateZ(45deg);
   }
 }

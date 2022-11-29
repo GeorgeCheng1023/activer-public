@@ -3,7 +3,7 @@
 
 .search {
   position: fixed;
-  z-index: 2;
+  z-index: $zindex-modal-panel;
 
   display: flex;
   flex-direction: column;
