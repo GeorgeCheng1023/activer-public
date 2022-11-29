@@ -1,6 +1,12 @@
+@import '~/src/_global';
+
 .carousel {
   width: 30em;
   height: 30em;
+
+  @include media(mobile, tablet) {
+    width: 100%;
+  }
 
   .swiper {
     width: 100%;

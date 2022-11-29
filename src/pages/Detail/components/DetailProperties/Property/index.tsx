@@ -14,7 +14,7 @@ function Property({
 }: Props) {
   return (
     <div className={`detail__property detail__property__${className}`}>
-      <h2 className="detail__h2">{label}</h2>
+      <h3 className="detail__h2">{label}</h3>
       {propertyType === 'text' && <p className="detail__p">{innerText}</p> }
       {propertyType === 'link' && (
         <a className="detail__a" href={innerText} target="_blank" rel="noreferrer">
