@@ -18,32 +18,16 @@ const initialState: SearchPanelState = {
   recommendTags: [],
   storageTags: [{
     id: '0',
-    text: 'bla',
+    text: 'bedij',
     variant: 'area',
   }, {
     id: '1',
     text: 'bla',
-    variant: 'area',
+    variant: 'other',
   }, {
     id: '2',
-    text: 'bla',
-    variant: 'area',
-  }, {
-    id: '3',
-    text: 'bla',
-    variant: 'area',
-  }, {
-    id: '4',
-    text: 'bla',
-    variant: 'area',
-  }, {
-    id: '5',
-    text: 'bla',
-    variant: 'area',
-  }, {
-    id: '6',
-    text: 'bla',
-    variant: 'area',
+    text: 'beoefpo',
+    variant: 'location',
   }],
   keyword: '',
 };

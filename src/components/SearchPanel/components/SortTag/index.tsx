@@ -9,7 +9,7 @@ import { TagType } from 'components/Tag';
 import { selectSortTags, setSortTag } from 'store/searchPanel';
 
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 function SortTag() {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ function SortTag() {
 
     <>
       <h2 className="search__h2">標籤排序</h2>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={TouchBackend}>
         <TagSort
           tags={sortTags}
           onChange={handleSortChange}
