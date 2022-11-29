@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable arrow-body-style */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-return-assign */
@@ -19,16 +20,15 @@ function PersistLogin() {
       withCredentials: true,
     });
 
-    setAuth((prev) => {
+    setAuth((prev) =>
       // console.log(JSON.stringify(prev));
       // console.log(response.data.accessToken);
-      return {
+      ({
         ...prev,
         username: response.data.username,
         accessToken: response.data.accessToken,
         userData: response.data.userData,
-      };
-    });
+      }));
 
     return response.data.accessToken;
   };

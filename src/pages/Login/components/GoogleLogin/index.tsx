@@ -39,7 +39,6 @@ function GoogleLoginButton() {
           },
         );
 
-        console.log('0.0');
         console.log(response);
 
         setAuth({
@@ -60,7 +59,7 @@ function GoogleLoginButton() {
 
   return (
     <button className="google-button" type="button" onClick={() => login()}>
-      <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google" />
+      <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
       Sign in with Google
     </button>
   );

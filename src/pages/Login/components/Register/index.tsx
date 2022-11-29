@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.scss';
-import axios from 'axios';
+
+// api
+import { apiUserRegister } from 'api/axios';
 
 // components
 import FormInput from 'components/Form/FormInput';
 import Button from '../../../../components/Button';
-import FAQTag from '../../../../components/FAQ-Tag';
 
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-const REGISTER_URL = 'http://localhost:3500/api/register';
 
 function Register() {
   const navigate = useNavigate();
@@ -115,7 +114,7 @@ function Register() {
     setConfirmPwd(value);
   };
 
-  const handleClick = async (event: React.MouseEvent<HTMLElement>, targetUrl: string) => {
+  const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
     if (!user || !pwd || !email) {
@@ -125,8 +124,13 @@ function Register() {
 
     const v1 = pwd === confirmPwd;
     const v2 = PWD_REGEX.test(pwd);
+    const v3 = EMAIL_REGEX.test(email);
     if (!v1 || !v2) {
       setErrMsg('帳號或密碼錯誤');
+      return;
+    }
+    if (!v3) {
+      setErrMsg('電子信箱格式錯誤');
       return;
     }
 
@@ -139,16 +143,18 @@ function Register() {
     // }
 
     try {
-      await axios.post(
-        targetUrl,
-        JSON.stringify({ user, pwd, email }),
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        },
-      );
+      // // await axios.post
+      //   targetUrl,
+      //   JSON.stringify({ user, pwd, email }),
+      //   {
+      //     headers: { 'Content-Type': 'application/json' },
+      //     withCredentials: true,
+      //   },
+      // );
 
-      // conso/le.log(JSON.stringify(response));
+      const response = await apiUserRegister(user, email, pwd);
+
+      console.log(response);
       setSuccess(true);
     } catch (err: any) {
       if (!err?.response) {
@@ -215,10 +221,6 @@ function Register() {
           />
         </section>
 
-        <span className="register-section__tag">
-          <FAQTag title="忘記密碼?" url="/Register" />
-        </span>
-
         <p id="pwdnote" className={validPwd ? 'offscreen' : 'pwd-instructions'}>
           密碼至少八位字元，需要包含至少一個數字、一個大寫英文、一個小寫英文、一個特殊字元
           <br />
@@ -253,7 +255,7 @@ function Register() {
             color="primary"
             variant="outline"
             text="註冊"
-            onClick={(e) => handleClick(e, REGISTER_URL)}
+            onClick={(e) => handleClick(e)}
           />
         </footer>
       </section>

@@ -4,10 +4,10 @@ import './Navbar.scss';
 // redux
 import { show } from 'store/searchPanel';
 // hook
-import useAuth from 'hooks/useAuth';
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 // components
 import { useNavigate, Link } from 'react-router-dom';
+import { getUserIsLoggedIn } from 'store/userAuth';
 import Button from '../../Button';
 
 type Props = {
@@ -15,16 +15,15 @@ type Props = {
   setExpended: React.Dispatch<React.SetStateAction<boolean>>,
 };
 
-function Navbar({ expended, setExpended } : Props) {
-  // setting hook
+// setting hook
+function Navbar({ expended, setExpended }: Props) {
+  const userIsLoggined = useAppSelector(getUserIsLoggedIn);
 
   const navigate = useNavigate();
-  const { auth } : any = useAuth();
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    setExpended(false);
-    if (!auth.accessToken) {
+    if (!userIsLoggined) {
       navigate('/login', { replace: true });
     } else {
       navigate('/user/basic');

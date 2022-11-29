@@ -14,14 +14,13 @@ button {
   align-items: center;
   justify-content: center;
   width: 90vw;
-  min-width: 20rem;
-  margin: 0 auto;
   height: fit-content;
   transform: translateY(-20px);
 }
 
 .login-section {
   width: 40%;
+  min-width: 450px;
   display: flex;
   flex-direction: column;
   padding-bottom: 3rem;
@@ -80,7 +79,7 @@ button {
   justify-content: center;
   height: fit-content;
   width: fit-content;
-  margin: 8rem;
+  margin: 0 6rem;
 }
 
 .or-aside {
@@ -138,4 +137,27 @@ button {
     color: $_warning-color;
     margin-left: .3rem;
   }
+
+  <<<<<<< HEAD=======
+}
+
+@media screen and (max-width: 800px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-section {
+    padding-bottom: 0;
+  }
+
+  .or-aside {
+    width: 60%;
+    height: 3px;
+  }
+
+  .other-login-section {
+    margin: 4rem 0;
+  }
+
+  >>>>>>>master
 }

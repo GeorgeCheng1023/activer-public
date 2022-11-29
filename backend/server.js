@@ -6,7 +6,7 @@ const passport = require('passport/lib');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
 const bcrpyt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');0
 const passportLocalMongoose = require("passport-local-mongoose");
 const passportLocal = require('passport-local/lib');
 const bodyParser = require('body-parser');
@@ -182,6 +182,7 @@ app.post('/google/login', (req, res) => {
 
 app.post('/api/register', (req, res) => {
   const {user : username, pwd : password, email: email} = req.body;
+  if (!email) return res.status(400).json({'message': 'Email are requried'})
   if (!username || !password) return res.status(400).json({'message': 'Username and password are requried'})
 
   // username is duplicate or not
