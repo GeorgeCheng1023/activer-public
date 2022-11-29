@@ -16,7 +16,35 @@ const initialState: SearchPanelState = {
   defaultTags: [],
   sortTags: [],
   recommendTags: [],
-  storageTags: [],
+  storageTags: [{
+    id: '0',
+    text: 'bla',
+    variant: 'area',
+  }, {
+    id: '1',
+    text: 'bla',
+    variant: 'area',
+  }, {
+    id: '2',
+    text: 'bla',
+    variant: 'area',
+  }, {
+    id: '3',
+    text: 'bla',
+    variant: 'area',
+  }, {
+    id: '4',
+    text: 'bla',
+    variant: 'area',
+  }, {
+    id: '5',
+    text: 'bla',
+    variant: 'area',
+  }, {
+    id: '6',
+    text: 'bla',
+    variant: 'area',
+  }],
   keyword: '',
 };
 
@@ -24,14 +52,20 @@ export const searchPanelSlice = createSlice({
   name: 'searchPanel',
   initialState,
   reducers: {
-    show: (state) => ({
-      ...state,
-      display: true,
-    }),
-    hide: (state) => ({
-      ...state,
-      display: false,
-    }),
+    show: (state) => {
+      document.body.style.overflow = 'hidden';
+      return ({
+        ...state,
+        display: true,
+      });
+    },
+    hide: (state) => {
+      document.body.style.overflow = 'scroll';
+      return ({
+        ...state,
+        display: false,
+      });
+    },
     toggle: (state) => ({
       ...state,
       display: !state.display,

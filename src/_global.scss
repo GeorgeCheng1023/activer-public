@@ -24,6 +24,10 @@ $_max-breakpoints: (mobile : 480px,
   color: $primary-font-color;
 }
 
+body {
+  position: relative;
+}
+
 button {
   background: none;
   border: none;
