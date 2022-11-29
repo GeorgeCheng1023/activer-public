@@ -1,25 +1,58 @@
 @import '~/src/_variables';
 @import '~/src/_global';
+@import '~/src/_variables';
 
 .navbar {
-  z-index: $zindex-navbar;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  &__container {
 
-  height: fit-content;
-  width: 30rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 30em;
+
+    background-color: white;
+
+    @include media(mobile, tablet) {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+
+      &--expended {
+        position: absolute;
+        top: 5em;
+        right: 0;
+        left: 0;
+        z-index: $zindex-modal-panel;
+
+        display: flex;
+        align-items: flex-end;
+        gap: 1em;
+
+        padding-bottom: 0.5em;
+        padding-right: 1em;
+
+        background-color: white;
+      }
+    }
+  }
+
+  &__toggle-button {
+    display: none;
+
+    font-size: 2em;
+
+    @include media(mobile, tablet) {
+      display: block
+    }
+  }
 
   &__item {
     all: initial;
     position: relative;
-    height: 34px;
-    color: $primary-font-color;
-    text-decoration: none;
-
-    font-weight: bolder;
-    font-size: 1em;
+    line-height: 1.2em;
+    cursor: pointer;
 
     &::before {
       content: "";
@@ -37,33 +70,14 @@
         width: 100%;
       }
     }
-
-
   }
 
-  @include media(mobile) {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    display: none;
-    flex-direction: column;
-    align-items: end;
-    gap: 1em;
-
+  &__backdrop {
+    position: fixed;
+    inset: 0;
     width: 100%;
-    margin-top: 6em;
-    padding-bottom: 1em;
-    padding-right: 1.5em;
-
-    background-color: white;
-
-    &--expended {
-      display: flex
-    }
-
-
+    height: 100%;
+    z-index: $zindex-modal-backdrop;
+    background-color: transparent;
   }
-
-
 }

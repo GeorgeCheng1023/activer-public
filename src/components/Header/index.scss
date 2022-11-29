@@ -19,12 +19,5 @@
     justify-content: center;
   }
 
-  &__navbar-toggle-button {
-    display: none;
-    font-size: 2em;
 
-    @include media(mobile) {
-      display: block;
-    }
-  }
 }
