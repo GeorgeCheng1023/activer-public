@@ -5,13 +5,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './index.scss';
 
 // Slice
-// import loginSlice from 'store/Login';
+import { userLogin } from 'store/userAuth';
 
 // Hook
-import useAuth from '../../../../hooks/useAuth';
-
-// axios
-import { apiUserLogin } from '../../../../api/axios';
+import { useAppDispatch } from 'hooks/redux';
 
 // Components
 import ButtonFrame from '../../../../components/Button';
@@ -22,6 +19,8 @@ import GoogleLoginButton from '../GoogleLogin';
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function LoginSection() {
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
@@ -39,8 +38,6 @@ function LoginSection() {
   const [errMsg, setErrMsg] = useState<string>('');
   const [showErr, setShowErr] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-
-  const { auth } : any = useAuth();
 
   useEffect(() => {
     userRef.current?.focus();
@@ -60,7 +57,7 @@ function LoginSection() {
   }, [pwdFocus]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  (auth.accessToken || success) && navigate(from, { replace: true });
+  (success) && navigate(from, { replace: true });
 
   // const togglePersist = () => {
   //   localStorage.setItem('persist', persist);
@@ -80,28 +77,9 @@ function LoginSection() {
     }
 
     try {
-      // const response: any = await axios.post(
-      //   targetUrl,
-      //   JSON.stringify({ user, pwd }),
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //     withCredentials: true,
-      //   },
-      // );
-
-      const response = await apiUserLogin(user, pwd);
-
-      if (response.data?.Status === 0) {
-        setErrMsg('帳號或密碼有誤');
-        return;
-      }
-
-      // setUser('');
-      // setPwd('');
-      setSuccess(true);
-      // setAuth({ username: user, password: pwd, accessToken });
-
+      const response = await dispatch(userLogin({ email: user, password: pwd }));
       console.log(response);
+      setSuccess(true);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');

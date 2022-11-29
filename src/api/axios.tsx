@@ -20,9 +20,14 @@ export const axiosTest = axios.create({
   baseURL: TEST_URL,
 });
 
-export const apiUserLogin = (username: string, password: string) => axiosTest.post(
+interface userLogin {
+  email: string,
+  password: string,
+}
+
+export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
   LOGIN_URL,
-  JSON.stringify({ Email: username, Password: password }),
+  JSON.stringify({ Email: email, Password: password }),
   {
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
