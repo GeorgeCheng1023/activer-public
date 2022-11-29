@@ -3,7 +3,7 @@ import {
   BsPeopleFill, BsFillShieldLockFill, BsGearFill, BsFillHeartFill,
 } from 'react-icons/bs';
 import { BiHistory } from 'react-icons/bi';
-import SideBarLink from '../../../../components/SidebarLink';
+import SideBarLink from './components/SidebarLink';
 import './index.scss';
 
 type Props = {
