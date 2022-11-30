@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 // api
-import { apiActivityGet } from 'api/axios';
+import axios from 'axios';
 // components
 import Carousel from 'components/Carousel';
 import Tag, { TagType } from 'components/Tag';
@@ -21,10 +21,20 @@ import './index.scss';
 function Detail() {
   // eslint-disable-next-line
   const { id } = useParams();
+
   useEffect(() => {
     const dataFetch = async () => {
       try {
-        const { data } = await apiActivityGet();
+        if (!id) throw new Error('Activity not found');
+        // @ts-ignore
+        const { data } = await axios.get(
+          'http://localhost:5000/api/activity',
+          {
+            params: {
+              Id: 0,
+            },
+          },
+        );
         console.table(data);
       } catch (err) {
         console.error(err);
