@@ -1,6 +1,13 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
 .user-basic {
   margin: 2rem 5%;
   font-size: 1.2em;
+
+  @include media(mobile, tablet) {
+    margin: 2rem 3%;
+  }
 
   &__portrait {
     .img {
@@ -23,6 +30,12 @@
     &__nick-name {
       width: 70%;
     }
+
+    &__location__county,
+    &__location__area {
+      width: 50%;
+      flex-grow: 0.5;
+    }
   }
 
   &__container {
@@ -33,28 +46,29 @@
 
     >div {
       flex-grow: 1;
-
     }
+
+    @include media(mobile, tablet) {
+      flex-direction: column;
+    }
+
 
     &--column {
       display: flex;
       flex-direction: column;
       margin: 0 15px;
       align-items: center;
-      min-width: 384px;
+
+      width: 100%;
+
+      @include media(mobile, tablet) {
+        margin: 0;
+      }
     }
-  }
-}
 
+    @include media(mobile, tablet) {
+      align-items: flex-start;
 
-@media (max-width: 1120px) {
-
-  // 修改當中 0.0
-  .user-basic {
-    &__container {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
     }
   }
 }
