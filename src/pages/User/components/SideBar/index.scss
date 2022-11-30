@@ -18,7 +18,7 @@
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out;
-    transform: translateX(-8rem);
+    transform: translateX(-9rem);
 
     @include media(mobile, tablet) {
       &--expended {

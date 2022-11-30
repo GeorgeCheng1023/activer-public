@@ -37,6 +37,7 @@ function SideBar({ onChangeText }: Props) {
         ${displaySidebar ? 'sidebar__container--expended' : ''}
         `}
       onScroll={handleBlur}
+      onBlur={handleBlur}
     >
 
       <div className="sidebar">
