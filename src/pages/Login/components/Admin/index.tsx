@@ -1,14 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import { useAppSelector } from 'hooks/redux';
+import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import useAxiosPrivate from '../../../../hooks/useAxiosPrivate';
+import { getUserIsLoggedIn } from 'store/userAuth';
 
 function Admin() {
-  // const [user, setUser] = useState('');
+  const isLoggined = useAppSelector(getUserIsLoggedIn);
   const location = useLocation();
   const navigate = useNavigate();
-  const axiosPrivate = useAxiosPrivate();
-  const effectRef = useRef(false);
 
+  useEffect(() => {
+    if (!isLoggined) {
+      navigate('/login', { state: { from: location }, replace: true });
+    }
+  }, []);
+
+  /*
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let isMounted = true;
@@ -37,6 +43,7 @@ function Admin() {
       effectRef.current = true; // update the value of effectRun to true
     };
   }, []);
+*/
 
   return (
     <Outlet />

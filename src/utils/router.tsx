@@ -10,85 +10,79 @@ import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search from 'pages/Search';
 import Detail from 'pages/Detail';
-// import PersistLogin from 'pages/Login/components/PersistLogin';
-// import Admin from 'pages/Login/components/Admin';
+import Admin from 'pages/Login/components/Admin';
 
-// export const routerConfig = [
-//   {
-//     path: '/',
-//     element: <Root />,
-//     children: [
-//       {
-//         path: '/login',
-//         element: <Login />,
-//       },
-//       {
-//         path: '/register',
-//         element: <Register />,
-//       },
+export const routerConfig = [
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
+      },
 
-//       {
-//         element: <PersistLogin />,
-//         children: [
-//           {
-//             path: '/',
-//             element: <Home />,
-//           },
-//           {
-//             path: '/search',
-//             element: <Search />,
-//           },
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/search',
+        element: <Search />,
+      },
 
-//           {
-//             element: <Admin />,
-//             children: [
-//               {
-//                 path: '/user',
-//                 element: <User />,
-//                 children: [
-//                   {
-//                     index: true,
-//                     path: 'basic',
-//                     element: <Basic />,
-//                   },
-//                   {
-//                     path: 'account',
-//                     element: <Account />,
-//                   },
-//                   {
-//                     path: 'manage',
-//                     element: <Manage />,
-//                   },
-//                   {
-//                     path: 'history',
-//                     element: <History />,
+      {
+        element: <Admin />,
+        children: [
+          {
+            path: '/user',
+            element: <User />,
+            children: [
+              {
+                index: true,
+                path: 'basic',
+                element: <Basic />,
+              },
+              {
+                path: 'account',
+                element: <Account />,
+              },
+              {
+                path: 'manage',
+                element: <Manage />,
+              },
+              {
+                path: 'history',
+                element: <History />,
 
-//                   },
-//                   {
-//                     path: 'preferences',
-//                     element: <Preferences />,
-//                   },
-//                   {
-//                     path: 'record',
-//                     element: <Record />,
-//                   },
+              },
+              {
+                path: 'preferences',
+                element: <Preferences />,
+              },
+              {
+                path: 'record',
+                element: <Record />,
+              },
 
-//                 ],
-//               },
-//             ],
-//           },
+            ],
+          },
+        ],
+      },
 
-//           {
-//             path: '/detail',
-//             element: <Detail />,
-//           },
+      {
+        path: '/detail',
+        element: <Detail />,
+      },
+    ],
+  },
+];
 
-//         ],
-//       },
-//     ],
-//   },
-// ];
-
+/*
 export const routerConfig = [
   {
     path: '/',
@@ -153,6 +147,7 @@ export const routerConfig = [
     ],
   },
 ];
+*/
 
 function getConfig() {
   return routerConfig;

@@ -68,7 +68,6 @@ function LoginSection() {
     event.preventDefault();
     setShowErr(true);
 
-    // test user and pwd is correct or not
     const v2 = PWD_REGEX.test(pwd);
     if (!v2) {
       if (!v2) setValidPwd(false);
