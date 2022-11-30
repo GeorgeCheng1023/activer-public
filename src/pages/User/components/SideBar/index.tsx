@@ -26,8 +26,18 @@ function SideBar({ onChangeText }: Props) {
     onChangeText(currentText);
   }, [currentText]);
 
+  const handleBlur = () => {
+    setDisplaySidebar(false);
+  };
+
   return (
-    <div className={`sidebar__container ${displaySidebar ? 'sidebar__container--expended' : ''}`}>
+    <div
+      className={`
+        sidebar__container 
+        ${displaySidebar ? 'sidebar__container--expended' : ''}
+        `}
+      onScroll={handleBlur}
+    >
 
       <div className="sidebar">
         <SideBarLink text="基本資料" url="/user/basic" icon={<BsPeopleFill />} onClickLink={handleClickLink} />
