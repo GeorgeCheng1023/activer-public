@@ -7,12 +7,11 @@ import { show } from 'store/searchPanel';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 // components
 import { useNavigate, Link } from 'react-router-dom';
-import { getUserIsLoggedIn } from 'store/userAuth';
+import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
 import Button from '../../Button';
 
 function Navbar() {
   const userIsLoggined = useAppSelector(getUserIsLoggedIn);
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -24,15 +23,34 @@ function Navbar() {
     }
   };
 
+  const handleLogout = () => {
+    dispatch(userLogout());
+  };
+
   return (
     <div className="navbar">
       <button type="button" className="navbar__item" onClick={() => dispatch(show())}>搜尋活動</button>
       <Link to="/detail">
         <button type="button" className="navbar__item">熱門活動</button>
       </Link>
+
+      {
+        userIsLoggined
+        && (
+          <div className="navbar__logout-btn">
+            <Button
+              color="secondary"
+              text="登出"
+              variant="outline"
+              onClick={handleLogout}
+            />
+          </div>
+        )
+      }
+
       <Button
         color="primary"
-        text="登入/註冊"
+        text={userIsLoggined ? '個人資料' : '登入/註冊'}
         onClick={handleClick}
       />
     </div>

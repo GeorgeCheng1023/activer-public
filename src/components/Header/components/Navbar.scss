@@ -10,6 +10,11 @@
   font-family: 'Inter';
   font-size: 1rem;
 
+  // &__logout-btn {
+  //   position: absolute;
+  //   right: 10rem; 
+  // }
+
   &__item {
     all: initial;
     position: relative;
@@ -39,3 +44,4 @@
 
   }
 }
+

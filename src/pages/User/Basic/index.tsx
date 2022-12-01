@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
+import { useAppDispatch } from 'hooks/redux';
+import { userUpdate } from 'store/userAuth';
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
 import dummyUserData from './dummyUserData.json';
@@ -9,6 +11,8 @@ import FormDropDown from '../../../components/Form/FormDropdown';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
+  const dispatch = useAppDispatch();
+
   const [values, setValues] = useState(dummyUserData);
   const [selectedCounty, setSelectCounty] = useState('');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
@@ -21,6 +25,7 @@ function Basic() {
     event.preventDefault();
     // eslint-disable-next-line no-console
     console.log(values);
+    dispatch(userUpdate(values));
   };
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
@@ -138,9 +143,9 @@ function Basic() {
                 <FormDropDown
                   dropdownProps={{
                     label: '縣市',
-                    name: 'County',
+                    name: 'Country',
                     options: CityCountyData.map((c) => c.CityName),
-                    defaultOption: dummyUserData.County,
+                    defaultOption: dummyUserData.Country,
                   }}
                   onChange={handleCountyChange}
                 />
