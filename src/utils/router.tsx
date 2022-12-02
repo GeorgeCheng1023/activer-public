@@ -72,16 +72,11 @@ export const routerConfig = [
             ],
           },
 
-          {
-            path: '/detail/:id',
-            element: <Detail />,
-          },
-
         ],
       },
 
       {
-        path: '/detail',
+        path: '/detail/:id',
         element: <Detail />,
       },
     ],
