@@ -5,20 +5,15 @@ import './UserState.scss';
 
 // icon
 import { MdOutlineLogout, MdLogin } from 'react-icons/md';
-
-// hook
-import useAuth from 'hooks/useAuth';
-import useLogout from '../../../hooks/useLogout';
+import { useAppSelector } from 'hooks/redux';
+import { getUserIsLoggedIn, getUserRealname } from 'store/userAuth';
 
 function UserState() {
   const navigate = useNavigate();
-  const logout = useLogout();
-
-  const { auth } : any = useAuth();
-  const state = auth.accessToken;
+  const realName = useAppSelector(getUserRealname);
+  const isLoggined = useAppSelector(getUserIsLoggedIn);
 
   const signOut = async () => {
-    await logout();
     navigate('/', { replace: true });
   };
 
@@ -29,13 +24,12 @@ function UserState() {
   return (
     <div className="user-state">
       {
-        state
+        isLoggined
           ? (
             <>
-              {auth.userData?.picture && <img className="user-state__portrait" src={auth.userData.picture} alt="" />}
               <h3>
                 Welcome
-                <span className="user-state__username">{ auth.username }</span>
+                <span className="user-state__username">{ realName || 'newbie ' }</span>
                 !
               </h3>
             </>
@@ -43,20 +37,22 @@ function UserState() {
           : <h3>log in</h3>
       }
 
-      {state
-        ? (
-          <button className="user-state__button" type="button" onClick={signOut}>
-            <span className="user-state__icon"><MdOutlineLogout className="user-state__logout" /></span>
-          </button>
-        )
+      {
+        isLoggined
+          ? (
+            <button className="user-state__button" type="button" onClick={signOut}>
+              <span className="user-state__icon"><MdOutlineLogout className="user-state__logout" /></span>
+            </button>
+          )
 
-        : (
-          <button className="user-state__button" type="button" onClick={hangleLoginClick}>
-            <span className="user-state__icon">
-              <MdLogin className="user-state__login" />
-            </span>
-          </button>
-        )}
+          : (
+            <button className="user-state__button" type="button" onClick={hangleLoginClick}>
+              <span className="user-state__icon">
+                <MdLogin className="user-state__login" />
+              </span>
+            </button>
+          )
+      }
     </div>
   );
 }

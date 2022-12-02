@@ -3,7 +3,7 @@ import './index.scss';
 
 // components
 import { Link } from 'react-router-dom';
-import { IconQuestionCircle } from '../Icons';
+import { AiOutlineQuestionCircle as IconQuestionCircle } from 'react-icons/ai';
 
 type FAQTagProps = {
   title: string;

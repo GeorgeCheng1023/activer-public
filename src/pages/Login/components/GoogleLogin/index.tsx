@@ -3,17 +3,11 @@ import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import './index.scss';
 
-// hook
-import useAuth from 'hooks/useAuth';
-
 // axios
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import rAxios from '../../../../api/axios';
 
 function GoogleLoginButton() {
-  const { setAuth }: any = useAuth();
-
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
@@ -22,7 +16,7 @@ function GoogleLoginButton() {
     onSuccess: async (respose) => {
       try {
         const data = await axios.get(
-          'https://www.googleapis.com/oauth2/v3/userinfo',
+          'https://www.googleapis.com/oauth2/v3/userin  o',
           {
             headers: {
               Authorization: `Bearer ${respose.access_token}`,
@@ -30,22 +24,7 @@ function GoogleLoginButton() {
           },
         );
 
-        const response = await rAxios.post(
-          '/google/login',
-          JSON.stringify(data.data),
-          {
-            headers: { 'Content-Type': 'application/json' },
-            withCredentials: true,
-          },
-        );
-
-        console.log(response);
-
-        setAuth({
-          username: response.data.userData.name,
-          accessToken: response.data.accessToken,
-          userData: response.data.userData,
-        });
+        console.log(data);
 
         navigate(from, { replace: true });
       } catch (err) {

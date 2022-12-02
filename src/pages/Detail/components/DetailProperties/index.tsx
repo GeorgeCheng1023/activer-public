@@ -1,5 +1,7 @@
 import React from 'react';
 
+// type
+import { BranchDataType } from 'types/ActivityDataType';
 // componenst
 import Property from './Property';
 
@@ -7,50 +9,120 @@ import Property from './Property';
 import './index.scss';
 
 type Props = {
-  branch: any
+  branch : BranchDataType,
 };
 
-function DetailProperties({ branch } : Props) {
+function DetailProperties({ branch }: Props) {
   const {
     ApplyStart,
     ApplyEnd,
-    ApplyForm,
     ApplyFee,
     Location,
     DateStart,
     DateEnd,
   } = branch;
 
-  const date = `${DateStart ? DateStart.toString() : '即日起'} - ${DateEnd ? DateEnd.toString() : '請見活動原始連結'}`;
-  const applyDate = `${ApplyStart ? ApplyStart.toString() : '即日起'} - ${ApplyEnd ? ApplyEnd.toString() : '請見活動原始連結'}`;
+  console.log(branch);
+  const renderDateStartElement = () => {
+    if (DateStart) {
+      return (
+        <>
+          {Object
+            .entries(DateStart)
+            .map((element) => (<p>{`${element[0]}: ${element[1]}`}</p>))}
+        </>
+      );
+    }
+    return <p>請看活動原始連結</p>;
+  };
+
+  const renderApplyDateInnerElement = () => {
+    if ((ApplyStart && ApplyEnd) && (ApplyStart.length === ApplyEnd.length)) {
+      return (
+        <>
+          {
+            ApplyStart.map((element: string, index: number) => (
+              <p>
+                {`${element} ~ ${ApplyEnd[index]}`}
+              </p>
+            ))
+          }
+        </>
+      );
+    }
+    return <p>請看活動原始連結</p>;
+  };
+
+  const renderFeeInnerElement = () => {
+    if (ApplyFee) {
+      return (
+        <>
+          {
+            ApplyFee.map((element) => (
+              <p>
+                {element}
+              </p>
+            ))
+          }
+        </>
+      );
+    }
+    return <p>請看活動原始連結</p>;
+  };
+
+  const renderLocationInnerElement = () => {
+    if (Location) {
+      return (
+        <>
+          {
+            Location.map((element) => (
+              <p>
+                {element}
+              </p>
+            ))
+          }
+        </>
+      );
+    }
+    return <p>請看活動原始連結</p>;
+  };
 
   return (
     <div className="detail__properties">
       <Property
         name="date"
-        label="日期"
-        innerText={date}
+        label="活動開始時間"
+        innerElement={
+          renderDateStartElement()
+        }
       />
       <Property
         name="location"
-        label="地點"
-        innerText={Location}
+        label="活動結束日期"
+        innerElement={
+          <p>{DateEnd ? DateEnd[0] : '請看活動原始連結'}</p>
+        }
       />
       <Property
         name="apply"
         label="報名日期"
-        innerText={applyDate}
-      />
-      <Property
-        name="form"
-        label="報名連結"
-        innerText={ApplyForm}
-        propertyType="link"
+        innerElement={
+          renderApplyDateInnerElement()
+        }
       />
       <Property
         name="fee"
         label="報名費"
-        innerText={ApplyFee}
+        innerElement={
+          renderFeeInnerElement()
+        }
+      />
+      <Property
+        name="location"
+        label="活動地點"
+        innerElement={
+          renderLocationInnerElement()
+        }
       />
     </div>
   );

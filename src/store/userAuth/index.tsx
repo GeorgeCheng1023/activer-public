@@ -1,8 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk, createSlice, PayloadAction,
+} from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 import { apiUserLogin } from 'api/axios';
 
-interface LoginState {
+interface UserState {
   isLoggedIn: boolean,
   id: number,
   realName: string,
@@ -20,10 +22,9 @@ interface LoginState {
   status: number;
   loading: 'idle' | 'loading' | 'succeeded' | 'failed',
   sessionToken: string, // auth
-  accessToken: string, // test
 }
 
-const initialState: LoginState = {
+const initialState: UserState = {
   isLoggedIn: false,
   id: 0,
   realName: '',
@@ -38,10 +39,9 @@ const initialState: LoginState = {
   area: '',
   activityHistory: [],
   tagHistory: [],
-  status: 0,
+  status: 0, // 0 | 1
   loading: 'idle',
   sessionToken: '',
-  accessToken: '',
 };
 
 interface userLoginType {
@@ -51,13 +51,20 @@ interface userLoginType {
 
 export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLoginType) => {
   const response = await apiUserLogin(userData);
+  console.log(response);
   return response;
 });
 
 const userAuthSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    userLogout: (state) => ({
+      ...state,
+      isLoggedIn: false,
+      sessionToken: '',
+    }),
+  },
   extraReducers: (builder) => {
     builder
       .addCase(userLogin.pending, (state) => ({
@@ -75,11 +82,17 @@ const userAuthSlice = createSlice({
           status: Status,
           sessionToken: SessionToken,
         });
-      });
+      })
+      .addCase(userLogin.rejected, (state, action: PayloadAction<any>) => ({
+        ...state,
+        loading: 'failed',
+        status: action.payload.Status,
+      }));
   },
 });
 
 export const getUserIsLoggedIn = (state: RootState) => state.userAuth.isLoggedIn;
+export const getLoadingState = (state: RootState) => state.userAuth.loading;
 export const getUserRealname = (state: RootState) => state.userAuth.realName;
 
 export default userAuthSlice.reducer;

@@ -1,4 +1,4 @@
-@import '../../global';
+@import '~/src/_variables';
 
 .header {
   position: relative;
@@ -17,7 +17,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    * {
+      color: $primary-color;
+    }
   }
-
-
 }
