@@ -7,13 +7,15 @@ import Navbar from './components/Navbar';
 import UserState from './components/UserState';
 
 // icon
-import { IconLogoPrimary } from '../Icons';
+import IconLogo from '../Icons';
 
 function Header() {
   return (
     <div className="header">
       <Link to="/">
-        <IconLogoPrimary />
+        <div className="header__logo">
+          <IconLogo />
+        </div>
       </Link>
       <UserState />
       <Navbar />

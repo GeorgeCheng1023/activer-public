@@ -9,6 +9,7 @@ export const axiosTest = axios.create({
   baseURL: TEST_URL,
 });
 
+// login api
 interface userLogin {
   email: string,
   password: string,
@@ -35,3 +36,15 @@ export const apiUserRegister = (
     withCredentials: true,
   },
 );
+
+// activity api
+const activityRequest = axios.create({
+  baseURL: TEST_URL.concat('/api/activity'),
+});
+export const getActivity = (id: string) => activityRequest.get(`/${id}`, {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default axiosTest;

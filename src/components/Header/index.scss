@@ -1,4 +1,4 @@
-@import '../../global';
+@import '~/src/_variables';
 
 .header {
   width: 100%;
@@ -9,12 +9,16 @@
   justify-content: space-between;
   padding: 20px 2em;
   margin: 0 auto;
-}
 
-.logo {
-  width: 4em;
-  height: 4em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  &__logo {
+    width: 4em;
+    height: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    * {
+      color: $primary-color;
+    }
+  }
 }
