@@ -10,11 +10,6 @@ export const axiosTest = axios.create({
   baseURL: TEST_URL,
 });
 
-interface userLogin {
-  email: string,
-  password: string,
-}
-
 export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
   LOGIN_URL,
   JSON.stringify({ Email: email, Password: password }),
@@ -37,24 +32,6 @@ export const apiUserRegister = (
   },
 );
 
-interface User {
-  id: number,
-  realName?: string,
-  nickName?: string,
-  email?: string,
-  avatar?: string,
-  gender?: string,
-  birthday?: string,
-  profession?: string,
-  phone?: string,
-  country?: string,
-  area?: string,
-  activityHistory?: Array<number>,
-  tagHistory?: Array<number>,
-  status: number;
-  sessionToken: string, // auth
-}
-
 export const apiUserUpdate = (
   user: User,
 ) => axiosTest.post(
@@ -63,5 +40,14 @@ export const apiUserUpdate = (
   {
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
+  },
+);
+
+export const apiUserGoogleData = (access_token: string) => axios.get(
+  'https://www.googleapis.com/oauth2/v3/userinfo',
+  {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
   },
 );

@@ -25,6 +25,7 @@ function Navbar() {
 
   const handleLogout = () => {
     dispatch(userLogout());
+    navigate('/');
   };
 
   return (

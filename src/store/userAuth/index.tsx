@@ -2,7 +2,7 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserLogin } from 'api/axios';
+import { apiUserGoogleData, apiUserLogin } from 'api/axios';
 
 interface UserState {
   IsLoggedIn: boolean,
@@ -53,6 +53,13 @@ interface userLoginType {
 
 export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLoginType) => {
   const response = await apiUserLogin(userData);
+  // eslint-disable-next-line no-console
+  console.log(response);
+  return response;
+});
+
+export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
+  const response = await apiUserGoogleData(accessToken);
   console.log(response);
   return response;
 });
@@ -71,10 +78,10 @@ const userAuthSlice = createSlice({
       SessionToken: '',
     }),
     userUpdate: (state, action: PayloadAction<any>) => {
-      const obj = action.payload;
+      const userData = action.payload;
       return ({
         ...state,
-        ...obj,
+        ...userData,
       });
     },
   },
@@ -100,7 +107,19 @@ const userAuthSlice = createSlice({
         ...state,
         Loading: 'failed',
         Status: action.payload.Status,
-      }));
+      }))
+      .addCase(getUserGoogleData.fulfilled, (state, action) => {
+        const userData = action.payload.data;
+        console.log(userData);
+        return ({
+          ...state,
+          IsLoggedIn: true,
+          RealName: userData.name,
+          Portrait: userData.picture,
+          Email: userData.email,
+          Loading: 'succeeded',
+        });
+      });
   },
 });
 

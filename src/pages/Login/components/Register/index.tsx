@@ -21,15 +21,12 @@ function Register() {
 
   const [email, setEmail] = useState<string>('');
   const [validEmail, setValidEmail] = useState<boolean>(true);
-  // const [showEmailErr, setShowEmailErr] = useState<boolean>(false);
 
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState<boolean>(true);
-  // const [showPwdErr, setShowPwdErr] = useState<boolean>(false);
 
   const [confirmPwd, setConfirmPwd] = useState('');
   const [validConfirmPwd, setValidConfirmPwd] = useState<boolean>(true);
-  // const [showConfirmPwdErr, setShowConfirmPwdErr] = useState<boolean>(false);
 
   const [errMsg, setErrMsg] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
@@ -45,30 +42,6 @@ function Register() {
   useEffect(() => {
     setErrMsg('');
   }, [email]);
-
-  // useEffect(() => {
-  //   if (!pwd || PWD_REGEX.test(pwd)) {
-  //     setShowPwdErr(false);
-  //   } else {
-  //     setShowPwdErr(true);
-  //   }
-  // }, [pwd]);
-
-  // useEffect(() => {
-  //   if (!confirmPwd || confirmPwd === pwd) {
-  //     setShowConfirmPwdErr(false);
-  //   } else {
-  //     setShowConfirmPwdErr(true);
-  //   }
-  // }, [confirmPwd]);
-
-  // useEffect(() => {
-  //   if (!email || EMAIL_REGEX.test(email)) {
-  //     setShowEmailErr(false);
-  //   } else {
-  //     setShowEmailErr(true);
-  //   }
-  // }, [email]);
 
   useEffect(() => {
     if (!pwd || PWD_REGEX.test(pwd)) {
@@ -134,26 +107,9 @@ function Register() {
       return;
     }
 
-    // emailable api 要錢
-    // try {
-    //   const response = await axios.get(`https://api.emailable.com/v1/verify?email=${email}&api_key=${api_key}`);
-    //   console.log(response);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
     try {
-      // // await axios.post
-      //   targetUrl,
-      //   JSON.stringify({ user, pwd, email }),
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //     withCredentials: true,
-      //   },
-      // );
-
       const response = await apiUserRegister(user, email, pwd);
-
+      // eslint-disable-next-line no-console
       console.log(response);
       setSuccess(true);
     } catch (err: any) {
@@ -203,7 +159,7 @@ function Register() {
           />
         </section>
 
-        <p id="pwdnote" className={validEmail ? 'offscreen' : 'pwd-instructions'}>
+        <p id="pwdnote" className={validEmail ? 'offscreen' : 'register-section__register-error'}>
           電子信箱格式錯誤
         </p>
 
@@ -221,7 +177,7 @@ function Register() {
           />
         </section>
 
-        <p id="pwdnote" className={validPwd ? 'offscreen' : 'pwd-instructions'}>
+        <p id="pwdnote" className={validPwd ? 'offscreen' : 'register-section__register-error'}>
           密碼至少八位字元，需要包含至少一個數字、一個大寫英文、一個小寫英文、一個特殊字元
           <br />
           特殊字元為 :
@@ -246,7 +202,7 @@ function Register() {
           />
         </section>
 
-        <p id="pwdnote" className={validConfirmPwd ? 'offscreen' : 'pwd-instructions'}>
+        <p id="pwdnote" className={validConfirmPwd ? 'offscreen' : 'register-section__register-error'}>
           需要和密碼相同
         </p>
 
