@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IconArrowUp } from '../../Icons';
+import { SlArrowUp as IconArrowUp } from 'react-icons/sl';
 import './index.scss';
 // import options from './options';
 
