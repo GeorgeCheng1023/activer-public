@@ -1,104 +1,134 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 // api
-import axios from 'axios';
+import { getActivity } from 'api/axios';
+// type
+import ActivityDataType, { BranchDataType, TagDataType } from 'types/ActivityDataType';
 // components
 import Carousel from 'components/Carousel';
 import Tag, { TagType } from 'components/Tag';
 import ManageNav from 'components/ManageNav';
 import Button from 'components/Button';
 import { FaEdit } from 'react-icons/fa';
+import IconLogo from 'components/Icons';
 import DetailProperties from './components/DetailProperties';
 import Comment from './components/Comment';
 import CommentPanel from './components/CommentPanel';
-// data
-import dummyActivityData from './dummyActivity.json';
-
 // style
 import './index.scss';
 
+const initialBranchesState: BranchDataType = {
+  BranchName: '',
+  DateStart: null,
+  DateEnd: [],
+  ApplyStart: [],
+  ApplyEnd: [],
+  ApplyFee: [],
+  Location: [],
+};
+const initialDataState:ActivityDataType = {
+  Id: 0,
+  Title: '',
+  Content: '',
+  Connection: [],
+  Holder: [],
+  Image: [],
+  Tags: [],
+  Objective: [],
+  Sources: [],
+  Subtitle: '',
+  Branches: [initialBranchesState],
+};
+
 function Detail() {
-  // eslint-disable-next-line
   const { id } = useParams();
+  const [data, setData] = useState<ActivityDataType>(initialDataState);
+  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(initialBranchesState);
 
   useEffect(() => {
     const dataFetch = async () => {
       try {
-        if (!id) throw new Error('Activity not found');
-        // @ts-ignore
-        const { data } = await axios.get(
-          'http://localhost:5000/api/activity',
-          {
-            params: {
-              Id: 0,
-            },
-          },
-        );
-        console.table(data);
+        if (!id) throw new Error('No id provided');
+        const res = await getActivity(id.toString());
+        setData(res.data);
+        setCurrentBranch(res.data.Branches[0]);
+        console.log(res.data);
       } catch (err) {
         console.error(err);
       }
     };
-
     dataFetch();
   }, []);
 
-  const {
-    Title,
-    Subtitle,
-    Holder,
-    Images,
-    Objective,
-    Connection,
-    Content,
-    Source,
-    Tags,
-    Branches,
-  } = dummyActivityData;
-
-  const parseTags:TagType[] = Tags
-    .map((tag) => {
-      const variant = tag.Type as TagType['variant'];
-      return ({
-        id: tag.TagId.toString(),
-        text: tag.Text,
-        variant,
-      });
-    })
-    .slice(0, 5);
-
-  const parseImages = Images
-    .map((Image:any) => (
-      {
-        url: Image.ImageUrl,
-        alt: Image.ImageAlt,
-      }
-    ));
-
-  // branch manage
-  const [currentBranch, setCurrentBranch] = useState(Branches[0]);
-
   const handleChangeFilter = (selectedId : number) => {
-    setCurrentBranch(Branches[selectedId]);
+    setCurrentBranch(data.Branches[selectedId]);
   };
 
   // display comment push panel
-
   const [displayCommentPanel, setDisplayCommentPanel] = useState(false);
   const handleOpenCommentPanel = (e: any) => {
     e.preventDefault();
     setDisplayCommentPanel(true);
   };
 
+  const {
+    Id, Image, Title, Subtitle, Tags, Holder, Objective, Content, Sources, Connection,
+  } = data;
+  // Image
+  function renderImage() {
+    if (Image) {
+      return (
+        <div className="detail__img">
+          <Carousel
+            slides={Image.map((img: any, index: number) => (
+              <img key={`img-${Id}${index}`} src={img.url} alt={Title} />
+            ))}
+          />
+        </div>
+      );
+    }
+    return (
+      <div className="detail__img">
+        <IconLogo />
+      </div>
+    );
+  }
+  function renderTags() {
+    if (Tags) {
+      return (
+        Tags.map((tag: TagDataType) => {
+          const variant = tag.Type as TagType['variant'];
+          return (
+            <Tag
+              id={tag.Id!.toString()}
+              key={tag.Id!.toString()}
+              text={tag.Text}
+              variant={variant}
+              onClick={() => handleChangeFilter(tag.Id)}
+            />
+          );
+        }).slice(0, 5)
+      );
+    }
+    return null;
+  }
+
+  function renderSources() {
+    if (Sources) {
+      return (
+        Sources.map((s: any, index: number) => (
+          <a className="detail__a" href={s} key={`source-${Id}-${index}`}>{s}</a>
+        ))
+      );
+    }
+    return null;
+  }
+
   return (
     <div className="detail">
       <div className="detail__container--top">
         <div className="detail__container--card">
-          <Carousel slides={parseImages.map((img) => (
-            <img src={img.url} alt={img.alt} />
-          ))}
-          />
+          {renderImage()}
           <h2 className="detail__h2">
             {Title}
           </h2>
@@ -106,13 +136,7 @@ function Detail() {
             {Subtitle}
           </h3>
           <div className="detail__tags">
-            {parseTags.map((tag) => (
-              <Tag
-                variant={tag.variant}
-                text={tag.text}
-                id={tag.id}
-              />
-            ))}
+            {renderTags()}
           </div>
           <span>
             主辦單位:
@@ -122,7 +146,7 @@ function Detail() {
         <div className="detail__container--properties">
           <ManageNav
             buttons={
-              Branches.map((branch: any) => ({
+              data.Branches.map((branch: any) => ({
                 title: branch.BranchName,
               }))
             }
@@ -153,9 +177,7 @@ function Detail() {
           {Holder}
           :
           {' '}
-          {Source.map((s) => (
-            <a className="detail__a" href={s}>{s}</a>
-          ))}
+          {renderSources()}
         </p>
 
         <h2 className="detail__h2">

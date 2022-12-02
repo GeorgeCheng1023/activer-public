@@ -28,7 +28,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <button type="button" className="navbar__item" onClick={() => dispatch(show())}>搜尋活動</button>
-      <Link to="/detail/0">
+      <Link to="/detail/1">
         <button type="button" className="navbar__item">熱門活動</button>
       </Link>
       <Button
