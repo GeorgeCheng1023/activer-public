@@ -2,46 +2,48 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserLogin } from 'api/axios';
+import { apiUserGoogleData, apiUserLogin } from 'api/axios';
 
 interface UserState {
-  isLoggedIn: boolean,
-  id: number,
-  realName: string,
-  nickName: string,
-  email: string,
-  avatar: string,
-  gender: string,
-  birthday: string,
-  profession: string,
-  phone: string,
-  country: string,
-  area: string,
-  activityHistory: Array<number>,
-  tagHistory: Array<number>,
-  status: number;
-  loading: 'idle' | 'loading' | 'succeeded' | 'failed',
-  sessionToken: string, // auth
+  IsLoggedIn: boolean,
+  Id: number,
+  RealName: string,
+  NickName: string,
+  Email: string,
+  Password: string,
+  Portrait: string,
+  Gender: string,
+  Birthday: string,
+  Profession: string,
+  Phone: string,
+  Country: string,
+  Area: string,
+  ActivityHistory: Array<number>,
+  TagHistory: Array<number>,
+  Status: number;
+  Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
+  SessionToken: string, // auth
 }
 
 const initialState: UserState = {
-  isLoggedIn: false,
-  id: 0,
-  realName: '',
-  nickName: '',
-  email: '',
-  avatar: '',
-  gender: '',
-  birthday: '',
-  profession: '',
-  phone: '',
-  country: '',
-  area: '',
-  activityHistory: [],
-  tagHistory: [],
-  status: 0, // 0 | 1
-  loading: 'idle',
-  sessionToken: '',
+  IsLoggedIn: false,
+  Id: 0,
+  RealName: '',
+  NickName: '',
+  Email: '',
+  Password: '',
+  Portrait: '',
+  Gender: '',
+  Birthday: '',
+  Profession: '',
+  Phone: '',
+  Country: '',
+  Area: '',
+  ActivityHistory: [],
+  TagHistory: [],
+  Status: 0, // 0 | 1
+  Loading: 'idle',
+  SessionToken: '',
 };
 
 interface userLoginType {
@@ -51,6 +53,13 @@ interface userLoginType {
 
 export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLoginType) => {
   const response = await apiUserLogin(userData);
+  // eslint-disable-next-line no-console
+  console.log(response);
+  return response;
+});
+
+export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
+  const response = await apiUserGoogleData(accessToken);
   console.log(response);
   return response;
 });
@@ -61,38 +70,63 @@ const userAuthSlice = createSlice({
   reducers: {
     userLogout: (state) => ({
       ...state,
-      isLoggedIn: false,
-      sessionToken: '',
+      IsLoggedIn: false,
+      Id: 0,
+      RealName: '',
+      Status: 0,
+      Loading: 'idle',
+      SessionToken: '',
     }),
+    userUpdate: (state, action: PayloadAction<any>) => {
+      const userData = action.payload;
+      return ({
+        ...state,
+        ...userData,
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(userLogin.pending, (state) => ({
         ...state,
-        loading: 'loading',
+        Loading: 'loading',
       }))
       .addCase(userLogin.fulfilled, (state, action: PayloadAction<any>) => {
         console.log(action.payload);
         const { Status, User, SessionToken } = action.payload.data;
         return ({
           ...state,
-          isLoggedIn: true,
-          loading: 'succeeded',
-          email: User.Email,
-          status: Status,
-          sessionToken: SessionToken,
+          IsLoggedIn: true,
+          Loading: 'succeeded',
+          Email: User.Email,
+          Status,
+          SessionToken,
         });
       })
       .addCase(userLogin.rejected, (state, action: PayloadAction<any>) => ({
         ...state,
-        loading: 'failed',
-        status: action.payload.Status,
-      }));
+        Loading: 'failed',
+        Status: action.payload.Status,
+      }))
+      .addCase(getUserGoogleData.fulfilled, (state, action) => {
+        const userData = action.payload.data;
+        console.log(userData);
+        return ({
+          ...state,
+          IsLoggedIn: true,
+          RealName: userData.name,
+          Portrait: userData.picture,
+          Email: userData.email,
+          Loading: 'succeeded',
+        });
+      });
   },
 });
 
-export const getUserIsLoggedIn = (state: RootState) => state.userAuth.isLoggedIn;
-export const getLoadingState = (state: RootState) => state.userAuth.loading;
-export const getUserRealname = (state: RootState) => state.userAuth.realName;
+export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
+export const getLoadingState = (state: RootState) => state.userAuth.Loading;
+export const getUserRealname = (state: RootState) => state.userAuth.RealName;
+
+export const { userLogout, userUpdate } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

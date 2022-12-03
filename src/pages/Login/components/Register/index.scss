@@ -9,7 +9,7 @@ input {
 .register-container {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
 
@@ -19,9 +19,9 @@ input {
   display: flex;
   margin-top: 3rem;
   // justify-content: center;
-  // align-items: center;
+  align-items: center;
   flex-direction: column;
-  width: 30vw;
+  width: 40vw;
   height: 84vh;
 
   &__title {
@@ -30,6 +30,8 @@ input {
     font-weight: 600;
   }
   &__text-field {
+    width: 100%;
+    max-width: 20rem;
     margin-top: 1rem;
   }
 
@@ -42,4 +44,23 @@ input {
     align-self: center;
     margin-top: 2rem;
   }
+
+  &__register-error {
+    width: 100%;
+    max-width: 20rem;
+    margin-top: 0.5rem;
+    color: rgb(216, 14, 14);
+  }
 } 
+
+@media screen and (max-width: 650px)  {
+  .register-section {
+    width: 80vw;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .register-section {
+    width: 314px;
+  }
+}
