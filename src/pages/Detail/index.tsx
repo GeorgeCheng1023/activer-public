@@ -52,7 +52,6 @@ function Detail() {
         const res = await getActivity(id.toString());
         setData(res.data);
         setCurrentBranch(res.data.Branches[0]);
-        console.log(res.data);
       } catch (err) {
         console.error(err);
       }

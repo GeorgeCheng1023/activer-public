@@ -1,23 +1,35 @@
 @import '~/src/_variables';
+@import '~/src/_global';
 
 .manage-control {
   height: fit-content;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 
-  &__date>* {
-    margin: 10px 15px;
+  &__date {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+  }
+
+
+
+  @include media(mobile, tablet) {
+    flex-direction: column;
+    align-items: center;
+
   }
 }
 
 .remain-date {
-  margin-top: 1em;
   font-size: 0.6em;
   color: $secondary-font-color;
 
   &__number {
-    width: 1em;
-    height: 1em;
+    display: inline-block;
+    width: fit-content;
     background-color: $success-color;
     color: white;
     padding: 0.4em 0.8em;
