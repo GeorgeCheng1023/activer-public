@@ -50,6 +50,11 @@ input {
     max-width: 20rem;
     margin-top: 0.5rem;
     color: rgb(216, 14, 14);
+
+    &__symbol {
+      margin-left: 0.25rem;
+      color: rgb(216, 14, 14);
+    }
   }
 } 
 

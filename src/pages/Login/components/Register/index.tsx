@@ -181,11 +181,11 @@ function Register() {
           密碼至少八位字元，需要包含至少一個數字、一個大寫英文、一個小寫英文、一個特殊字元
           <br />
           特殊字元為 :
-          <span aria-label="exclamation mark">!</span>
-          <span aria-label="at symbol">@</span>
-          <span aria-label="hashtag">#</span>
-          <span aria-label="dollar sign">$</span>
-          <span aria-label="percent">%</span>
+          <span className="register-section__register-error__symbol" aria-label="exclamation mark">!</span>
+          <span className="register-section__register-error__symbol" aria-label="at symbol">@</span>
+          <span className="register-section__register-error__symbol" aria-label="hashtag">#</span>
+          <span className="register-section__register-error__symbol" aria-label="dollar sign">$</span>
+          <span className="register-section__register-error__symbol" aria-label="percent">%</span>
         </p>
 
         <section className="register-section__text-field">

@@ -30,7 +30,8 @@ export const apiUserRegister = (
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true,
   },
-);
+)
+  .then((res) => console.log(res));
 
 export const apiUserUpdate = (
   user: User,
