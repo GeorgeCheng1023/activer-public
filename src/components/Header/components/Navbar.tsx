@@ -49,7 +49,7 @@ function Navbar() {
         className={`navbar__container navbar__container${expended ? '--expended' : ''} `}
       >
         <button type="button" className="navbar__item" onClick={handleClickSearchActivityButton}>搜尋活動</button>
-        <Link to="/detail">
+        <Link to="/detail/1 ">
           <button type="button" className="navbar__item" onClick={handleClickTrendButton}>熱門活動</button>
         </Link>
         <div className="navbar__login-button">
