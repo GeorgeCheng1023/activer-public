@@ -51,3 +51,15 @@ export const apiUserGoogleData = (access_token: string) => axios.get(
     },
   },
 );
+
+// activity api
+const activityRequest = axios.create({
+  baseURL: TEST_URL.concat('/api/activity'),
+});
+export const getActivity = (id: string) => activityRequest.get(`/${id}`, {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default axiosTest;
