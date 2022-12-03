@@ -3,17 +3,12 @@ import axios from 'axios';
 const TEST_URL = 'http://localhost:5000';
 
 const LOGIN_URL = '/api/user/signin';
+const USER_UPDATE_URL = '/api/user/update';
 const REGISTER_URL = '/api/user/signup';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
 });
-
-// login api
-interface userLogin {
-  email: string,
-  password: string,
-}
 
 export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
   LOGIN_URL,
@@ -37,14 +32,22 @@ export const apiUserRegister = (
   },
 );
 
-// activity api
-const activityRequest = axios.create({
-  baseURL: TEST_URL.concat('/api/activity'),
-});
-export const getActivity = (id: string) => activityRequest.get(`/${id}`, {
-  headers: {
-    'Content-Type': 'application/json',
+export const apiUserUpdate = (
+  user: User,
+) => axiosTest.post(
+  USER_UPDATE_URL,
+  JSON.stringify(user),
+  {
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
   },
-});
+);
 
-export default axiosTest;
+export const apiUserGoogleData = (access_token: string) => axios.get(
+  'https://www.googleapis.com/oauth2/v3/userinfo',
+  {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  },
+);
