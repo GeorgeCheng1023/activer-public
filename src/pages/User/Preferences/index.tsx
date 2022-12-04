@@ -68,9 +68,13 @@ function Preferences() {
         <div className="preferences__default-tags__control">
           <h2 className="preferences__h2">您的預設標籤庫</h2>
           <div className="preferences__default-tags__control__right">
-            <SearchBar placeHolder="搜尋標籤" onSubmit={handleSearchTagSubmit} />
-            <Button buttonType="submit" onClick={handleSaveSubmit} text="儲存" />
-            <Button buttonType="submit" onClick={handleSaveSubmit} text="取消" variant="outline" />
+            <div className="preferences__default-tags__control_right__search-bar">
+              <SearchBar placeHolder="搜尋標籤" onSubmit={handleSearchTagSubmit} />
+            </div>
+            <div className="preferences__default-tags__control__right__buttons">
+              <Button buttonType="submit" onClick={handleSaveSubmit} text="儲存" />
+              <Button buttonType="submit" onClick={handleSaveSubmit} text="取消" variant="outline" />
+            </div>
           </div>
         </div>
         <div className="preferences__default-tags__container">

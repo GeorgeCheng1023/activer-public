@@ -1,5 +1,5 @@
-@import '../../_variables';
-@import '../../_global';
+@import '~/src/_variables';
+@import '~/src/_global';
 
 $_tag-config: (primary: (class: 'primary',
     color: $primary-color),
@@ -15,7 +15,7 @@ $_tag-config: (primary: (class: 'primary',
 
   width: fit-content;
   height: fit-content;
-  padding: 1em;
+  padding: 0.6em 1em;
   margin: 0;
   border-radius: 0.8em;
 
@@ -53,7 +53,7 @@ $_tag-config: (primary: (class: 'primary',
 
   &__text {
     color: #FFFFFF;
-
+    font-size: 1em;
   }
 
   &--sm {

@@ -6,18 +6,18 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
 
   &__date {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
   }
 
-
-
   @include media(mobile, tablet) {
-    flex-direction: column;
+    flex-direction: columwn;
     align-items: center;
 
   }

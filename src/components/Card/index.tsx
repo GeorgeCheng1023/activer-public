@@ -61,7 +61,7 @@ export function CardColumn({ data, control }: CardColumnProps) {
     <div className={`card-column card--${animation}`}>
       <img className="card-column__image" src={imgUrl} alt={altText} />
       <div className="card-column__content">
-        <h3 className="card-column__title">{title}</h3>
+        <p className="card-column__title">{title}</p>
         <div className="card-column__tag">
           {tags.map(createTag)}
         </div>

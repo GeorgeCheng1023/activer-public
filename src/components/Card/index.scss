@@ -56,10 +56,9 @@
 
 .card-column {
   display: flex;
-  justify-content: flex-start;
 
   width: 100%;
-  height: 11rem;
+  height: fit-content;
   padding: 26px 30px;
 
   background: #FFFFFF;
@@ -82,8 +81,11 @@
   }
 
   &__image {
+    display: flex;
+
+    align-self: center;
     height: 100%;
-    width: 10em;
+    width: 10rem;
     object-fit: cover;
     border: 1px solid $secondary-font-color;
     border-radius: 11px;
