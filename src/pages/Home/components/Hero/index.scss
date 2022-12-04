@@ -1,18 +1,21 @@
 @import "~/src/_variables";
-
-$hero-background-color: #FEF6D8;
+@import "~/src/_global";
 
 .hero {
   width: 100%;
-  height: 530px;
-  background-color: $hero-background-color;
+  height: fit-content;
+  padding: 2em 0;
+
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 70px;
 
+  background-color: #FEF6D8;
+
   &__left {
     height: fit-content;
+
   }
 
   &__text {
@@ -25,4 +28,15 @@ $hero-background-color: #FEF6D8;
   &__left__section {
     margin-bottom: 20px;
   }
+
+  @include media(mobile) {
+
+    flex-direction: column;
+    padding: 2em;
+
+    &__right {
+      display: none;
+    }
+  }
+
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './index.scss';
 
 // component
+
 import Navbar from './components/Navbar';
 import UserState from './components/UserState';
 
@@ -18,6 +19,7 @@ function Header() {
         </div>
       </Link>
       <UserState />
+
       <Navbar />
     </div>
   );

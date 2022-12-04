@@ -1,8 +1,10 @@
 @import "~/src/variables";
+@import "~/src/_global";
 
 .card {
+  width: 100%;
   height: 100%;
-  padding: 26px 30px;
+  padding: 1em;
 
   display: flex;
   flex-direction: column;
@@ -15,11 +17,23 @@
   border-radius: 11px;
 
   &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     width: 100%;
-    height: fit-content;
+    height: 100%;
     object-fit: cover;
     border-radius: 11px;
-    flex-grow: 0.4;
+
+
+    &__container {
+      width: 90%;
+      padding-top: 90%;
+      position: relative;
+
+    }
   }
 
   &__title {
@@ -41,19 +55,37 @@
 }
 
 .card-column {
-  width: 100%;
-  height: 11rem;
-  padding: 26px 30px;
   display: flex;
-  justify-content: flex-start;
+
+  width: 100%;
+  height: fit-content;
+  padding: 26px 30px;
 
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset -2px -4px 6px rgba(153, 153, 153, 0.25);
   border-radius: 11px;
 
+  @include media(mobile, tablet) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+  }
+
+  &__control {
+    display: flex;
+
+    @include media(mobile) {
+      flex-direction: column;
+    }
+  }
+
   &__image {
+    display: flex;
+
+    align-self: center;
     height: 100%;
-    width: 10em;
+    width: 10rem;
     object-fit: cover;
     border: 1px solid $secondary-font-color;
     border-radius: 11px;
@@ -68,20 +100,27 @@
   }
 
   &__tag {
+    gap: 0.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 0.25rem 0px;
-    gap: 0.5rem;
     flex-wrap: wrap;
   }
 
   &__content {
-    margin-left: 2em;
+    gap: 5px;
+
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    gap: 5px;
     justify-content: center;
+    flex-grow: 1;
+
+    margin-left: 2em;
+
+    @include media(mobile, tablet) {
+      align-items: center;
+      margin-left: 0;
+    }
   }
 }

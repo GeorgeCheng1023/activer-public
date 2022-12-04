@@ -1,7 +1,12 @@
 @import '~/src/_variables';
+@import '~/src/_global';
 
 .detail__properties {
   padding: 2em;
+
+  @include media(mobile, laptop) {
+    padding: 0;
+  }
 
   >:not(:last-child) {
     border-bottom: 1px solid $primary-font-color;

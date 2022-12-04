@@ -32,11 +32,11 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
           {beginDate}
           <p className="remain-date">
             剩餘天數：
-            <span className="remain-date__number">
+            <div className="remain-date__number">
               {
                 remainBeginDate > 0 ? beginDate : '已過期'
               }
-            </span>
+            </div>
           </p>
         </div>
         <div className="

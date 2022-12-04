@@ -14,6 +14,7 @@ import {
   BsCode,
   BsTypeH1,
   BsTypeH2,
+  BsTypeH3,
 } from 'react-icons/bs';
 import {
   MdFormatQuote,
@@ -122,7 +123,7 @@ function TextEditor() {
           <MarkButton format="code" icon={<BsCode />} />
           <BlockButton format="heading-one" icon={<BsTypeH1 />} />
           <BlockButton format="heading-two" icon={<BsTypeH2 />} />
-          <BlockButton format="heading-three" icon={<BsTypeH2 />} />
+          <BlockButton format="heading-three" icon={<BsTypeH3 />} />
           <BlockButton format="block-quote" icon={<MdFormatQuote />} />
           <BlockButton format="numbered-list" icon={<MdOutlineFormatListNumbered />} />
           <BlockButton format="bulleted-list" icon={<MdOutlineFormatListBulleted />} />

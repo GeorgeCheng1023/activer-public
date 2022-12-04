@@ -9,8 +9,6 @@
 
   color: $primary-font-color;
 
-  font-size: 1em;
-
   &__label {
     position: absolute;
     left: 0.6em;
@@ -19,9 +17,7 @@
 
     background-color: #FFF;
 
-    font-size: 1.2em;
-
-    z-index: 1;
+    z-index: $zindex-dropdown-label;
 
     &--withoutLabel {
       visibility: hidden;
@@ -33,7 +29,6 @@
     padding-top: 1em;
 
     &__input {
-      font-size: 1em;
       border: 1px solid $secondary-font-color;
       border-radius: .5em;
       padding: 1em;

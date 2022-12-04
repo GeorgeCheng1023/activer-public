@@ -16,11 +16,11 @@ function Hero() {
     <div className="hero">
       <div className="hero__left">
         <div className="hero__left__section">
-          <p className="hero__text">
+          <h1 className="hero__h1">
             在這屬於學生的社群中
             <br />
             尋找屬於你的活動
-          </p>
+          </h1>
         </div>
         <div className="hero__left__section">
           <SearchBar

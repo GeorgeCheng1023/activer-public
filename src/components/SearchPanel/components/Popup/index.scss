@@ -1,13 +1,17 @@
+@import '~/src/_global';
+
 .popup {
   position: fixed;
-  z-index: 2;
+  z-index: $zindex-modal-backdrop;
+
   width: 100%;
 
   &__close-button {
     position: absolute;
-    cursor: pointer;
     font-size: 2rem;
     background-color: transparent;
+
+    cursor: pointer;
 
     * {
       color: white;
@@ -18,14 +22,18 @@
   }
 
   &__inner {
-    z-index: 10;
-    position: absolute;
-    width: fit-content;
-    height: fit-content;
-    top: 50%;
-    left: 50%;
+    position: fixed;
+    z-index: $zindex-modal-panel;
+    inset: 0;
+    transform: translate(12.5%, 6.25%);
 
-    transform: translate(-50%, 25%);
+    display: flex;
+
+    width: 80%;
+    height: 90vh;
+
+    overflow-y: auto;
+
   }
 
   &__back {

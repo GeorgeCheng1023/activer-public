@@ -21,12 +21,12 @@ function SidebarLink({
   return (
     <Link to={url} style={{ textDecoration: 'none' }} onClick={clickHandler}>
       <div className="sidebar-link">
-        <div className="sidebar-link__icon">
+        <p className="sidebar-link__icon">
           {icon}
-        </div>
-        <div className="sidebar-link__text">
+        </p>
+        <p className="sidebar-link__text">
           {text}
-        </div>
+        </p>
       </div>
     </Link>
 

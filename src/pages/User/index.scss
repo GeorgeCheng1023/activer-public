@@ -1,11 +1,17 @@
+@import '~/src/_global';
+@import '~/src/_variables';
+
 .user {
   &__container {
     display: flex;
   }
 
   &__main-content {
-    margin-left: 5%;
+    margin: 0 auto;
     width: 80%;
 
+    @include media(mobile, tablet) {
+      width: 100%;
+    }
   }
 }

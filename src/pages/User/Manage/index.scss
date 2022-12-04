@@ -1,11 +1,21 @@
+@import '~/src/_global';
+
 .manage-main {
   width: 100%;
   display: flex;
   flex-direction: column;
 
-  gap: 30px;
-
   &__card {
     height: fit-content;
+
+    .card-column__image {
+      @include media(mobile) {
+        width: 100%;
+      }
+
+      @include media(tablet) {
+        width: 80%;
+      }
+    }
   }
 }

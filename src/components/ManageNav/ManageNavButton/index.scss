@@ -2,8 +2,10 @@
 @import '~/src/_variables';
 
 .manage-nav {
+  font-size: 2em;
+
   &__button {
-    font-size: 1rem;
+    // font-size: 1em;
     font-weight: 300;
 
     position: relative;
@@ -18,8 +20,10 @@
     cursor: pointer;
 
     &__icon {
-      font-size: 2em;
-      @include items-center;
+      // font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-items: center;
     }
 
     &::before {

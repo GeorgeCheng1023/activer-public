@@ -1,3 +1,4 @@
+@import '~/src/_global';
 @import '~/src/_variables';
 
 .detail {
@@ -7,22 +8,29 @@
   margin: 0 10%;
   margin-top: 3em;
 
+  @include media(mobile, tablet) {
+    margin: 0 5%;
+    margin-top: 0;
+  }
+
   &__h2 {
     margin: 0.5em 0;
   }
 
   &__tags {
     display: flex;
-    margin: 1em;
-    display: flex;
     flex-wrap: 1;
     gap: 1em;
+    margin: 1em;
   }
 
   &__container {
     &--top {
       display: flex;
 
+      @include media(mobile, tablet) {
+        flex-direction: column;
+      }
     }
 
     &--card {
@@ -33,6 +41,10 @@
 
     &--properties {
       width: 60%;
+
+      @include media(mobile, tablet) {
+        width: 100%;
+      }
     }
   }
 

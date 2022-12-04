@@ -39,6 +39,7 @@
   },
   {
     "Activity": {
+      "ActivityId": "a2",
       "Title": "簡報表達工作坊",
       "Date": {
         "DateStart": "2022-10-1",

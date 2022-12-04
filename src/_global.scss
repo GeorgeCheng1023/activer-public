@@ -1,11 +1,38 @@
 @import '~/src/_variables';
 
-// style 
+html {
+  font-size: calc(15px + 0.390625vw);
+}
+
+// responsive
+$_min-breakpoints: (mobile: 0px,
+  tablet: 481px,
+  laptop: 769px,
+  desktop: 1025px);
+$_max-breakpoints: (mobile : 480px,
+  tablet:768px,
+  laptop: 1024px,
+  desktop: 3000px);
+
+
+@mixin media($keys...) {
+  @each $key in $keys {
+    @media (max-width: map-get($_max-breakpoints, $key)) and (min-width: map-get($_min-breakpoints, $key)) {
+      @content
+    }
+
+  }
+}
+
 * {
   color: $primary-font-color;
 }
 
-.button-nostyle {
+body {
+  position: relative;
+}
+
+button {
   background: none;
   border: none;
   outline: none;
@@ -13,55 +40,22 @@
 }
 
 h1 {
-  font-size: 2vw;
+  font-size: 1.8rem;
 }
 
 h2 {
-  font-size: 1.5vw;
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
 }
 
 p {
-  font-size: 1vw
+  font-size: 1rem;
 }
 
 a {
   text-decoration: none;
-}
-
-// mixin
-
-@mixin none-space {
-  padding: 0;
-  margin: 0;
-}
-
-@mixin fit-container {
-  width: fit-content;
-  height: fit-content;
-}
-
-@mixin normalize-font {
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: 500;
-}
-
-@mixin bg-color {
-  .bg-primary {
-    background-color: $primary-color;
-  }
-
-  .bg-secondary {
-    background-color: $secondary-color;
-  }
-
-  .bg-success {
-    background-color: $success-color;
-  }
-}
-
-
-@mixin items-center {
-  display: flex;
-  align-items: center;
-  justify-items: center;
+  font-size: 1rem;
 }

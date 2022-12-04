@@ -4,7 +4,7 @@
   position: absolute;
   left: 14px;
   top: -12px;
-  
+
   width: fit-content;
   height: 3rem;
   padding: 10px 27px;
@@ -13,13 +13,13 @@
   align-items: center;
 
   background-color: #FFF;
-  
+
   font-family: 'Inter';
   font-weight: 600;
   font-size: 2rem;
   line-height: 39px;
 
-  z-index: 1;
+  z-index: $zindex-dropdown-label;
 }
 
 .inputLabel--default,
@@ -28,11 +28,11 @@
 .inputLabel--withButton {
   color: $primary-font-color;
 }
- 
+
 .inputLabel--disabled {
   opacity: 0.5;
 }
- 
+
 .inputLabel--withoutLabel {
   visibility: hidden;
 }

@@ -30,9 +30,9 @@ function ManageNavButton({
           {icon}
         </span>
       )}
-      <h3 className="manage-nav__button__title">
+      <span className="manage-nav__button__title">
         {title}
-      </h3>
+      </span>
     </button>
   );
 }

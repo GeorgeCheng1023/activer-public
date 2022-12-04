@@ -8,7 +8,7 @@ type Props = {
 function Banner({ text }: Props) {
   return (
     <div className="banner__container">
-      <h1 className="banner__h1">{text}</h1>
+      <h2 className="banner__h1">{text}</h2>
     </div>
   );
 }

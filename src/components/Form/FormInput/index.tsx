@@ -37,9 +37,9 @@ function FormInput(props: FormInputProps) {
     <div className={`form-input ${disabled ? 'disabled' : ''}`}>
       {variant === 'withoutLabel' ? ''
         : (
-          <div className={`form-input__label ${variant ? `form-input__label--${variant}` : ''}`}>
+          <p className={`form-input__label ${variant ? `form-input__label--${variant}` : ''}`}>
             {inputProps.label}
-          </div>
+          </p>
         )}
       <div className={`form-input__section ${variant ? `form-input__section--${variant}` : ''}`}>
         <input

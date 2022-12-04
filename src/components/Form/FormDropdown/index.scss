@@ -5,29 +5,31 @@ $_focus-color: #FEF6D8;
 
 .dropdown {
   position: relative;
+
   display: flex;
   flex-direction: column;
-  height: fit-content;
+
   width: 10em;
+  height: fit-content;
   margin-top: 1.2em;
 
-  font-size: 1em;
+  font-size: 1rem;
 
   &__label {
     position: absolute;
+    z-index: $zindex-dropdown-label;
     left: 0.6em;
     top: -1em;
 
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+    width: fit-content;
+    height: fit-content;
     padding: 0 .5em;
 
     background-color: #FFF;
-
-    font-size: 1.2em;
-
-    z-index: 1;
-
-    @include fit-container;
-    @include items-center;
   }
 
   &__selected {
@@ -48,10 +50,12 @@ $_focus-color: #FEF6D8;
       position: absolute;
       right: 1em;
 
+      display: flex;
+      align-items: center;
+      justify-items: center;
+
       margin: 0;
-      scale: 2.5;
       transition: all 0.8s;
-      @include items-center;
     }
 
     ;
@@ -70,7 +74,7 @@ $_focus-color: #FEF6D8;
   &__option-container {
     position: absolute;
     top: 3em;
-    z-index: 2;
+    z-index: $zindex-dropdown;
     display: flex;
     flex-direction: column;
 
@@ -111,8 +115,6 @@ $_focus-color: #FEF6D8;
     }
   }
 
-  ;
-
   &__option-container::-webkit-scrollbar {
     border-radius: 0 8px 8px 0;
     width: .25em;
@@ -131,6 +133,4 @@ $_focus-color: #FEF6D8;
     opacity: 1;
     overflow-y: scroll;
   }
-
-  ;
 }
