@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BarChart, Bar, ResponsiveContainer, XAxis, Tooltip, Cell, LabelList,
 } from 'recharts';
@@ -9,6 +9,9 @@ import { TagType } from 'components/Tag';
 // style
 import './index.scss';
 
+// hooks
+import useWindowSize from 'hooks/window/useWindowSize';
+
 export type dataType = {
   tag: TagType,
   count: number,
@@ -18,11 +21,37 @@ type Props = {
   data: dataType[]
 };
 
+type chartDataType = {
+  name: string,
+  count: number
+};
+
+const initialData = [
+  {
+    name: '',
+    count: 0,
+  },
+];
+
 function ChartHistoryTag({ data }: Props) {
-  const parseData = data.map((d) => ({
-    name: d.tag.text,
-    count: d.count,
-  }));
+  // underneath will not use height
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [width, height] = useWindowSize();
+
+  const [parseData, setParseData] = useState<chartDataType[]>(initialData);
+  useEffect(() => {
+    let newData = data.map((d) => ({
+      name: d.tag.text,
+      count: d.count,
+    }));
+
+    if (width < 768) {
+      newData = newData.slice(0, 5);
+    }
+    console.log(newData);
+    setParseData(newData);
+  }, [width]);
+
   const barColor = (variant : TagType['variant']) => {
     switch (variant) {
       case ('area'):

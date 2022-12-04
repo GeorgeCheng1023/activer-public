@@ -7,22 +7,20 @@ import { FaComments, FaEdit } from 'react-icons/fa';
 
 function HistoryControl() {
   return (
-    <>
+    <div className="history-control">
       <Button
         color="white"
         iconBefore={<FaComments />}
         text="評論"
-        size="lg"
       />
       <Link to="/user/record">
         <Button
           color="white"
           iconBefore={<FaEdit />}
           text="心得記錄"
-          size="lg"
         />
       </Link>
-    </>
+    </div>
   );
 }
 
