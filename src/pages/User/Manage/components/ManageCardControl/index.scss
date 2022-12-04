@@ -17,8 +17,14 @@
   }
 
   @include media(mobile, tablet) {
-    flex-direction: columwn;
     align-items: center;
+    justify-content: center;
+  }
+
+  &__select {
+
+    margin-left: 1em;
+
 
   }
 }

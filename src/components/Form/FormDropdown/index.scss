@@ -11,10 +11,9 @@ $_focus-color: #FEF6D8;
 
   width: 10em;
   height: fit-content;
-
   margin-top: 1.2em;
 
-  font-size: 1em;
+  font-size: 1rem;
 
   &__label {
     position: absolute;
@@ -31,7 +30,6 @@ $_focus-color: #FEF6D8;
     padding: 0 .5em;
 
     background-color: #FFF;
-    font-size: 1.2em;
   }
 
   &__selected {

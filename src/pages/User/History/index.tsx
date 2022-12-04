@@ -52,7 +52,7 @@ function History() {
 
           return (
             <Card
-              key={history.Activity?.ActivityId}
+              key={history.Activity.ActivityId}
               data={{
                 imgUrl: history.Activity?.Image[0].ImageUrl,
                 title: history.Activity?.Title,

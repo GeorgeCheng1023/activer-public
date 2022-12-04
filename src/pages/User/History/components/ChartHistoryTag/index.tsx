@@ -48,7 +48,6 @@ function ChartHistoryTag({ data }: Props) {
     if (width < 768) {
       newData = newData.slice(0, 5);
     }
-    console.log(newData);
     setParseData(newData);
   }, [width]);
 
@@ -74,8 +73,8 @@ function ChartHistoryTag({ data }: Props) {
           <XAxis dataKey="name" height={40} />
           <Tooltip />
           <Bar dataKey="count" fill="#000" barSize={25} label>
-            {data.map((d) => (
-              <Cell fill={barColor(d.tag.variant)} />
+            {data.map((d, index) => (
+              <Cell key={`cell-${d.tag.id}-${index}`} fill={barColor(d.tag.variant)} />
             ))}
             <LabelList dataKey="count" position="top" />
           </Bar>

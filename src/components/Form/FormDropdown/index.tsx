@@ -65,9 +65,9 @@ function FormDropdown({
 
   return (
     <div className={`dropdown dropdown--${variant}`} onBlur={handleBlur}>
-      <div className="dropdown__label">
+      <p className="dropdown__label">
         {label || 'Label'}
-      </div>
+      </p>
 
       <div
         className={`dropdown__selected ${changeValueTheme && 'dropdown__selected--select'}`}
@@ -98,7 +98,6 @@ function FormDropdown({
             onClick={handleChoiceClick}
             onKeyDown={handleKeyDown}
             tabIndex={0}
-
           />
 
         ))}
