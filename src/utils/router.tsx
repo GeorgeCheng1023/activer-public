@@ -12,6 +12,7 @@ import Search from 'pages/Search';
 import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
 import NotFound from 'pages/NotFound';
+import Loading from 'pages/Loading';
 
 export const routerConfig = [
   {
@@ -81,6 +82,10 @@ export const routerConfig = [
         element: <Detail />,
       },
     ],
+  },
+  {
+    path: '/loading',
+    element: <Loading />,
   },
   {
     path: '*',
