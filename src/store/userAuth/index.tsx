@@ -93,7 +93,16 @@ const userAuthSlice = createSlice({
       }))
       .addCase(userLogin.fulfilled, (state, action: PayloadAction<any>) => {
         console.log(action.payload);
-        const { Status, User, SessionToken } = action.payload.data;
+        const { Status } = action.payload.data;
+        if (!Status) {
+          return ({
+            ...state,
+            IsLoggedIn: false,
+            Loading: 'failed',
+            Status,
+          });
+        }
+        const { User, SessionToken } = action.payload.data;
         return ({
           ...state,
           IsLoggedIn: true,

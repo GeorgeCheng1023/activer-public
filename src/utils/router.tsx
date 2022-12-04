@@ -11,6 +11,7 @@ import Root from 'pages/Root';
 import Search from 'pages/Search';
 import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
+import NotFound from 'pages/NotFound';
 
 export const routerConfig = [
   {
@@ -80,6 +81,10 @@ export const routerConfig = [
         element: <Detail />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ];
 
