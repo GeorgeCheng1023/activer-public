@@ -76,8 +76,12 @@ function LoginSection() {
     }
 
     try {
-      const response = await dispatch(userLogin({ email: user, password: pwd }));
+      const response: any = await dispatch(userLogin({ email: user, password: pwd }));
       console.log(response);
+      if (!response.payload.data.Status) {
+        setErrMsg('帳號或密碼有誤');
+        return;
+      }
       setSuccess(true);
     } catch (err: any) {
       if (!err?.response) {
