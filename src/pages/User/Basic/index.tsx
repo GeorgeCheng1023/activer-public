@@ -4,6 +4,9 @@ import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
 import { useAppDispatch } from 'hooks/redux';
 import { userUpdate } from 'store/userAuth';
+import FormInputFile from 'components/Form/FormInputFile';
+import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
+
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
 import dummyUserData from './dummyUserData.json';
@@ -37,11 +40,15 @@ function Basic() {
     handleChange('Portrait', croppedImage);
   };
 
-  const handleCropPanelShow:
-  React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
+  // crop
+  const [imageSrc, setImageSrc] = useState<string>('');
+
+  const handleCropPanelShow = () => {
     setDisplayCropPanel(true);
   };
+  useNonInitialEffect(() => {
+    handleCropPanelShow();
+  }, [imageSrc]);
 
   return (
     <form onSubmit={handleSubmit} className="user-basic">
@@ -51,16 +58,14 @@ function Basic() {
             {displayCropPanel
             && (
               <Crop
+                image={imageSrc}
                 onCropped={handleCropped}
                 setDisplayCropPanel={setDisplayCropPanel}
               />
             )}
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
-              <Button
-                text="上傳頭像"
-                onClick={handleCropPanelShow}
-              />
+              <FormInputFile setImageSrc={setImageSrc} accept="image" />
             </div>
           </div>
           <div className="user-basic__input user-basic__input__nick-name">

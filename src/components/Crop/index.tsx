@@ -9,16 +9,17 @@ import getCroppedImg from './utils/cropImages';
 // style
 import './index.scss';
 
-const dummyDogImage = 'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG9nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60';
+// const dummyDogImage = 'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG9nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60';
 
 const zoomPercent = (value: number) => `${Math.round(value * 100)}`;
 
 type Props = {
   onCropped: (croppedImage: string) => void,
-  setDisplayCropPanel: React.Dispatch<React.SetStateAction<boolean>>
+  setDisplayCropPanel: React.Dispatch<React.SetStateAction<boolean>>,
+  image: string,
 };
 
-function Crop({ onCropped, setDisplayCropPanel }: Props) {
+function Crop({ onCropped, setDisplayCropPanel, image }: Props) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -41,7 +42,7 @@ function Crop({ onCropped, setDisplayCropPanel }: Props) {
   const handleCropImage = useCallback(async () => {
     try {
       const getCroppedImage = await getCroppedImg(
-        dummyDogImage,
+        image,
         croppedAreaPixels,
         rotation,
       );
@@ -67,7 +68,7 @@ function Crop({ onCropped, setDisplayCropPanel }: Props) {
       <div className="crop-panel">
         <div className="crop-panel__container">
           <Cropper
-            image={dummyDogImage}
+            image={image}
             crop={crop}
             zoom={zoom}
             rotation={rotation}
