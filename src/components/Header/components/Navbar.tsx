@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // style
 import './Navbar.scss';
 // redux
-import { getUserIsLoggedIn } from 'store/userAuth';
+import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
 import { show } from 'store/searchPanel';
 // hook
 import { useNavigate, Link } from 'react-router-dom';
@@ -42,6 +42,11 @@ function Navbar() {
     setExpended(false);
   };
 
+  const handleLogout = () => {
+    dispatch(userLogout());
+    navigate('/');
+  };
+
   return (
     <div className="navbar">
 
@@ -52,10 +57,25 @@ function Navbar() {
         <Link to="/detail/1 ">
           <button type="button" className="navbar__item" onClick={handleClickTrendButton}>熱門活動</button>
         </Link>
+
+        {
+          userIsLoggined
+        && (
+          <div className="navbar__logout-btn">
+            <Button
+              color="secondary"
+              text="登出"
+              variant="outline"
+              onClick={handleLogout}
+            />
+          </div>
+        )
+        }
+
         <div className="navbar__login-button">
           <Button
             color="primary"
-            text="登入/註冊"
+            text={userIsLoggined ? '個人資料' : '登入/註冊'}
             onClick={handleClick}
           />
         </div>
