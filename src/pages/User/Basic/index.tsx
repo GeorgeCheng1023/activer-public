@@ -65,7 +65,12 @@ function Basic() {
             )}
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
-              <FormInputFile setImageSrc={setImageSrc} accept="image" id="user-basic__portrait__upload" label="上傳圖像" />
+              <FormInputFile
+                setImageSrc={setImageSrc}
+                accept="image"
+                id="user-basic__portrait__upload"
+                label="上傳頭像"
+              />
             </div>
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
