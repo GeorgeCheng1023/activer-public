@@ -15,7 +15,7 @@ export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
   JSON.stringify({ Email: email, Password: password }),
   {
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
+    withCredentials: false,
   },
 );
 
@@ -27,8 +27,11 @@ export const apiUserRegister = (
   REGISTER_URL,
   JSON.stringify({ Realname: username, Email: email, Password: password }),
   {
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    withCredentials: false,
   },
 )
   .then((res) => console.log(res));
