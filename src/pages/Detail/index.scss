@@ -68,6 +68,12 @@
   }
 
   &__content {
-    white-space: pre-lines;
+    white-space: pre-line;
+  }
+
+  &__source {
+    a {
+      width: 100%;
+    }
   }
 }
