@@ -1,8 +1,6 @@
-@import '~/src/_variables';
+// global mixin
 
-html {
-  font-size: calc(15px + 0.390625vw);
-}
+@import '~/src/_variables';
 
 // responsive
 $_min-breakpoints: (mobile: 0px,
@@ -20,42 +18,5 @@ $_max-breakpoints: (mobile : 480px,
     @media (max-width: map-get($_max-breakpoints, $key)) and (min-width: map-get($_min-breakpoints, $key)) {
       @content
     }
-
   }
-}
-
-* {
-  color: $primary-font-color;
-}
-
-body {
-  position: relative;
-}
-
-button {
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-h1 {
-  font-size: 1.8rem;
-}
-
-h2 {
-  font-size: 1.5rem;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-p {
-  font-size: 1rem;
-}
-
-a {
-  text-decoration: none;
-  font-size: 1rem;
 }
