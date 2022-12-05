@@ -13,7 +13,7 @@ function Property({
 }: Props) {
   return (
     <div className={`detail__property detail__property__${className}`}>
-      <h2 className="detail__h2">{label}</h2>
+      <h3 className="detail__h2">{label}</h3>
       {innerElement}
     </div>
   );
