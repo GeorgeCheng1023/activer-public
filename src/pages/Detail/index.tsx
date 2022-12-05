@@ -154,37 +154,45 @@ function Detail() {
           <DetailProperties branch={currentBranch} />
         </div>
       </div>
-      <div className="detail__content">
-        <h2 className="detail__h2">
-          活動對象
-        </h2>
-        <p>
-          {Objective}
-        </p>
+      <div className="detail__context">
+        <div className="detail__objective">
+          <h2 className="detail__h2">
+            活動對象
+          </h2>
+          <p>
+            {Objective}
+          </p>
+        </div>
         <br />
-        <h2 className="detail__h2">
-          活動內容
-        </h2>
-        <p className="detail__content">
-          {Content}
-        </p>
+        <div className="detail__content">
+          <h2 className="detail__h2">
+            活動內容
+          </h2>
+          <p className="detail__content__p">
+            {Content}
+          </p>
+        </div>
         <br />
-        <h2 className="detail__h2">
-          原始來源
-        </h2>
-        <p>
-          {Holder}
-          :
-          {' '}
-          {renderSources()}
-        </p>
+        <div className="detail__source">
+          <h2 className="detail__h2">
+            原始來源
+          </h2>
+          <p>
+            {Holder}
+            :
+            {' '}
+            {renderSources()}
+          </p>
+        </div>
+        <div className="detail__connection">
 
-        <h2 className="detail__h2">
-          聯絡資訊
-        </h2>
-        <p>
-          {Connection}
-        </p>
+          <h2 className="detail__h2">
+            聯絡資訊
+          </h2>
+          <p>
+            {Connection}
+          </p>
+        </div>
         <br />
         <div className="detail__comment">
           <div className="detail__comment__title">
