@@ -165,7 +165,7 @@ function Detail() {
         <h2 className="detail__h2">
           活動內容
         </h2>
-        <p>
+        <p className="detail__content">
           {Content}
         </p>
         <br />

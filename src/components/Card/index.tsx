@@ -33,9 +33,9 @@ function Card({
       </div>
       <h3 className="card__title">{title}</h3>
       <div className="card__detail">
-        {detail}
+        <p>{detail}</p>
       </div>
-      <div className="card__tag">
+      <div className="  card__tag">
         {tags.map(createTag)}
       </div>
     </div>
@@ -66,7 +66,7 @@ export function CardColumn({ data, control }: CardColumnProps) {
           {tags.map(createTag)}
         </div>
         <div className="card-column__detail">
-          {detail}
+          <p>{detail}</p>
         </div>
       </div>
       <div className="card-column__control">

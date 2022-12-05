@@ -2,15 +2,17 @@
 @import '~/src/_global';
 
 .detail__properties {
-  padding: 2em;
+  @include media(laptop, desktop) {
+    margin-left: 1em;
+  }
 
-  @include media(mobile, laptop) {
+  @include media(mobile, tablet) {
     padding: 0;
   }
 
   >:not(:last-child) {
     border-bottom: 1px solid $primary-font-color;
-    margin-bottom: 1em;
-    padding-bottom: 1em;
+    margin-bottom: 0.5em;
+    padding-bottom: .5em;
   }
 }
