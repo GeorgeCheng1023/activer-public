@@ -80,7 +80,7 @@ function Detail() {
         <div className="detail__img">
           <Carousel
             slides={Image.map((img: any, index: number) => (
-              <img key={`img-${Id}${index}`} src={img.url} alt={Title} />
+              <img key={`img-${Id}${index}`} src={img} alt={Title} />
             ))}
           />
         </div>
