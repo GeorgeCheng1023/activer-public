@@ -1,12 +1,17 @@
 import React from 'react';
+import './index.scss';
 
 type Props = {
+  id: string;
+  label: string;
   onClick?: React.MouseEventHandler<HTMLInputElement>
   accept?: 'image' | 'pdf',
   setImageSrc?: React.Dispatch<React.SetStateAction<string>>,
 };
 
-function FormInputFile({ onClick, accept, setImageSrc }: Props) {
+function FormInputFile({
+  onClick, accept, setImageSrc, id, label,
+}: Props) {
   let acceptVaraint;
   switch (accept) {
     case 'image':
@@ -36,12 +41,16 @@ function FormInputFile({ onClick, accept, setImageSrc }: Props) {
   };
 
   return (
-    <input
-      type="file"
-      onClick={onClick}
-      accept={acceptVaraint}
-      onChange={setImageSrc ? handleOnPreview : undefined}
-    />
+    <>
+      <label htmlFor={id} className="input-file">{label}</label>
+      <input
+        id={id}
+        type="file"
+        onClick={onClick}
+        accept={acceptVaraint}
+        onChange={setImageSrc ? handleOnPreview : undefined}
+      />
+    </>
   );
 }
 
