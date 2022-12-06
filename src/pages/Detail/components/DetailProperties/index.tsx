@@ -5,9 +5,6 @@ import { BranchDataType } from 'types/ActivityDataType';
 // componenst
 import Property from './Property';
 
-// style
-import './index.scss';
-
 type Props = {
   branch : BranchDataType,
 };
@@ -22,7 +19,6 @@ function DetailProperties({ branch }: Props) {
     DateEnd,
   } = branch;
 
-  console.log(branch);
   const renderDateStartElement = () => {
     if (DateStart) {
       return (
