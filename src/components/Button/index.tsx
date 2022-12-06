@@ -57,7 +57,7 @@ Button.defaultProps = {
   onClick: null,
   color: 'primary',
   buttonType: 'button',
-  text: 'Button',
+  text: null,
   variant: undefined,
   size: undefined,
   disabled: false,

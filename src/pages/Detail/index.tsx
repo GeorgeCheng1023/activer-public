@@ -61,6 +61,7 @@ function Detail() {
           <h3>{Subtitle}</h3>
           <div className="detail__tags">
             <DetailTags tags={Tags} />
+
           </div>
           <span>
             主辦單位:

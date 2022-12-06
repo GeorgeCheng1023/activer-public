@@ -1,0 +1,29 @@
+@import '~/src/_variables';
+
+.popup {
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal-backdrop;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(63, 63, 63, 0.783);
+  }
+
+  &__panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: $zindex-modal-panel;
+
+    width: fit-content;
+    height: fit-content;
+
+    background-color: white;
+    border-radius: 1em;
+  }
+}
