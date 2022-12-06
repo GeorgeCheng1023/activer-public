@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 import Popup, { PopupDisplayProps } from 'components/Popup';
 import FormSearchTag from 'components/Form/FormSearchTag';
@@ -14,7 +14,7 @@ interface Props extends PopupDisplayProps {
 const dummyUserTagVoted = [
   {
     Type: 'Area',
-    Id: 90,
+    Id: 1,
     Text: '教育',
   },
 ];
@@ -30,21 +30,34 @@ const isVoted = (inputTag: TagDataType) => {
   return false;
 };
 
-function VotePanel({ display, setDisplay, tags }: Props) {
-  const initialTags = tags.map((tag) => ({
-    ...tag,
-    userVoted: isVoted(tag),
-  }));
-  // eslint-disable-next-line
-  const [votedTags, setVotedTags] = useState<VoteTagProps[]>(initialTags);
-  console.log(initialTags);
+const initialVotedTagsState: VoteTagProps[] = [
+  {
+    Type: 'Area',
+    Id: 0,
+    Text: '',
+    userVoted: false,
+    TagCount: 0,
+  },
+];
 
-  const handleVotedButtonClick = (e) => {
+function VotePanel({ display, setDisplay, tags }: Props) {
+  // eslint-disable-next-line
+  const [votedTags, setVotedTags] = useState<VoteTagProps[]>(initialVotedTagsState);
+  const effectCallback = () => {
+    const initialTags = tags.map((tag) => ({
+      ...tag,
+      userVoted: isVoted(tag),
+    }));
+    setVotedTags(initialTags);
+  };
+
+  const handleVotedButtonClick:
+  React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
   };
 
   return (
-    <Popup display={display} setDisplay={setDisplay}>
+    <Popup display={display} setDisplay={setDisplay} effectCallback={effectCallback}>
       <div className="vote-panel">
         <FormSearchTag placeHolder="搜尋標籤" disabled />
         <h3>目前標籤票數排行</h3>

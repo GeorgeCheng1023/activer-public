@@ -25,8 +25,8 @@ function DetailTags({ tags }: Props) {
             const variant = tag.Type as TagType['variant'];
             return (
               <Tag
-                id={tag.Id!.toString()}
-                key={tag.Id!.toString()}
+                id={`detail-tag-${tag.Id!.toString()}`}
+                key={`detail-tag-${tag.Id!.toString()}`}
                 text={tag.Text}
                 variant={variant}
               />
