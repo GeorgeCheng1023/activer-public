@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import Popup, { PopupDisplayProps } from 'components/Popup';
 import FormSearchTag from 'components/Form/FormSearchTag';
@@ -14,7 +14,7 @@ interface Props extends PopupDisplayProps {
 const dummyUserTagVoted = [
   {
     Type: 'Area',
-    Id: 1,
+    Id: 0,
     Text: '教育',
   },
 ];
@@ -41,9 +41,11 @@ const initialVotedTagsState: VoteTagProps[] = [
 ];
 
 function VotePanel({ display, setDisplay, tags }: Props) {
-  // eslint-disable-next-line
   const [votedTags, setVotedTags] = useState<VoteTagProps[]>(initialVotedTagsState);
+
   const effectCallback = () => {
+    // TODO: this should call api and  get user data
+
     const initialTags = tags.map((tag) => ({
       ...tag,
       userVoted: isVoted(tag),
@@ -51,13 +53,38 @@ function VotePanel({ display, setDisplay, tags }: Props) {
     setVotedTags(initialTags);
   };
 
-  const handleVotedButtonClick:
-  React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
+  const handleVotedButtonClick = (currentTag: VoteTagProps) => {
+    const foundedTag = votedTags.find((v) => v.Id === currentTag.Id);
+    if (foundedTag) {
+      // change TagCount
+      if (currentTag.userVoted) {
+        foundedTag.TagCount -= 1;
+      } else { foundedTag.TagCount += 1; }
+
+      // change user voted status
+      foundedTag.userVoted = !foundedTag.userVoted;
+
+      // update voteTags
+      const newVotedTags = votedTags.map((v) => {
+        if (v.Id === foundedTag.Id) {
+          return foundedTag;
+        }
+        return v;
+      });
+      setVotedTags(newVotedTags);
+      return;
+    }
+
+    // if not found, add new votedTag
+    setVotedTags([...votedTags, { ...currentTag, userVoted: true }]);
   };
 
   return (
-    <Popup display={display} setDisplay={setDisplay} effectCallback={effectCallback}>
+    <Popup
+      display={display}
+      setDisplay={setDisplay}
+      effectCallback={effectCallback}
+    >
       <div className="vote-panel">
         <FormSearchTag placeHolder="搜尋標籤" disabled />
         <h3>目前標籤票數排行</h3>
@@ -80,7 +107,7 @@ function VotePanel({ display, setDisplay, tags }: Props) {
                 iconAfter={tag.userVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
                 color="white"
                 variant={tag.userVoted ? 'outline' : undefined}
-                onClick={handleVotedButtonClick}
+                onClick={() => handleVotedButtonClick(tag)}
               />
             </>
           );
