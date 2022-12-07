@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TagDataType } from 'types/ActivityDataType';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
-import VotePanel from './VotePanel';
+import VotePanel from '../VotePanel';
 
 type Props = {
   tags: TagDataType[] | null

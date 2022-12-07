@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './index.scss';
 import Popup, { PopupDisplayProps } from 'components/Popup';
 import FormSearchTag from 'components/Form/FormSearchTag';
 import { TagDataType } from 'types/ActivityDataType';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import './index.scss';
 
 interface Props extends PopupDisplayProps {
   tags: TagDataType[]
@@ -91,7 +91,7 @@ function VotePanel({ display, setDisplay, tags }: Props) {
         {votedTags.map((tag: VoteTagProps) => {
           const variant = tag.Type as TagType['variant'];
           return (
-            <>
+            <div className="vote-panel__item">
               <Tag
                 id={`vote-tag-${tag.Id.toString()}`}
                 key={`vote-tag-${tag.Id.toString()}`}
@@ -109,7 +109,7 @@ function VotePanel({ display, setDisplay, tags }: Props) {
                 variant={tag.userVoted ? 'outline' : undefined}
                 onClick={() => handleVotedButtonClick(tag)}
               />
-            </>
+            </div>
           );
         })}
       </div>
