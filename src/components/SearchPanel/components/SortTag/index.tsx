@@ -13,7 +13,6 @@ import { TouchBackend } from 'react-dnd-touch-backend';
 
 function SortTag() {
   const dispatch = useAppDispatch();
-
   const sortTags = useAppSelector(selectSortTags);
 
   // handle sort change and update tag sorting in searchValue
@@ -25,7 +24,7 @@ function SortTag() {
 
     <>
       <h2 className="search__h2">標籤排序</h2>
-      <DndProvider backend={TouchBackend}>
+      <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
         <TagSort
           tags={sortTags}
           onChange={handleSortChange}
