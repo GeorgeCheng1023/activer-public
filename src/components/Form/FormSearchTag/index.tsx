@@ -3,9 +3,6 @@ import './index.scss';
 import { FiSearch } from 'react-icons/fi';
 // hooks
 import { useParseTag } from 'hooks/tag';
-import { useAppDispatch } from 'hooks/redux';
-// store
-import { addStorage } from 'store/searchPanel';
 
 // data
 import { TagType } from 'components/Tag';
@@ -14,15 +11,13 @@ import dummyAllTags from './dummyAllTag.json';
 type Props = {
 
   placeHolder: string,
-  disabled?: boolean
+  disabled?: boolean,
+  onSuggestionClick: (clickedSuggestion: TagType) => void
 };
 
 function FormSearchBar({
-  placeHolder, disabled,
+  placeHolder, disabled, onSuggestionClick,
 }: Props) {
-  // setting redux hooks
-  const dispatch = useAppDispatch();
-
   // parse all tags for suggestion
   const allTags = useParseTag(dummyAllTags);
 
@@ -37,17 +32,16 @@ function FormSearchBar({
     setInputValue(e.target.value);
   };
 
-  // handle search suggestion click
-  const handleSuggestionClick = (clickSuggestion: TagType) => {
-    dispatch(addStorage(clickSuggestion));
-    setSuggestionDisplay(false);
-  };
-
   // handle blur event when click outside of suggestion
   const handleBlur:React.FocusEventHandler<HTMLInputElement> = (e) => {
     if (!e.relatedTarget) {
       setSuggestionDisplay(false);
     }
+  };
+
+  const handleSuggestionClick = (clickedTag: TagType) => {
+    onSuggestionClick(clickedTag);
+    setSuggestionDisplay(false);
   };
 
   return (
@@ -81,8 +75,7 @@ function FormSearchBar({
                 tabIndex={-1}
                 type="button"
                 className="suggestion__choice"
-                onClick={(e) => { e.preventDefault(); handleSuggestionClick(tag); }}
-                // eslint-disable-next-line react/no-array-index-key
+                onClick={() => handleSuggestionClick(tag)}
                 key={`suggestion-${index}`}
               >
                 {tag.text}

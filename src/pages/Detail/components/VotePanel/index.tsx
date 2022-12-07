@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Popup, { PopupDisplayProps } from 'components/Popup';
-import FormSearchTag from 'components/Form/FormSearchTag';
+// import FormSearchTag from 'components/Form/FormSearchTag';
 import { TagDataType } from 'types/ActivityDataType';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
@@ -86,7 +86,7 @@ function VotePanel({ display, setDisplay, tags }: Props) {
       effectCallback={effectCallback}
     >
       <div className="vote-panel">
-        <FormSearchTag placeHolder="搜尋標籤" disabled />
+        {/* <FormSearchTag placeHolder="搜尋標籤" disabled /> */}
         <h3>目前標籤票數排行</h3>
         {votedTags.map((tag: VoteTagProps) => {
           const variant = tag.Type as TagType['variant'];
