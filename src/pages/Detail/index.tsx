@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Linkify from 'linkify-react';
 // api
 import { getActivity } from 'api/axios';
 // type
@@ -88,7 +89,16 @@ function Detail() {
         <br />
         <div className="detail__content">
           <h2>活動內容</h2>
-          <p>{Content}</p>
+          <Linkify
+            as="p"
+            options={{
+              target: '_blank',
+              className: 'detail__a',
+            }}
+          >
+            {Content}
+
+          </Linkify>
         </div>
         <br />
         <div className="detail__source">

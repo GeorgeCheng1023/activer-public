@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TagDataType } from 'types/ActivityDataType';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
+import { BsPlus } from 'react-icons/bs';
 import VotePanel from '../VotePanel';
 
 type Props = {
@@ -33,7 +34,7 @@ function DetailTags({ tags }: Props) {
             );
           }).slice(0, 5)
         }
-        <Button text="新增標籤" onClick={handleShowVotePanel} />
+        <Button text="新增標籤" onClick={handleShowVotePanel} color="white" iconAfter={<BsPlus />} />
         <VotePanel
           display={displayVotePanel}
           setDisplay={setDisplayVotePanel}

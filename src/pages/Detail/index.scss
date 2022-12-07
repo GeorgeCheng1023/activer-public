@@ -72,6 +72,7 @@
   &__source {
     a {
       width: 100%;
+      text-decoration: underline;
     }
   }
 
@@ -92,21 +93,16 @@
     }
   }
 
+  &__a {
+    text-decoration: underline;
+
+    &:hover {
+      color: $secondary-font-color;
+    }
+  }
+
   // DetailProperties > Property
-  &__property {
-    >* {
-      margin-bottom: 0.4em;
-    }
-
-    >.detail__p,
-    .detail__a {
-      margin-left: 1em;
-    }
-
-    >.detail__a {
-      &:hover {
-        color: $secondary-font-color;
-      }
-    }
+  &__property>* {
+    margin-bottom: 0.4em;
   }
 }
