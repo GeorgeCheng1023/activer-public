@@ -12,6 +12,10 @@ function DetailComment() {
     setDisplayCommentPanel(true);
   };
 
+  const handleSubmitComment = (starValue: number, contentValue: string) => {
+    console.log(starValue, contentValue);
+  };
+
   return (
     <>
       <div className="detail__comment__title">
@@ -26,7 +30,13 @@ function DetailComment() {
       </div>
       <Comment />
       {displayCommentPanel
-          && <CommentPanel setDisplayCommentPanel={setDisplayCommentPanel} />}
+          && (
+            <CommentPanel
+              setDisplay={setDisplayCommentPanel}
+              display={displayCommentPanel}
+              onSubmit={handleSubmitComment}
+            />
+          )}
     </>
   );
 }
