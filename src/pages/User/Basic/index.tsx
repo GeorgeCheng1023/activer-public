@@ -60,7 +60,8 @@ function Basic() {
               <Crop
                 image={imageSrc}
                 onCropped={handleCropped}
-                setDisplayCropPanel={setDisplayCropPanel}
+                setDisplay={setDisplayCropPanel}
+                display={displayCropPanel}
               />
             )}
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />

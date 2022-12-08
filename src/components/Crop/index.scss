@@ -1,24 +1,9 @@
 @import '~/src/_variables';
-
-.crop-back {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: $zindex-modal-backdrop;
-  background-color: rgba($color: #b6b6b6, $alpha: 0.5);
-}
-
 @import '~/src/_global';
 
 .crop-panel {
   background-color: white;
-  position: fixed;
-  top: 50vh;
-  left: 50%;
   z-index: $zindex-modal-panel;
-  transform: translate(-50%, -50%);
 
   font-size: 1.2rem;
 
