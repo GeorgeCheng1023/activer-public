@@ -64,7 +64,7 @@ $_btn-config:(primary:(class: 'primary',
     $hover-color: map-get($value, hover-color);
 
     &--#{$class} {
-      @include setColor($bg, $color, $bg);
+      @include setColor($color, $color, $bg);
 
       &:hover:not([disabled]) {
         @include setColor($bg, $bg, $hover-color);
