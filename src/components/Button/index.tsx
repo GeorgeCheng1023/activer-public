@@ -3,7 +3,7 @@ import './index.scss';
 
 export type ButtonType = {
   color?: 'primary' | 'secondary' | 'success' | 'white';
-  variant?: 'outline';
+  variant?: 'outline' | 'icon';
   size?: 'lg' | 'sm';
   text?: string;
   buttonType?: 'button' | 'submit' | 'reset';

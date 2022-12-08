@@ -73,6 +73,7 @@ $_btn-config:(primary:(class: 'primary',
     }
   }
 
+  // outline variant
   &.button--outline {
 
     @each $name,
@@ -91,6 +92,14 @@ $_btn-config:(primary:(class: 'primary',
         }
       }
     }
+  }
+
+  // icon variant 
+  &.button--icon {
+    width: 40px !important;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
   }
 
   * {
