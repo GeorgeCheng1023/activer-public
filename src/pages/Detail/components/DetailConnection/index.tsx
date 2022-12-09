@@ -9,8 +9,8 @@ function DetailComment({ connection: connections }: Props) {
     return (
       <div className="detail__connection">
         <h2>聯絡資訊</h2>
-        {connections.map((connection: string) => (
-          <p>{connection}</p>
+        {connections.map((connection: string, index: number) => (
+          <p key={`detail-connection-${index}`}>{connection}</p>
         ))}
       </div>
     );

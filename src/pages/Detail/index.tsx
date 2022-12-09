@@ -104,7 +104,7 @@ function Detail() {
             {Content}
           </Linkify>
         </div>
-        <DetailSources sources={Sources} id={Id} holder={Holder} />
+        <DetailSources sources={Sources} id={Id} />
         <DetailConnection connection={Connection} />
         <DetailHolder holder={Holder} />
         <DetailComment />

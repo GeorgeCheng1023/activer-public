@@ -9,7 +9,11 @@ function DetailHolder({ holder: holders }:Props) {
     return (
       <div>
         <h2>主辦單位</h2>
-        {holders.map((holder) => <p>{holder}</p>)}
+        {holders.map((holder, index:number) => (
+          <p key={`detail-holder-${index}`}>
+            {holder}
+          </p>
+        ))}
       </div>
     );
   }

@@ -91,7 +91,7 @@ function VotePanel({ display, onClose, tags }: Props) {
         {votedTags.map((tag: VoteTagProps) => {
           const variant = tag.Type as TagType['variant'];
           return (
-            <div className="vote-panel__item">
+            <div className="vote-panel__item" key={`vote-pael-item-${tag.Id.toString()}`}>
               <Tag
                 id={`vote-tag-${tag.Id.toString()}`}
                 key={`vote-tag-${tag.Id.toString()}`}

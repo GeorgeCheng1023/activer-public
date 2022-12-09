@@ -38,7 +38,12 @@ function DetailTags({ tags }: Props) {
               }).slice(0, 5)
             }
           </div>
-          <Button text="新增標籤" onClick={handleShowVotePanel} color="white" iconAfter={<BsPlus />} />
+          <Button
+            text="新增標籤"
+            onClick={handleShowVotePanel}
+            color="white"
+            iconAfter={<BsPlus />}
+          />
 
         </div>
         <VotePanel
