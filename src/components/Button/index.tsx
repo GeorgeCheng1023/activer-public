@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 export type ButtonType = {
-  color?: 'primary' | 'secondary' | 'success' | 'white';
+  color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white';
   variant?: 'outline' | 'icon';
   size?: 'lg' | 'sm';
   text?: string;

@@ -2,25 +2,23 @@
 
 $_btn-config:(primary:(class: 'primary',
     color: white,
-    hover-color: #fdf5e7,
     bg: $primary-color,
   ),
   secondary:(class: 'secondary',
     color: white,
-    hover-color: #B0CDF9,
     bg: $secondary-color,
   ),
   success:(class: 'success',
     color: white,
-    hover-color: #efffef,
     bg: $success-color,
   ),
-  white:(class: 'white',
-    color: $primary-font-color,
-    hover-color: #e4e4e4,
-    bg: white,
+  dark:(class: 'dark',
+    color: white,
+    bg: $primary-font-color,
   ),
-);
+  white:(class: 'white',
+    color:$primary-font-color,
+    bg: white, ));
 
 @mixin setColor ($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;
@@ -64,11 +62,11 @@ $_btn-config:(primary:(class: 'primary',
     $hover-color: map-get($value, hover-color);
 
     &--#{$class} {
-      @include setColor($color, $color, $bg);
+      @include setColor($bg, $color, $bg);
 
       &:hover:not([disabled]) {
-        @include setColor($bg, $bg, $hover-color);
-
+        border-color: darken($bg, 10%);
+        background-color: darken($bg, 10%);
       }
     }
   }
@@ -87,8 +85,8 @@ $_btn-config:(primary:(class: 'primary',
         @include setColor($bg, $bg, $color);
 
         &:hover:not([disabled]) {
-          @include setColor($bg, $bg, $hover-color);
 
+          background-color: lighten($bg, 30%)
         }
       }
     }
