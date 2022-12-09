@@ -9,7 +9,14 @@ import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
 // components
 import ManageNav from 'components/ManageNav';
 import {
-  DetailComment, DetailImage, DetailSources, DetailTags, DetailProperties,
+  DetailComment,
+  DetailImage,
+  DetailSources,
+  DetailTags,
+  DetailProperties,
+  DetailConnection,
+  DetailSubtitle,
+  DetailHolder,
 } from './components';
 
 // style
@@ -52,6 +59,8 @@ function Detail() {
   return (
     <div className="detail">
       <div className="detail__container--intro">
+
+        {/* left container: image, title,tags, date, holder */}
         <div className="detail__container--card">
           <DetailImage
             id={Id}
@@ -59,16 +68,10 @@ function Detail() {
             altText={Title}
           />
           <h2>{Title}</h2>
-          <h3>{Subtitle}</h3>
-          <div className="detail__tags">
-            <DetailTags tags={Tags} />
-
-          </div>
-          <span>
-            主辦單位:
-            {Holder}
-          </span>
+          <DetailSubtitle subtitle={Subtitle} />
+          <DetailTags tags={Tags} />
         </div>
+        {/* right container: branch properties */}
         <div className="detail__container--properties">
           <ManageNav
             buttons={
@@ -81,6 +84,8 @@ function Detail() {
           <DetailProperties branch={currentBranch} />
         </div>
       </div>
+
+      {/* main context */}
       <div className="detail__context">
         <div className="detail__objective">
           <h2>活動對象</h2>
@@ -97,28 +102,13 @@ function Detail() {
             }}
           >
             {Content}
-
           </Linkify>
         </div>
-        <br />
-        <div className="detail__source">
-          <h2>原始來源</h2>
-          <p>
-            {Holder}
-            :
-            <DetailSources sources={Sources} id={Id} />
-          </p>
-        </div>
-        <div className="detail__connection">
-          <h2>聯絡資訊</h2>
-          <p>{Connection}</p>
-        </div>
-        <br />
-        <div className="detail__comment">
-          <DetailComment />
-        </div>
+        <DetailSources sources={Sources} id={Id} holder={Holder} />
+        <DetailConnection connection={Connection} />
+        <DetailHolder holder={Holder} />
+        <DetailComment />
       </div>
-      <br />
     </div>
   );
 }

@@ -17,7 +17,7 @@ function DetailComment() {
   };
 
   return (
-    <>
+    <div className="detail__comment">
       <div className="detail__comment__title">
         <h2 className="detail__h2">活動評論</h2>
         <Button
@@ -37,7 +37,7 @@ function DetailComment() {
               onSubmit={handleSubmitComment}
             />
           )}
-    </>
+    </div>
   );
 }
 

@@ -50,31 +50,7 @@
     }
   }
 
-  // DetailTags
-  &__tags {
-    display: flex;
-    flex-wrap: 1;
-    gap: 1em;
-    margin: 1em;
-  }
-
-  // DetailComment
-  &__comment {
-    &__title {
-      display: flex;
-      align-items: center;
-      gap: 2em;
-      margin: 0.5em 0;
-    }
-  }
-
-  // DetailSources
-  &__source {
-    a {
-      width: 100%;
-      text-decoration: underline;
-    }
-  }
+  
 
   // DetailProperties
   &__properties {
