@@ -1,6 +1,7 @@
 import React from 'react';
 // hooks
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
+
 // style
 import './index.scss';
 // store
@@ -8,13 +9,15 @@ import {
   selectDisplay,
   selectKeyword,
   addStorage,
+  hide,
 } from 'store/searchPanel';
 // component
 import SearchBar from 'components/Form/FormSearchBar';
 import SearchTag from 'components/Form/FormSearchTag';
+import Popup from 'components/Popup';
 import { TagType } from 'components/Tag';
 import {
-  Popup, RecommendTag, SortTag, StorageTag,
+  RecommendTag, SortTag, StorageTag,
 } from './components';
 // main function
 function Search() {
@@ -35,7 +38,10 @@ function Search() {
   // redux
   return (
 
-    <Popup display={display}>
+    <Popup
+      display={display}
+      onClose={() => dispatch(hide())}
+    >
       <div className="search">
 
         {/* activity keyword search */}

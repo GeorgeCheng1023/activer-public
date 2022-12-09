@@ -40,7 +40,7 @@ const initialVotedTagsState: VoteTagProps[] = [
   },
 ];
 
-function VotePanel({ display, setDisplay, tags }: Props) {
+function VotePanel({ display, onClose, tags }: Props) {
   const [votedTags, setVotedTags] = useState<VoteTagProps[]>(initialVotedTagsState);
 
   const effectCallback = () => {
@@ -82,7 +82,7 @@ function VotePanel({ display, setDisplay, tags }: Props) {
   return (
     <Popup
       display={display}
-      setDisplay={setDisplay}
+      onClose={onClose}
       effectCallback={effectCallback}
     >
       <div className="vote-panel">

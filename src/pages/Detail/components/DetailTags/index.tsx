@@ -37,7 +37,7 @@ function DetailTags({ tags }: Props) {
         <Button text="新增標籤" onClick={handleShowVotePanel} color="white" iconAfter={<BsPlus />} />
         <VotePanel
           display={displayVotePanel}
-          setDisplay={setDisplayVotePanel}
+          onClose={() => setDisplayVotePanel(false)}
           tags={tags}
         />
       </>

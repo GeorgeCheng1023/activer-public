@@ -60,7 +60,7 @@ function Basic() {
               <Crop
                 image={imageSrc}
                 onCropped={handleCropped}
-                setDisplay={setDisplayCropPanel}
+                onClose={() => setDisplayCropPanel(false)}
                 display={displayCropPanel}
               />
             )}

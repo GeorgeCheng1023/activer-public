@@ -17,7 +17,7 @@ interface Props extends PopupDisplayProps {
 }
 
 function Crop({
-  onCropped, setDisplay, display, image,
+  onCropped, onClose, display, image,
 }: Props) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -48,7 +48,7 @@ function Crop({
       if (getCroppedImage) {
         croppedImage.current = getCroppedImage;
         onCropped(croppedImage.current);
-        setDisplay(false);
+        onClose();
       }
     } catch (error) {
       console.error(error);
@@ -59,11 +59,11 @@ function Crop({
   const handleCloseCropPanel:
   React.MouseEventHandler<HTMLButtonElement | HTMLDivElement> = (e) => {
     e.preventDefault();
-    setDisplay(false);
+    onClose();
   };
 
   return (
-    <Popup display={display} setDisplay={setDisplay}>
+    <Popup display={display} onClose={onClose}>
       <div className="crop-panel">
         <div className="crop-panel__container">
           <Cropper

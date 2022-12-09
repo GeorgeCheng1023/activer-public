@@ -11,7 +11,7 @@ interface Props extends PopupDisplayProps {
   onSubmit: (starValue: number, content: string) => void;
 }
 
-function CommentPanel({ setDisplay, display, onSubmit }: Props) {
+function CommentPanel({ onClose, display, onSubmit }: Props) {
   const starRef = useRef(0);
   const contentRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
 
@@ -19,13 +19,13 @@ function CommentPanel({ setDisplay, display, onSubmit }: Props) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     onSubmit(starRef.current, contentRef.current.value);
-    setDisplay(false);
+    onClose();
   };
 
   // handle cancel write comment
   const handelCancel = (e: any) => {
     e.preventDefault();
-    setDisplay(false);
+    onClose();
   };
 
   const handleChangeRating = (newRating: number) => {
@@ -33,7 +33,7 @@ function CommentPanel({ setDisplay, display, onSubmit }: Props) {
   };
 
   return (
-    <Popup display={display} setDisplay={setDisplay}>
+    <Popup display={display} onClose={onClose}>
 
       <div className="comment-panel">
         <h2>撰寫評論 </h2>

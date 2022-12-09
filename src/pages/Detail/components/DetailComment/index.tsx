@@ -32,7 +32,7 @@ function DetailComment() {
       {displayCommentPanel
           && (
             <CommentPanel
-              setDisplay={setDisplayCommentPanel}
+              onClose={() => setDisplayCommentPanel(false)}
               display={displayCommentPanel}
               onSubmit={handleSubmitComment}
             />

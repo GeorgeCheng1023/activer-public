@@ -16,19 +16,7 @@ const initialState: SearchPanelState = {
   defaultTags: [],
   sortTags: [],
   recommendTags: [],
-  storageTags: [{
-    id: '0',
-    text: 'bedij',
-    variant: 'area',
-  }, {
-    id: '1',
-    text: 'bla',
-    variant: 'other',
-  }, {
-    id: '2',
-    text: 'beoefpo',
-    variant: 'location',
-  }],
+  storageTags: [],
   keyword: '',
 };
 
