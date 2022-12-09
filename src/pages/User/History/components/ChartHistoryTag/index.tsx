@@ -10,7 +10,7 @@ import { TagType } from 'components/Tag';
 import './index.scss';
 
 // hooks
-import useWindowSize from 'hooks/window/useWindowSize';
+import useWindowWidth from 'hooks/window/useWindowWidth';
 
 export type dataType = {
   tag: TagType,
@@ -36,7 +36,7 @@ const initialData = [
 function ChartHistoryTag({ data }: Props) {
   // underneath will not use height
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [width, height] = useWindowSize();
+  const width = useWindowWidth();
 
   const [parseData, setParseData] = useState<chartDataType[]>(initialData);
   useEffect(() => {

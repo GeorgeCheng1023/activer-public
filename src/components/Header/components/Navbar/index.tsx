@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 // style
-import './Navbar.scss';
+import './index.scss';
 // redux
 import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
-import { show } from 'store/searchPanel';
+import { show as showSearchPanel } from 'store/searchPanel';
 // hook
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 // components
 import { AiOutlineMenu } from 'react-icons/ai';
-import Button from '../../Button';
+import Button from 'components/Button';
+import { BsSearch } from 'react-icons/bs';
+import { HiFire } from 'react-icons/hi';
+import NavbarItem from '../NavbarItem';
 
 // setting hook
 function Navbar() {
@@ -19,7 +22,8 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleClick = () => {
+  // user login and logout
+  const handleLoginClick = () => {
     setExpended(false);
     if (!userIsLoggined) {
       navigate('/login', { replace: true });
@@ -27,6 +31,12 @@ function Navbar() {
       navigate('/user/basic');
     }
   };
+  const handleLogout = () => {
+    dispatch(userLogout());
+    navigate('/');
+  };
+
+  // mobile support
   const handleBackdropClick = () => {
     setExpended(false);
   };
@@ -34,32 +44,40 @@ function Navbar() {
     setExpended(!expended);
   };
 
+  // navbar item event
   const handleClickSearchActivityButton = () => {
     setExpended(false);
-    dispatch(show());
+    dispatch(showSearchPanel());
   };
   const handleClickTrendButton = () => {
     setExpended(false);
   };
 
-  const handleLogout = () => {
-    dispatch(userLogout());
-    navigate('/');
-  };
-
   return (
     <div className="navbar">
-
       <div
-        className={`navbar__container navbar__container${expended ? '--expended' : ''} `}
+        className={`navbar__container navbar__container${expended ? '--expended' : ''}`}
       >
-        <button type="button" className="navbar__item" onClick={handleClickSearchActivityButton}>搜尋活動</button>
-        <Link to="/detail/1 ">
-          <button type="button" className="navbar__item" onClick={handleClickTrendButton}>熱門活動</button>
-        </Link>
+        <div className="navbar__items">
+          <NavbarItem
+            onClick={handleClickSearchActivityButton}
+            text="搜尋活動"
+            mobileIcon={<BsSearch />}
+            color="secondary"
 
-        {
-          userIsLoggined
+          />
+          <NavbarItem
+            onClick={handleClickTrendButton}
+            text="熱門活動"
+            link="/detail/1"
+            color="success"
+            mobileIcon={<HiFire />}
+          />
+        </div>
+
+        <div className="navbar__user">
+          {
+            userIsLoggined
         && (
           <div className="navbar__logout-btn">
             <Button
@@ -70,14 +88,15 @@ function Navbar() {
             />
           </div>
         )
-        }
+          }
 
-        <div className="navbar__login-button">
-          <Button
-            color="primary"
-            text={userIsLoggined ? '個人資料' : '登入/註冊'}
-            onClick={handleClick}
-          />
+          <div className="navbar__login-button">
+            <Button
+              color="primary"
+              text={userIsLoggined ? '個人資料' : '登入/註冊'}
+              onClick={handleLoginClick}
+            />
+          </div>
         </div>
       </div>
 
