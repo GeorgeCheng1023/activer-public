@@ -4,8 +4,8 @@ import './index.scss';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export interface PopupDisplayProps {
+  display: boolean,
   onClose: () => void,
-  display: boolean
 }
 
 interface Props extends PopupDisplayProps {
@@ -14,12 +14,16 @@ interface Props extends PopupDisplayProps {
 }
 
 function Popup({
-  children, onClose, display, effectCallback,
+  children,
+  onClose,
+  display,
+  effectCallback,
 }: Props) {
   const handleClickBackdrop:
   React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
     onClose();
+    // for display change
   };
 
   useEffect(() => {
@@ -34,7 +38,6 @@ function Popup({
     useEffect(effectCallback, [display]);
   }
 
-  // eslint-disable-next-line
   if (display) {
     return createPortal(
       <>
@@ -43,7 +46,11 @@ function Popup({
           aria-hidden="true"
           onClick={handleClickBackdrop}
         />
-        <div className="popup__close-button" onClick={() => onClose()} aria-hidden>
+        <div
+          className="popup__close-button"
+          onClick={() => onClose()}
+          aria-hidden
+        >
           <AiOutlineCloseCircle />
         </div>
         <div className="popup__panel">

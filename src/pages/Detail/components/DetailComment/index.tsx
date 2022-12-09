@@ -29,14 +29,11 @@ function DetailComment() {
 
       </div>
       <Comment />
-      {displayCommentPanel
-          && (
-            <CommentPanel
-              onClose={() => setDisplayCommentPanel(false)}
-              display={displayCommentPanel}
-              onSubmit={handleSubmitComment}
-            />
-          )}
+      <CommentPanel
+        onClose={() => setDisplayCommentPanel(false)}
+        display={displayCommentPanel}
+        onSubmit={handleSubmitComment}
+      />
     </div>
   );
 }

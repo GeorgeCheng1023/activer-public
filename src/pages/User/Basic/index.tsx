@@ -55,15 +55,12 @@ function Basic() {
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__portrait">
-            {displayCropPanel
-            && (
-              <Crop
-                image={imageSrc}
-                onCropped={handleCropped}
-                onClose={() => setDisplayCropPanel(false)}
-                display={displayCropPanel}
-              />
-            )}
+            <Crop
+              image={imageSrc}
+              onCropped={handleCropped}
+              onClose={() => setDisplayCropPanel(false)}
+              display={displayCropPanel}
+            />
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
               <FormInputFile
