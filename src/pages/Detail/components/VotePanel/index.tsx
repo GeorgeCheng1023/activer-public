@@ -73,7 +73,7 @@ function VotePanel({ display, onClose, tags }: Props) {
               <Button
                 key={`vote-btn-${tag.Id.toString()}`}
                 iconAfter={tag.UserVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
-                color="white"
+                color="dark"
                 variant={tag.UserVoted ? 'outline' : undefined}
                 onClick={() => handleVotedButtonClick(tag)}
               />

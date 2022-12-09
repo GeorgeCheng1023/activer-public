@@ -41,7 +41,7 @@ function DetailTags({ tags }: Props) {
           <Button
             text="新增標籤"
             onClick={handleShowVotePanel}
-            color="white"
+            color="dark"
             iconAfter={<BsPlus />}
           />
 
