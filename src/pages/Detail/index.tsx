@@ -60,10 +60,9 @@ function Detail() {
           />
           <h2>{Title}</h2>
           <h3>{Subtitle}</h3>
-          <div className="detail__tags">
-            <DetailTags tags={Tags} />
 
-          </div>
+          <DetailTags tags={Tags} />
+
           <span>
             主辦單位:
             {Holder}

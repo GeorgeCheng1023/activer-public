@@ -1,0 +1,12 @@
+  // DetailTags
+  .detail__tags {
+    display: flex;
+    flex-direction: column;
+
+    &__container {
+      display: flex;
+      flex-wrap: 1;
+      gap: 1em;
+      margin: 1em;
+    }
+  }
