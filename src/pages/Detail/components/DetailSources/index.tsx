@@ -18,13 +18,13 @@ function DetailSources({ sources, id }: Props) {
       <div className="detail__source">
         <h2>原始來源</h2>
 
-        {sources.map((s: any, index: number) => (
+        {sources.map((s: string, index: number) => (
           <Linkify
             as="p"
             options={options}
             key={`source-${id}-${index}`}
           >
-            {s}
+            {s.replace(/[\u3002]/g, '')}
           </Linkify>
         ))}
 

@@ -101,7 +101,7 @@ function Detail() {
               className: 'detail__a',
             }}
           >
-            {Content}
+            {Content.replace(/[\u3002]/g, '')}
           </Linkify>
         </div>
         <DetailSources sources={Sources} id={Id} />
