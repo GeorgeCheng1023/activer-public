@@ -51,7 +51,7 @@ function DetailTags({ tags }: Props) {
           onClose={() => setDisplayVotePanel(false)}
           tags={tags}
         />
-      </div>
+      </>
     );
   }
   return null;
