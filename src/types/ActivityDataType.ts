@@ -17,6 +17,7 @@ export interface TagDataType {
   Id: number;
   Text: string;
   TagCount: number;
+  UserVoted: boolean;
 }
 
 export interface BranchDataType {
