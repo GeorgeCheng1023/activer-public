@@ -1,5 +1,4 @@
 // global mixin
-
 @import '~/src/_variables';
 
 // responsive
@@ -12,11 +11,31 @@ $_max-breakpoints: (mobile : 480px,
   laptop: 1024px,
   desktop: 3000px);
 
-
 @mixin media($keys...) {
   @each $key in $keys {
     @media (max-width: map-get($_max-breakpoints, $key)) and (min-width: map-get($_min-breakpoints, $key)) {
       @content
     }
+  }
+}
+
+// scoll
+@mixin scrollbar() {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 3px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .3);
+    background-color: $primary-font-color;
   }
 }
