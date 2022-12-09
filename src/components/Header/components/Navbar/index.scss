@@ -38,9 +38,24 @@
     }
   }
 
+  &__items {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-evenly;
+    gap: 1em;
+
+    >* {
+      flex-grow: 0.5;
+
+    }
+  }
+
+  &__user {
+    display: flex
+  }
+
   &__toggle-button {
     display: none;
-
     font-size: 2em;
 
     @include media(mobile, tablet) {
@@ -48,34 +63,9 @@
     }
   }
 
-  &__logout-btn {
-    position: absolute;
-    right: 10rem; 
-  }
 
-  &__item {
-    all: initial;
-    position: relative;
-    line-height: 1.2em;
-    cursor: pointer;
 
-    &::before {
-      content: "";
-      position: absolute;
-      width: 25%;
-      height: 2px;
-      background-color: $primary-font-color;
-      border-radius: 14px;
-      bottom: 0;
-      transition: 0.2s ease-out;
-    }
 
-    &:hover {
-      &::before {
-        width: 100%;
-      }
-    }
-  }
 
   &__backdrop {
     position: fixed;
@@ -86,4 +76,3 @@
     background-color: transparent;
   }
 }
-
