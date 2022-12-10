@@ -45,25 +45,26 @@ function FormSearchBar({
 
   return (
     <div
-      className="searchBar__container"
+      className="search-tag"
     >
-      <div className="searchBar">
-        <input
-          className="searchBar__main"
-          type="text"
-          placeholder={placeHolder}
-          value={inputValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          disabled={disabled}
-        />
-        <button className="button-nostyle searchButton" type="submit">
-          <div className={`searchBar__section ${disabled || ''}`}>
-            <FiSearch className="searchBar__icon" />
-          </div>
-        </button>
-      </div>
-      <div className="suggestion">
+      <input
+        className="search-tag__input"
+        type="text"
+        placeholder={placeHolder}
+        value={inputValue}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        disabled={disabled}
+      />
+      <button
+        className="search-tag__button"
+        type="submit"
+        disabled={disabled}
+      >
+        <FiSearch className="search-tag__icon" />
+      </button>
+
+      <div className="search-tag__suggestion">
         {suggestionDisplay && inputValue
           && allTags.filter((tag) => (
             tag.text.includes(inputValue)
@@ -73,7 +74,7 @@ function FormSearchBar({
               <button
                 tabIndex={-1}
                 type="button"
-                className="suggestion__choice"
+                className="search-tag__suggestion__choice"
                 onClick={() => handleSuggestionClick(tag)}
                 key={`suggestion-${index}`}
               >

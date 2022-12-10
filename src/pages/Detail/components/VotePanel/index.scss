@@ -13,5 +13,10 @@
     gap: 1em;
   }
 
+  .search-tag {
+    @include media(mobile) {
+      width: 80%;
+    }
+  }
 
 }
