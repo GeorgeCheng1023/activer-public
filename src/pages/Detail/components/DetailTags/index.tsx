@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TagDataType } from 'types/ActivityDataType';
+import { TagDataType, ActivityTagDataType } from 'types/ActivityDataType';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
 import { BsPlus } from 'react-icons/bs';
@@ -7,7 +7,7 @@ import VotePanel from '../VotePanel';
 import './index.scss';
 
 type Props = {
-  tags: TagDataType[] | null
+  tags:ActivityTagDataType[] | null
 };
 
 function DetailTags({ tags }: Props) {

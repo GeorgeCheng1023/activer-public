@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import Popup, { PopupDisplayProps } from 'components/Popup';
-// import FormSearchTag from 'components/Form/FormSearchTag';
+import FormSearchTag from 'components/Form/FormSearchTag';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import './index.scss';
-import { TagDataType } from 'types/ActivityDataType';
+import { ActivityTagDataType } from 'types/ActivityDataType';
 
 interface Props extends PopupDisplayProps {
-  tags: TagDataType[]
+  tags: ActivityTagDataType[]
 }
 
 function VotePanel({ display, onClose, tags }: Props) {
-  const [votedTags, setVotedTags] = useState<TagDataType[]>(tags);
+  const [votedTags, setVotedTags] = useState<ActivityTagDataType[]>(tags);
 
   const effectCallback = () => {
     setVotedTags(tags);
   };
 
-  const handleVotedButtonClick = (currentTag: TagDataType) => {
+  const handleVotedButtonClick = (currentTag: ActivityTagDataType) => {
     const foundedTag = tags.find((v) => v.Id === currentTag.Id);
     if (foundedTag) {
       // change TagCount
@@ -47,6 +47,32 @@ function VotePanel({ display, onClose, tags }: Props) {
     setVotedTags([...votedTags, { ...currentTag, UserVoted: true }]);
   };
 
+  const handleSuggestionClick = (clickedTag: TagType) => {
+    const foundTag = tags.find((tag) => tag.Id.toString() === clickedTag.id);
+    let newTags = tags;
+    if (foundTag) {
+      if (foundTag.UserVoted) {
+        foundTag.TagCount += 1;
+      } else { foundTag.TagCount -= 1; }
+      // conductVotedTag for accrpt tagCount and votedTags
+      newTags = votedTags.map((v) => {
+        if (v.Id === foundTag.Id) {
+          return foundTag;
+        }
+        return v;
+      });
+    } else {
+      newTags.push({
+        Id: parseInt(clickedTag.id, 10),
+        Type: clickedTag.variant as ActivityTagDataType['Type'],
+        Text: clickedTag.text,
+        TagCount: 1,
+        UserVoted: true,
+      });
+    }
+    setVotedTags(newTags);
+  };
+
   return (
     <Popup
       display={display}
@@ -54,9 +80,12 @@ function VotePanel({ display, onClose, tags }: Props) {
       effectCallback={effectCallback}
     >
       <div className="vote-panel">
-        {/* <FormSearchTag placeHolder="搜尋標籤" disabled /> */}
+        <FormSearchTag
+          placeHolder="搜尋標籤"
+          onSuggestionClick={handleSuggestionClick}
+        />
         <h3>目前標籤票數排行</h3>
-        {votedTags.map((tag: TagDataType) => {
+        {votedTags.map((tag: ActivityTagDataType) => {
           const variant = tag.Type as TagType['variant'];
           return (
             <div className="vote-panel__item" key={`vote-pael-item-${tag.Id.toString()}`}>
@@ -74,7 +103,7 @@ function VotePanel({ display, onClose, tags }: Props) {
                 key={`vote-btn-${tag.Id.toString()}`}
                 iconAfter={tag.UserVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
                 color="dark"
-                variant={tag.UserVoted ? 'outline' : undefined}
+                variant={tag.UserVoted ? undefined : 'outline'}
                 onClick={() => handleVotedButtonClick(tag)}
               />
             </div>

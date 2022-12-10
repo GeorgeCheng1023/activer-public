@@ -8,7 +8,7 @@ interface ActivityDataType {
   Objective: string[] | null;
   Sources: string[] | null;
   Subtitle:string | null;
-  Tags: TagDataType[] | null;
+  Tags: ActivityTagDataType[] | null;
   Branches: BranchDataType[];
 }
 
@@ -16,6 +16,9 @@ export interface TagDataType {
   Type: string;
   Id: number;
   Text: string;
+}
+
+export interface ActivityTagDataType extends TagDataType {
   TagCount: number;
   UserVoted: boolean;
 }

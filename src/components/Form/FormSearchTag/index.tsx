@@ -20,7 +20,6 @@ function FormSearchBar({
 }: Props) {
   // parse all tags for suggestion
   const allTags = useParseTag(dummyAllTags);
-
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState('');
   // suggstionDisplay is a boolean that show or hide the suggestion
