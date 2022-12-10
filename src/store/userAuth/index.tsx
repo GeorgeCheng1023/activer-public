@@ -2,28 +2,7 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserGoogleData, apiUserLogin } from 'api/axios';
-
-interface UserState {
-  IsLoggedIn: boolean,
-  Id: number,
-  RealName: string,
-  NickName: string,
-  Email: string,
-  Password: string,
-  Portrait: string,
-  Gender: string,
-  Birthday: string,
-  Profession: string,
-  Phone: string,
-  Country: string,
-  Area: string,
-  ActivityHistory: Array<number>,
-  TagHistory: Array<number>,
-  Status: number;
-  Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
-  SessionToken: string, // auth
-}
+import { apiUserGoogleData, apiUserLogin, apiUserUpdate } from 'api/axios';
 
 const initialState: UserState = {
   IsLoggedIn: false,
@@ -31,13 +10,12 @@ const initialState: UserState = {
   RealName: '',
   NickName: '',
   Email: '',
-  Password: '',
   Portrait: '',
   Gender: '',
   Birthday: '',
   Profession: '',
   Phone: '',
-  Country: '',
+  County: '',
   Area: '',
   ActivityHistory: [],
   TagHistory: [],
@@ -60,6 +38,12 @@ export const userLogin = createAsyncThunk('auth/userLogin', async (userData: use
 
 export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
   const response = await apiUserGoogleData(accessToken);
+  console.log(response);
+  return response;
+});
+
+export const updateUserData = createAsyncThunk('auth/updateUserData', async (userData: UserState) => {
+  const response = await apiUserUpdate(userData);
   console.log(response);
   return response;
 });
@@ -94,7 +78,7 @@ const userAuthSlice = createSlice({
       .addCase(userLogin.fulfilled, (state, action: PayloadAction<any>) => {
         console.log(action.payload);
         const { Status } = action.payload.data;
-        if (!Status) {
+        if (Status === 0) {
           return ({
             ...state,
             IsLoggedIn: false,
@@ -108,6 +92,7 @@ const userAuthSlice = createSlice({
           IsLoggedIn: true,
           Loading: 'succeeded',
           Email: User.Email,
+          Id: User.Id,
           Status,
           SessionToken,
         });
@@ -117,6 +102,7 @@ const userAuthSlice = createSlice({
         Loading: 'failed',
         Status: action.payload.Status,
       }))
+
       .addCase(getUserGoogleData.fulfilled, (state, action) => {
         const userData = action.payload.data;
         console.log(userData);
@@ -128,13 +114,27 @@ const userAuthSlice = createSlice({
           Email: userData.email,
           Loading: 'succeeded',
         });
-      });
+      })
+
+      .addCase(updateUserData.pending, (state) => ({
+        ...state,
+        Loading: 'loading',
+      }))
+      .addCase(updateUserData.fulfilled, (state) => ({
+        ...state,
+        Loading: 'succeeded',
+      }))
+      .addCase(updateUserData.rejected, (state) => ({
+        ...state,
+        Loading: 'failed',
+      }));
   },
 });
 
 export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
 export const getLoadingState = (state: RootState) => state.userAuth.Loading;
 export const getUserRealname = (state: RootState) => state.userAuth.RealName;
+export const getUserData = (state: RootState) => state.userAuth;
 
 export const { userLogout, userUpdate } = userAuthSlice.actions;
 

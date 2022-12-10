@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 // provider
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider as ReduxProvider } from 'react-redux';
+import { CookiesProvider } from 'react-cookie';
 import store from 'store';
 // component
 import App from './App';
@@ -18,9 +19,11 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
   <ReduxProvider store={store}>
-    <GoogleOAuthProvider clientId="844622130486-tg3voh22qmia7rf2723gnmpkop983j23.apps.googleusercontent.com">
-      <App />
-    </GoogleOAuthProvider>
+    <CookiesProvider>
+      <GoogleOAuthProvider clientId="844622130486-tg3voh22qmia7rf2723gnmpkop983j23.apps.googleusercontent.com">
+        <App />
+      </GoogleOAuthProvider>
+    </CookiesProvider>
   </ReduxProvider>,
 
   /* </React.StrictMode> */

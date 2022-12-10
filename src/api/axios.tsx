@@ -3,10 +3,14 @@ import axios from 'axios';
 const TEST_URL = 'http://localhost:5000';
 
 const LOGIN_URL = '/api/user/signin';
-const USER_UPDATE_URL = '/api/user/update';
 const REGISTER_URL = '/api/user/signup';
+const USER_UPDATE_URL = '/api/user';
 
 export const axiosTest = axios.create({
+  baseURL: TEST_URL,
+});
+
+export const formDataRequest = axios.create({
   baseURL: TEST_URL,
 });
 
@@ -15,7 +19,6 @@ export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
   JSON.stringify({ Email: email, Password: password }),
   {
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
   },
 );
 
@@ -28,19 +31,16 @@ export const apiUserRegister = (
   JSON.stringify({ Realname: username, Email: email, Password: password }),
   {
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
   },
-)
-  .then((res) => console.log(res));
+);
 
 export const apiUserUpdate = (
-  user: User,
-) => axiosTest.post(
-  USER_UPDATE_URL,
+  user: UserState,
+) => axiosTest.put(
+  `${USER_UPDATE_URL}/${user.Id}`,
   JSON.stringify(user),
   {
     headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
   },
 );
 

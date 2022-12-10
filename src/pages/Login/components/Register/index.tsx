@@ -33,15 +33,7 @@ function Register() {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user]);
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [pwd]);
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [email]);
+  }, [user, pwd, email]);
 
   useEffect(() => {
     if (!pwd || PWD_REGEX.test(pwd)) {

@@ -2,6 +2,7 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
@@ -25,6 +26,8 @@ function LoginSection() {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
+  const [cookies, setCookie] = useCookies<string>(['user']);
+
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
 
@@ -37,7 +40,6 @@ function LoginSection() {
 
   const [errMsg, setErrMsg] = useState<string>('');
   const [showErr, setShowErr] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     userRef.current?.focus();
@@ -55,14 +57,6 @@ function LoginSection() {
   useEffect(() => {
     setErrMsg('');
   }, [pwdFocus]);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  (success) && navigate(from, { replace: true });
-
-  // const togglePersist = () => {
-  //   localStorage.setItem('persist', persist);
-  //   setPersist((prev: any) => !prev);
-  // };
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -82,7 +76,19 @@ function LoginSection() {
         setErrMsg('帳號或密碼有誤');
         return;
       }
-      setSuccess(true);
+      navigate(from, { replace: true });
+
+      const expiresDate = new Date();
+      expiresDate.setDate(date.getDate() + 1);
+
+      setCookie('Name', user, {
+        expires: expiresDate,
+        path: '/',
+      });
+      setCookie('SessionToken', response.data.SessionToken, {
+        expires: expiresDate,
+        path: '/',
+      });
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');
@@ -163,13 +169,6 @@ function LoginSection() {
               text="註冊"
             />
           </Link>
-        </section>
-        <section className="login-section__btn-footer">
-          <ButtonFrame
-            color="secondary"
-            text="主辦方登入"
-            onClick={(e) => handleClick(e)}
-          />
         </section>
 
       </form>

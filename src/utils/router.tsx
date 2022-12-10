@@ -13,6 +13,7 @@ import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
 import NotFound from 'pages/NotFound';
 import Loading from 'pages/Loading';
+import ForgetPwd from 'pages/Login/components/ForgetPwd/ForgetPwd';
 
 export const routerConfig = [
   {
@@ -26,6 +27,10 @@ export const routerConfig = [
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/password',
+        element: <ForgetPwd />,
       },
 
       {
@@ -81,15 +86,15 @@ export const routerConfig = [
         path: '/detail/:id',
         element: <Detail />,
       },
+      {
+        path: '/loading',
+        element: <Loading />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
     ],
-  },
-  {
-    path: '/loading',
-    element: <Loading />,
-  },
-  {
-    path: '*',
-    element: <NotFound />,
   },
 ];
 

@@ -58,12 +58,20 @@ function Navbar() {
           <button type="button" className="navbar__item" onClick={handleClickTrendButton}>熱門活動</button>
         </Link>
 
+        <div className="navbar__login-button">
+          <Button
+            color={userIsLoggined ? 'secondary' : 'primary'}
+            text={userIsLoggined ? '個人資料' : '登入/註冊'}
+            onClick={handleClick}
+          />
+        </div>
+
         {
           userIsLoggined
         && (
           <div className="navbar__logout-btn">
             <Button
-              color="secondary"
+              color="primary"
               text="登出"
               variant="outline"
               onClick={handleLogout}
@@ -71,14 +79,6 @@ function Navbar() {
           </div>
         )
         }
-
-        <div className="navbar__login-button">
-          <Button
-            color="primary"
-            text={userIsLoggined ? '個人資料' : '登入/註冊'}
-            onClick={handleClick}
-          />
-        </div>
       </div>
 
       <button

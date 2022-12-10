@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
-import { useAppDispatch } from 'hooks/redux';
-import { userUpdate } from 'store/userAuth';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
-import dummyUserData from './dummyUserData.json';
 import FormDropDown from '../../../components/Form/FormDropdown';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
 
-  const [values, setValues] = useState(dummyUserData);
+  const [values, setValues] = useState(userData);
   const [selectedCounty, setSelectCounty] = useState('');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
@@ -21,20 +21,39 @@ function Basic() {
     setValues({ ...values, [key]: value });
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log(values);
+    console.log(userData);
     dispatch(userUpdate(values));
+    dispatch(updateUserData(userData));
   };
   const handleCountyChange = (key: any, value: any) => {
-    setSelectCounty(value);
+    setSelectCounty(userData.Country);
     handleChange(key, value);
   };
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('Portrait', croppedImage);
+
+    // ?? 0.0
+    // const imageName = croppedImage.slice(5);
+    // const imageBlob = new Blob([imageName], {
+    //   type: 'image/jpeg',
+    // });
+    // const formData = new FormData();
+    // formData.append('Avatar', imageBlob);
+
+    // const userFormData = {
+    //   Avatar: formData,
+    //   SessionToken: userData.SessionToken,
+    // };
+
+    // formDataRequest.put(`/api/user/${userData.Id}`, userFormData, {
+    //   headers: { 'Content-Type': 'application/json' },
+    // })
+    //   .then((res) => console.log(res));
   };
 
   const handleCropPanelShow:
@@ -143,9 +162,9 @@ function Basic() {
                 <FormDropDown
                   dropdownProps={{
                     label: '縣市',
-                    name: 'Country',
+                    name: 'County',
                     options: CityCountyData.map((c) => c.CityName),
-                    defaultOption: dummyUserData.Country,
+                    defaultOption: userData.County,
                   }}
                   onChange={handleCountyChange}
                 />
