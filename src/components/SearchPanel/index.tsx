@@ -1,42 +1,47 @@
 import React from 'react';
-
 // hooks
-import { useAppSelector } from 'hooks/redux';
+import { useAppSelector, useAppDispatch } from 'hooks/redux';
 
 // style
 import './index.scss';
-
+// store
 import {
-
   selectDisplay,
-
   selectKeyword,
+  addStorage,
+  hide,
 } from 'store/searchPanel';
-
+// component
 import SearchBar from 'components/Form/FormSearchBar';
 import SearchTag from 'components/Form/FormSearchTag';
+import Popup from 'components/Popup';
+import { TagType } from 'components/Tag';
 import {
-  Popup, RecommendTag, SortTag, StorageTag,
+  RecommendTag, SortTag, StorageTag,
 } from './components';
-
-// store
-
 // main function
 function Search() {
+  // setting redux hooks
   const display = useAppSelector(selectDisplay);
-
   const keyword = useAppSelector(selectKeyword);
+  const dispatch = useAppDispatch();
+
+  const handleSuggestionClick = (clickedSuggestion: TagType) => {
+    dispatch(addStorage(clickedSuggestion));
+  };
 
   // handle search submit event and update keyword in searchValue
-  // eslint-disable-next-line
   const handleSearchSubmit = (inputValue: string) => {
-    console.log('submit');
+    console.log(inputValue);
   };
 
   // redux
   return (
 
-    <Popup display={display}>
+    <Popup
+      display={display}
+      onClose={() => dispatch(hide())}
+    >
       <div className="search">
 
         {/* activity keyword search */}
@@ -60,6 +65,7 @@ function Search() {
             <div className="search__tag tag-manage__search">
               <SearchTag
                 placeHolder="搜尋活動標籤"
+                onSuggestionClick={handleSuggestionClick}
               />
             </div>
 

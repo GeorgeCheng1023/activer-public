@@ -1,6 +1,4 @@
 import React from 'react';
-// style
-import './index.scss';
 
 type Props = {
   name: string,

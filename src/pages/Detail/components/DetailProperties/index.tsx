@@ -5,9 +5,6 @@ import { BranchDataType } from 'types/ActivityDataType';
 // componenst
 import Property from './Property';
 
-// style
-import './index.scss';
-
 type Props = {
   branch : BranchDataType,
 };
@@ -22,14 +19,19 @@ function DetailProperties({ branch }: Props) {
     DateEnd,
   } = branch;
 
-  console.log(branch);
   const renderDateStartElement = () => {
     if (DateStart) {
       return (
         <>
           {Object
             .entries(DateStart)
-            .map((element) => (<p>{`${element[0]}: ${element[1]}`}</p>))}
+            .map((element, index) => (
+              <p
+                key={`detail-date-start-${index}`}
+              >
+                {`${element[0]}: ${element[1]}`}
+              </p>
+            ))}
         </>
       );
     }
@@ -42,7 +44,7 @@ function DetailProperties({ branch }: Props) {
         <>
           {
             ApplyStart.map((element: string, index: number) => (
-              <p>
+              <p key={`detail-apply-start-${index}`}>
                 {`${element} ~ ${ApplyEnd[index]}`}
               </p>
             ))
@@ -58,8 +60,8 @@ function DetailProperties({ branch }: Props) {
       return (
         <>
           {
-            ApplyFee.map((element) => (
-              <p>
+            ApplyFee.map((element, index) => (
+              <p key={`detail-apply-feet-${index}`}>
                 {element}
               </p>
             ))
@@ -75,8 +77,8 @@ function DetailProperties({ branch }: Props) {
       return (
         <>
           {
-            Location.map((element) => (
-              <p>
+            Location.map((element, index) => (
+              <p key={`detail-location-${index}`}>
                 {element}
               </p>
             ))

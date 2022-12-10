@@ -4,6 +4,9 @@ import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
+import FormInputFile from 'components/Form/FormInputFile';
+import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
+
 import FormInput from '../../../components/Form/FormInput';
 import Button from '../../../components/Button';
 import FormDropDown from '../../../components/Form/FormDropdown';
@@ -18,7 +21,7 @@ function Basic() {
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
   const handleChange = (key: any, value: any) => {
-    setValues({ ...values, [key]: value });
+    setValues({ ...value, [key]: value });
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
@@ -56,29 +59,34 @@ function Basic() {
     //   .then((res) => console.log(res));
   };
 
-  const handleCropPanelShow:
-  React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
+  // crop
+  const [imageSrc, setImageSrc] = useState<string>('');
+
+  const handleCropPanelShow = () => {
     setDisplayCropPanel(true);
   };
+  useNonInitialEffect(() => {
+    handleCropPanelShow();
+  }, [imageSrc]);
 
   return (
     <form onSubmit={handleSubmit} className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__portrait">
-            {displayCropPanel
-            && (
-              <Crop
-                onCropped={handleCropped}
-                setDisplayCropPanel={setDisplayCropPanel}
-              />
-            )}
+            <Crop
+              image={imageSrc}
+              onCropped={handleCropped}
+              onClose={() => setDisplayCropPanel(false)}
+              display={displayCropPanel}
+            />
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
-              <Button
-                text="上傳頭像"
-                onClick={handleCropPanelShow}
+              <FormInputFile
+                setImageSrc={setImageSrc}
+                accept="image"
+                id="user-basic__portrait__upload"
+                label="上傳頭像"
               />
             </div>
           </div>

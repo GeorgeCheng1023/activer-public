@@ -2,8 +2,8 @@ import React from 'react';
 import './index.scss';
 
 export type ButtonType = {
-  color?: 'primary' | 'secondary' | 'success' | 'white';
-  variant?: 'outline';
+  color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white';
+  variant?: 'outline' | 'icon';
   size?: 'lg' | 'sm';
   text?: string;
   buttonType?: 'button' | 'submit' | 'reset';
@@ -57,7 +57,7 @@ Button.defaultProps = {
   onClick: null,
   color: 'primary',
   buttonType: 'button',
-  text: 'Button',
+  text: null,
   variant: undefined,
   size: undefined,
   disabled: false,

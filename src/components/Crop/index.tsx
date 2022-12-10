@@ -1,24 +1,24 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { createPortal } from 'react-dom';
 // component
 import Cropper from 'react-easy-crop';
 import Button from 'components/Button';
 import { Area } from 'react-easy-crop/types';
+import Popup, { PopupDisplayProps } from 'components/Popup';
 import getCroppedImg from './utils/cropImages';
 
 // style
 import './index.scss';
 
-const dummyDogImage = 'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZG9nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60';
-
 const zoomPercent = (value: number) => `${Math.round(value * 100)}`;
 
-type Props = {
+interface Props extends PopupDisplayProps {
   onCropped: (croppedImage: string) => void,
-  setDisplayCropPanel: React.Dispatch<React.SetStateAction<boolean>>
-};
+  image: string,
+}
 
-function Crop({ onCropped, setDisplayCropPanel }: Props) {
+function Crop({
+  onCropped, onClose, display, image,
+}: Props) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -29,7 +29,7 @@ function Crop({ onCropped, setDisplayCropPanel }: Props) {
     setCroppedAreaPixels(cropPixels);
   }, []);
 
-  // handle zoom control input
+  // handle zoom and rotation change
   const handleChangeZoom:React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setZoom(parseInt(e.target.value, 10) / 100);
   };
@@ -41,14 +41,14 @@ function Crop({ onCropped, setDisplayCropPanel }: Props) {
   const handleCropImage = useCallback(async () => {
     try {
       const getCroppedImage = await getCroppedImg(
-        dummyDogImage,
+        image,
         croppedAreaPixels,
         rotation,
       );
       if (getCroppedImage) {
         croppedImage.current = getCroppedImage;
         onCropped(croppedImage.current);
-        setDisplayCropPanel(false);
+        onClose();
       }
     } catch (error) {
       console.error(error);
@@ -59,15 +59,15 @@ function Crop({ onCropped, setDisplayCropPanel }: Props) {
   const handleCloseCropPanel:
   React.MouseEventHandler<HTMLButtonElement | HTMLDivElement> = (e) => {
     e.preventDefault();
-    setDisplayCropPanel(false);
+    onClose();
   };
 
-  return createPortal(
-    <>
+  return (
+    <Popup display={display} onClose={onClose}>
       <div className="crop-panel">
         <div className="crop-panel__container">
           <Cropper
-            image={dummyDogImage}
+            image={image}
             crop={crop}
             zoom={zoom}
             rotation={rotation}
@@ -118,13 +118,7 @@ function Crop({ onCropped, setDisplayCropPanel }: Props) {
           <Button text="取消" variant="outline" onClick={handleCloseCropPanel} />
         </div>
       </div>
-      <div
-        className="crop-back"
-        onClick={handleCloseCropPanel}
-        aria-hidden="true"
-      />
-    </>,
-    document.getElementById('root')!,
+    </Popup>
   );
 }
 

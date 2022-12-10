@@ -1,40 +1,40 @@
 import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
 // components
 import Button from 'components/Button';
+import Popup, { PopupDisplayProps } from 'components/Popup';
 import Star from '../Comment/Star';
 
 // style
 import './index.scss';
 
-type Props = {
-  setDisplayCommentPanel: React.Dispatch<React.SetStateAction<boolean>>
-};
+interface Props extends PopupDisplayProps {
+  onSubmit: (starValue: number, content: string) => void;
+}
 
-function CommentPanel({ setDisplayCommentPanel }: Props) {
+function CommentPanel({ onClose, display, onSubmit }: Props) {
   const starRef = useRef(0);
   const contentRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
 
   // handle submit comment
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(`${starRef.current}, ${contentRef.current.value}`);
-    setDisplayCommentPanel(false);
+    onSubmit(starRef.current, contentRef.current.value);
+    onClose();
   };
 
   // handle cancel write comment
   const handelCancel = (e: any) => {
     e.preventDefault();
-    setDisplayCommentPanel(false);
+    onClose();
   };
 
   const handleChangeRating = (newRating: number) => {
     starRef.current = newRating;
   };
 
-  return createPortal(
-    <>
-      <div className="comment-panel__back" />
+  return (
+    <Popup display={display} onClose={onClose}>
+
       <div className="comment-panel">
         <h2>撰寫評論 </h2>
         <Star
@@ -54,8 +54,7 @@ function CommentPanel({ setDisplayCommentPanel }: Props) {
           <Button onClick={handelCancel} text="取消" variant="outline" />
         </div>
       </div>
-    </>,
-    document.getElementById('root')!,
+    </Popup>
   );
 }
 

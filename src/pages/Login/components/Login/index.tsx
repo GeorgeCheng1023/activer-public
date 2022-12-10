@@ -79,7 +79,7 @@ function LoginSection() {
       navigate(from, { replace: true });
 
       const expiresDate = new Date();
-      expiresDate.setDate(date.getDate() + 1);
+      expiresDate.setDate(expiresDate.getDate() + 1);
 
       setCookie('Name', user, {
         expires: expiresDate,
@@ -89,6 +89,8 @@ function LoginSection() {
         expires: expiresDate,
         path: '/',
       });
+
+      console.log(cookies);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');

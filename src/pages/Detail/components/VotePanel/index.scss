@@ -1,0 +1,22 @@
+@import '~/src/_global';
+
+.vote-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  height: 80vh;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  .search-tag {
+    @include media(mobile) {
+      width: 80%;
+    }
+  }
+
+}

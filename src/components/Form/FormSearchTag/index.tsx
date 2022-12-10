@@ -3,9 +3,6 @@ import './index.scss';
 import { FiSearch } from 'react-icons/fi';
 // hooks
 import { useParseTag } from 'hooks/tag';
-import { useAppDispatch } from 'hooks/redux';
-// store
-import { addStorage } from 'store/searchPanel';
 
 // data
 import { TagType } from 'components/Tag';
@@ -14,18 +11,15 @@ import dummyAllTags from './dummyAllTag.json';
 type Props = {
 
   placeHolder: string,
-  disabled?: boolean
+  disabled?: boolean,
+  onSuggestionClick: (clickedSuggestion: TagType) => void
 };
 
 function FormSearchBar({
-  placeHolder, disabled,
+  placeHolder, disabled, onSuggestionClick,
 }: Props) {
-  // setting redux hooks
-  const dispatch = useAppDispatch();
-
   // parse all tags for suggestion
   const allTags = useParseTag(dummyAllTags);
-
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState('');
   // suggstionDisplay is a boolean that show or hide the suggestion
@@ -37,12 +31,6 @@ function FormSearchBar({
     setInputValue(e.target.value);
   };
 
-  // handle search suggestion click
-  const handleSuggestionClick = (clickSuggestion: TagType) => {
-    dispatch(addStorage(clickSuggestion));
-    setSuggestionDisplay(false);
-  };
-
   // handle blur event when click outside of suggestion
   const handleBlur:React.FocusEventHandler<HTMLInputElement> = (e) => {
     if (!e.relatedTarget) {
@@ -50,27 +38,33 @@ function FormSearchBar({
     }
   };
 
+  const handleSuggestionClick = (clickedTag: TagType) => {
+    onSuggestionClick(clickedTag);
+    setSuggestionDisplay(false);
+  };
+
   return (
     <div
-      className="searchBar__container"
+      className="search-tag"
     >
-      <div className="searchBar">
-        <input
-          className="searchBar__main"
-          type="text"
-          placeholder={placeHolder}
-          value={inputValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          disabled={disabled}
-        />
-        <button className="button-nostyle searchButton" type="submit">
-          <div className={`searchBar__section ${disabled || ''}`}>
-            <FiSearch className="searchBar__icon" />
-          </div>
-        </button>
-      </div>
-      <div className="suggestion">
+      <input
+        className="search-tag__input"
+        type="text"
+        placeholder={placeHolder}
+        value={inputValue}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        disabled={disabled}
+      />
+      <button
+        className="search-tag__button"
+        type="submit"
+        disabled={disabled}
+      >
+        <FiSearch className="search-tag__icon" />
+      </button>
+
+      <div className="search-tag__suggestion">
         {suggestionDisplay && inputValue
           && allTags.filter((tag) => (
             tag.text.includes(inputValue)
@@ -80,9 +74,8 @@ function FormSearchBar({
               <button
                 tabIndex={-1}
                 type="button"
-                className="suggestion__choice"
-                onClick={(e) => { e.preventDefault(); handleSuggestionClick(tag); }}
-                // eslint-disable-next-line react/no-array-index-key
+                className="search-tag__suggestion__choice"
+                onClick={() => handleSuggestionClick(tag)}
                 key={`suggestion-${index}`}
               >
                 {tag.text}

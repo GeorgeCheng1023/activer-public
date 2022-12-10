@@ -92,6 +92,7 @@ function FormDropdown({
             className="dropdown__option-container__option"
             type="button"
             id={`dropdown-${name}-option${index}`}
+            key={`dropdown-${name}-option${index}`}
             name={name}
             value={option}
             placeholder={option || 'Choice'}

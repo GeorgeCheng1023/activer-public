@@ -1,0 +1,25 @@
+@import '~/src/_variables';
+
+.input-file {
+  background-color: $primary-color;
+  padding: 0.5em;
+
+
+  border-radius: 0.4em;
+  color: white;
+
+  font-size: 1rem;
+
+  cursor: pointer;
+  transition: all 0.5s;
+
+  &:hover {
+    filter: brightness(85%);
+  }
+
+  +input[type="file"] {
+    display: none;
+  }
+
+
+}
