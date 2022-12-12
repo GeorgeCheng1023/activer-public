@@ -1,0 +1,20 @@
+
+.forgot-pwd {
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__title {
+    font-size: 1.5rem;
+    margin: 2rem 0;
+  }
+  &__text-field {
+    width: 50vw;
+  }
+  &__submit-btn {
+    margin: 2rem 0;
+  }
+}

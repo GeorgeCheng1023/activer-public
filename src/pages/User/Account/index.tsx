@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
-import dummyAccountData from './dummyAccountData.json';
 import './index.scss';
+import { useAppDispatch } from 'hooks/redux';
+import { userUpdate } from 'store/userAuth';
+import dummyAccountData from './dummyAccountData.json';
 
 function Account() {
   const [accountValue, setAccountValue] = useState(dummyAccountData);
+  const dispatch = useAppDispatch();
 
   const handleChange = (key: any, value: any) => {
     setAccountValue({ ...accountValue, [key]: value });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
+    event.preventDefault();
+    dispatch(userUpdate({ Password: accountValue.password }));
+  };
+
   return (
 
-    <form className="user-account">
+    <form onSubmit={handleSubmit} className="user-account">
       <div className="user-account__input user-account__input__account">
         <FormInput
           inputProps={{

@@ -21,42 +21,25 @@ function Basic() {
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
   const handleChange = (key: any, value: any) => {
-    setValues({ ...value, [key]: value });
+    setValues({ ...values, [key]: value });
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log(userData);
+    console.log(values);
     dispatch(userUpdate(values));
     dispatch(updateUserData(userData));
   };
+
   const handleCountyChange = (key: any, value: any) => {
-    setSelectCounty(userData.Country);
+    setSelectCounty(value);
     handleChange(key, value);
   };
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('Portrait', croppedImage);
-
-    // ?? 0.0
-    // const imageName = croppedImage.slice(5);
-    // const imageBlob = new Blob([imageName], {
-    //   type: 'image/jpeg',
-    // });
-    // const formData = new FormData();
-    // formData.append('Avatar', imageBlob);
-
-    // const userFormData = {
-    //   Avatar: formData,
-    //   SessionToken: userData.SessionToken,
-    // };
-
-    // formDataRequest.put(`/api/user/${userData.Id}`, userFormData, {
-    //   headers: { 'Content-Type': 'application/json' },
-    // })
-    //   .then((res) => console.log(res));
   };
 
   // crop

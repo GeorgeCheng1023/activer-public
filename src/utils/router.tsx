@@ -13,7 +13,8 @@ import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
 import NotFound from 'pages/NotFound';
 import Loading from 'pages/Loading';
-import ForgetPwd from 'pages/Login/components/ForgetPwd/ForgetPwd';
+import ForgetPwd from 'pages/Login/components/ForgetPwd';
+import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 
 export const routerConfig = [
   {
@@ -21,64 +22,67 @@ export const routerConfig = [
     element: <Root />,
     children: [
       {
-        path: '/login',
-        element: <Login />,
-      },
-      {
-        path: '/register',
-        element: <Register />,
-      },
-      {
-        path: '/password',
-        element: <ForgetPwd />,
-      },
-
-      {
-        path: '/',
-        element: <Home />,
-      },
-      {
-        path: '/search',
-        element: <Search />,
-      },
-
-      {
-        element: <Admin />,
+        element: <PersistLogin />,
         children: [
           {
-            path: '/user',
-            element: <User />,
+            path: '/',
+            element: <Home />,
+          },
+          {
+            path: '/login',
+            element: <Login />,
+          },
+          {
+            path: '/register',
+            element: <Register />,
+          },
+          {
+            path: '/password',
+            element: <ForgetPwd />,
+          },
+          {
+            path: '/search',
+            element: <Search />,
+          },
+          {
+            element: <Admin />,
             children: [
               {
-                index: true,
-                path: 'basic',
-                element: <Basic />,
-              },
-              {
-                path: 'account',
-                element: <Account />,
-              },
-              {
-                path: 'manage',
-                element: <Manage />,
-              },
-              {
-                path: 'history',
-                element: <History />,
+                path: '/user',
+                element: <User />,
+                children: [
+                  {
+                    index: true,
+                    path: 'basic',
+                    element: <Basic />,
+                  },
+                  {
+                    path: 'account',
+                    element: <Account />,
+                  },
+                  {
+                    path: 'manage',
+                    element: <Manage />,
+                  },
+                  {
+                    path: 'history',
+                    element: <History />,
 
-              },
-              {
-                path: 'preferences',
-                element: <Preferences />,
-              },
-              {
-                path: 'record',
-                element: <Record />,
+                  },
+                  {
+                    path: 'preferences',
+                    element: <Preferences />,
+                  },
+                  {
+                    path: 'record',
+                    element: <Record />,
+                  },
+
+                ],
               },
 
             ],
           },
-
         ],
       },
 

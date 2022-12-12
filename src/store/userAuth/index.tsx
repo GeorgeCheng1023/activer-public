@@ -6,11 +6,14 @@ import { apiUserGoogleData, apiUserLogin, apiUserUpdate } from 'api/axios';
 
 const initialState: UserState = {
   IsLoggedIn: false,
+  Loading: 'idle',
+  Status: 0, // 0 | 1
   Id: 0,
   RealName: '',
   NickName: '',
-  Email: '',
   Portrait: '',
+  Email: '',
+  Password: '',
   Gender: '',
   Birthday: '',
   Profession: '',
@@ -19,8 +22,6 @@ const initialState: UserState = {
   Area: '',
   ActivityHistory: [],
   TagHistory: [],
-  Status: 0, // 0 | 1
-  Loading: 'idle',
   SessionToken: '',
 };
 
@@ -31,14 +32,11 @@ interface userLoginType {
 
 export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLoginType) => {
   const response = await apiUserLogin(userData);
-  // eslint-disable-next-line no-console
-  console.log(response);
   return response;
 });
 
 export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
   const response = await apiUserGoogleData(accessToken);
-  console.log(response);
   return response;
 });
 
@@ -61,13 +59,11 @@ const userAuthSlice = createSlice({
       Loading: 'idle',
       SessionToken: '',
     }),
-    userUpdate: (state, action: PayloadAction<any>) => {
-      const userData = action.payload;
-      return ({
-        ...state,
-        ...userData,
-      });
-    },
+    userUpdate: (state, action: PayloadAction<any>) => ({
+      ...state,
+      ...action.payload,
+      IsLoggedIn: true,
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -76,7 +72,6 @@ const userAuthSlice = createSlice({
         Loading: 'loading',
       }))
       .addCase(userLogin.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log(action.payload);
         const { Status } = action.payload.data;
         if (Status === 0) {
           return ({
@@ -105,7 +100,6 @@ const userAuthSlice = createSlice({
 
       .addCase(getUserGoogleData.fulfilled, (state, action) => {
         const userData = action.payload.data;
-        console.log(userData);
         return ({
           ...state,
           IsLoggedIn: true,

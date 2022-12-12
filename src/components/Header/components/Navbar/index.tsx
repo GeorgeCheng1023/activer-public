@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 // style
 import './index.scss';
 // redux
@@ -21,6 +22,7 @@ function Navbar() {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [, , removeCookie] = useCookies<string>(['user']);
 
   // user login and logout
   const handleLoginClick = () => {
@@ -33,6 +35,8 @@ function Navbar() {
   };
   const handleLogout = () => {
     dispatch(userLogout());
+    removeCookie('email', { path: '/' });
+    removeCookie('sessionToken', { path: '/' });
     navigate('/');
   };
 

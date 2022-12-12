@@ -26,7 +26,7 @@ function LoginSection() {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  const [cookies, setCookie] = useCookies<string>(['user']);
+  const [, setCookie] = useCookies<string>(['user']);
 
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
@@ -81,16 +81,16 @@ function LoginSection() {
       const expiresDate = new Date();
       expiresDate.setDate(expiresDate.getDate() + 1);
 
-      setCookie('Name', user, {
+      setCookie('email', user, {
         expires: expiresDate,
         path: '/',
+        sameSite: true,
       });
-      setCookie('SessionToken', response.data.SessionToken, {
+      setCookie('sessionToken', response.payload.data.SessionToken, {
         expires: expiresDate,
         path: '/',
+        sameSite: true,
       });
-
-      console.log(cookies);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');
