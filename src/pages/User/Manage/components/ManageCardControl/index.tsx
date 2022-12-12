@@ -61,8 +61,9 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
             label: '狀態',
             name: 'status',
             options: ['registered', 'dream'],
-            defaultSelected: 'registered',
+
           }}
+          value={selectedValue}
           onChange={handleChange}
         />
       </form>
