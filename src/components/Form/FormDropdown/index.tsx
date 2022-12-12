@@ -1,115 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import { SlArrowUp as IconArrowUp } from 'react-icons/sl';
+import React from 'react';
 import './index.scss';
-// import options from './options';
 
-export type dropDownType = {
-  label: string;
+interface DropdownType {
+  id: string;
+  label?: string;
   name: string;
-  options: string[],
-  defaultOption?: string;
-};
+  options: string[];
+  defaultSelected?: string;
+}
 
-export type FormDropDownType = {
-  dropdownProps: dropDownType,
-  variant?: 'withoutLabel',
-  onChange: (key: any, value: any) => void
-};
+interface Props {
+  dropdownProps: DropdownType,
+  onChange: (key: any, value: any) => void;
+}
 
-function FormDropdown({
-  dropdownProps, variant, onChange,
-}: FormDropDownType) {
-  // destructing dropdown props
+function FormDropDown({
+  dropdownProps, onChange,
+}: Props) {
   const {
-    label, name, options, defaultOption,
+    id,
+    label,
+    name,
+    options,
+    defaultSelected,
   } = dropdownProps;
 
-  // init default selected values
-  const [selectedOption, setSelectOption] = useState(defaultOption);
-
-  // state for toogle dropdown
-  const [displayDropdown, setDisplayDropdown] = useState(false);
-  // state for change style className
-  const [changeValueTheme, setChangeValueTheme] = useState(false);
-
-  // when selectedOption Change , will pass up bt onChange function
-  useEffect(() => {
-    onChange(name, selectedOption);
-  }, [selectedOption]);
-
-  // toggle dropdown: mouse click
-  const handleClickDropdown:
-  React.MouseEventHandler<HTMLDivElement> = (e) => {
-    e.preventDefault();
-    setDisplayDropdown(true);
-  };
-  // toggle dropdwon: keyboard 'Enter' event
-  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
-    if (event.key === 'Enter') {
-      setDisplayDropdown(false);
-    }
-  };
-
-  // handle dropdown click and change form value
-  const handleChoiceClick: React.MouseEventHandler<HTMLInputElement> = (event) => {
-    setDisplayDropdown(false);
-    setChangeValueTheme(true);
-    setSelectOption((event.target as HTMLInputElement).value);
-  };
-
-  const handleBlur:
-  React.FocusEventHandler<HTMLDivElement> = (e) => {
-    e.preventDefault();
-    setDisplayDropdown(false);
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    onChange(event.target.name, event.target.value);
   };
 
   return (
-    <div className={`dropdown dropdown--${variant}`} onBlur={handleBlur}>
-      <p className="dropdown__label">
-        {label || 'Label'}
-      </p>
-
-      <div
-        className={`dropdown__selected ${changeValueTheme && 'dropdown__selected--select'}`}
-        onClick={handleClickDropdown}
-        onKeyDown={handleKeyDown}
-        role="button"
-        tabIndex={0}
-      >
-        {selectedOption || 'Select Choice'}
-        <div
-          className={`dropdown__selected__icon ${displayDropdown && 'dropdown__selected__icon--active'}`}
+    <div className="dropdown">
+      {label
+      && (
+        <label
+          htmlFor={id}
+          className="dropdown__label"
         >
-          <IconArrowUp />
-        </div>
-
-      </div>
-
-      <div className={`dropdown__option-container ${displayDropdown && 'dropdown__option-container--active'}`}>
-
-        {options?.map((option, index) => (
-          <input
-            className="dropdown__option-container__option"
-            type="button"
-            id={`dropdown-${name}-option${index}`}
-            key={`dropdown-${name}-option${index}`}
-            name={name}
+          {label}
+        </label>
+      )}
+      <select
+        id={id}
+        name={name}
+        className="dropdown__select"
+        onChange={handleChange}
+      >
+        {options.map((option: string, index: number) => (
+          <option
             value={option}
-            placeholder={option || 'Choice'}
-            onClick={handleChoiceClick}
-            onKeyDown={handleKeyDown}
-            tabIndex={0}
-          />
-
+            key={`${name}-option-${index}`}
+            className="dropdown__option"
+            selected={defaultSelected === option}
+          >
+            {option}
+          </option>
         ))}
-
-      </div>
+      </select>
     </div>
   );
 }
 
-FormDropdown.defaultProps = {
-  variant: 'default',
-};
-
-export default FormDropdown;
+export default FormDropDown;

@@ -7,10 +7,11 @@ import Crop from 'components/Crop';
 import FormInputFile from 'components/Form/FormInputFile';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
-import FormInput from '../../../components/Form/FormInput';
-import Button from '../../../components/Button';
+import FormInput from 'components/Form/FormInput';
+import Button from 'components/Button';
+import FormDropDown from 'components/Form/FormDropdown';
+import axios from 'axios';
 import dummyUserData from './dummyUserData.json';
-import FormDropDown from '../../../components/Form/FormDropdown';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
@@ -27,12 +28,10 @@ function Basic() {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const userFormData = new FormData(event.target as HTMLFormElement);
-    // @ts-ignore
     // eslint-disable-next-line
-    for (const value of userFormData.values()) {
-      console.log(value);
-    }
+    const userFormData = new FormData(event.target as HTMLFormElement);
+
+    axios.post('http://localhost:5000/test', userFormData);
 
     // dispatch(userUpdate(values));
   };
@@ -112,12 +111,23 @@ function Basic() {
           </div>
           <div className="user-basic__container">
             <div className="user-basic__input user-basic__input__gender">
-              <FormDropDown
+              {/* <FormDropDown
                 dropdownProps={{
                   label: '性別',
                   name: 'Gender',
                   options: ['男性', '女性', '其他', '隱藏'],
                   defaultOption: values.Gender,
+                }}
+                onChange={handleChange}
+              /> */}
+
+              <FormDropDown
+                dropdownProps={{
+                  id: 'gender',
+                  label: '性別',
+                  name: 'Gender',
+                  options: ['男性', '女性', '其他', '隱藏'],
+                  defaultSelected: values.Gender,
                 }}
                 onChange={handleChange}
               />
@@ -157,10 +167,11 @@ function Basic() {
               <div className="user-basic__input__location__county">
                 <FormDropDown
                   dropdownProps={{
+                    id: 'country',
                     label: '縣市',
                     name: 'Country',
                     options: CityCountyData.map((c) => c.CityName),
-                    defaultOption: dummyUserData.Country,
+                    defaultSelected: dummyUserData.Country,
                   }}
                   onChange={handleCountyChange}
                 />
@@ -168,6 +179,7 @@ function Basic() {
               <div className="user-basic__input__location__area">
                 <FormDropDown
                   dropdownProps={{
+                    id: 'area',
                     label: '區鄉鎮',
                     name: 'Area',
                     options: CityCountyData.find(

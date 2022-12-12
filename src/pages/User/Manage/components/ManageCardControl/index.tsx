@@ -57,9 +57,11 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
       <form className="manage-control__select">
         <FormDropDown
           dropdownProps={{
+            id: 'status',
             label: '狀態',
             name: 'status',
             options: ['registered', 'dream'],
+            defaultSelected: 'registered',
           }}
           onChange={handleChange}
         />
