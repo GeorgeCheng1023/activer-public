@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
-import { useAppDispatch } from 'hooks/redux';
-import { userUpdate } from 'store/userAuth';
+// import { useAppDispatch } from 'hooks/redux';
+// import { userUpdate } from 'store/userAuth';
 import FormInputFile from 'components/Form/FormInputFile';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
@@ -14,8 +14,9 @@ import FormDropDown from '../../../components/Form/FormDropdown';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
+  // init state
   const [values, setValues] = useState(dummyUserData);
   const [selectedCounty, setSelectCounty] = useState('');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
@@ -26,9 +27,14 @@ function Basic() {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(values);
-    dispatch(userUpdate(values));
+    const userFormData = new FormData(event.target as HTMLFormElement);
+    // @ts-ignore
+    // eslint-disable-next-line
+    for (const value of userFormData.values()) {
+      console.log(value);
+    }
+
+    // dispatch(userUpdate(values));
   };
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
@@ -64,6 +70,7 @@ function Basic() {
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
               <FormInputFile
+                name="Portrait"
                 setImageSrc={setImageSrc}
                 accept="image"
                 id="user-basic__portrait__upload"
