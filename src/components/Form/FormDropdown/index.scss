@@ -1,136 +1,67 @@
 @import '~/src/_variables';
 @import '~/src/_global';
-$_unselected-color: #717171;
-$_focus-color: #FEF6D8;
 
 .dropdown {
   position: relative;
-
-  display: flex;
-  flex-direction: column;
-
-  width: 10em;
-  height: fit-content;
-  margin-top: 1.2em;
-
+  float: left;
   font-size: 1rem;
+  margin-top: 0.8em;
 
   &__label {
     position: absolute;
-    z-index: $zindex-dropdown-label;
-    left: 0.6em;
-    top: -1em;
-
-    display: flex;
-    align-items: center;
-    justify-items: center;
-
-    width: fit-content;
-    height: fit-content;
-    padding: 0 .5em;
-
-    background-color: #FFF;
-  }
-
-  &__selected {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    padding: .5em;
-    border: 1px solid $secondary-font-color;
-    border-radius: .5em;
-    margin-bottom: .5em;
-
-    color: $_unselected-color;
-
-    cursor: pointer;
-
-    &__icon {
-      position: absolute;
-      right: 1em;
-
-      display: flex;
-      align-items: center;
-      justify-items: center;
-
-      margin: 0;
-      transition: all 0.8s;
-    }
-
-    ;
-
-    &__icon--active {
-      transform: rotateX(180deg);
-    }
-
-    ;
-  }
-
-  &__selected--select {
-    color: $primary-font-color;
-  }
-
-  &__option-container {
-    position: absolute;
-    top: 3em;
-    z-index: $zindex-dropdown;
-    display: flex;
-    flex-direction: column;
-
-    max-height: 0;
-    width: 100%;
-
-    font-weight: 400;
-    color: $primary-font-color;
+    top: -0.8em;
+    left: 0.5em;
+    padding: 0 0.2em;
     background-color: white;
-
-    opacity: 0;
-    transition: all 0.4s;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 3px 8px 3px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0px 3px 8px 3px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0px 3px 8px 3px rgba(0, 0, 0, 0.1);
-
-    &__option {
-      padding: 0.5em 1em;
-      background-color: white;
-      border-color: white;
-      border-style: none;
-      text-align: left;
-    }
-
-    &__option .option__radio {
-      display: none;
-    }
-
-    &__option:hover {
-      background-color: $_focus-color;
-    }
-
-    &__option,
-    &__option>* {
-      cursor: pointer;
-    }
   }
 
-  &__option-container::-webkit-scrollbar {
-    border-radius: 0 8px 8px 0;
-    width: .25em;
+  &::-ms-expand {
+    display: none;
   }
 
-  &__option-container::-webkit-scrollbar-thumb {
-    border-radius: 0 8px 8px 0;
-    background-color: #000;
-  }
+  &__select {
 
-  &__option-container--active {
-    max-height: 10em;
+    // reset default apperance
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    display: block;
+    width: fit-content;
+    height: 50px;
+    float: right;
+    padding-left: 1em;
+    padding-right: 4em;
+    line-height: 1.75;
+    color: #333;
+    background-color: #ffffff;
+    background-image: none;
     border: 1px solid $secondary-font-color;
-    border-radius: 8px;
+    border-radius: 0.4em;
+    -ms-word-break: normal;
+    word-break: normal;
 
-    opacity: 1;
-    overflow-y: scroll;
+    outline: none;
+  }
+
+
+  &::after {
+    content: '<>';
+    font: 17px "Consolas", monospace;
+    color: #333;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 0;
+    /*Adjust for position however you want*/
+
+    top: 0.6em;
+    padding: 0 0.5em 0.5em;
+    height: fit-content;
+    border-bottom: 0.6px solid #999;
+    /*left line */
+    position: absolute;
+    pointer-events: none;
   }
 }

@@ -10,7 +10,6 @@ import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import FormDropDown from 'components/Form/FormDropdown';
-import axios from 'axios';
 import dummyUserData from './dummyUserData.json';
 import CityCountyData from './CityCountyData.json';
 
@@ -31,7 +30,7 @@ function Basic() {
     // eslint-disable-next-line
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    axios.post('http://localhost:5000/test', userFormData);
+    // axios.post('http://localhost:5000/test', userFormData);
 
     // dispatch(userUpdate(values));
   };
