@@ -1,44 +1,88 @@
-{
-  "activities": [
-    {
-      "image_url": [
-        "https://plus.unsplash.com/premium_photo-1661636028796-2e32726689b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-        "https://plus.unsplash.com/premium_photo-1661636028796-2e32726689b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-      ],
-      "title": "自媒體線上工作坊",
-      "image_alt": "自媒體線上工作坊",
-      "tags": [
-        {
-          "variant": "area",
-          "text": "Bla"
+[
+  {
+    "Id": 1,
+    "Title": "【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "Image": null,
+    "Tags": [
+      {
+        "Type": "area",
+        "Id": 0,
+        "Text": "教育",
+        "TagCount": 10,
+        "UserVoted": false
+      },
+      {
+        "Type": "location",
+        "Id": 1,
+        "Text": "臺北市",
+        "TagCount": 1,
+        "UserVoted": true
+      }
+    ],
+    "Branches": [
+      {
+        "BranchName": "General",
+        "DateStart": {
+          "研習日期": "2022-11-05"
         },
-        {
-          "variant": "area",
-          "text": "Bla"
-        }
-      ],
-      "date_start": "2022-10-22",
-      "apply_end": "2022-09-30"
-    },
-    {
-      "imgage_url": [
-        "https://plus.unsplash.com/premium_photo-1661636028796-2e32726689b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-        "https://plus.unsplash.com/premium_photo-1661636028796-2e32726689b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60"
-      ],
-      "title": "自媒體線上工作坊",
-      "image_alt": "自媒體線上工作坊",
-      "tags": [
-        {
-          "variant": "area",
-          "text": "Bla"
+        "DateEnd": [
+          "2022-11-06"
+        ],
+        "ApplyStart": [
+          "自即日起"
+        ],
+        "ApplyEnd": [
+          "2022-11-02"
+        ],
+        "ApplyFee": null,
+        "Location": [
+          "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
+        ],
+        "Status": "願望"
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "Title": "【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "Image": null,
+    "Tags": [
+      {
+        "Type": "area",
+        "Id": 0,
+        "Text": "教育",
+        "TagCount": 10,
+        "UserVoted": false
+      },
+      {
+        "Type": "location",
+        "Id": 1,
+        "Text": "臺北市",
+        "TagCount": 1,
+        "UserVoted": true
+      }
+    ],
+    "Branches": [
+      {
+        "BranchName": "General",
+        "DateStart": {
+          "研習日期": "2022-11-05"
         },
-        {
-          "variant": "area",
-          "text": "Bla"
-        }
-      ],
-      "date_start": "2022-10-22",
-      "apply_end": "2022-09-30"
-    }
-  ]
-}
+        "DateEnd": [
+          "2022-11-06"
+        ],
+        "ApplyStart": [
+          "自即日起"
+        ],
+        "ApplyEnd": [
+          "2022-11-02"
+        ],
+        "ApplyFee": null,
+        "Location": [
+          "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
+        ],
+        "Status": "已報名"
+      }
+    ]
+  }
+]

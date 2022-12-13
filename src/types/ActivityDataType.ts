@@ -1,15 +1,18 @@
-interface ActivityDataType {
+export interface BaseActivityDataType {
   Id: number;
   Title: string;
-  Content: string;
   Image: string[] | null;
+  Tags: ActivityTagDataType[] | null;
+  Branches: BranchDataType[]
+}
+
+interface ActivityDataType extends BaseActivityDataType {
+  Content: string;
   Connection: string[] | null;
   Holder: string[] | null ;
   Objective: string[] | null;
   Sources: string[] | null;
   Subtitle:string | null;
-  Tags: ActivityTagDataType[] | null;
-  Branches: BranchDataType[];
 }
 
 export interface TagDataType {
@@ -31,7 +34,7 @@ export interface BranchDataType {
   ApplyEnd: string[] | null;
   ApplyFee: string[] | null;
   Location: string[] | null;
-
+  Status: string | undefined | null;
 }
 
 interface DateType {

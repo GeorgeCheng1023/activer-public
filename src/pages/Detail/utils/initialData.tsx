@@ -8,6 +8,7 @@ export const initialBranchesState: BranchDataType = {
   ApplyEnd: [],
   ApplyFee: [],
   Location: [],
+  Status: undefined,
 };
 export const initialDataState:ActivityDataType = {
   Id: 0,
