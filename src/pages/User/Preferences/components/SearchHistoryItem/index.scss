@@ -1,0 +1,21 @@
+@import '~/src/_variables';
+
+.search-history-item {
+  display: flex;
+
+  padding: 1em;
+
+  border: 1px solid $secondary-font-color;
+
+
+  &__keyword {
+    flex-grow: 0.2
+  }
+
+  &__tags {
+    display: flex;
+    gap: 0.5em;
+    flex-grow: 0.8;
+  }
+
+}
