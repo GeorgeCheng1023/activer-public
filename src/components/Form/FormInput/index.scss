@@ -2,11 +2,14 @@
 
 .form-input {
   position: relative;
+
   display: flex;
   flex-direction: column;
   height: fit-content;
+
   width: 100%;
 
+  font-size: 1rem;
   color: $primary-font-color;
 
   &__label {
@@ -26,13 +29,14 @@
 
   &__section {
     position: relative;
-    padding-top: 1em;
+    margin-top: 1rem;
 
     &__input {
       border: 1px solid $secondary-font-color;
       border-radius: .5em;
       padding: 1em;
       width: 100%;
+      line-height: 1rem;
     }
 
     &::placeholder {
