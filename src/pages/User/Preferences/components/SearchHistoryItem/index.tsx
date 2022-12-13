@@ -42,6 +42,7 @@ function SearchHistoryItem({ data } : Props) {
             id={tag.Id.toString()}
             variant={tag.Type as TagType['variant']}
             key={`search-history-item__tags-${tag.Id.toString()}`}
+            disabled
           />
         ))}
       </div>
