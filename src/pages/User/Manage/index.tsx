@@ -1,24 +1,25 @@
 import React from 'react';
+// components
 import { BiBorderAll } from 'react-icons/bi';
 import { BsBookmarkHeart } from 'react-icons/bs';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import ManageNav from 'components/ManageNav';
-import { CardColumn, CardType } from '../../../components/Card';
+import { useParseTagDataArray } from 'hooks/tag';
+import ManageActivityItem from './components/ManageActivityItem';
+
+// dummyData
 import dummyActivity from './dummy.json';
-import ManageCardControl from './components/ManageCardControl';
+// style
 import './index.scss';
 
 function Manage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const changeFilterHandler = (id: number) => {
-    // eslint-disable-next-line no-console
-    // console.log(id);
+    console.log(id);
   };
 
   return (
     <>
       <ManageNav
-        // onClick={clickHandler}
         buttons={
           [
             {
@@ -37,31 +38,23 @@ function Manage() {
         }
         onChangeFilter={changeFilterHandler}
       />
-      <div className="manage-main">
-        {dummyActivity.activities.map((activity) => {
-          const {
-            image_url: imgUrl, title, image_alt: altText, tags, date_start, apply_end,
-          } = activity;
+      <div className="manage__items">
+        {dummyActivity.map((activity) => {
+          const focusBranch = activity.Branches.filter((branch) => branch.Status != null)[0];
 
-          const firstImgUrl = imgUrl?.[0];
           return (
-            <div className="manage-main__card">
-              <CardColumn
-                data={{
-                  imgUrl: firstImgUrl, title, altText, tags,
-                } as CardType}
-                control={(
-
-                  <ManageCardControl
-                    beginDate={date_start}
-                    dueDate={apply_end}
-                  />
-
-                )}
-              />
-            </div>
+            <ManageActivityItem
+              title={activity.Title}
+              imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
+              altText={focusBranch.BranchName}
+              tags={useParseTagDataArray(activity.Tags)}
+              detail={focusBranch.BranchName}
+              applyEndDate={focusBranch.ApplyEnd[0]}
+              beginDate={Object.values(focusBranch.DateStart)[0]}
+            />
           );
         })}
+
       </div>
 
     </>
