@@ -44,7 +44,7 @@ declare global {
     RealName: string,
     NickName: string,
     Email: string,
-    Password: string,
+    Password: stringik,
     Portrait: string,
     Gender: string,
     Birthday: string,

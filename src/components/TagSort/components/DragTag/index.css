@@ -1,0 +1,9 @@
+.drag-tag {
+  margin: 2em 0;
+  color: transparent;
+  background-color: transparent;
+  cursor: move;
+}
+.drag-tag .tag {
+  cursor: move;
+}/*# sourceMappingURL=index.css.map */

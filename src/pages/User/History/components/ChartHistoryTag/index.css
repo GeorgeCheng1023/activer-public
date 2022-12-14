@@ -1,0 +1,12 @@
+.chart__tag {
+  height: 20rem;
+  overflow: hidden;
+  display: block;
+}
+.chart__tag foreignObject > .tag {
+  width: 100%;
+  height: 100%;
+}
+.chart__tag .recharts-label-list tspan {
+  fill: white;
+}/*# sourceMappingURL=index.css.map */

@@ -2,21 +2,35 @@ import React, { useState } from 'react';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import './index.scss';
-import { useAppDispatch } from 'hooks/redux';
-import { userUpdate } from 'store/userAuth';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
 import dummyAccountData from './dummyAccountData.json';
+
+// regex
+const PWD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/';
 
 function Account() {
   const [accountValue, setAccountValue] = useState(dummyAccountData);
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
 
   const handleChange = (key: any, value: any) => {
     setAccountValue({ ...accountValue, [key]: value });
   };
 
+  const updateUserDatabase = (value: any) => {
+    const storeData = value;
+    storeData.Id = userData.Id;
+    storeData.SessionToken = userData.SessionToken;
+    console.log(storeData);
+    dispatch(updateUserData(storeData));
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
-    dispatch(userUpdate({ Password: accountValue.password }));
+    const storeData = { Password: accountValue.password };
+    dispatch(userUpdate(storeData));
+    updateUserDatabase(storeData);
   };
 
   return (
@@ -44,6 +58,8 @@ function Account() {
             label: '密碼',
             inputType: 'password',
             placeholder: 'Enter your account',
+            pattern: PWD_REGEX,
+            errorMessage: '密碼格式錯誤',
           }}
           onChange={handleChange}
           formValue={accountValue}

@@ -1,0 +1,10 @@
+.inputForm {
+  position: relative;
+  width: 100%;
+  height: 6rem;
+  display: flex;
+}
+.inputForm--heroForm {
+  width: 589px;
+  height: 13.5rem;
+}/*# sourceMappingURL=index.css.map */

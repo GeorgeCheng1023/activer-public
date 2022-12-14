@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './index.scss';
+
+// components
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
+import GoogleLoginButton from '../GoogleLogin';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -29,6 +32,7 @@ function ForgetPwd() {
   return (
     <main className="forgot-pwd">
       <h1 className="forgot-pwd__title">忘記密碼?</h1>
+      <h3 className="forgot-pwd__subtitle">輸入電子郵件</h3>
       <div className="forgot-pwd__text-field">
         <FormInput
           inputProps={{
@@ -36,7 +40,7 @@ function ForgetPwd() {
             name: 'NickName',
             inputType: 'text',
             label: '電子信箱驗證',
-            placeholder: '電子信箱驗證',
+            placeholder: '電子信箱',
             errorMessage: '電子信箱格式錯誤',
             pattern: EMAIL_REGEX_PATTERN,
           }}
@@ -44,8 +48,18 @@ function ForgetPwd() {
           onChange={handleChange}
         />
       </div>
+      <Link to="/login">
+        <p className="forgot-pwd__back-btn">回到登入畫面</p>
+      </Link>
+
+      <aside className="or-aside" />
+
+      <pattern>
+        <GoogleLoginButton />
+      </pattern>
+
       <div className="forgot-pwd__submit-btn">
-        <Button text="寄出驗證碼" color="secondary" onClick={handleClick} />
+        <Button text="寄出" color="secondary" onClick={handleClick} />
       </div>
     </main>
   );

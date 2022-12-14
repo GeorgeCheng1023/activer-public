@@ -2,21 +2,25 @@ import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
+// import { useAppDispatch } from 'hooks/redux';
+// import { userUpdate } from 'store/userAuth';
 import FormInputFile from 'components/Form/FormInputFile';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
-import FormInput from '../../../components/Form/FormInput';
-import Button from '../../../components/Button';
-import FormDropDown from '../../../components/Form/FormDropdown';
+import FormInput from 'components/Form/FormInput';
+import Button from 'components/Button';
+import FormDropDown from 'components/Form/FormDropdown';
+import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import dummyUserData from './dummyUserData.json';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
 
-  const [values, setValues] = useState(userData);
+  // init state
+  const [values, setValues] = useState(dummyUserData);
   const [selectedCounty, setSelectCounty] = useState('');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
@@ -24,12 +28,23 @@ function Basic() {
     setValues({ ...values, [key]: value });
   };
 
+  const updateUserDatabase = (value: any) => {
+    const storeData = value;
+    storeData.Id = userData.Id;
+    storeData.SessionToken = userData.SessionToken;
+    console.log(storeData);
+    dispatch(updateUserData(storeData));
+  };
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(values);
+    // eslint-disable-next-line
+    const userFormData = new FormData(event.target as HTMLFormElement);
+
+    // axios.post('http://localhost:5000/test', userFormData);
+
     dispatch(userUpdate(values));
-    dispatch(updateUserData(userData));
+    updateUserDatabase(values);
   };
 
   const handleCountyChange = (key: any, value: any) => {
@@ -66,6 +81,7 @@ function Basic() {
             <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
               <FormInputFile
+                name="Portrait"
                 setImageSrc={setImageSrc}
                 accept="image"
                 id="user-basic__portrait__upload"
@@ -107,12 +123,23 @@ function Basic() {
           </div>
           <div className="user-basic__container">
             <div className="user-basic__input user-basic__input__gender">
-              <FormDropDown
+              {/* <FormDropDown
                 dropdownProps={{
                   label: '性別',
                   name: 'Gender',
                   options: ['男性', '女性', '其他', '隱藏'],
                   defaultOption: values.Gender,
+                }}
+                onChange={handleChange}
+              /> */}
+
+              <FormDropDown
+                dropdownProps={{
+                  id: 'gender',
+                  label: '性別',
+                  name: 'Gender',
+                  options: ['男性', '女性', '其他', '隱藏'],
+                  defaultSelected: values.Gender,
                 }}
                 onChange={handleChange}
               />
@@ -152,10 +179,11 @@ function Basic() {
               <div className="user-basic__input__location__county">
                 <FormDropDown
                   dropdownProps={{
+                    id: 'country',
                     label: '縣市',
                     name: 'County',
                     options: CityCountyData.map((c) => c.CityName),
-                    defaultOption: userData.County,
+                    defaultSelected: dummyUserData.County,
                   }}
                   onChange={handleCountyChange}
                 />
@@ -163,6 +191,7 @@ function Basic() {
               <div className="user-basic__input__location__area">
                 <FormDropDown
                   dropdownProps={{
+                    id: 'area',
                     label: '區鄉鎮',
                     name: 'Area',
                     options: CityCountyData.find(

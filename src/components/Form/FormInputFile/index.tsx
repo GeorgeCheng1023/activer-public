@@ -3,6 +3,7 @@ import './index.scss';
 
 type Props = {
   id: string;
+  name: string;
   label: string;
   onClick?: React.MouseEventHandler<HTMLInputElement>
   accept?: 'image' | 'pdf',
@@ -10,7 +11,7 @@ type Props = {
 };
 
 function FormInputFile({
-  onClick, accept, setImageSrc, id, label,
+  onClick, accept, setImageSrc, id, label, name,
 }: Props) {
   let acceptVaraint;
   switch (accept) {
@@ -46,6 +47,7 @@ function FormInputFile({
       <input
         id={id}
         type="file"
+        name={name}
         onClick={onClick}
         accept={acceptVaraint}
         onChange={setImageSrc ? handleOnPreview : undefined}

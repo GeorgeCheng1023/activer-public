@@ -12,6 +12,7 @@ import { userLogin } from 'store/userAuth';
 import { useAppDispatch } from 'hooks/redux';
 
 // Components
+import FAQTag from 'components/FAQ-Tag';
 import ButtonFrame from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
@@ -139,6 +140,10 @@ function LoginSection() {
             required
           />
         </section>
+
+        <div className="login-section__pwd-tag">
+          <FAQTag title="忘記密碼?" url="/password" />
+        </div>
 
         {/* <section className="login-section__check-persist-section">
           <input type="checkbox" id="persist" onChange={togglePersist} />
