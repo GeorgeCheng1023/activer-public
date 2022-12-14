@@ -200,7 +200,7 @@ function Basic() {
               onChange={handleChange}
             />
           </div>
-          <Button buttonType="submit" text="確認修改" />
+          <Button type="submit" text="確認修改" />
         </div>
       </div>
     </form>

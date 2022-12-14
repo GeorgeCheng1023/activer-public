@@ -51,7 +51,7 @@ function CommentPanel({ onClose, display, onSubmit }: Props) {
         />
         <div className="comment-panel__control">
           <Button onClick={handleSubmit} text="張貼" />
-          <Button onClick={handelCancel} text="取消" variant="outline" />
+          <Button onClick={handelCancel} text="取消" variant={{ outline: true }} />
         </div>
       </div>
     </Popup>

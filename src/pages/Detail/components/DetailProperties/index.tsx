@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // type
 import { BranchDataType } from 'types/ActivityDataType';
+import FollowButton from './FollowButton';
 // componenst
 import Property from './Property';
 
@@ -17,7 +18,11 @@ function DetailProperties({ branch }: Props) {
     Location,
     DateStart,
     DateEnd,
+    Status,
   } = branch;
+
+  // Followed
+  const [followed, setFollowed] = useState(!!Status);
 
   const renderDateStartElement = () => {
     if (DateStart) {
@@ -91,6 +96,7 @@ function DetailProperties({ branch }: Props) {
 
   return (
     <div className="detail__properties">
+      <FollowButton followed={followed} setFollowed={setFollowed} activityId={0} branchId={0} />
       <Property
         name="date"
         label="活動開始時間"

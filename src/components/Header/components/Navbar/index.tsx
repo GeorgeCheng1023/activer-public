@@ -83,7 +83,7 @@ function Navbar() {
             <Button
               color="secondary"
               text="登出"
-              variant="outline"
+              variant={{ outline: true }}
               onClick={handleLogout}
             />
           </div>

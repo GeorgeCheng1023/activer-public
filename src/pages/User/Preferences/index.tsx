@@ -46,8 +46,8 @@ function Preferences() {
               <SearchBar placeHolder="搜尋標籤" onSubmit={handleSearchTagSubmit} />
             </div>
             <div className="preferences__default-tags__control__right__buttons">
-              <Button buttonType="submit" onClick={handleSaveSubmit} text="儲存" />
-              <Button buttonType="submit" onClick={handleSaveSubmit} text="取消" variant="outline" />
+              <Button type="submit" onClick={handleSaveSubmit} text="儲存" />
+              <Button type="submit" onClick={handleSaveSubmit} text="取消" variant={{ outline: true }} />
             </div>
           </div>
         </div>

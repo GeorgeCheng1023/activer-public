@@ -47,7 +47,7 @@ function SearchHistoryItem({ data } : Props) {
         ))}
       </div>
       <Button
-        variant="outline"
+        variant={{ outline: true }}
         text="前往搜尋"
         iconAfter={<BiSend />}
         color="success"

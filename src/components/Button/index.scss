@@ -1,4 +1,4 @@
-@import '../../variables';
+@import '~/src/_variables';
 
 $_btn-config:(primary:(class: 'primary',
     color: white,
@@ -18,7 +18,10 @@ $_btn-config:(primary:(class: 'primary',
   ),
   white:(class: 'white',
     color:$primary-font-color,
-    bg: white, ));
+    bg: white, ),
+  danger:(class:'danger',
+    color: white,
+    bg:$danger-color));
 
 @mixin setColor ($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;
@@ -59,7 +62,6 @@ $_btn-config:(primary:(class: 'primary',
     $class: map-get($value, class);
     $color: map-get($value, color);
     $bg: map-get($value, bg);
-    $hover-color: map-get($value, hover-color);
 
     &--#{$class} {
       @include setColor($bg, $color, $bg);
@@ -79,7 +81,6 @@ $_btn-config:(primary:(class: 'primary',
       $class: map-get($value, class);
       $color: map-get($value, color);
       $bg: map-get($value, bg);
-      $hover-color: map-get($value, hover-color);
 
       &.button--#{$class} {
         @include setColor($bg, $bg, $color);
@@ -92,12 +93,32 @@ $_btn-config:(primary:(class: 'primary',
     }
   }
 
-  // icon variant 
-  &.button--icon {
+  // round variant 
+  &.button--round {
     width: 40px !important;
     height: 40px;
     padding: 0;
     border-radius: 50%;
+  }
+
+  // reverse color variant
+  &.button--reverse-color {
+
+    @each $name,
+    $value in $_btn-config {
+      $class: map-get($value, class);
+      $color: map-get($value, color);
+      $bg: map-get($value, bg);
+      $hover-color: map-get($value, hover-color);
+
+      &.button--#{$class} {
+        @include setColor($color, $bg, $color);
+
+        &:hover:not([disabled]) {
+          background-color: darken($color, 10%);
+        }
+      }
+    }
   }
 
   * {

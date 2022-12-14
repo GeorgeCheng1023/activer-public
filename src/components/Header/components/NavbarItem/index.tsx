@@ -34,7 +34,7 @@ function NavbarItem({
       <div className="navbar__item">
         <Button
           color={color}
-          variant="icon"
+          variant={{ round: true }}
           iconAfter={mobileIcon}
           onClick={onClick}
         />

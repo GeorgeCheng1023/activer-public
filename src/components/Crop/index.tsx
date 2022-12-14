@@ -115,7 +115,7 @@ function Crop({
         </div>
         <div className="crop-panel__buttons">
           <Button text="裁切" onClick={handleCropImage} />
-          <Button text="取消" variant="outline" onClick={handleCloseCropPanel} />
+          <Button text="取消" variant={{ outline: true }} onClick={handleCloseCropPanel} />
         </div>
       </div>
     </Popup>

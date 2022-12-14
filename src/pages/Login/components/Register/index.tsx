@@ -209,7 +209,7 @@ function Register() {
         <footer className="register-section__button">
           <Button
             color="primary"
-            variant="outline"
+            variant={{ outline: true }}
             text="註冊"
             onClick={(e) => handleClick(e)}
           />
