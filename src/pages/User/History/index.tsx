@@ -53,13 +53,11 @@ function History() {
           return (
             <Card
               key={history.Activity.ActivityId}
-              data={{
-                imgUrl: history.Activity?.Image[0].ImageUrl,
-                title: history.Activity?.Title,
-                altText: history.Activity?.Title,
-                tags: parseTags,
-                detail: `${history.Activity?.Date.DateStart} - ${history.Activity?.Date.DateEnd}`,
-              }}
+              imgUrl={history.Activity?.Image[0].ImageUrl}
+              title={history.Activity?.Title}
+              altText={history.Activity?.Title}
+              tags={parseTags}
+              detail={`${history.Activity?.Date.DateStart} - ${history.Activity?.Date.DateEnd}`}
               control={<HistoryControl />}
             />
           );

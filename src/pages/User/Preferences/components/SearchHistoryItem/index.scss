@@ -1,0 +1,27 @@
+@import '~/src/_variables';
+
+.search-history-item {
+  display: flex;
+  align-items: center;
+
+  padding: 1em;
+
+  border: 1px solid $secondary-font-color;
+  border-radius: 0.3em;
+
+  &:hover {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: rgba(207, 207, 207, 0.32);
+  }
+
+
+  &__keyword {
+    flex-grow: 0.6
+  }
+
+  &__tags {
+    display: flex;
+    gap: 0.5em;
+    flex-grow: 0.3;
+  }
+}

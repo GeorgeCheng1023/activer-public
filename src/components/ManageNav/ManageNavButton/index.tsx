@@ -1,25 +1,29 @@
 import React from 'react';
 import './index.scss';
 
-type Props = {
-  id: number,
-  onClick: (clickedId: number) => void,
+export interface ManageNavFilterProps {
+  id: string,
+  name: string,
   icon?: JSX.Element,
-  title: string,
-  active: boolean
-};
+}
+
+interface Props extends ManageNavFilterProps {
+  active: boolean,
+  onClickFilter: (clickedFilterName: string) => void
+}
 
 function ManageNavButton({
-  id, onClick, icon, title, active,
+  id, onClickFilter, icon, name, active,
 }: Props) {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    onClick(id);
+    onClickFilter(id);
   };
 
   return (
     <button
       key={id}
+      id={id}
       type="button"
       className={`manage-nav__button ${active ? 'active focus' : ''}`}
       onClick={handleClick}
@@ -31,7 +35,7 @@ function ManageNavButton({
         </span>
       )}
       <span className="manage-nav__button__title">
-        {title}
+        {name}
       </span>
     </button>
   );

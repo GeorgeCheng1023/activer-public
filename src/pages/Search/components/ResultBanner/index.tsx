@@ -17,7 +17,7 @@ function ResultBanner() {
       <h1 className="result__banner__h1">搜尋結果</h1>
       <Button
         color="primary"
-        variant="outline"
+        variant={{ outline: true }}
         text="修改搜尋條件"
         size="sm"
         onClick={handleClick}

@@ -7,7 +7,6 @@ export type CardType = {
   title: string,
   altText: string,
   tags: Array<TagType>,
-  animation?: string,
   detail?: string
 };
 
@@ -24,10 +23,10 @@ function createTag(TagsContent: TagType) {
 }
 
 function Card({
-  imgUrl, title, tags, animation, altText, detail,
+  imgUrl, title, tags, altText, detail,
 }: CardType) {
   return (
-    <div className={`card card--${animation}`}>
+    <div className="card">
       <div className="card__image__container">
         <img className="card__image" src={imgUrl} alt={altText} />
       </div>
@@ -43,22 +42,23 @@ function Card({
 }
 
 Card.defaultProps = {
-  animation: 'basic',
   detail: null,
 };
 
-type CardColumnProps = {
-  data: CardType;
+interface CardColumnProps extends CardType {
   control?: JSX.Element;
-};
+}
 
-export function CardColumn({ data, control }: CardColumnProps) {
-  const {
-    imgUrl, altText, title, tags, detail,
-    animation,
-  } = data;
+export function CardColumn({
+  imgUrl,
+  altText,
+  title,
+  tags,
+  detail,
+  control,
+}: CardColumnProps) {
   return (
-    <div className={`card-column card--${animation}`}>
+    <div className="card-column">
       <img className="card-column__image" src={imgUrl} alt={altText} />
       <div className="card-column__content">
         <p className="card-column__title">{title}</p>
@@ -78,6 +78,7 @@ export function CardColumn({ data, control }: CardColumnProps) {
 
 CardColumn.defaultProps = {
   control: null,
+  detail: null,
 };
 
 export default Card;

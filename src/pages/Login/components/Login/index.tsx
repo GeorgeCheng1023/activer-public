@@ -172,7 +172,7 @@ function LoginSection() {
           <Link to="/register">
             <ButtonFrame
               color="primary"
-              variant="outline"
+              variant={{ outline: true }}
               text="註冊"
             />
           </Link>

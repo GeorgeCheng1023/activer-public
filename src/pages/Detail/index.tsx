@@ -32,8 +32,8 @@ function Detail() {
   const [currentBranch, setCurrentBranch] = useState<BranchDataType>(initialBranchesState);
 
   // handle click branch name event
-  const handleChangeFilter = (selectedId : number) => {
-    setCurrentBranch(data.Branches[selectedId]);
+  const handleChangeFilter = (selectedId : string) => {
+    setCurrentBranch(data.Branches.find((branch) => branch.Id.toString() === selectedId)!);
   };
 
   // get data
@@ -74,14 +74,16 @@ function Detail() {
         {/* right container: branch properties */}
         <div className="detail__container--properties">
           <ManageNav
-            buttons={
-              data.Branches.map((branch: any) => ({
-                title: branch.BranchName,
+            filters={
+              data.Branches.map((branch: BranchDataType) => ({
+                id: branch.Id.toString(),
+                name: branch.BranchName,
               }))
             }
             onChangeFilter={handleChangeFilter}
+            currentFilterId={currentBranch.Id.toString()}
           />
-          <DetailProperties branch={currentBranch} />
+          <DetailProperties branch={currentBranch} activityId={Id.toString()} />
         </div>
       </div>
 

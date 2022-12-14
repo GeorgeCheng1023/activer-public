@@ -22,8 +22,8 @@ function Basic() {
   const userData = useAppSelector(getUserData);
 
   // init state
-  const [values, setValues] = useState(userData);
-  const [selectedCounty, setSelectCounty] = useState('');
+  const [values, setValues] = useState(dummyUserData);
+  const [selectedCounty, setSelectCounty] = useState(dummyUserData.County || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
   const handleChange = (key: any, value: any) => {
@@ -127,15 +127,6 @@ function Basic() {
           </div>
           <div className="user-basic__container">
             <div className="user-basic__input user-basic__input__gender">
-              {/* <FormDropDown
-                dropdownProps={{
-                  label: '性別',
-                  name: 'Gender',
-                  options: ['男性', '女性', '其他', '隱藏'],
-                  defaultOption: values.Gender,
-                }}
-                onChange={handleChange}
-              /> */}
 
               <FormDropDown
                 dropdownProps={{
@@ -143,8 +134,8 @@ function Basic() {
                   label: '性別',
                   name: 'Gender',
                   options: ['男性', '女性', '其他', '隱藏'],
-                  defaultSelected: values.Gender,
                 }}
+                value={values.Gender}
                 onChange={handleChange}
               />
             </div>
@@ -187,8 +178,8 @@ function Basic() {
                     label: '縣市',
                     name: 'County',
                     options: CityCountyData.map((c) => c.CityName),
-                    defaultSelected: dummyUserData.County,
                   }}
+                  value={values.County}
                   onChange={handleCountyChange}
                 />
               </div>
@@ -201,7 +192,9 @@ function Basic() {
                     options: CityCountyData.find(
                       (c) => c.CityName === selectedCounty,
                     )?.AreaList.map((a) => a.AreaName) || [],
+
                   }}
+                  value={values.Area}
                   onChange={handleChange}
                 />
               </div>
@@ -224,7 +217,7 @@ function Basic() {
               onChange={handleChange}
             />
           </div>
-          <Button buttonType="submit" text="確認修改" />
+          <Button type="submit" text="確認修改" />
         </div>
       </div>
     </form>

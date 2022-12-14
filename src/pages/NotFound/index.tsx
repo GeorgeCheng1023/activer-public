@@ -16,7 +16,13 @@ function NotFound() {
           未找到此頁面
         </div>
         <Link to="/">
-          <Button buttonType="button" color="primary" size="lg" text="回到首頁" variant="outline" />
+          <Button
+            type="button"
+            color="primary"
+            size="lg"
+            text="回到首頁"
+            variant={{ outline: true }}
+          />
         </Link>
         <a className="notFoundDiv__me" href="https://codepen.io/uzcho_/pens/popular/?grid_type=list" target="_blank" rel="noreferrer" />
       </div>

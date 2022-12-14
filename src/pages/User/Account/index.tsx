@@ -66,7 +66,7 @@ function Account() {
           formValue={accountValue}
         />
       </div>
-      <Button buttonType="submit" text="修改密碼" />
+      <Button type="submit" text="修改密碼" />
     </form>
 
   );

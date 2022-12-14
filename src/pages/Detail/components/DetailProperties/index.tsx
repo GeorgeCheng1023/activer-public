@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // type
 import { BranchDataType } from 'types/ActivityDataType';
+import FollowButton from './FollowButton';
 // componenst
 import Property from './Property';
+import './index.scss';
 
 type Props = {
   branch : BranchDataType,
+  activityId: string,
 };
 
-function DetailProperties({ branch }: Props) {
+function DetailProperties({ branch, activityId }: Props) {
   const {
     ApplyStart,
     ApplyEnd,
@@ -17,7 +20,12 @@ function DetailProperties({ branch }: Props) {
     Location,
     DateStart,
     DateEnd,
+    Status,
+    Id,
   } = branch;
+
+  // Followed
+  const [followed, setFollowed] = useState(!!Status);
 
   const renderDateStartElement = () => {
     if (DateStart) {
@@ -91,15 +99,21 @@ function DetailProperties({ branch }: Props) {
 
   return (
     <div className="detail__properties">
+      <FollowButton
+        followed={followed}
+        setFollowed={setFollowed}
+        activityId={activityId}
+        branchId={Id.toString()}
+      />
       <Property
-        name="date"
+        name="date-start"
         label="活動開始時間"
         innerElement={
           renderDateStartElement()
         }
       />
       <Property
-        name="location"
+        name="date-end"
         label="活動結束日期"
         innerElement={
           <p>{DateEnd ? DateEnd[0] : '請看活動原始連結'}</p>

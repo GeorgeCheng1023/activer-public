@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './index.scss';
 import { FiSearch } from 'react-icons/fi';
 // hooks
-import { useParseTag } from 'hooks/tag';
+import { useParseTagDataArray } from 'hooks/tag';
 
 // data
 import { TagType } from 'components/Tag';
@@ -19,7 +19,7 @@ function FormSearchBar({
   placeHolder, disabled, onSuggestionClick,
 }: Props) {
   // parse all tags for suggestion
-  const allTags = useParseTag(dummyAllTags);
+  const allTags = useParseTagDataArray(dummyAllTags);
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState('');
   // suggstionDisplay is a boolean that show or hide the suggestion

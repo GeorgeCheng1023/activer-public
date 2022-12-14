@@ -2,22 +2,21 @@ import React, { useEffect, useState } from 'react';
 import './index.scss';
 import FormDropDown from 'components/Form/FormDropdown';
 
-type Props = {
+export interface ManageCardControlProps {
   beginDate: string,
-  dueDate: string
-};
-
-function ManageCardControl({ beginDate, dueDate }: Props) {
-  const [selectedValue, setSelectedValue] = useState('已報名');
+  applyEndDate: string,
+  status: string,
+}
+function ManageCardControl({ beginDate, applyEndDate, status }: ManageCardControlProps) {
+  const [selectedValue, setSelectedValue] = useState(status);
   const today = new Date();
   const parseBeginDate = new Date(beginDate);
-  const parseDueDate = new Date(dueDate);
+  const parseDueDate = new Date(applyEndDate);
   const remainDueDate = parseDueDate.getDate() - today.getDate();
   const remainBeginDate = parseBeginDate.getDate() - today.getDate();
 
   useEffect(() => {
-    // submit change
-    // console.log(selectedValue);
+    // TODO: PUT Change
   }, [selectedValue]);
 
   const handleChange = (key: any, value: any) => {
@@ -43,7 +42,7 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
         date__due"
         >
           活動截止日期：
-          {dueDate}
+          {applyEndDate}
           <p className="remain-date">
             剩餘天數：
             <span className="remain-date__number">
@@ -60,9 +59,9 @@ function ManageCardControl({ beginDate, dueDate }: Props) {
             id: 'status',
             label: '狀態',
             name: 'status',
-            options: ['registered', 'dream'],
-            defaultSelected: 'registered',
+            options: ['已報名', '願望'],
           }}
+          value={selectedValue}
           onChange={handleChange}
         />
       </form>
