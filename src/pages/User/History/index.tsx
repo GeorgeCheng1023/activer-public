@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import { CardColumn as Card } from 'components/Card';
+import { CardRow } from 'components/Card';
 import { TagType } from 'components/Tag';
 import HistoryControl from './components/HistoryControl';
 import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
@@ -51,7 +51,7 @@ function History() {
           });
 
           return (
-            <Card
+            <CardRow
               key={history.Activity.ActivityId}
               imgUrl={history.Activity?.Image[0].ImageUrl}
               title={history.Activity?.Title}

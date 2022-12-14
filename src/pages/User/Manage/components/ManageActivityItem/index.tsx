@@ -1,8 +1,9 @@
 import React from 'react';
-import { CardColumn, CardType } from 'components/Card';
+import { CardRow } from 'components/Card';
+import { CardRowType } from 'types/components/Card';
 import ManageCardControl, { ManageCardControlProps } from '../ManageCardControl';
 
-interface Props extends CardType, ManageCardControlProps {
+interface Props extends CardRowType, ManageCardControlProps {
   title: string;
 }
 
@@ -18,7 +19,7 @@ function ManageActivityItem({
 }: Props) {
   return (
     <div className="manage__item">
-      <CardColumn
+      <CardRow
         imgUrl={imgUrl}
         altText={altText}
         title={title}
