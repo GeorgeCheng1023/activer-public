@@ -83,7 +83,7 @@ function Detail() {
             onChangeFilter={handleChangeFilter}
             currentFilterId={currentBranch.toString()}
           />
-          <DetailProperties branch={currentBranch} />
+          <DetailProperties branch={currentBranch} activityId={Id.toString()} />
         </div>
       </div>
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import Button from 'components/Button';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 import './index.scss';
 
 interface Props {
   followed: boolean;
-  activityId: number;
-  branchId: number;
+  activityId: string;
+  branchId: string;
   setFollowed:React.Dispatch<React.SetStateAction<boolean>>
 }
 function FollowButton({
@@ -19,15 +21,22 @@ function FollowButton({
   };
 
   return (
-    <div className="detail__properties__follow-button">
-      <Button
-        variant={{ round: true, colorReverse: !!followed }}
-        color={followed ? 'danger' : 'white'}
-        iconAfter={followed ? <BsHeartFill /> : <BsHeart />}
-        onClick={handleClick}
-        size="lg"
-      />
-    </div>
+    <>
+      <div
+        className="detail__properties__follow-button"
+        id={`follewedButton-${activityId}-${branchId}`}
+      >
+        <Button
+          variant={{ round: true, colorReverse: !!followed }}
+          color={followed ? 'danger' : 'white'}
+          iconAfter={followed ? <BsHeartFill /> : <BsHeart />}
+          onClick={handleClick}
+          size="lg"
+        />
+      </div>
+
+      <Tooltip anchorId={`follewedButton-${activityId}-${branchId}`} content={followed ? '加入願望清單' : '自願望清單中移除'} />
+    </>
   );
 }
 

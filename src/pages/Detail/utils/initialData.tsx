@@ -1,6 +1,7 @@
 import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
 
 export const initialBranchesState: BranchDataType = {
+  Id: 0,
   BranchName: '',
   DateStart: null,
   DateEnd: [],

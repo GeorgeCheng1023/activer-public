@@ -9,9 +9,10 @@ import './index.scss';
 
 type Props = {
   branch : BranchDataType,
+  activityId: string,
 };
 
-function DetailProperties({ branch }: Props) {
+function DetailProperties({ branch, activityId }: Props) {
   const {
     ApplyStart,
     ApplyEnd,
@@ -20,6 +21,7 @@ function DetailProperties({ branch }: Props) {
     DateStart,
     DateEnd,
     Status,
+    Id,
   } = branch;
 
   // Followed
@@ -97,7 +99,12 @@ function DetailProperties({ branch }: Props) {
 
   return (
     <div className="detail__properties">
-      <FollowButton followed={followed} setFollowed={setFollowed} activityId={0} branchId={0} />
+      <FollowButton
+        followed={followed}
+        setFollowed={setFollowed}
+        activityId={activityId}
+        branchId={Id.toString()}
+      />
       <Property
         name="date"
         label="活動開始時間"

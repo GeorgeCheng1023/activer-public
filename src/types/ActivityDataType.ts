@@ -27,6 +27,7 @@ export interface ActivityTagDataType extends TagDataType {
 }
 
 export interface BranchDataType {
+  Id: number;
   BranchName: string;
   DateStart: DateType | null;
   DateEnd: string[] | null ;
