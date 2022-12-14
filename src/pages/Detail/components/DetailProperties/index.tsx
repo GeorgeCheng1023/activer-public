@@ -106,14 +106,14 @@ function DetailProperties({ branch, activityId }: Props) {
         branchId={Id.toString()}
       />
       <Property
-        name="date"
+        name="date-start"
         label="活動開始時間"
         innerElement={
           renderDateStartElement()
         }
       />
       <Property
-        name="location"
+        name="date-end"
         label="活動結束日期"
         innerElement={
           <p>{DateEnd ? DateEnd[0] : '請看活動原始連結'}</p>
