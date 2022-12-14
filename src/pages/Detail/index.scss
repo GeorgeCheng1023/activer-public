@@ -52,22 +52,7 @@
 
 
 
-  // DetailProperties
-  &__properties {
-    @include media(laptop, desktop) {
-      margin-left: 1em;
-    }
-
-    @include media(mobile, tablet) {
-      padding: 0;
-    }
-
-    >:not(:last-child) {
-      border-bottom: 1px solid $primary-font-color;
-      margin-bottom: 0.5em;
-      padding-bottom: .5em;
-    }
-  }
+  
 
   &__a {
     text-decoration: underline;

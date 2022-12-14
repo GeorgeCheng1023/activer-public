@@ -5,6 +5,7 @@ import { BranchDataType } from 'types/ActivityDataType';
 import FollowButton from './FollowButton';
 // componenst
 import Property from './Property';
+import './index.scss';
 
 type Props = {
   branch : BranchDataType,

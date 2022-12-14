@@ -1,0 +1,13 @@
+//DetailProperty
+
+@import '~/src/_variables';
+
+.detail__property {
+  border-bottom: 1px solid $primary-font-color;
+  margin-bottom: 0.5em;
+  padding-bottom: .5em;
+
+  &__location {
+    border: none;
+  }
+}

@@ -1,0 +1,16 @@
+// DetailProperties
+@import '~/src/_global';
+
+.detail__properties {
+  position: relative;
+
+  @include media(laptop, desktop) {
+    margin-left: 1em;
+  }
+
+  @include media(mobile, tablet) {
+    padding: 0;
+  }
+
+
+}

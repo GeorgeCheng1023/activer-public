@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'components/Button';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import './index.scss';
 
 interface Props {
   followed: boolean;
@@ -24,7 +25,6 @@ function FollowButton({
         color={followed ? 'danger' : 'white'}
         iconAfter={followed ? <BsHeartFill /> : <BsHeart />}
         onClick={handleClick}
-
       />
     </div>
   );
