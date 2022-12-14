@@ -3,34 +3,35 @@ import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import './index.scss';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
-import dummyAccountData from './dummyAccountData.json';
+import { getUserData, userUpdate } from 'store/userAuth';
+import { apiUserUpdate } from 'api/axios';
+// import dummyAccountData from './dummyAccountData.json';
 
 // regex
 const PWD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/';
 
 function Account() {
-  const [accountValue, setAccountValue] = useState(dummyAccountData);
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
+  const [accountValue, setAccountValue] = useState(userData);
 
   const handleChange = (key: any, value: any) => {
     setAccountValue({ ...accountValue, [key]: value });
   };
 
-  const updateUserDatabase = (value: any) => {
-    const storeData = value;
-    storeData.Id = userData.Id;
-    storeData.SessionToken = userData.SessionToken;
-    console.log(storeData);
-    dispatch(updateUserData(storeData));
+  const updateUserDatabase = (userFormData: FormData) => {
+    userFormData.append('Id', userData.Id);
+    userFormData.append('SessionToken', userData.SessionToken);
+    userFormData.append('Email', userData.Email);
+    apiUserUpdate(userFormData);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
     const storeData = { Password: accountValue.password };
+    const userFormData = new FormData(event.target as HTMLFormElement);
     dispatch(userUpdate(storeData));
-    updateUserDatabase(storeData);
+    updateUserDatabase(userFormData);
   };
 
   return (

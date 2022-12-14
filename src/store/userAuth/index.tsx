@@ -2,7 +2,7 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserGoogleData, apiUserLogin, apiUserUpdate } from 'api/axios';
+import { apiUserGoogleData, apiUserLogin } from 'api/axios';
 
 const initialState: UserState = {
   IsLoggedIn: false,
@@ -25,24 +25,13 @@ const initialState: UserState = {
   SessionToken: '',
 };
 
-interface userLoginType {
-  email: string,
-  password: string,
-}
-
-export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLoginType) => {
+export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLogin) => {
   const response = await apiUserLogin(userData);
   return response;
 });
 
 export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
   const response = await apiUserGoogleData(accessToken);
-  return response;
-});
-
-export const updateUserData = createAsyncThunk('auth/updateUserData', async (userData: UserState) => {
-  const response = await apiUserUpdate(userData);
-  console.log(response);
   return response;
 });
 
@@ -108,20 +97,7 @@ const userAuthSlice = createSlice({
           Email: userData.email,
           Loading: 'succeeded',
         });
-      })
-
-      .addCase(updateUserData.pending, (state) => ({
-        ...state,
-        Loading: 'loading',
-      }))
-      .addCase(updateUserData.fulfilled, (state) => ({
-        ...state,
-        Loading: 'succeeded',
-      }))
-      .addCase(updateUserData.rejected, (state) => ({
-        ...state,
-        Loading: 'failed',
-      }));
+      });
   },
 });
 

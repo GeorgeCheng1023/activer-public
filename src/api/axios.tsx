@@ -37,12 +37,12 @@ export const apiUserRegister = (
 );
 
 export const apiUserUpdate = (
-  user: UserState,
+  userFormData: FormData,
 ) => axiosTest.put(
-  `${USER_UPDATE_URL}/${user.Id}`,
-  JSON.stringify({ user }),
+  `${USER_UPDATE_URL}/${userFormData.get('Id')}`,
+  userFormData,
   {
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'multipart/form-data' },
   },
 );
 

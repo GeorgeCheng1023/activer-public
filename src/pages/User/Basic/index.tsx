@@ -10,8 +10,10 @@ import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import FormDropDown from 'components/Form/FormDropdown';
-import { getUserData, updateUserData, userUpdate } from 'store/userAuth';
+import { getUserData, userUpdate } from 'store/userAuth';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { apiUserUpdate } from 'api/axios';
+import axios from 'axios';
 import dummyUserData from './dummyUserData.json';
 import CityCountyData from './CityCountyData.json';
 
@@ -20,7 +22,7 @@ function Basic() {
   const userData = useAppSelector(getUserData);
 
   // init state
-  const [values, setValues] = useState(dummyUserData);
+  const [values, setValues] = useState(userData);
   const [selectedCounty, setSelectCounty] = useState('');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
@@ -28,12 +30,12 @@ function Basic() {
     setValues({ ...values, [key]: value });
   };
 
-  const updateUserDatabase = (value: any) => {
-    const storeData = value;
-    storeData.Id = userData.Id;
-    storeData.SessionToken = userData.SessionToken;
-    console.log(storeData);
-    dispatch(updateUserData(storeData));
+  const updateUserDatabase = (userFormData: FormData) => {
+    userFormData.append('Id', userData.Id);
+    userFormData.append('SessionToken', userData.SessionToken);
+    userFormData.append('Email', userData.Email);
+    axios.post('http://localhost:5000/test', userFormData);
+    apiUserUpdate(userFormData);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
@@ -41,10 +43,12 @@ function Basic() {
     // eslint-disable-next-line
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    // axios.post('http://localhost:5000/test', userFormData);
+    // userFormData.forEach((key) => {
+    //   console.log(key);
+    // });
 
     dispatch(userUpdate(values));
-    updateUserDatabase(values);
+    updateUserDatabase(userFormData);
   };
 
   const handleCountyChange = (key: any, value: any) => {

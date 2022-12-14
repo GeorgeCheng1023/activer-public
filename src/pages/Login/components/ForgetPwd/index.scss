@@ -2,7 +2,7 @@
 
 .forgot-pwd {
   width: 100vw;
-  height: 60vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,6 +12,10 @@
     font-size: 1.5rem;
     margin: 2rem 0;
   }
+  &__subtitle {
+    font-size: 1rem;
+  }
+
   &__text-field {
     width: 25vw;
     margin-bottom: 1rem;
@@ -25,5 +29,10 @@
   }
   &__submit-btn {
     margin: 2rem 0;
+  }
+  &__back-btn {
+    font-size: .8rem;
+    font-weight: 600;
+    opacity: 0.55;
   }
 }

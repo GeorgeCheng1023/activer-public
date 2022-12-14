@@ -5,7 +5,6 @@ import './index.scss';
 // components
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
-import GoogleLoginButton from '../GoogleLogin';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -24,7 +23,7 @@ function ForgetPwd() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (EMAIL_REGEX.test(email)) {
+    if (!EMAIL_REGEX.test(email)) {
       navigate('/verify');
     }
   };
@@ -39,7 +38,6 @@ function ForgetPwd() {
             id: 'nick_name',
             name: 'NickName',
             inputType: 'text',
-            label: '電子信箱驗證',
             placeholder: '電子信箱',
             errorMessage: '電子信箱格式錯誤',
             pattern: EMAIL_REGEX_PATTERN,
@@ -51,12 +49,6 @@ function ForgetPwd() {
       <Link to="/login">
         <p className="forgot-pwd__back-btn">回到登入畫面</p>
       </Link>
-
-      <aside className="or-aside" />
-
-      <pattern>
-        <GoogleLoginButton />
-      </pattern>
 
       <div className="forgot-pwd__submit-btn">
         <Button text="寄出" color="secondary" onClick={handleClick} />

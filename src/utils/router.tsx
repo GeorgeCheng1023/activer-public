@@ -15,6 +15,7 @@ import NotFound from 'pages/NotFound';
 import Loading from 'pages/Loading';
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
+import VerifyUser from 'pages/Login/components/verifyUser/index';
 
 export const routerConfig = [
   {
@@ -39,6 +40,10 @@ export const routerConfig = [
           {
             path: '/password',
             element: <ForgetPwd />,
+          },
+          {
+            path: '/verify',
+            element: <VerifyUser />,
           },
           {
             path: '/search',
