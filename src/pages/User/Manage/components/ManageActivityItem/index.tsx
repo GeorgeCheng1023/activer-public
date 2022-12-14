@@ -14,6 +14,7 @@ function ManageActivityItem({
   detail,
   beginDate,
   applyEndDate,
+  status,
 }: Props) {
   return (
     <div className="manage__item">
@@ -27,6 +28,7 @@ function ManageActivityItem({
           <ManageCardControl
             beginDate={beginDate}
             applyEndDate={applyEndDate}
+            status={status}
           />
         )}
       />

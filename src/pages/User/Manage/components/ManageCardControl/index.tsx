@@ -4,10 +4,11 @@ import FormDropDown from 'components/Form/FormDropdown';
 
 export interface ManageCardControlProps {
   beginDate: string,
-  applyEndDate: string
+  applyEndDate: string,
+  status: string,
 }
-function ManageCardControl({ beginDate, applyEndDate }: ManageCardControlProps) {
-  const [selectedValue, setSelectedValue] = useState('已報名');
+function ManageCardControl({ beginDate, applyEndDate, status }: ManageCardControlProps) {
+  const [selectedValue, setSelectedValue] = useState(status);
   const today = new Date();
   const parseBeginDate = new Date(beginDate);
   const parseDueDate = new Date(applyEndDate);
@@ -15,8 +16,7 @@ function ManageCardControl({ beginDate, applyEndDate }: ManageCardControlProps) 
   const remainBeginDate = parseBeginDate.getDate() - today.getDate();
 
   useEffect(() => {
-    // submit change
-    // console.log(selectedValue);
+    // TODO: PUT Change
   }, [selectedValue]);
 
   const handleChange = (key: any, value: any) => {

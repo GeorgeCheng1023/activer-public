@@ -1,38 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './index.scss';
-import ManageNavButton from './ManageNavButton';
+import ManageNavButton, { ManageNavFilterProps } from './ManageNavButton';
 
 type Props = {
-  buttons: {
-    title: string,
-    icon?: JSX.Element,
-  }[],
-  onChangeFilter: (id: number) => void;
+  filters: ManageNavFilterProps[],
+  onChangeFilter: (selectFilterStatus : string) => void,
+  currentFilterId: string
 };
 
-function ManageNav({ buttons, onChangeFilter }: Props) {
-  const [clickedId, setClickedId] = useState(0);
-
-  useEffect(() => {
-    // upload
-    onChangeFilter(clickedId);
-  }, [clickedId]);
-
-  const handleClick = (id: number) => {
-    setClickedId(id);
-  };
-
+function ManageNav({ filters, onChangeFilter, currentFilterId }: Props) {
   return (
     <div className="manage-nav__button-group">
-      {buttons.map((button, id) => (
+      {filters.map((filter) => (
         <ManageNavButton
-          // eslint-disable-next-line  react/no-array-index-key
-          key={`manage-nav-${id}`}
-          title={button.title}
-          icon={button.icon}
-          id={id}
-          onClick={handleClick}
-          active={clickedId === id}
+          id={filter.id}
+          key={filter.id}
+          name={filter.name}
+          icon={filter.icon}
+          onClickFilter={onChangeFilter}
+          active={currentFilterId === filter.id}
         />
       ))}
 
