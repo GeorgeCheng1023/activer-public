@@ -2,8 +2,21 @@
 /* eslint  react/jsx-props-no-spreading: off */
 import React from 'react';
 import classNames from 'classnames';
-import { ButtonType } from './ButtonType';
 import './index.scss';
+
+interface ButtonVariants {
+  outline?: boolean;
+  round?: boolean;
+  colorReverse?: boolean;
+}
+interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger';
+  variant?: ButtonVariants;
+  size?: 'lg' | 'sm';
+  text?: string;
+  iconAfter?: JSX.Element;
+  iconBefore? : JSX.Element;
+}
 
 function Button({
   color, variant, text, size, iconAfter, iconBefore, ...props
