@@ -13,8 +13,6 @@ import FormDropDown from 'components/Form/FormDropdown';
 import { getUserData, userUpdate } from 'store/userAuth';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { apiUserUpdate } from 'api/axios';
-import axios from 'axios';
-import dummyUserData from './dummyUserData.json';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
@@ -22,8 +20,8 @@ function Basic() {
   const userData = useAppSelector(getUserData);
 
   // init state
-  const [values, setValues] = useState(dummyUserData);
-  const [selectedCounty, setSelectCounty] = useState(dummyUserData.County || '臺北市');
+  const [values, setValues] = useState(userData);
+  const [selectedCounty, setSelectCounty] = useState(userData.County || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
   const handleChange = (key: any, value: any) => {
@@ -34,18 +32,12 @@ function Basic() {
     userFormData.append('Id', userData.Id);
     userFormData.append('SessionToken', userData.SessionToken);
     userFormData.append('Email', userData.Email);
-    axios.post('http://localhost:5000/test', userFormData);
     apiUserUpdate(userFormData);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    // eslint-disable-next-line
     const userFormData = new FormData(event.target as HTMLFormElement);
-
-    // userFormData.forEach((key) => {
-    //   console.log(key);
-    // });
 
     dispatch(userUpdate(values));
     updateUserDatabase(userFormData);
@@ -62,7 +54,7 @@ function Basic() {
   };
 
   // crop
-  const [imageSrc, setImageSrc] = useState<string>('');
+  const [imageSrc, setImageSrc] = useState<string>(userData.Portrait);
 
   const handleCropPanelShow = () => {
     setDisplayCropPanel(true);
@@ -72,7 +64,7 @@ function Basic() {
   }, [imageSrc]);
 
   return (
-    <form onSubmit={handleSubmit} className="user-basic">
+    <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__portrait">
