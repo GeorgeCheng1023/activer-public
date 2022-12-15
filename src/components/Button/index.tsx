@@ -1,13 +1,14 @@
 // for extends and setting HTMLButton Attributes:
 /* eslint  react/jsx-props-no-spreading: off */
 import React from 'react';
-import './index.scss';
-import { ButtonType } from 'types/components/Button';
 import classNames from 'classnames';
+import { ButtonType } from 'types/components/Button';
+import './index.scss';
 
 function Button({
   color, variant, text, size, iconAfter, iconBefore, ...props
 }: ButtonType) {
+  // Defined: button classes
   const classes = classNames({
     button: true,
     [`button--${color || 'primary'}`]: true,

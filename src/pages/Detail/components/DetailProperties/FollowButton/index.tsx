@@ -35,7 +35,10 @@ function FollowButton({
         />
       </div>
 
-      <Tooltip anchorId={`follewedButton-${activityId}-${branchId}`} content={followed ? '加入願望清單' : '自願望清單中移除'} />
+      <Tooltip
+        anchorId={`follewedButton-${activityId}-${branchId}`}
+        content={followed ? '自願望清單中移除' : '加入願望清單'}
+      />
     </>
   );
 }

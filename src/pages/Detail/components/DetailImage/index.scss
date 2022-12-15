@@ -1,0 +1,12 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+// DetailImage
+.detail__img {
+  width: 100%;
+  height: 15em;
+
+  * {
+    color: $success-color
+  }
+}

@@ -1,15 +1,13 @@
+// components/Carousel
 import React from 'react';
-
-// Import Swiper React components
+// components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
+import { Navigation, Pagination } from 'swiper';
+// style
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import './index.scss';
-
-// import required modules
-import { Navigation } from 'swiper';
 
 type Props = {
   slides: Array<JSX.Element>;
@@ -18,7 +16,13 @@ type Props = {
 function Carousel({ slides } : Props) {
   return (
     <div className="carousel">
-      <Swiper navigation modules={[Navigation]} className="mySwiper" loop>
+      <Swiper
+        navigation
+        pagination
+        modules={[Navigation, Pagination]}
+        className="swiper"
+        loop
+      >
         {slides.map((slide) => (
           <SwiperSlide>
             {slide}
