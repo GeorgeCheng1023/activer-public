@@ -32,9 +32,12 @@ function CardRow({
           <p>{detail}</p>
         </div>
       </div>
-      <div className="card-column__control">
-        {control}
-      </div>
+      {control
+      && (
+        <div className="card-column__control">
+          {control}
+        </div>
+      )}
     </div>
   );
 }

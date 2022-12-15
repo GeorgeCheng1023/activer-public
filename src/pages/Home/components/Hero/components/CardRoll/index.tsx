@@ -30,6 +30,34 @@ export default function CardRoll() {
             id: '1',
             text: 'test',
             variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
           }]}
           altText="Test"
         />

@@ -9,47 +9,46 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
 
   background: #FFFFFF;
   border-radius: 11px;
 
   &__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 50%;
+    display: flex;
 
-    border-radius: 11px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
 
-    &__container {
-      width: 90%;
-      padding-top: 90%;
-      position: relative;
+
+      border-radius: 11px;
     }
   }
 
   &__title {
     line-height: 1em;
+    text-align: center;
+
+  }
+
+  &__detail {
+    color: $primary-font-color;
+    text-align: center;
+    font-size: 0.8em;
   }
 
   &__tag {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
+    justify-content: center;
 
-  &__detail {
-    color: $primary-font-color;
-    font-size: 0.8em;
+    align-items: center;
+    gap: 0.3em;
+    flex-wrap: wrap;
   }
 }

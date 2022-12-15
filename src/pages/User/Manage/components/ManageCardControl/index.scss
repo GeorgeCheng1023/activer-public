@@ -2,10 +2,12 @@
 @import '~/src/_global';
 
 .manage-control {
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: center;
   align-items: flex-end;
   justify-content: flex-end;
 
@@ -18,7 +20,7 @@
 
   @include media(mobile, tablet) {
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   &__select {
