@@ -2,7 +2,7 @@
 /* eslint  react/jsx-props-no-spreading: off */
 import React from 'react';
 import classNames from 'classnames';
-import { ButtonType } from 'types/components/Button';
+import { ButtonType } from './ButtonType';
 import './index.scss';
 
 function Button({
@@ -51,3 +51,4 @@ Button.defaultProps = {
 };
 
 export default Button;
+export type { ButtonType };
