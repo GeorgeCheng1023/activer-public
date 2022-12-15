@@ -42,7 +42,6 @@ $_btn-config:(primary:(class: 'primary',
 
   letter-spacing: 1px;
 
-
   transition-duration: 0.3s;
   cursor: pointer;
 
@@ -54,7 +53,6 @@ $_btn-config:(primary:(class: 'primary',
     font-size: 0.8em;
     padding: 0.4em 1.8em;
   }
-
 
   // default variant
   @each $name,
@@ -103,13 +101,11 @@ $_btn-config:(primary:(class: 'primary',
 
   // reverse color variant
   &.button--reverse-color {
-
     @each $name,
     $value in $_btn-config {
       $class: map-get($value, class);
       $color: map-get($value, color);
       $bg: map-get($value, bg);
-      $hover-color: map-get($value, hover-color);
 
       &.button--#{$class} {
         @include setColor($color, $bg, $color);
