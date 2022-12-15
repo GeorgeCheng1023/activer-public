@@ -4,21 +4,20 @@ import { Area } from 'react-easy-crop/types';
 // component
 import Button from 'components/Button';
 import Popup, { PopupDisplayProps } from 'components/Popup';
-import RotationScroll from './components/RotationScroll';
-import ZoomScroll from './components/ZoomScroll';
+import { RotationScroll, ZoomScroll } from './components';
 // utils
 import getCroppedImg from './utils/cropImages';
 // style
 import './index.scss';
 
-interface Props extends PopupDisplayProps {
+interface CropType extends PopupDisplayProps {
   onCropped: (croppedImage: string) => void,
   image: string,
 }
 
 function Crop({
   onCropped, onClose, display, image,
-}: Props) {
+}: CropType) {
   /* state */
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);

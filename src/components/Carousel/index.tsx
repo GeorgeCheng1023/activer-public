@@ -9,11 +9,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import './index.scss';
 
-type Props = {
+interface CarouselType {
   slides: Array<JSX.Element>;
-};
+}
 
-function Carousel({ slides } : Props) {
+function Carousel({ slides } : CarouselType) {
   return (
     <div className="carousel">
       <Swiper

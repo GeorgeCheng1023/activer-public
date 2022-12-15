@@ -4,14 +4,14 @@ import React from 'react';
 import classNames from 'classnames';
 import './index.scss';
 
-interface ButtonVariants {
+interface ButtonVariantType {
   outline?: boolean;
   round?: boolean;
   colorReverse?: boolean;
 }
 interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger';
-  variant?: ButtonVariants;
+  variant?: ButtonVariantType;
   size?: 'lg' | 'sm';
   text?: string;
   iconAfter?: JSX.Element;

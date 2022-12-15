@@ -1,17 +1,16 @@
 import React from 'react';
 import './index.scss';
-
 // components
 import { Link } from 'react-router-dom';
 import { AiOutlineQuestionCircle as IconQuestionCircle } from 'react-icons/ai';
 
-type FAQTagProps = {
+interface FAQTagType {
   title: string;
   dataMsg?: string;
   url?: string;
-};
+}
 
-function FAQTag({ title, dataMsg, url }: FAQTagProps) {
+function FAQTag({ title, dataMsg, url }: FAQTagType) {
   function renderFAQTag() {
     return (
       <div className={dataMsg ? 'FAQtag-msg' : 'FAQtag'} data-msg={dataMsg}>
