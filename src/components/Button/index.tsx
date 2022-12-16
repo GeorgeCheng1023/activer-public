@@ -1,5 +1,3 @@
-// for extends and setting HTMLButton Attributes:
-/* eslint  react/jsx-props-no-spreading: off */
 import React from 'react';
 import classNames from 'classnames';
 import './index.scss';

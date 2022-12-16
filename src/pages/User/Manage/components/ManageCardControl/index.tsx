@@ -55,12 +55,10 @@ function ManageCardControl({ beginDate, applyEndDate, status }: ManageCardContro
       </div>
       <form className="manage-control__select">
         <FormDropDown
-          dropdownProps={{
-            id: 'status',
-            label: '狀態',
-            name: 'status',
-            options: ['已報名', '願望'],
-          }}
+          id="status"
+          label="狀態"
+          name="Status"
+          options={['已報名', '願望']}
           value={selectedValue}
           onChange={handleChange}
         />
