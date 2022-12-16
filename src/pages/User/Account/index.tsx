@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import './index.scss';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { getUserData, userUpdate } from 'store/userAuth';
-import { apiUserUpdate } from 'api/axios';
+import { useAppSelector } from 'hooks/redux';
+import { getUserData } from 'store/userAuth';
 // import dummyAccountData from './dummyAccountData.json';
-
-// regex
-const PWD_REGEX = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/';
+import { useNavigate } from 'react-router-dom';
 
 function Account() {
-  const dispatch = useAppDispatch();
+  const nevigate = useNavigate();
   const userData = useAppSelector(getUserData);
   const [accountValue, setAccountValue] = useState(userData);
 
@@ -19,19 +16,11 @@ function Account() {
     setAccountValue({ ...accountValue, [key]: value });
   };
 
-  const updateUserDatabase = (userFormData: FormData) => {
-    userFormData.append('Id', userData.Id);
-    userFormData.append('SessionToken', userData.SessionToken);
-    userFormData.append('Email', userData.Email);
-    apiUserUpdate(userFormData);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const storeData = { Password: accountValue.password };
-    const userFormData = new FormData(event.target as HTMLFormElement);
-    dispatch(userUpdate(storeData));
-    updateUserDatabase(userFormData);
+    if (userData.Password === accountValue.password) {
+      nevigate('/ResetPwd');
+    }
   };
 
   return (
@@ -43,12 +32,11 @@ function Account() {
             id: 'account',
             name: 'account',
             label: '帳號',
-            placeholder: 'Enter your account',
+            placeholder: userData.Email,
           }}
           onChange={handleChange}
           disabled
           formValue={accountValue}
-
         />
       </div>
       <div className="user-account__input user-account__input__password">
@@ -58,15 +46,19 @@ function Account() {
             name: 'password',
             label: '密碼',
             inputType: 'password',
-            placeholder: 'Enter your account',
-            pattern: PWD_REGEX,
-            errorMessage: '密碼格式錯誤',
+            placeholder: 'Enter your password',
+            pattern: userData.Password,
+            errorMessage: '密碼錯誤',
           }}
           onChange={handleChange}
           formValue={accountValue}
         />
       </div>
-      <Button type="submit" text="修改密碼" />
+      <Button
+        disabled={!(accountValue.password === userData.Password)}
+        type="submit"
+        text="修改密碼"
+      />
     </form>
 
   );

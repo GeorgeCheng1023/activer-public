@@ -13,9 +13,11 @@ import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
 import NotFound from 'pages/NotFound';
 import Loading from 'pages/Loading';
-import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
-import VerifyUser from 'pages/Login/components/verifyUser/index';
+import Verify from 'pages/Login/components/verifyUser/index';
+import ForgetPwd from 'pages/Login/components/ForgetPwd';
+import ResetPwd from 'pages/Login/components/ResetPassword';
+import NewPwd from 'pages/Login/components/NewPassword';
 
 export const routerConfig = [
   {
@@ -38,12 +40,20 @@ export const routerConfig = [
             element: <Register />,
           },
           {
-            path: '/password',
+            path: '/ForgetPwd',
             element: <ForgetPwd />,
           },
           {
+            path: '/ResetPwd',
+            element: <ResetPwd />,
+          },
+          {
+            path: '/NewPwd',
+            element: <NewPwd />,
+          },
+          {
             path: '/verify',
-            element: <VerifyUser />,
+            element: <Verify />,
           },
           {
             path: '/search',

@@ -1,16 +1,35 @@
-import React from 'react';
+import React, {
+  useRef, useState, useEffect,
+} from 'react';
 import './index.scss';
 
 // components
 import Button from 'components/Button';
 import { Link } from 'react-router-dom';
 
-function VerifyUser() {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const keyCode = e.key;
-    if (/[0-9]/.test(keyCode) || keyCode === 'Backspace') {
-      return e.key;
+function Verify() {
+  const codeId = [0, 1, 2, 3, 4, 5];
+  const [verifyCode, setVerifyCode] = useState<Array<string>>([]);
+  // const [errorMsg, setErrorMsg] = useState<string>();
+
+  const verifyCodeRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    verifyCodeRef.current?.focus();
+  }, []);
+
+  const handleClick = () => {
+    verifyCode.forEach((code) => {
+      if (code === '') {
+        console.log('error');
+      }
+    });
+    if (verifyCode.length < 6) {
+      console.log('error');
+      return;
     }
+    console.log(verifyCode);
+    // setErrorMsg('驗證碼未填完成');
   };
 
   return (
@@ -19,71 +38,31 @@ function VerifyUser() {
         <h1 className="verify-user__title">輸入驗證碼</h1>
 
         <section className="verify-user__section">
-          <div className="verify-user__section__code">
-            <input
-              className="verify-user__section__number"
-              id="verify-code-1"
-              name="verify-code-1"
-              type="text"
-              onKeyDown={handleKeyDown}
-              maxLength={1}
-            />
-          </div>
 
-          <div className="verify-user__section__code">
-            <input
-              className="verify-user__section__number"
-              id="verify-code-2"
-              name="verify-code-2"
-              type="text"
-              onKeyDown={handleKeyDown}
-              maxLength={1}
-            />
-          </div>
+          {
+            codeId.map((index) => (
+              <div key={index} className="verify-user__section__code">
+                <input
+                  className="verify-user__section__number"
+                  id={`verify-code-${index}`}
+                  name={`verify-code-${index}`}
+                  type="text"
+                  maxLength={1}
+                  placeholder={index.toString()}
+                  onChange={
+                    (e) => setVerifyCode((prev: Array<string>) => {
+                      // eslint-disable-next-line no-param-reassign
+                      prev[index] = e.target.value;
+                      return prev;
+                    })
+                  }
+                  ref={index === 0 ? verifyCodeRef : null}
+                  value={verifyCode[index]}
+                />
+              </div>
+            ))
+          }
 
-          <div className="verify-user__section__code">
-            <input
-              className="verify-user__section__number"
-              id="verify-code-3"
-              name="verify-code-3"
-              type="text"
-              onKeyDown={handleKeyDown}
-              maxLength={1}
-            />
-          </div>
-
-          <div className="verify-user__section__code">
-            <input
-              className="verify-user__section__number"
-              id="verify-code-4"
-              name="verify-code-4"
-              type="text"
-              onKeyDown={handleKeyDown}
-              maxLength={1}
-            />
-          </div>
-
-          <div className="verify-user__section__code">
-            <input
-              className="verify-user__section__number"
-              id="verify-code-5"
-              name="verify-code-5"
-              type="text"
-              onKeyDown={handleKeyDown}
-              maxLength={1}
-            />
-          </div>
-
-          <div className="verify-user__section__code">
-            <input
-              className="verify-user__section__number"
-              id="verify-code-6"
-              name="verify-code-6"
-              type="text"
-              onKeyDown={handleKeyDown}
-              maxLength={1}
-            />
-          </div>
         </section>
 
         <section className="verify-user__resend">
@@ -95,10 +74,10 @@ function VerifyUser() {
           </Link>
         </section>
 
-        <Button color="secondary" text="寄出" />
+        <Button color="secondary" text="寄出" onClick={handleClick} />
       </main>
     </div>
   );
 }
 
-export default VerifyUser;
+export default Verify;

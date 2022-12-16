@@ -5,7 +5,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 3rem;
   
   height: 60vh;
   width: 50vw;
@@ -24,7 +23,9 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 2rem;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
 
     @include media(tablet) {
       gap: 1rem;
@@ -40,30 +41,34 @@
       justify-content: center;
       align-items: center;
     
-      width: 3rem;
-      height: 3rem;
+      width: 3.5rem;
+      height: 3.5rem;
       border: 1px hsl(100, 4%, 27%) solid;
       border-radius: 100%;
 
       @include media(mobile) {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.7rem;
+        height: 2.7rem;
       }
     }
 
     &__number {
-      width: 1.2rem;
+      text-align: center;
+    
+      width: 1.8ch;
       height: 2rem; 
-      border-color: opacity(100%);
 
-      font-size: 2rem;
+      font-size: 1.5rem;
 
       @include media(mobile) {
-        font-size: 2rem;
+        font-size: 1.4rem;
       }
     }
     &__number::-webkit-inner-spin-button {
       -webkit-appearance: none;
+    }
+    &__number::placeholder {
+      color: hsl(98, 4%, 69%);
     }
   }
 
@@ -71,6 +76,8 @@
     display: flex;
     flex-direction: row;
     gap: .5rem;
+    
+    margin-bottom: 3rem;
 
     &__text {
       font-weight: 800;
@@ -80,7 +87,7 @@
     }
     &__btn:hover,
     &__btn:active {
-      color: hsl(40, 72%, 71%);
+      color: hsl(40, 92%, 61%);
     }
   } 
 }

@@ -25,5 +25,5 @@ root.render(
       </GoogleOAuthProvider>
     </CookiesProvider>
   </ReduxProvider>,
-  /* </React.StrictMode> */
+  // </React.StrictMode>,
 );

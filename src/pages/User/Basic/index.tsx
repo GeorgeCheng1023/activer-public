@@ -32,6 +32,7 @@ function Basic() {
     userFormData.append('Id', userData.Id);
     userFormData.append('SessionToken', userData.SessionToken);
     userFormData.append('Email', userData.Email);
+    userFormData.append('Password', userData.Password);
     apiUserUpdate(userFormData);
   };
 
