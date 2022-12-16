@@ -81,7 +81,7 @@ function VotePanel({ display, onClose, tags }: Props) {
     >
       <div className="vote-panel">
         <FormSearchTag
-          placeHolder="搜尋標籤"
+          placeholder="搜尋標籤"
           onSuggestionClick={handleSuggestionClick}
         />
         <h3>目前標籤票數排行</h3>

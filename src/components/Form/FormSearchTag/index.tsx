@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import './index.scss';
+import React, { useState, useCallback } from 'react';
+// component
+import { TagType } from 'components/Tag';
 import { FiSearch } from 'react-icons/fi';
+import Button from 'components/Button';
 // hooks
 import { useParseTagDataArray } from 'hooks/tag';
 
-// data
-import { TagType } from 'components/Tag';
+// style
+import './index.scss';
 import dummyAllTags from './dummyAllTag.json';
 
-type Props = {
-
-  placeHolder: string,
-  disabled?: boolean,
+interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> {
   onSuggestionClick: (clickedSuggestion: TagType) => void
-};
+}
 
 function FormSearchBar({
-  placeHolder, disabled, onSuggestionClick,
-}: Props) {
+  onSuggestionClick, ...props
+}: FormSearchTagType) {
   // parse all tags for suggestion
+  // TODO: fetch all tags
   const allTags = useParseTagDataArray(dummyAllTags);
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState('');
@@ -26,44 +26,44 @@ function FormSearchBar({
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
 
   // handle input type change event
-  const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleChange:
+  React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setSuggestionDisplay(true);
     setInputValue(e.target.value);
-  };
+  }, []);
 
   // handle blur event when click outside of suggestion
-  const handleBlur:React.FocusEventHandler<HTMLInputElement> = (e) => {
+  const handleBlur:
+  React.FocusEventHandler<HTMLInputElement> = useCallback((e) => {
     if (!e.relatedTarget) {
       setSuggestionDisplay(false);
     }
-  };
+  }, []);
 
-  const handleSuggestionClick = (clickedTag: TagType) => {
+  // submit clicked Tag
+  const handleSuggestionClick = useCallback((clickedTag: TagType) => {
     onSuggestionClick(clickedTag);
     setSuggestionDisplay(false);
-  };
+  }, []);
 
   return (
     <div
       className="search-tag"
     >
       <input
+        {...props}
         className="search-tag__input"
         type="text"
-        placeholder={placeHolder}
         value={inputValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        disabled={disabled}
       />
-      <button
-        className="search-tag__button"
-        type="submit"
-        disabled={disabled}
-      >
-        <FiSearch className="search-tag__icon" />
-      </button>
-
+      <div className="search-tag__button">
+        <Button
+          iconAfter={<FiSearch />}
+          variant={{ round: true }}
+        />
+      </div>
       <div className="search-tag__suggestion">
         {suggestionDisplay && inputValue
           && allTags.filter((tag) => (
@@ -85,9 +85,4 @@ function FormSearchBar({
     </div>
   );
 }
-
-FormSearchBar.defaultProps = {
-  disabled: false,
-};
-
 export default FormSearchBar;
