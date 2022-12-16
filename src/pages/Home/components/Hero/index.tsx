@@ -25,7 +25,7 @@ function Hero() {
         <div className="hero__left__section">
           <SearchBar
             onSubmit={handleSubmit}
-            placeHolder="立即搜尋你的活動"
+            placeholder="立即搜尋你的活動"
           />
         </div>
       </div>

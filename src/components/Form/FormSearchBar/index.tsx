@@ -1,57 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './index.scss';
+import Button from 'components/Button';
 import { FiSearch } from 'react-icons/fi';
 
-type Props = {
+interface FormSearchBarType
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> {
   onSubmit: (inputValue: string) => void,
-  placeHolder: string,
-  defaultText?: string,
-  disabled?: boolean
-};
+  defaultText?: string
+}
 
 function FormSearchBar({
-  onSubmit, placeHolder, disabled, defaultText,
-}: Props) {
+  onSubmit, defaultText, ...props
+}: FormSearchBarType) {
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState(defaultText || '');
 
   // handle submit search
-  const handleSubmit:React.MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleSubmit:
+  React.MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
     e.preventDefault();
     onSubmit(inputValue);
-  };
+  }, []);
 
   // handle input type change event
-  const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleChange:
+  React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setInputValue(e.target.value);
-  };
+  }, []);
 
   // handle keyboard press enter and search
-  const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+  const handleKeyPress:
+  React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
     if (e.key === 'Enter') {
-      onSubmit((e.target as HTMLInputElement).value);
+      onSubmit(inputValue);
     }
-  };
+  }, []);
 
   return (
     <div
-      className="searchBar__container"
+      className="search-bar"
     >
-      <div className="searchBar">
-        <input
-          className="searchBar__main"
-          type="text"
-          placeholder={placeHolder}
-          value={inputValue}
-          onChange={handleChange}
-          onKeyUp={handleKeyPress}
-          disabled={disabled}
+      <input
+        {...props}
+        className="search-bar__input"
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        onKeyUp={handleKeyPress}
+      />
+
+      <div className="search-bar__button">
+        <Button
+          disabled={props.disabled}
+          type="submit"
+          onClick={handleSubmit}
+          variant={{ round: true }}
+          iconAfter={<FiSearch />}
         />
-        <button className="button-nostyle searchButton" disabled={disabled} type="submit" onClick={handleSubmit}>
-          <div className="searchBar__section">
-            <FiSearch className="searchBar__icon" />
-          </div>
-        </button>
       </div>
     </div>
   );
@@ -59,7 +64,6 @@ function FormSearchBar({
 
 FormSearchBar.defaultProps = {
   defaultText: undefined,
-  disabled: false,
 };
 
 export default FormSearchBar;

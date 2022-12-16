@@ -49,7 +49,7 @@ function Search() {
           <div className="search__keyword-bar">
             <SearchBar
               onSubmit={handleSearchSubmit}
-              placeHolder="搜尋活動關鍵字"
+              placeholder="搜尋活動關鍵字"
               defaultText={keyword}
             />
           </div>

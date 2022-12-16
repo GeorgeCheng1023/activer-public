@@ -2,94 +2,21 @@
 
 $_border-color: #A5A5A5;
 
-.searchBar {
-  width: 100%;
-  height: 57px;
-
-  font-size: 1em;
-
-  border: 1px solid $_border-color;
-  border-radius: 40px;
-  padding: 4px 20px;
+.search-bar {
+  position: relative;
 
   display: flex;
-  position: relative;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
 
+  width: 100%;
+  height: 57px;
+  padding: 4px 20px;
+
+  border: 1px solid $_border-color;
+  border-radius: 40px;
   background: #FFFFFF;
-
-  &__section {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  &__main {
-    width: 8rem;
-    border: 0;
-
-    flex-grow: 1;
-
-    &:focus-visible {
-      outline: 0;
-    }
-  }
-
-  .searchButton {
-    width: fit-content;
-    height: fit-content;
-    border-radius: 50%;
-    transition: 0.3s;
-
-    &:hover {
-      background-color: $primary-color;
-      color: white;
-    }
-
-    &:disabled,
-    &:disabled * {
-      cursor: default;
-
-      &:hover {
-        background-color: transparent;
-        color: $primary-font-color;
-      }
-    }
-  }
-}
-
-.suggestion {
-  position: absolute;
-  width: inherit;
-  z-index: $zindex-dropdown;
-  margin-left: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  background-color: white;
-
-
-  &__choice {
-
-    padding: 1em;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgb(225, 224, 224);
-    }
-  }
-
+  font-size: 1em;
 }
