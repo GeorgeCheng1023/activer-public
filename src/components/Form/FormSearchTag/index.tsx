@@ -71,15 +71,15 @@ function FormSearchBar({
           ))
             .slice(0, 5)
             .map((tag, index: number) => (
-              <button
+              <input
                 tabIndex={-1}
                 type="button"
                 className="search-tag__suggestion__choice"
                 onClick={() => handleSuggestionClick(tag)}
                 key={`suggestion-${index}`}
-              >
-                {tag.text}
-              </button>
+                value={tag.text}
+
+              />
             ))}
       </div>
     </div>

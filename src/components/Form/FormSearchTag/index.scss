@@ -20,25 +20,30 @@ $_border-color: #A5A5A5;
   background: #FFFFFF;
   font-size: 1.5rem;
 
+  &:hover {
+    border-radius: 1em 1em 0 0;
+  }
+
   &__input {
     width: 100%;
   }
+
   &__button {
     width: fit-content;
     height: fit-content;
-
   }
 
   &__suggestion {
     position: absolute;
     z-index: $zindex-dropdown;
+    top: 2em;
+    left: 0;
 
     display: flex;
     align-items: flex-start;
     flex-direction: column;
 
     width: inherit;
-    margin-left: 2em;
 
     background-color: white;
 
@@ -47,6 +52,8 @@ $_border-color: #A5A5A5;
       width: 100%;
       text-align: left;
       cursor: pointer;
+      background-color: white;
+
 
       &:hover {
         background-color: rgb(225, 224, 224);
