@@ -1,6 +1,4 @@
-@import "../../../variables";
-
-$_border-color: #A5A5A5;
+@import "~/src/_variables";
 
 .search-tag {
   position: relative;
@@ -15,12 +13,12 @@ $_border-color: #A5A5A5;
   height: 2em;
   padding: 1em;
 
-  border: 1px solid $_border-color;
+  outline: 1px solid $secondary-font-color;
   border-radius: 1em;
   background: #FFFFFF;
   font-size: 1.5rem;
 
-  &:hover {
+  &--expend {
     border-radius: 1em 1em 0 0;
   }
 
@@ -38,26 +36,39 @@ $_border-color: #A5A5A5;
     z-index: $zindex-dropdown;
     top: 2em;
     left: 0;
+    overflow: hidden;
 
-    display: flex;
+    display: none;
     align-items: flex-start;
     flex-direction: column;
 
     width: inherit;
 
+    outline: 1px solid $secondary-font-color;
+    border-radius: 0 0 1em 1em;
     background-color: white;
 
+    &--expend {
+      display: flex;
+      border-top: 0;
+    }
+
     &__choice {
-      padding: 1em;
+      padding: 1.5em;
       width: 100%;
       text-align: left;
       cursor: pointer;
-      background-color: white;
-
+      background-color: transparent;
 
       &:hover {
-        background-color: rgb(225, 224, 224);
+        background-color: darken(white, 10%);
       }
+
+      &.selected {
+        background-color: darken(white, 10%);
+      }
+
+    
     }
 
   }
