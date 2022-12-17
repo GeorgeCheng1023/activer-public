@@ -53,6 +53,7 @@ function FormSearchBar({
         <Button
           disabled={props.disabled}
           type="submit"
+          color="white"
           onClick={handleSubmit}
           variant={{ round: true }}
           iconAfter={<FiSearch />}
