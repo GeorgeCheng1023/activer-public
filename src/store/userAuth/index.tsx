@@ -7,8 +7,7 @@ import { apiUserGoogleData, apiUserLogin } from 'api/axios';
 const initialState: UserState = {
   IsLoggedIn: false,
   Loading: 'idle',
-  Status: 0, // 0 | 1
-  Id: 0,
+  Status: '',
   RealName: '',
   NickName: '',
   Portrait: '',
@@ -44,7 +43,7 @@ const userAuthSlice = createSlice({
       IsLoggedIn: false,
       Id: 0,
       RealName: '',
-      Status: 0,
+      Status: '0',
       Loading: 'idle',
       SessionToken: '',
     }),
@@ -81,11 +80,15 @@ const userAuthSlice = createSlice({
           SessionToken,
         });
       })
-      .addCase(userLogin.rejected, (state, action: PayloadAction<any>) => ({
-        ...state,
-        Loading: 'failed',
-        Status: action.payload.Status,
-      }))
+      .addCase(userLogin.rejected, (state, action) => {
+        console.log('error status: ', action.error.message?.split(' ')[5]);
+        const errorStatus = action.error.message?.split(' ')[5];
+        return ({
+          ...state,
+          Status: errorStatus,
+          Loading: 'failed',
+        });
+      })
 
       .addCase(getUserGoogleData.fulfilled, (state, action) => {
         const userData = action.payload.data;

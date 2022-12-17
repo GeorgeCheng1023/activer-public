@@ -54,6 +54,7 @@ export const apiUserAuth = (Email: string, SessionToken: string) => axiosTest.po
   },
 );
 
+// google
 export const apiUserGoogleData = (access_token: string) => axios.get(
   'https://www.googleapis.com/oauth2/v3/userinfo',
   {

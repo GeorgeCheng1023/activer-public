@@ -6,10 +6,10 @@ import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
-import { userLogin } from 'store/userAuth';
+import { userLogin, getUserData } from 'store/userAuth';
 
 // Hook
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 // Components
 import FAQTag from 'components/FAQ-Tag';
@@ -22,6 +22,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function LoginSection() {
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,30 +73,34 @@ function LoginSection() {
 
     try {
       const response: any = await dispatch(userLogin({ email: user, password: pwd }));
-      console.log(response);
-      if (!response.payload.data.Status) {
+      console.log(response.meta.requestStatus);
+      if (response.meta.requestStatus === 'rejected') {
         setErrMsg('帳號或密碼有誤');
         return;
       }
-      navigate(from, { replace: true });
+      if (response.meta.requestStatus === 'fulfilled') {
+        navigate(from, { replace: true });
 
-      const expiresDate = new Date();
-      expiresDate.setDate(expiresDate.getDate() + 1);
+        const expiresDate = new Date();
+        expiresDate.setDate(expiresDate.getDate() + 1);
 
-      setCookie('email', user, {
-        expires: expiresDate,
-        path: '/',
-        sameSite: true,
-      });
-      setCookie('sessionToken', response.payload.data.SessionToken, {
-        expires: expiresDate,
-        path: '/',
-        sameSite: true,
-      });
+        setCookie('email', user, {
+          expires: expiresDate,
+          path: '/',
+          sameSite: true,
+        });
+        setCookie('sessionToken', response.payload.data.SessionToken, {
+          expires: expiresDate,
+          path: '/',
+          sameSite: true,
+        });
+      }
     } catch (err: any) {
+      console.log(userData);
       if (!err?.response) {
         setErrMsg('伺服器無回應');
       } else if (err.response?.status === 400) {
+        console.log('400');
         setErrMsg('帳號和密碼不能空白');
       } else if (err.response?.status === 401) {
         setErrMsg('帳號或密碼有誤');
@@ -108,7 +113,7 @@ function LoginSection() {
 
   return (
     <div className="login-container">
-      <form method="post" className="login-section">
+      <main className="login-section">
         <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
         <h1 className="login-section__title">登入</h1>
 
@@ -142,7 +147,7 @@ function LoginSection() {
         </section>
 
         <div className="login-section__pwd-tag">
-          <FAQTag title="忘記密碼?" url="/password" />
+          <FAQTag title="忘記密碼?" url="/ForgetPwd" />
         </div>
 
         {/* <section className="login-section__check-persist-section">
@@ -178,7 +183,7 @@ function LoginSection() {
           </Link>
         </section>
 
-      </form>
+      </main>
 
       <aside className="or-aside" />
 

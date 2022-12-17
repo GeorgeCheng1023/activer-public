@@ -40,7 +40,6 @@ declare global {
 
   interface UserState {
     IsLoggedIn: boolean,
-    Id: number,
     RealName: string,
     NickName: string,
     Email: string,
@@ -54,7 +53,7 @@ declare global {
     Area: string,
     ActivityHistory: Array<number>,
     TagHistory: Array<number>,
-    Status: number;
+    Status: string;
     Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
     SessionToken: string, // auth
   }

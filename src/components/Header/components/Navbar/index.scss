@@ -71,6 +71,11 @@
     z-index: $zindex-modal-backdrop;
     background-color: transparent;
   }
+
+   &__user-avatar {
+     width: 2rem;
+    height: 2rem;
+  }
 }
 
 @include media(mobile, tablet) {

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
-// import { useAppDispatch } from 'hooks/redux';
-// import { userUpdate } from 'store/userAuth';
 import FormInputFile from 'components/Form/FormInputFile';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
@@ -75,7 +73,7 @@ function Basic() {
               onClose={() => setDisplayCropPanel(false)}
               display={displayCropPanel}
             />
-            <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
+            <img className="user-basic__portrait img" src={values.Portrait || '/user.png'} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
               <FormInputFile
                 name="Portrait"
