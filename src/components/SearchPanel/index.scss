@@ -8,6 +8,7 @@
   padding: 3em;
   margin: 0 auto;
 
+
   font-size: 0.8em;
   background-color: #f8f8f8;
   color: $primary-font-color;
@@ -39,8 +40,9 @@
 
       }
 
-      @include media(desktop) {
+      @include media(desktop, laptop) {
         height: 70vh;
+        margin-right: 2em;
       }
     }
 

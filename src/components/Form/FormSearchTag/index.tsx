@@ -91,7 +91,6 @@ function FormSearchBar({
       e.preventDefault();
       if (inputValueRef.current && currentFocusSuggestion) {
         inputValueRef.current.value = (currentFocusSuggestion as HTMLInputElement).value;
-        // TODO: fetch tag detail by id
         handleSuggestionClick({
           id: currentFocusSuggestion.getAttribute('data-id') as string,
           text: currentFocusSuggestion.getAttribute('data-text') as string,

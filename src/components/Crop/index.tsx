@@ -3,14 +3,14 @@ import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
 // component
 import Button from 'components/Button';
-import Popup, { PopupDisplayProps } from 'components/Popup';
+import Popup, { PopupDisplayType } from 'components/Popup';
 import { RotationScroll, ZoomScroll } from './components';
 // utils
 import getCroppedImg from './utils/cropImages';
 // style
 import './index.scss';
 
-interface CropType extends PopupDisplayProps {
+interface CropType extends PopupDisplayType {
   onCropped: (croppedImage: string) => void,
   image: string,
 }

@@ -3,12 +3,12 @@ import { createPortal } from 'react-dom';
 import './index.scss';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-export interface PopupDisplayProps {
+export interface PopupDisplayType {
   display: boolean,
   onClose: () => void,
 }
 
-interface Props extends PopupDisplayProps {
+interface PopupType extends PopupDisplayType {
   children: React.ReactNode,
   effectCallback?: React.EffectCallback
 }
@@ -18,7 +18,7 @@ function Popup({
   onClose,
   display,
   effectCallback,
-}: Props) {
+}: PopupType) {
   const handleClickBackdrop:
   React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();

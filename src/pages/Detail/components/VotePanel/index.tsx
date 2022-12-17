@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Popup, { PopupDisplayProps } from 'components/Popup';
+import Popup, { PopupDisplayType } from 'components/Popup';
 import FormSearchTag from 'components/Form/FormSearchTag';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
@@ -7,7 +7,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import './index.scss';
 import { ActivityTagDataType } from 'types/ActivityDataType';
 
-interface Props extends PopupDisplayProps {
+interface Props extends PopupDisplayType {
   tags: ActivityTagDataType[]
 }
 

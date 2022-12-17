@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 // components
 import Button from 'components/Button';
-import Popup, { PopupDisplayProps } from 'components/Popup';
+import Popup, { PopupDisplayType } from 'components/Popup';
 import Star from '../Comment/Star';
 
 // style
 import './index.scss';
 
-interface Props extends PopupDisplayProps {
+interface Props extends PopupDisplayType {
   onSubmit: (starValue: number, content: string) => void;
 }
 
