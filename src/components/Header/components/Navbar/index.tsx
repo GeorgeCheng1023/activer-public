@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 // style
 import './index.scss';
 // redux
@@ -23,35 +23,35 @@ function Navbar() {
   const dispatch = useAppDispatch();
 
   // user login and logout
-  const handleLoginClick = () => {
+  const handleLoginClick = useCallback(() => {
     setExpended(false);
     if (!userIsLoggined) {
       navigate('/login', { replace: true });
     } else {
       navigate('/user/basic');
     }
-  };
-  const handleLogout = () => {
+  }, []);
+  const handleLogout = useCallback(() => {
     dispatch(userLogout());
     navigate('/');
-  };
+  }, []);
 
   // mobile support
-  const handleBackdropClick = () => {
+  const handleBackdropClick = useCallback(() => {
     setExpended(false);
-  };
-  const handleToggleClick = () => {
+  }, []);
+  const handleToggleClick = useCallback(() => {
     setExpended(!expended);
-  };
+  }, []);
 
   // navbar item event
-  const handleClickSearchActivityButton = () => {
+  const handleClickSearchActivityButton = useCallback(() => {
     setExpended(false);
     dispatch(showSearchPanel());
-  };
-  const handleClickTrendButton = () => {
+  }, []);
+  const handleClickTrendButton = useCallback(() => {
     setExpended(false);
-  };
+  }, []);
 
   return (
     <div className="navbar">
