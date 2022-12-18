@@ -37,7 +37,6 @@ function Search() {
 
   // redux
   return (
-
     <Popup
       display={display}
       onClose={() => dispatch(hide())}
