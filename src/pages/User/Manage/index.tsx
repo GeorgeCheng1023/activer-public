@@ -5,7 +5,7 @@ import { BsBookmarkHeart } from 'react-icons/bs';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import ManageNav from 'components/ManageNav';
 import { useParseTagDataArray } from 'hooks/tag';
-import { ManageNavFilterProps } from 'components/ManageNav/ManageNavButton';
+import { ManageNavFilterType } from 'components/ManageNav/ManageNavButton';
 import ManageActivityItem from './components/ManageActivityItem';
 
 // dummyData
@@ -13,20 +13,20 @@ import dummyActivity from './dummy.json';
 // style
 import './index.scss';
 
-const filters: ManageNavFilterProps[] = [
+const filters: ManageNavFilterType[] = [
   {
     id: '全部',
-    name: '全部',
+    label: '全部',
     icon: <BiBorderAll />,
   },
   {
     id: '已報名',
-    name: '已報名',
+    label: '已報名',
     icon: <AiOutlineCheckCircle />,
   },
   {
     id: '願望',
-    name: '願望',
+    label: '願望',
     icon: <BsBookmarkHeart />,
   },
 

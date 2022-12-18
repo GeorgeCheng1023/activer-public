@@ -1,20 +1,20 @@
 import React from 'react';
 import './index.scss';
 
-export interface ManageNavFilterProps {
+export interface ManageNavFilterType {
   id: string,
-  name: string,
+  label: string,
   icon?: JSX.Element,
 }
 
-interface Props extends ManageNavFilterProps {
+interface ManageNavButtonType extends ManageNavFilterType {
   active: boolean,
   onClickFilter: (clickedFilterName: string) => void
 }
 
 function ManageNavButton({
-  id, onClickFilter, icon, name, active,
-}: Props) {
+  id, onClickFilter, icon, label, active,
+}: ManageNavButtonType) {
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     onClickFilter(id);
@@ -34,8 +34,8 @@ function ManageNavButton({
           {icon}
         </span>
       )}
-      <span className="manage-nav__button__title">
-        {name}
+      <span className="manage-nav__button__label">
+        {label}
       </span>
     </button>
   );

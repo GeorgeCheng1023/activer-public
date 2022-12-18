@@ -1,51 +1,50 @@
 @import '~/src/_global.scss';
 @import '~/src/_variables';
 
-.manage-nav {
-  font-size: 2em;
+.manage-nav__button {
+  position: relative;
 
-  &__button {
-    // font-size: 1em;
-    font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    position: relative;
+  margin: 1em 2em;
+  padding-bottom: 0.5em;
+
+  font-size: 1rem;
+  font-weight: 300;
+
+  transition: all 1s ease;
+  cursor: pointer;
+
+  &__icon {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 1em 2em;
-    padding-bottom: 0.5em;
+    justify-items: center;
+  }
 
-    transition: all 1s ease;
+  &::before {
+    position: absolute;
+    bottom: 0;
 
-    cursor: pointer;
+    width: 0%;
+    height: 2px;
+    margin: 0;
 
-    &__icon {
-      // font-size: 2em;
-      display: flex;
-      align-items: center;
-      justify-items: center;
-    }
+    background-color: $primary-font-color;
+    border-radius: 14px;
 
+    content: "";
+    transition: 0.2s ease-out;
+  }
+
+  &:active {
+    scale: 1.2
+  }
+
+  &.focus {
     &::before {
-      content: "";
-      position: absolute;
-      width: 0%;
-      height: 2px;
-      margin: 0;
-      background-color: $primary-font-color;
-      border-radius: 14px;
-      bottom: 0;
-      transition: 0.2s ease-out;
-    }
-
-    &:active {
-      scale: 1.2
-    }
-
-    &.focus {
-      &::before {
-        width: 100%;
-      }
+      width: 100%;
     }
   }
 }
