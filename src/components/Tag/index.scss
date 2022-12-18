@@ -1,12 +1,14 @@
 @import '~/src/_variables';
 @import '~/src/_global';
 
-$_tag-config: (primary: (class: 'primary',
+$_tag-config: (
+  primary: (class: 'primary',
     color: $primary-color),
   secondary: (class:'secondary',
     color: $secondary-color),
   success: (class :'success',
-    color: $success-color));
+    color: $success-color)
+);
 
 .tag {
   display: flex;
