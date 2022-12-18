@@ -34,14 +34,12 @@ function ForgetPwd() {
       <h3 className="forgot-pwd__subtitle">輸入電子郵件</h3>
       <div className="forgot-pwd__text-field">
         <FormInput
-          inputProps={{
-            id: 'email',
-            name: 'email',
-            inputType: 'text',
-            placeholder: '電子信箱',
-            errorMessage: '電子信箱格式錯誤',
-            pattern: PWD_REGEX_PATTERN,
-          }}
+          id="email"
+          name="email"
+          type="text"
+          placeholder="電子信箱"
+          errorMessage="電子信箱格式錯誤"
+          pattern={PWD_REGEX_PATTERN}
           formValue={email}
           onChange={handleChange}
         />
