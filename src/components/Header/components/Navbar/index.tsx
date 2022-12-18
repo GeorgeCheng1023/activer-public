@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useCookies } from 'react-cookie';
 // style
 import './index.scss';
 // redux
@@ -21,6 +22,7 @@ function Navbar() {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [, , removeCookie] = useCookies<string>(['user']);
 
   // user login and logout
   const handleLoginClick = useCallback(() => {
@@ -33,6 +35,8 @@ function Navbar() {
   }, []);
   const handleLogout = useCallback(() => {
     dispatch(userLogout());
+    removeCookie('email', { path: '/' });
+    removeCookie('sessionToken', { path: '/' });
     navigate('/');
   }, []);
 
@@ -81,7 +85,7 @@ function Navbar() {
         && (
           <div className="navbar__logout-btn">
             <Button
-              color="secondary"
+              color="primary"
               text="登出"
               variant={{ outline: true }}
               onClick={handleLogout}
@@ -91,6 +95,9 @@ function Navbar() {
           }
 
           <div className="navbar__login-button">
+            {/* <button type="button" onClick={handleLoginClick}>
+              <img className="navbar__user-avatar" src="/user.png" alt="user" />
+            </button> */}
             <Button
               color="primary"
               text={userIsLoggined ? '個人資料' : '登入/註冊'}

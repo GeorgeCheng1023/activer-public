@@ -17,6 +17,7 @@ function GoogleLoginButton() {
       try {
         const response = await dispatch(getUserGoogleData(respose.access_token));
         console.log(response);
+        console.log(respose);
         navigate(from, { replace: true });
       } catch (err) {
         console.log(err);

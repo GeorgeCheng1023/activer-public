@@ -37,4 +37,24 @@ declare global {
     status: number;
     sessionToken: string, // auth
   }
+
+  interface UserState {
+    IsLoggedIn: boolean,
+    RealName: string,
+    NickName: string,
+    Email: string,
+    Password: stringik,
+    Portrait: string,
+    Gender: string,
+    Birthday: string,
+    Profession: string,
+    Phone: string,
+    County: string,
+    Area: string,
+    ActivityHistory: Array<number>,
+    TagHistory: Array<number>,
+    Status: string;
+    Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
+    SessionToken: string, // auth
+  }
 }

@@ -4,63 +4,33 @@ import {
 import type { RootState } from 'store';
 import { apiUserGoogleData, apiUserLogin } from 'api/axios';
 
-interface UserState {
-  IsLoggedIn: boolean,
-  Id: number,
-  RealName: string,
-  NickName: string,
-  Email: string,
-  Password: string,
-  Portrait: string,
-  Gender: string,
-  Birthday: string,
-  Profession: string,
-  Phone: string,
-  Country: string,
-  Area: string,
-  ActivityHistory: Array<number>,
-  TagHistory: Array<number>,
-  Status: number;
-  Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
-  SessionToken: string, // auth
-}
-
 const initialState: UserState = {
   IsLoggedIn: false,
-  Id: 0,
+  Loading: 'idle',
+  Status: '',
   RealName: '',
   NickName: '',
+  Portrait: '',
   Email: '',
   Password: '',
-  Portrait: '',
   Gender: '',
   Birthday: '',
   Profession: '',
   Phone: '',
-  Country: '',
+  County: '',
   Area: '',
   ActivityHistory: [],
   TagHistory: [],
-  Status: 0, // 0 | 1
-  Loading: 'idle',
   SessionToken: '',
 };
 
-interface userLoginType {
-  email: string,
-  password: string,
-}
-
-export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLoginType) => {
+export const userLogin = createAsyncThunk('auth/userLogin', async (userData: userLogin) => {
   const response = await apiUserLogin(userData);
-  // eslint-disable-next-line no-console
-  console.log(response);
   return response;
 });
 
 export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
   const response = await apiUserGoogleData(accessToken);
-  console.log(response);
   return response;
 });
 
@@ -73,17 +43,15 @@ const userAuthSlice = createSlice({
       IsLoggedIn: false,
       Id: 0,
       RealName: '',
-      Status: 0,
+      Status: '0',
       Loading: 'idle',
       SessionToken: '',
     }),
-    userUpdate: (state, action: PayloadAction<any>) => {
-      const userData = action.payload;
-      return ({
-        ...state,
-        ...userData,
-      });
-    },
+    userUpdate: (state, action: PayloadAction<any>) => ({
+      ...state,
+      ...action.payload,
+      IsLoggedIn: true,
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -92,9 +60,8 @@ const userAuthSlice = createSlice({
         Loading: 'loading',
       }))
       .addCase(userLogin.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log(action.payload);
         const { Status } = action.payload.data;
-        if (!Status) {
+        if (Status === 0) {
           return ({
             ...state,
             IsLoggedIn: false,
@@ -108,18 +75,23 @@ const userAuthSlice = createSlice({
           IsLoggedIn: true,
           Loading: 'succeeded',
           Email: User.Email,
+          Id: User.Id,
           Status,
           SessionToken,
         });
       })
-      .addCase(userLogin.rejected, (state, action: PayloadAction<any>) => ({
-        ...state,
-        Loading: 'failed',
-        Status: action.payload.Status,
-      }))
+      .addCase(userLogin.rejected, (state, action) => {
+        console.log('error status: ', action.error.message?.split(' ')[5]);
+        const errorStatus = action.error.message?.split(' ')[5];
+        return ({
+          ...state,
+          Status: errorStatus,
+          Loading: 'failed',
+        });
+      })
+
       .addCase(getUserGoogleData.fulfilled, (state, action) => {
         const userData = action.payload.data;
-        console.log(userData);
         return ({
           ...state,
           IsLoggedIn: true,
@@ -135,6 +107,7 @@ const userAuthSlice = createSlice({
 export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
 export const getLoadingState = (state: RootState) => state.userAuth.Loading;
 export const getUserRealname = (state: RootState) => state.userAuth.RealName;
+export const getUserData = (state: RootState) => state.userAuth;
 
 export const { userLogout, userUpdate } = userAuthSlice.actions;
 

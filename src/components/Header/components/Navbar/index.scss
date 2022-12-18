@@ -51,7 +51,8 @@
   }
 
   &__user {
-    display: flex
+    display: flex;
+    gap: 10px;
   }
 
   &__toggle-button {
@@ -62,11 +63,6 @@
       display: block
     }
   }
-
-
-
-
-
   &__backdrop {
     position: fixed;
     inset: 0;
@@ -74,5 +70,19 @@
     height: 100%;
     z-index: $zindex-modal-backdrop;
     background-color: transparent;
+  }
+
+   &__user-avatar {
+     width: 2rem;
+    height: 2rem;
+  }
+}
+
+@include media(mobile, tablet) {
+  .navbar {
+    &__user {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }

@@ -2,15 +2,17 @@ import React, {
   useState, useEffect, useRef,
 } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
-import { userLogin } from 'store/userAuth';
+import { userLogin, getUserData } from 'store/userAuth';
 
 // Hook
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 // Components
+import FAQTag from 'components/FAQ-Tag';
 import ButtonFrame from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
@@ -20,10 +22,13 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function LoginSection() {
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
+
+  const [, setCookie] = useCookies<string>(['user']);
 
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
@@ -37,7 +42,6 @@ function LoginSection() {
 
   const [errMsg, setErrMsg] = useState<string>('');
   const [showErr, setShowErr] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     userRef.current?.focus();
@@ -56,14 +60,6 @@ function LoginSection() {
     setErrMsg('');
   }, [pwdFocus]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  (success) && navigate(from, { replace: true });
-
-  // const togglePersist = () => {
-  //   localStorage.setItem('persist', persist);
-  //   setPersist((prev: any) => !prev);
-  // };
-
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setShowErr(true);
@@ -77,16 +73,34 @@ function LoginSection() {
 
     try {
       const response: any = await dispatch(userLogin({ email: user, password: pwd }));
-      console.log(response);
-      if (!response.payload.data.Status) {
+      console.log(response.meta.requestStatus);
+      if (response.meta.requestStatus === 'rejected') {
         setErrMsg('帳號或密碼有誤');
         return;
       }
-      setSuccess(true);
+      if (response.meta.requestStatus === 'fulfilled') {
+        navigate(from, { replace: true });
+
+        const expiresDate = new Date();
+        expiresDate.setDate(expiresDate.getDate() + 1);
+
+        setCookie('email', user, {
+          expires: expiresDate,
+          path: '/',
+          sameSite: true,
+        });
+        setCookie('sessionToken', response.payload.data.SessionToken, {
+          expires: expiresDate,
+          path: '/',
+          sameSite: true,
+        });
+      }
     } catch (err: any) {
+      console.log(userData);
       if (!err?.response) {
         setErrMsg('伺服器無回應');
       } else if (err.response?.status === 400) {
+        console.log('400');
         setErrMsg('帳號和密碼不能空白');
       } else if (err.response?.status === 401) {
         setErrMsg('帳號或密碼有誤');
@@ -99,7 +113,7 @@ function LoginSection() {
 
   return (
     <div className="login-container">
-      <form method="post" className="login-section">
+      <main className="login-section">
         <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
         <h1 className="login-section__title">登入</h1>
 
@@ -131,6 +145,10 @@ function LoginSection() {
             required
           />
         </section>
+
+        <div className="login-section__pwd-tag">
+          <FAQTag title="忘記密碼?" url="/ForgetPwd" />
+        </div>
 
         {/* <section className="login-section__check-persist-section">
           <input type="checkbox" id="persist" onChange={togglePersist} />
@@ -164,15 +182,8 @@ function LoginSection() {
             />
           </Link>
         </section>
-        <section className="login-section__btn-footer">
-          <ButtonFrame
-            color="secondary"
-            text="主辦方登入"
-            onClick={(e) => handleClick(e)}
-          />
-        </section>
 
-      </form>
+      </main>
 
       <aside className="or-aside" />
 

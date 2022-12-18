@@ -3,8 +3,9 @@ import axios from 'axios';
 const TEST_URL = 'http://localhost:5000';
 
 const LOGIN_URL = '/api/user/signin';
-const USER_UPDATE_URL = '/api/user/update';
 const REGISTER_URL = '/api/user/signup';
+const USER_UPDATE_URL = '/api/user';
+const USER_AUTH_URL = '/api/user/auth';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
@@ -33,20 +34,27 @@ export const apiUserRegister = (
     },
     withCredentials: false,
   },
-)
-  .then((res) => console.log(res));
+);
 
 export const apiUserUpdate = (
-  user: User,
-) => axiosTest.post(
-  USER_UPDATE_URL,
-  JSON.stringify(user),
+  userFormData: FormData,
+) => axiosTest.put(
+  `${USER_UPDATE_URL}/${userFormData.get('Id')}`,
+  userFormData,
   {
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
+    headers: { 'Content-Type': 'multipart/form-data' },
   },
 );
 
+export const apiUserAuth = (Email: string, SessionToken: string) => axiosTest.post(
+  USER_AUTH_URL,
+  JSON.stringify({ Email, SessionToken }),
+  {
+    headers: { 'Content-Type': 'application/json' },
+  },
+);
+
+// google
 export const apiUserGoogleData = (access_token: string) => axios.get(
   'https://www.googleapis.com/oauth2/v3/userinfo',
   {

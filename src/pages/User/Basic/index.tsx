@@ -5,30 +5,40 @@ import Crop from 'components/Crop';
 import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 import Button from 'components/Button';
-import dummyUserData from './dummyUserData.json';
+import { getUserData, userUpdate } from 'store/userAuth';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { apiUserUpdate } from 'api/axios';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
 
   // init state
-  const [values, setValues] = useState(dummyUserData);
-  const [selectedCounty, setSelectCounty] = useState(dummyUserData.Country || '臺北市');
+  const [values, setValues] = useState(userData);
+  const [selectedCounty, setSelectCounty] = useState(userData.County || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
 
   const handleChange = (key: any, value: any) => {
     setValues({ ...values, [key]: value });
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const updateUserDatabase = (userFormData: FormData) => {
+    userFormData.append('Id', userData.Id);
+    userFormData.append('SessionToken', userData.SessionToken);
+    userFormData.append('Email', userData.Email);
+    userFormData.append('Password', userData.Password);
+    apiUserUpdate(userFormData);
+  };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    // eslint-disable-next-line
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    // axios.post('http://localhost:5000/test', userFormData);
-
-    // dispatch(userUpdate(values));
+    dispatch(userUpdate(values));
+    updateUserDatabase(userFormData);
   };
+
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
     handleChange(key, value);
@@ -40,7 +50,7 @@ function Basic() {
   };
 
   // crop
-  const [imageSrc, setImageSrc] = useState<string>('');
+  const [imageSrc, setImageSrc] = useState<string>(userData.Portrait);
 
   const handleCropPanelShow = () => {
     setDisplayCropPanel(true);
@@ -50,7 +60,7 @@ function Basic() {
   }, [imageSrc]);
 
   return (
-    <form onSubmit={handleSubmit} className="user-basic">
+    <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
       <div className="user-basic__container">
         <div className="user-basic__container--column">
           <div className="user-basic__portrait">
@@ -60,7 +70,7 @@ function Basic() {
               onClose={() => setDisplayCropPanel(false)}
               display={displayCropPanel}
             />
-            <img className="user-basic__portrait img" src={values.Portrait} alt="user-portrait" />
+            <img className="user-basic__portrait img" src={values.Portrait || '/user.png'} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
               <FormInputFile
                 name="Portrait"
@@ -142,9 +152,9 @@ function Basic() {
                 <FormDropDown
                   id="country"
                   label="縣市"
-                  name="Country"
+                  name="County"
                   options={CityCountyData.map((c) => c.CityName)}
-                  value={values.Country}
+                  value={values.County}
                   onChange={handleCountyChange}
                 />
               </div>

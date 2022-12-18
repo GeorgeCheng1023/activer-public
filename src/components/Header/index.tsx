@@ -5,7 +5,6 @@ import './index.scss';
 // component
 
 import Navbar from './components/Navbar';
-import UserState from './components/UserState';
 
 // icon
 import IconLogo from '../Icons';
@@ -18,7 +17,6 @@ function Header() {
           <IconLogo />
         </div>
       </Link>
-      <UserState />
 
       <Navbar />
     </div>

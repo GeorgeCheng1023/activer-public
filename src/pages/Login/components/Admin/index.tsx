@@ -1,52 +1,23 @@
-import { useAppSelector } from 'hooks/redux';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { getUserIsLoggedIn } from 'store/userAuth';
+import Loading from 'pages/Loading';
 
 function Admin() {
-  const isLoggined = useAppSelector(getUserIsLoggedIn);
+  const [cookies] = useCookies<string>(['user']);
+  const [loading, setLoading] = useState<boolean>(true);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggined) {
+    if (!cookies.sessionToken) {
       navigate('/login', { state: { from: location }, replace: true });
     }
+    setLoading(false);
   }, []);
-
-  /*
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let isMounted = true;
-    const controller = new AbortController();
-
-    const admin = async () => {
-      try {
-        const response = await axiosPrivate.get('/data', {
-          signal: controller.signal,
-        });
-        console.log(response);
-      } catch (err) {
-        console.log(err);
-        navigate('/login', { state: { from: location }, replace: true });
-      }
-    };
-
-    if (effectRef.current === false) {
-      admin();
-      console.log('Effect run');
-    }
-
-    return () => {
-      isMounted = false;
-      controller.abort();
-      effectRef.current = true; // update the value of effectRun to true
-    };
-  }, []);
-*/
 
   return (
-    <Outlet />
+    loading ? <Loading /> : <Outlet />
   );
 }
 
