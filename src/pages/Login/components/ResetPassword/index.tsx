@@ -7,9 +7,9 @@ import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 
 // eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/;
 // eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX_PATTERN = '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/';
+const EMAIL_REGEX_PATTERN = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}';
 
 function ResetPwd() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function ResetPwd() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (!EMAIL_REGEX.test(email)) {
+    if (EMAIL_REGEX.test(email)) {
       navigate('/verify');
     }
   };
@@ -51,7 +51,7 @@ function ResetPwd() {
       </Link>
 
       <div className="Reset-pwd__submit-btn">
-        <Button text="寄出" color="secondary" onClick={handleClick} />
+        <Button text="寄出" color="secondary" onClick={handleClick} disabled={!EMAIL_REGEX.test(email)} />
       </div>
     </main>
   );

@@ -35,7 +35,6 @@ function Navbar() {
   };
   const handleLogout = () => {
     dispatch(userLogout());
-    removeCookie('email', { path: '/' });
     removeCookie('sessionToken', { path: '/' });
     navigate('/');
   };

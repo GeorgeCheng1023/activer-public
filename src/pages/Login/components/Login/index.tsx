@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
 // Components
 import FAQTag from 'components/FAQ-Tag';
-import ButtonFrame from '../../../../components/Button';
+import Button from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
 
@@ -41,15 +41,13 @@ function LoginSection() {
   const [pwdFocus, setPwdFocus] = useState<boolean>(false);
 
   const [errMsg, setErrMsg] = useState<string>('');
-  const [showErr, setShowErr] = useState<boolean>(false);
 
   useEffect(() => {
     userRef.current?.focus();
   }, []);
 
   useEffect(() => {
-    if (showErr) setValidPwd(PWD_REGEX.test(pwd));
-    // console.log(validPwd);
+    setValidPwd(PWD_REGEX.test(pwd));
   }, [pwd]);
 
   useEffect(() => {
@@ -62,7 +60,6 @@ function LoginSection() {
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    setShowErr(true);
 
     const v2 = PWD_REGEX.test(pwd);
     if (!v2) {
@@ -84,11 +81,6 @@ function LoginSection() {
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getDate() + 1);
 
-        setCookie('email', user, {
-          expires: expiresDate,
-          path: '/',
-          sameSite: true,
-        });
         setCookie('sessionToken', response.payload.data.SessionToken, {
           expires: expiresDate,
           path: '/',
@@ -147,7 +139,7 @@ function LoginSection() {
         </section>
 
         <div className="login-section__pwd-tag">
-          <FAQTag title="忘記密碼?" url="/ForgetPwd" />
+          <FAQTag title="忘記密碼?" url="/forgetpwd" />
         </div>
 
         {/* <section className="login-section__check-persist-section">
@@ -167,16 +159,18 @@ function LoginSection() {
         </p>
 
         <section className="login-section__btn-group">
-          <ButtonFrame
+          <Button
             color="primary"
+            type="button"
             text="登入"
             onClick={
               (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e)
             }
           />
           <Link to="/register">
-            <ButtonFrame
+            <Button
               color="primary"
+              type="button"
               variant={{ outline: true }}
               text="註冊"
             />

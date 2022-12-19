@@ -40,15 +40,15 @@ export const routerConfig = [
             element: <Register />,
           },
           {
-            path: '/ForgetPwd',
+            path: '/forgetpwd',
             element: <ForgetPwd />,
           },
           {
-            path: '/ResetPwd',
+            path: '/resetpwd',
             element: <ResetPwd />,
           },
           {
-            path: '/NewPwd',
+            path: '/newpwd',
             element: <NewPwd />,
           },
           {

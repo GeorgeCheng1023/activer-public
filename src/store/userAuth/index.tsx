@@ -76,6 +76,7 @@ const userAuthSlice = createSlice({
           Loading: 'succeeded',
           Email: User.Email,
           Id: User.Id,
+          Password: User.Password,
           Status,
           SessionToken,
         });
