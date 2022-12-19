@@ -23,7 +23,7 @@ function ForgetPwd() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (!EMAIL_REGEX.test(email)) {
+    if (EMAIL_REGEX.test(email)) {
       navigate('/verify');
     }
   };
