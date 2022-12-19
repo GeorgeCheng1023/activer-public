@@ -7,78 +7,97 @@
       {
         "Type": "area",
         "Id": 0,
-        "Text": "教育",
-        "TagCount": 10,
-        "UserVoted": false
+        "Text": "教育"
       },
       {
         "Type": "location",
         "Id": 1,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "Text": "臺北市"
       }
     ],
-    "Branch": {
-      "BranchName": "線下賽",
-      "DateStart": {
-        "研習日期": "2022-11-05"
-      },
-      "DateEnd": [
-        "2022-11-06"
-      ],
-      "ApplyStart": [
-        "自即日起"
-      ],
-      "ApplyEnd": [
-        "2022-11-02"
-      ],
-      "ApplyFee": null,
-      "Location": [
-        "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
-      ],
-      "Status": "已報名"
-    }
+    "Branches": [
+      {
+        "Id": 0,
+        "BranchName": "線下賽",
+        "DateStart": {
+          "研習日期": "2022-11-05"
+        },
+        "DateEnd": [
+          "2022-11-06"
+        ],
+        "ApplyStart": [
+          "自即日起"
+        ],
+        "ApplyEnd": [
+          "2022-11-02"
+        ],
+        "ApplyFee": null,
+        "Location": [
+          "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
+        ],
+        "Status": "已報名"
+      }
+    ]
   },
   {
-    "Id": 1,
-    "Title": "【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "Id": 2,
+    "Title": "【講座1】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
     "Image": null,
     "Tags": [
       {
         "Type": "area",
         "Id": 0,
-        "Text": "教育",
-        "TagCount": 10,
-        "UserVoted": false
+        "Text": "教育"
       },
       {
         "Type": "location",
         "Id": 1,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "Text": "臺北市"
       }
     ],
-    "Branch": {
-      "BranchName": "線上賽",
-      "DateStart": {
-        "研習日期": "2022-11-05"
+    "Branches": [
+      {
+        "Id": 1,
+        "BranchName": "線上賽",
+        "DateStart": {
+          "研習日期": "2022-11-05"
+        },
+        "DateEnd": [
+          "2022-11-06"
+        ],
+        "ApplyStart": [
+          "自即日起"
+        ],
+        "ApplyEnd": [
+          "2022-11-02"
+        ],
+        "ApplyFee": null,
+        "Location": [
+          "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
+        ],
+        "Status": "願望"
       },
-      "DateEnd": [
-        "2022-11-06"
-      ],
-      "ApplyStart": [
-        "自即日起"
-      ],
-      "ApplyEnd": [
-        "2022-11-02"
-      ],
-      "ApplyFee": null,
-      "Location": [
-        "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
-      ],
-      "Status": "願望"
-    }
+      {
+        "Id": 2,
+        "BranchName": "線下賽",
+        "DateStart": {
+          "研習日期": "2022-11-05"
+        },
+        "DateEnd": [
+          "2022-11-06"
+        ],
+        "ApplyStart": [
+          "自即日起"
+        ],
+        "ApplyEnd": [
+          "2022-11-02"
+        ],
+        "ApplyFee": null,
+        "Location": [
+          "研習地點：臺北市工業機器人技術教學中心(臺北市立松山高級工農職業學校民權樓4樓電子科實習工場)。地址：臺北市信義區忠孝東路5段236巷15號。"
+        ],
+        "Status": null
+      }
+    ]
   }
 ]

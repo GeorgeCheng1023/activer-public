@@ -2,11 +2,17 @@ export interface BaseActivityDataType {
   Id: number;
   Title: string;
   Image: string[] | null;
-  Tags: ActivityTagDataType[] | null;
-  Branches: BranchDataType[]
+}
+
+// for Manage Page
+export interface UserActivityDataType extends BaseActivityDataType {
+  Tags: TagDataType[];
+  Branch: BranchDataType;
 }
 
 interface ActivityDataType extends BaseActivityDataType {
+  Tags: ActivityTagDataType[] | null;
+  Branches: BranchDataType[];
   Content: string;
   Connection: string[] | null;
   Holder: string[] | null ;

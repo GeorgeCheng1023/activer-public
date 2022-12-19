@@ -1,82 +1,89 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 // components
-import { BiBorderAll } from 'react-icons/bi';
-import { BsBookmarkHeart } from 'react-icons/bs';
-import { AiOutlineCheckCircle } from 'react-icons/ai';
 import ManageNav from 'components/ManageNav';
+import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
+import { CardRow } from 'components/Card';
+
 import { useParseTagDataArray } from 'hooks/tag';
-import { ManageNavFilterType } from 'components/ManageNav/ManageNavButton';
-import ManageActivityItem from './components/ManageActivityItem';
+import { UserActivityDataType } from 'types/ActivityDataType';
+import dummyUserActivity from './dummy.json';
 
-// dummyData
-import dummyActivity from './dummy.json';
-// style
-import './index.scss';
-
-const filters: ManageNavFilterType[] = [
+const filters = [
   {
     id: '全部',
     label: '全部',
     icon: <BiBorderAll />,
   },
   {
-    id: '已報名',
-    label: '已報名',
-    icon: <AiOutlineCheckCircle />,
-  },
-  {
     id: '願望',
     label: '願望',
-    icon: <BsBookmarkHeart />,
+    icon: <BiBookmarkHeart />,
   },
-
+  {
+    id: '已報名',
+    label: '已報名',
+    icon: <BiEdit />,
+  },
 ];
 
 function Manage() {
-  const [userActivity, setUserActivity] = useState(dummyActivity);
-  const [currentFilterName, setCurrentFilterName] = useState('全部');
+  const [currentFilterId, setCurrentFilterId] = useState('全部');
 
-  const handleChangFilter = (selectFilterStatus: string) => {
-    setCurrentFilterName(selectFilterStatus);
-  };
+  const userActivities: UserActivityDataType[] = useMemo((): UserActivityDataType[] => {
+    const parseUserActivities:UserActivityDataType[] = [];
+    dummyUserActivity.forEach((activity) => {
+      activity.Branches.forEach((branch) => {
+        if (!branch.Status) { return; }
+        parseUserActivities.push({
+          Id: activity.Id,
+          Title: activity.Title,
+          Image: activity.Image,
+          Tags: activity.Tags,
+          Branch: branch,
+        });
+      });
+    });
+    return parseUserActivities;
+  }, []);
+  const [currentActivities, setCurrentActivities] = useState<UserActivityDataType[]>(
+    userActivities,
+  );
 
-  useEffect(() => {
-    if (currentFilterName === '全部') {
-      setUserActivity(dummyActivity);
+  const handleChangeFilter = (selectFilterId: string) => {
+    console.log(userActivities);
+
+    setCurrentFilterId(selectFilterId);
+    if (selectFilterId === '全部') {
+      setCurrentActivities(
+        userActivities?.filter((activity) => !!activity.Branch.Status),
+      );
     } else {
-      setUserActivity(
-        dummyActivity
-          .filter((activity) => {
-            console.log('filter:', activity.Branch.Status, currentFilterName);
-            return (activity.Branch.Status === currentFilterName);
-          }),
+      setCurrentActivities(
+        userActivities?.filter((activity) => activity.Branch.Status === selectFilterId),
       );
     }
-  }, [currentFilterName, setCurrentFilterName]);
+    console.log(currentActivities);
+  };
 
   return (
     <>
       <ManageNav
         filters={filters}
-        onChangeFilter={handleChangFilter}
-        currentFilterId={currentFilterName}
+        onChangeFilter={handleChangeFilter}
+        currentFilterId={currentFilterId}
       />
-      <div className="manage__items">
-        {userActivity.map((activity) => (
-          <ManageActivityItem
-            title={activity.Title}
+      {
+        currentActivities?.map((activity) => (
+          <CardRow
             imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
-            altText={activity.Branch.BranchName}
+            altText={activity.Title}
+            title={activity.Title}
             tags={useParseTagDataArray(activity.Tags)}
-            detail={activity.Branch.BranchName}
-            applyEndDate={activity.Branch.ApplyEnd[0]}
-            beginDate={Object.values(activity.Branch.DateStart)[0]}
-            status={activity.Branch.Status}
+            detail={activity.Branch.Status || ''}
+
           />
-        ))}
-
-      </div>
-
+        ))
+      }
     </>
   );
 }
