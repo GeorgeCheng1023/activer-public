@@ -47,7 +47,7 @@ function LoginSection() {
   }, []);
 
   useEffect(() => {
-    setValidPwd(PWD_REGEX.test(pwd));
+    setValidPwd(PWD_REGEX.test(pwd) || pwd === '');
   }, [pwd]);
 
   useEffect(() => {

@@ -46,9 +46,9 @@ export const apiUserUpdate = (
   },
 );
 
-export const apiUserAuth = (Email: string, SessionToken: string) => axiosTest.post(
+export const apiUserAuth = (SessionToken: string) => axiosTest.post(
   USER_AUTH_URL,
-  JSON.stringify({ Email, SessionToken }),
+  JSON.stringify({ SessionToken }),
   {
     headers: { 'Content-Type': 'application/json' },
   },

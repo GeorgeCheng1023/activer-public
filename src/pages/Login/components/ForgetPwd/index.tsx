@@ -7,9 +7,9 @@ import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 
 // eslint-disable-next-line no-useless-escape
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/;
 // eslint-disable-next-line no-useless-escape
-const PWD_REGEX_PATTERN = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}';
+const EMAIL_REGEX_PATTERN = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}';
 
 function ForgetPwd() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function ForgetPwd() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (!PWD_REGEX.test(email)) {
+    if (!EMAIL_REGEX.test(email)) {
       navigate('/verify');
     }
   };
@@ -40,7 +40,7 @@ function ForgetPwd() {
             inputType: 'text',
             placeholder: '電子信箱',
             errorMessage: '電子信箱格式錯誤',
-            pattern: PWD_REGEX_PATTERN,
+            pattern: EMAIL_REGEX_PATTERN,
           }}
           formValue={email}
           onChange={handleChange}

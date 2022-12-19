@@ -12,11 +12,11 @@ function PersistLogin() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const { email, sessionToken } = cookies;
+    const { sessionToken } = cookies;
 
     const verifyUser = async () => {
       try {
-        const response = await apiUserAuth(email, sessionToken);
+        const response = await apiUserAuth(sessionToken);
 
         if (response.data.Status === 1) {
           dispatch(userUpdate(response.data));
