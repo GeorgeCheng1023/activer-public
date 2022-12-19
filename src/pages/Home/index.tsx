@@ -1,14 +1,18 @@
 import React from 'react';
 
 // component
-import Hero from './components/Hero';
-import Trend from './components/Trend';
+import { Hero, TrendActivity, TrendTag } from './components';
+import './index.scss';
 
 function Home() {
   return (
     <div className="home">
       <Hero />
-      <Trend />
+
+      <TrendActivity />
+
+      <TrendTag />
+
     </div>
   );
 }

@@ -4,13 +4,13 @@ import './index.scss';
 // component
 import CardSlide from '../CardSlide';
 
-function Trend() {
+function TrendActivity() {
   return (
-    <div className="trend">
-      <h2 className="trend__title">熱門活動</h2>
+    <div className="trend-activity">
+      <h2>熱門活動</h2>
       <CardSlide />
     </div>
   );
 }
 
-export default Trend;
+export default TrendActivity;
