@@ -16,8 +16,8 @@ function CardRow({
     <div className="card-column">
       <img className="card-column__image" src={imgUrl} alt={altText} />
       <div className="card-column__content">
-        <p className="card-column__title">{title}</p>
-        <div className="card-column__tag">
+        <p className="card-column__content__title">{title}</p>
+        <div className="card-column__content__tags">
           {tags.map((tag: TagType) => (
             <Tag
               key={tag.id}
@@ -28,7 +28,7 @@ function CardRow({
             />
           ))}
         </div>
-        <div className="card-column__detail">
+        <div className="card-column__content__detail">
           <p>{detail}</p>
         </div>
       </div>

@@ -2,46 +2,24 @@
 @import '~/src/_global';
 
 .manage-control {
-  width: 100%;
-  height: fit-content;
+  flex-grow: 0.2;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: center;
-  align-items: flex-end;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+  width: fit-content;
+  height: 100%;
 
-  &__date {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
+  &__label {
+    white-space: nowrap
   }
 
   @include media(mobile, tablet) {
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  &__select {
-
-    margin-left: 1em;
-
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 2em;
+    flex-wrap: wrap;
 
   }
-}
 
-.remain-date {
-  font-size: 0.6em;
-  color: $secondary-font-color;
-
-  &__number {
-    display: inline-block;
-    width: fit-content;
-    background-color: $success-color;
-    color: white;
-    padding: 0.4em 0.8em;
-    border-radius: 1.4em;
-    font-size: 1.3em;
-  }
 }

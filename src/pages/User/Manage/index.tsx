@@ -8,6 +8,7 @@ import { useParseTagDataArray } from 'hooks/tag';
 import { UserActivityDataType } from 'types/ActivityDataType';
 import dummyUserActivity from './dummy.json';
 import ManageCardControl from './components/ManageCardControl';
+import './index.scss';
 
 const filters = [
   {
@@ -91,31 +92,33 @@ function Manage() {
   }, [userActivities]);
 
   return (
-    <>
+    <div className="manage">
       <ManageNav
         filters={filters}
         onChangeFilter={handleChangeFilter}
         currentFilterId={currentFilterId}
       />
-      {
-        currentActivities?.map((activity) => (
-          <CardRow
-            key={`manage-activity-${activity.Branch.Id}`}
-            imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
-            altText={activity.Title}
-            title={activity.Title}
-            tags={useParseTagDataArray(activity.Tags)}
-            detail={activity.Branch.Status || ''}
-            control={(
-              <ManageCardControl
-                branch={activity.Branch}
-                onChange={handleChangeActivityStatus}
-              />
-            )}
-          />
-        ))
-      }
-    </>
+      <div className="manage__activity">
+        {
+          currentActivities?.map((activity) => (
+            <CardRow
+              key={`manage-activity-${activity.Branch.Id}`}
+              imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
+              altText={activity.Title}
+              title={activity.Title}
+              tags={useParseTagDataArray(activity.Tags)}
+              detail={activity.Branch.BranchName}
+              control={(
+                <ManageCardControl
+                  branch={activity.Branch}
+                  onChange={handleChangeActivityStatus}
+                />
+              )}
+            />
+          ))
+        }
+      </div>
+    </div>
   );
 }
 
