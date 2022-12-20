@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 // components
 import ManageNav from 'components/ManageNav';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
@@ -7,6 +7,7 @@ import { CardRow } from 'components/Card';
 import { useParseTagDataArray } from 'hooks/tag';
 import { UserActivityDataType } from 'types/ActivityDataType';
 import dummyUserActivity from './dummy.json';
+import ManageCardControl from './components/ManageCardControl';
 
 const filters = [
   {
@@ -27,10 +28,22 @@ const filters = [
 ];
 
 function Manage() {
+  /** State init
+   * @userActivities  User's activity
+   * @currentFilterId ManageNav Curreent Filter is which, will based on upper filters.id
+   * @currentActivities Filtering {userActivities} based on currentFilterId
+   */
+  const [userActivities, setUserActivities] = useState<UserActivityDataType[]>();
   const [currentFilterId, setCurrentFilterId] = useState('全部');
+  const [
+    currentActivities,
+    setCurrentActivities,
+  ] = useState<UserActivityDataType[] | undefined>();
 
-  const userActivities: UserActivityDataType[] = useMemo((): UserActivityDataType[] => {
+  /**  function to fetch user Data */
+  const getUserActivity = useCallback(() => {
     const parseUserActivities:UserActivityDataType[] = [];
+    // TODO: get user activity
     dummyUserActivity.forEach((activity) => {
       activity.Branches.forEach((branch) => {
         if (!branch.Status) { return; }
@@ -43,27 +56,39 @@ function Manage() {
         });
       });
     });
-    return parseUserActivities;
+    setUserActivities(parseUserActivities);
+    setCurrentActivities(parseUserActivities);
   }, []);
-  const [currentActivities, setCurrentActivities] = useState<UserActivityDataType[]>(
-    userActivities,
-  );
+  /** execute getUserActivity in first time render */
+  useEffect(() => {
+    getUserActivity();
+  }, []);
 
-  const handleChangeFilter = (selectFilterId: string) => {
-    console.log(userActivities);
+  /** handler to listen activity's Status dropdown change */
+  const handleChangeActivityStatus = useCallback((branchId: number, key:string, value: string) => {
+    // TODO: update branch Status
+    console.log(branchId, key, value);
+    getUserActivity();
+  }, []);
 
+  /** handler to listen ManageNav Change and
+   * change currentActivities */
+  const handleChangeFilter = useCallback((selectFilterId: string) => {
+    if (!userActivities) {
+      setCurrentActivities(undefined);
+      return;
+    }
     setCurrentFilterId(selectFilterId);
     if (selectFilterId === '全部') {
       setCurrentActivities(
-        userActivities?.filter((activity) => !!activity.Branch.Status),
+        userActivities.filter((activity) => !!activity.Branch.Status),
       );
     } else {
       setCurrentActivities(
-        userActivities?.filter((activity) => activity.Branch.Status === selectFilterId),
+        userActivities.filter((activity) => activity.Branch.Status === selectFilterId),
       );
     }
-    console.log(currentActivities);
-  };
+  }, [userActivities]);
 
   return (
     <>
@@ -75,12 +100,18 @@ function Manage() {
       {
         currentActivities?.map((activity) => (
           <CardRow
+            key={`manage-activity-${activity.Branch.Id}`}
             imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
             altText={activity.Title}
             title={activity.Title}
             tags={useParseTagDataArray(activity.Tags)}
             detail={activity.Branch.Status || ''}
-
+            control={(
+              <ManageCardControl
+                branch={activity.Branch}
+                onChange={handleChangeActivityStatus}
+              />
+            )}
           />
         ))
       }

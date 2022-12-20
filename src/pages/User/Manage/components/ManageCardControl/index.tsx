@@ -1,69 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import './index.scss';
-import FormDropDown from 'components/Form/FormDropdown';
+import React from 'react';
+import { BranchDataType } from 'types/ActivityDataType';
+import { FormDropDown } from 'components/Form';
 
-export interface ManageCardControlProps {
-  beginDate: string,
-  applyEndDate: string,
-  status: string,
+interface ManageCardControlType {
+  branch: BranchDataType;
+  onChange: (branchId: number, key: any, value: any) => void;
 }
-function ManageCardControl({ beginDate, applyEndDate, status }: ManageCardControlProps) {
-  const [selectedValue, setSelectedValue] = useState(status);
-  const today = new Date();
-  const parseBeginDate = new Date(beginDate);
-  const parseDueDate = new Date(applyEndDate);
-  const remainDueDate = parseDueDate.getDate() - today.getDate();
-  const remainBeginDate = parseBeginDate.getDate() - today.getDate();
 
-  useEffect(() => {
-    // TODO: PUT Change
-  }, [selectedValue]);
-
+function ManageCardControl({ branch, onChange } :ManageCardControlType) {
+  const {
+    Id, DateStart, ApplyEnd, Status,
+  } = branch;
   const handleChange = (key: any, value: any) => {
-    setSelectedValue(value as string);
+    onChange(Id, key, value);
   };
 
   return (
-    <div className="manage-control">
-      <div className="manage-control__date">
-        <div className="date__begin">
-          活動開始日期：
-          {beginDate}
-          <p className="remain-date">
-            剩餘天數：
-            <div className="remain-date__number">
-              {
-                remainBeginDate > 0 ? beginDate : '已過期'
-              }
-            </div>
-          </p>
-        </div>
-        <div className="
-        date__due"
-        >
-          活動截止日期：
-          {applyEndDate}
-          <p className="remain-date">
-            剩餘天數：
-            <span className="remain-date__number">
-              {
-                remainDueDate > 0 ? remainDueDate : '已過期'
-              }
-            </span>
-          </p>
-        </div>
+    <>
+      <div className="manage-card-control__date-start">
+        <p>活動開始日期:</p>
+        {DateStart ? <p>{Object.values(DateStart)[0]}</p> : '詳見活動詳細頁面'}
       </div>
-      <form className="manage-control__select">
-        <FormDropDown
-          id="status"
-          label="狀態"
-          name="Status"
-          options={['已報名', '願望']}
-          value={selectedValue}
-          onChange={handleChange}
-        />
-      </form>
-    </div>
+      <div className="manage-card-control__apply-end">
+        <p>活動報名截止日期:</p>
+        {ApplyEnd ? ApplyEnd[0] : '詳見活動詳細頁面'}
+      </div>
+      <FormDropDown
+        options={['已報名', '願望']}
+        id={`manage-contro-${Id}`}
+        label="狀態"
+        name={`manage-contro-${Id}`}
+        value={Status || '願望'}
+        onChange={handleChange}
+      />
+    </>
   );
 }
 
