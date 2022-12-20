@@ -6,7 +6,7 @@ interface FormDropDownType {
   label?: string;
   name: string;
   options: string[];
-  value: string;
+  value?: string;
   onChange: (key: any, value: any) => void;
 }
 
@@ -58,6 +58,7 @@ function FormDropDown({
 
 FormDropDown.defaultProps = {
   label: undefined,
+  value: undefined,
 };
 
 export default FormDropDown;
