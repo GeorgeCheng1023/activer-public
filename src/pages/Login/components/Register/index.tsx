@@ -29,7 +29,6 @@ function Register() {
   const [validConfirmPwd, setValidConfirmPwd] = useState<boolean>(true);
 
   const [errMsg, setErrMsg] = useState<string>('');
-  const [success, setSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     setErrMsg('');
@@ -58,10 +57,6 @@ function Register() {
       setValidEmail(false);
     }
   }, [email]);
-
-  if (success) {
-    navigate('/login', { replace: true });
-  }
 
   const handleUserChange = (key: any, value: any) => {
     setUser(value);
@@ -101,9 +96,9 @@ function Register() {
 
     try {
       const response = await apiUserRegister(user, email, pwd);
+      navigate('/email/verify', { replace: true });
       // eslint-disable-next-line no-console
       console.log(response);
-      setSuccess(true);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');
@@ -128,9 +123,9 @@ function Register() {
             inputProps={{
               id: 'username',
               name: 'username',
-              label: '帳號',
+              label: '名稱',
               inputType: 'text',
-              placeholder: '輸入您的姓名',
+              placeholder: '輸入您的名稱',
             }}
             formValue={user}
             onChange={handleUserChange}

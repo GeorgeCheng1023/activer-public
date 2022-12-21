@@ -26,7 +26,7 @@ function LoginSection() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/user/basic';
 
   const [, setCookie] = useCookies<string>(['user']);
 

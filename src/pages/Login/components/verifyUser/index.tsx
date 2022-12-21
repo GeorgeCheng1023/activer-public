@@ -103,6 +103,7 @@ function Verify() {
                 className="verify-user__section__number"
                 ref={ref}
                 type="text"
+                maxLength={1}
                 id={`box${index}-1`}
                 onChange={(e) => {
                   const { value } = e.target;
@@ -117,7 +118,6 @@ function Verify() {
                   e.target.select();
                 }}
                 value={letters[index]}
-                max="1"
               />
             </div>
           ))}
@@ -126,7 +126,7 @@ function Verify() {
 
         <section className="verify-user__resend">
           <h5 className="verify-user__resend__text">未收到驗證碼?</h5>
-          <Link to="/password">
+          <Link to="/forgetpwd">
             <h5 className="verify-user__resend__btn">
               重新驗證
             </h5>

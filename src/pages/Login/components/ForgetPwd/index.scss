@@ -1,3 +1,4 @@
+@import '~/src/_variables';
 @import '~/src/_global';
 
 .forgot-pwd {
@@ -7,10 +8,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  text-align: center;
 
   &__title {
     font-size: 2rem;
-    margin: 2rem 0;
+    margin-bottom: 2rem;
+    margin-top: .5rem;
   }
   &__subtitle {
     font-size: 1rem;
@@ -34,5 +37,18 @@
     font-size: .8rem;
     font-weight: 600;
     opacity: 0.55;
+  }
+
+  &--hide {
+    // visibility: hidden;
+    opacity: 0;
+    color: $danger-color;
+    transition: opacity .2s ease-in;
+  }
+  &--show {
+    // visibility: visible;
+    opacity: 1;
+    color: $danger-color;
+    transition: opacity .2s ease-in;
   }
 }

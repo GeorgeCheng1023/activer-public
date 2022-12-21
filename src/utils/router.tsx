@@ -18,6 +18,7 @@ import Verify from 'pages/Login/components/verifyUser/index';
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import ResetPwd from 'pages/Login/components/ResetPassword';
 import NewPwd from 'pages/Login/components/NewPassword';
+import EmailVerify from 'pages/Login/components/EmailCheck';
 
 export const routerConfig = [
   {
@@ -54,6 +55,10 @@ export const routerConfig = [
           {
             path: '/verify',
             element: <Verify />,
+          },
+          {
+            path: '/email/verify',
+            element: <EmailVerify />,
           },
           {
             path: '/search',

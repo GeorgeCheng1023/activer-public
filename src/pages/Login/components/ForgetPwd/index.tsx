@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './index.scss';
 
@@ -15,21 +15,31 @@ function ForgetPwd() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
+  const [errmsg, setErrmsg] = useState<string>('');
 
   const handleChange = (key: any, value: any) => {
     setEmail(value);
   };
+
+  useEffect(() => {
+    setErrmsg('');
+  }, [email]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (EMAIL_REGEX.test(email)) {
       navigate('/verify');
+    } else {
+      setErrmsg('電子信箱格式錯誤');
     }
   };
 
   return (
     <main className="forgot-pwd">
+      <h2 className={errmsg ? 'forgot-pwd--show' : 'forgot-pwd--hide'}>
+        電子信箱格式錯誤
+      </h2>
       <h1 className="forgot-pwd__title">忘記密碼?</h1>
       <h3 className="forgot-pwd__subtitle">輸入電子郵件</h3>
       <div className="forgot-pwd__text-field">
