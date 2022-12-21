@@ -36,7 +36,8 @@
   }
 
 
-  a {
+  a,
+  button {
     text-decoration: underline;
     font-size: 0.8em;
 
@@ -44,4 +45,5 @@
       color: $secondary-font-color;
     }
   }
+
 }
