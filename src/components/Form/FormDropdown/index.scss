@@ -78,11 +78,27 @@
     }
   }
 
+  // style the tooltips
+  select {
+    option[title] {
+      &:before {
+        content: attr(title);
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        z-index: 1;
+        background: #333;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
 
-
-
-
-
-
+      &:hover:before {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
 
 }
