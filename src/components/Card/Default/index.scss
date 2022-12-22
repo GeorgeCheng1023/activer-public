@@ -3,8 +3,8 @@
 @import "~/src/_global";
 
 .card {
-  width: 10rem;
-  height: 15rem;
+  width: 12rem;
+  height: 17rem;
 
   display: flex;
   flex-direction: column;
@@ -16,6 +16,22 @@
   overflow: hidden;
 
   cursor: pointer;
+
+
+  &:hover {
+    box-shadow: 0 3px 2em rgba(0, 0, 0, 0.16)
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+
+    height: 5px;
+    width: 12rem;
+    background-color: $primary-color;
+  }
 
   &__image {
     width: 100%;
