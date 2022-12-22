@@ -1,11 +1,19 @@
 // components/Card/Default
 import React from 'react';
-import Tag from 'components/Tag';
-import { CardType } from 'types/components/Card';
+import Tag, { TagType } from 'components/Tag';
 import './index.scss';
 
+export interface CardType {
+  id: string;
+  imgUrl: string,
+  title: string,
+  altText: string,
+  tags: Array<TagType>,
+  detail?: string
+}
+
 function CardDefault({
-  imgUrl, title, tags, altText, detail,
+  id, imgUrl, title, tags, altText, detail,
 }: CardType) {
   return (
     <div className="card">
@@ -24,11 +32,11 @@ function CardDefault({
       <div className="card__tag">
         {tags.splice(0, 3).map((tag) => (
           <Tag
-            key={tag.id}
+            key={`${id}-${tag.id}`}
             variant={tag.variant}
             text={tag.text}
             icon={tag.icon}
-            id={tag.id}
+            id={`${id}-${tag.id}`}
           />
         )).slice(0, 5)}
       </div>

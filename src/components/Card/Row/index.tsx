@@ -1,8 +1,12 @@
 // components/Card/Row
 import React from 'react';
 import Tag, { TagType } from 'components/Tag';
-import { CardRowType } from 'types/components/Card';
+import { CardType } from '../Default';
 import './index.scss';
+
+export interface CardRowType extends CardType {
+  control?: JSX.Element;
+}
 
 function CardRow({
   imgUrl,
@@ -44,7 +48,6 @@ function CardRow({
 
 CardRow.defaultProps = {
   control: null,
-  detail: null,
 };
 
 export default CardRow;

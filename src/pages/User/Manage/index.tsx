@@ -103,6 +103,7 @@ function Manage() {
           currentActivities?.map((activity) => (
             <CardRow
               key={`manage-activity-${activity.Branch.Id}`}
+              id={`manage-activity-${activity.Branch.Id}`}
               imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
               altText={activity.Title}
               title={activity.Title}

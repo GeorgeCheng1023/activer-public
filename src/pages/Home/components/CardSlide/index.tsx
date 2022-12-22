@@ -2,8 +2,7 @@ import React from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Card } from 'components/Card';
-
+import { Card, CardType } from 'components/Card';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,12 +14,19 @@ import { Pagination, Navigation } from 'swiper';
 
 const breakpoints = {
   480: {
+    slidesPerView: 3,
+  },
+  1024: {
     slidesPerView: 4,
   },
 
 };
 
-export default function App() {
+interface CardSlideType {
+  cards: CardType[];
+}
+
+function CardSlide({ cards }: CardSlideType) {
   return (
     <Swiper
       slidesPerView={1}
@@ -32,121 +38,14 @@ export default function App() {
       modules={[Pagination, Navigation]}
       className="card-slide"
     >
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="Unity 從零開始新手入門：2D 橫向"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }, {
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }, {
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }, {
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }, {
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          detail="2022-10-01"
-          altText="Test"
-        />
-      </SwiperSlide>
-
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Card
-          imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
-          tags={[{
-            id: '1',
-            text: 'test',
-            variant: 'area',
-          }]}
-          altText="Test"
-        />
-      </SwiperSlide>
+      {cards.map((card) => (
+        <SwiperSlide>
+          <Card {...card} />
+        </SwiperSlide>
+      ))}
 
     </Swiper>
   );
 }
+
+export default CardSlide;

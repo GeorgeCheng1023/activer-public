@@ -52,6 +52,7 @@ function History() {
 
           return (
             <CardRow
+              id={history.Activity.ActivityId}
               key={history.Activity.ActivityId}
               imgUrl={history.Activity?.Image[0].ImageUrl}
               title={history.Activity?.Title}
