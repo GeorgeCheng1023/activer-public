@@ -20,8 +20,9 @@ function CardDefault({
       <div className="card__image">
         <img src={imgUrl} alt={altText} />
       </div>
-      <h3 className="card__title">{title}</h3>
-      {detail
+      <div className="card__content">
+        <h3 className="card__title">{title}</h3>
+        {detail
       && (
         <p
           className="card__detail"
@@ -29,18 +30,20 @@ function CardDefault({
           {detail}
         </p>
       )}
-      <div className="card__tag">
-        {tags.splice(0, 3).map((tag) => (
-          <Tag
-            key={`${id}-${tag.id}`}
-            variant={tag.variant}
-            text={tag.text}
-            icon={tag.icon}
-            id={`${id}-${tag.id}`}
-          />
-        )).slice(0, 5)}
+        <div className="card__tag">
+          {tags.splice(0, 3).map((tag) => (
+            <Tag
+              key={`${id}-${tag.id}`}
+              variant={tag.variant}
+              text={tag.text}
+              icon={tag.icon}
+              id={`${id}-${tag.id}`}
+            />
+          )).slice(0, 5)}
+        </div>
       </div>
     </div>
+
   );
 }
 

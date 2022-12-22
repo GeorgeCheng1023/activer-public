@@ -75,14 +75,14 @@
     "Tags": [
       {
         "Type": "area",
-        "Id": 0,
+        "Id": 3,
         "Text": "教育4",
         "TagCount": 10,
         "UserVoted": false
       },
       {
         "Type": "location",
-        "Id": 1,
+        "Id": 4,
         "Text": "臺北市",
         "TagCount": 1,
         "UserVoted": true
@@ -98,14 +98,14 @@
     "Tags": [
       {
         "Type": "area",
-        "Id": 0,
+        "Id": 5,
         "Text": "教育5",
         "TagCount": 10,
         "UserVoted": false
       },
       {
         "Type": "location",
-        "Id": 1,
+        "Id": 6,
         "Text": "臺北市",
         "TagCount": 1,
         "UserVoted": true
