@@ -2,6 +2,11 @@
 @import '~/src/_global';
 
 .footer {
+  bottom: 0;
+
+  height: 10rem;
+  width: 100%;
+
   background-color: $primary-dilute-color;
 
   margin-top: 1em;

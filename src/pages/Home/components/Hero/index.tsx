@@ -17,7 +17,8 @@ function Hero() {
       <div className="hero__left">
         <div className="hero__left__section">
           <h1 className="hero__h1">
-            在這屬於學生的社群中
+            在這屬於
+            <span className="hero__h1--highlight">學生的社群中</span>
             <br />
             尋找屬於你的活動
           </h1>

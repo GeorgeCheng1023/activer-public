@@ -4,6 +4,13 @@
 html {
   font-size: calc(14px + 0.390625vw);
   font-family: "Noto Sans CJK TC", "Microsoft JhengHei", PingFang, STHeiti, sans-serif, serif;
+
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 * {
