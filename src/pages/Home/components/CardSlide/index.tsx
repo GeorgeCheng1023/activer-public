@@ -35,12 +35,29 @@ export default function App() {
       <SwiperSlide>
         <Card
           imgUrl="https://plus.unsplash.com/premium_photo-1664461279859-07a15fd8a000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHJ1bnxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"
-          title="test"
+          title="Unity 從零開始新手入門：2D 橫向"
           tags={[{
             id: '1',
             text: 'test',
             variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
+          }, {
+            id: '1',
+            text: 'test',
+            variant: 'area',
           }]}
+          detail="2022-10-01"
           altText="Test"
         />
       </SwiperSlide>

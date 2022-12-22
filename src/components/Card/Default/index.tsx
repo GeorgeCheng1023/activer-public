@@ -15,12 +15,14 @@ function CardDefault({
       <h3 className="card__title">{title}</h3>
       {detail
       && (
-        <div className="card__detail">
-          <p>{detail}</p>
-        </div>
+        <p
+          className="card__detail"
+        >
+          {detail}
+        </p>
       )}
       <div className="card__tag">
-        {tags.map((tag) => (
+        {tags.splice(0, 3).map((tag) => (
           <Tag
             key={tag.id}
             variant={tag.variant}
