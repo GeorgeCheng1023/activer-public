@@ -6,8 +6,9 @@ interface FormDropDownType {
   label?: string;
   name: string;
   options: string[];
-  value: string;
+  value?: string;
   onChange: (key: any, value: any) => void;
+  descriptions? : string[];
 }
 
 function FormDropDown({
@@ -17,6 +18,7 @@ function FormDropDown({
   options,
   value,
   onChange,
+  descriptions,
 }: FormDropDownType) {
   const handleChange:
   React.ChangeEventHandler<HTMLSelectElement> = useCallback((event) => {
@@ -44,13 +46,16 @@ function FormDropDown({
       >
         {options.map((option: string, index: number) => (
           <option
+            id={`${name}-option-${index}`}
             value={option}
             key={`${name}-option-${index}`}
             className="dropdown__option"
+            title={descriptions && descriptions[index]}
           >
             {option}
           </option>
         ))}
+
       </select>
     </div>
   );
@@ -58,6 +63,8 @@ function FormDropDown({
 
 FormDropDown.defaultProps = {
   label: undefined,
+  value: undefined,
+  descriptions: undefined,
 };
 
 export default FormDropDown;

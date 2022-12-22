@@ -1,0 +1,15 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1em;
+
+
+  h2 {
+    margin-left: 1em;
+
+    +* {
+      padding: 0 2em;
+    }
+  }
+}

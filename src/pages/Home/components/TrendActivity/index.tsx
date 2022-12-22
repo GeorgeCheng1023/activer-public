@@ -7,7 +7,7 @@ import dummyData from './dummyTrendActivity.json';
 // component
 import CardSlide from '../CardSlide';
 
-function Trend() {
+function TrendActivity() {
   return (
     <div className="trend">
       <h2 className="trend__title">熱門活動</h2>
@@ -29,4 +29,4 @@ function Trend() {
   );
 }
 
-export default Trend;
+export default TrendActivity;

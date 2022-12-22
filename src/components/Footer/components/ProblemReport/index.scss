@@ -1,0 +1,16 @@
+.problem-report {
+  padding: 1em;
+
+  &__content {
+    margin-top: 1em;
+    width: 100%;
+    padding: 1em;
+    line-height: 1.2em;
+  }
+
+  &__control {
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
+  }
+}

@@ -1,15 +1,17 @@
 // color
 $colors: primary,
-secondary,
-success;
+  secondary,
+  success;
 
-$primary-color: #F3B755;
+$primary-color: rgb(243, 183, 85);
 $secondary-color: #699FF1;
 $success-color: #93C586;
 $danger-color: #ff4444;
 
 $primary-font-color: #4A4949;
 $secondary-font-color: #A5A5A5;
+
+$primary-dilute-color: rgba(243, 182, 85, 0.5);
 
 // z-index
 $zindex-dropdown-label: 990;
