@@ -3,7 +3,6 @@ import './index.scss';
 
 // component
 import SearchBar from 'components/Form/FormSearchBar';
-import CardRoll from './components/CardRoll';
 
 function Hero() {
   // handle search bar submit
@@ -30,9 +29,7 @@ function Hero() {
           />
         </div>
       </div>
-      <div className="hero__right">
-        <CardRoll />
-      </div>
+
     </div>
   );
 }
