@@ -2,26 +2,33 @@
 @import '~/src/_global';
 
 .trend-tag {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 1em;
+  max-width: 1280px;
   width: 100%;
+  margin: 0 auto;
 
-  @include media(laptop, desktop) {
-    max-width: 1280px;
-    margin: 0 auto
+  @include media(mobile, tablet) {
+    max-width: none;
   }
 
-  &__items {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5em;
-    gap: 0.5em;
-    padding-top: 1em;
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr 3fr);
+    grid-column-gap: 1em;
+    grid-row-gap: 15px;
+
+    width: 100%;
+    margin-top: 1em;
+    margin: 0 1em;
+
+    @include media(tablet, laptop) {
+      grid-template-columns: repeat(2, 1fr 3fr);
+    }
+
+    @include media(mobile) {
+      grid-template-columns: 1fr 3fr;
+      grid-column-gap: 0;
+    }
+
   }
 
-  &__item {
-    display: flex;
-
-  }
 }

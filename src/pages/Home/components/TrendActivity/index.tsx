@@ -35,7 +35,7 @@ function TrendActivity() {
               }))}
             />
           ))
-          .splice(0, screenWidth > 1024 ? 5 : 3)}
+          .splice(0, screenWidth > 1024 ? 5 : 4)}
 
       </div>
     </div>
