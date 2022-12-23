@@ -17,6 +17,7 @@
     margin: 0 1em;
     margin-top: 1em;
 
+
     @include media(tablet, laptop) {
       grid-template-columns: repeat(2, 1fr 3fr);
     }
@@ -26,6 +27,14 @@
       grid-column-gap: 0;
     }
 
+  }
+
+  &__count {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
 }

@@ -5,6 +5,7 @@ import Button from 'components/Button';
 
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
+import { FaHotjar } from 'react-icons/fa';
 import dummyTagCount from './dummyTagCount.json';
 
 function TrendTag() {
@@ -13,7 +14,10 @@ function TrendTag() {
   return (
     <div className="trend-tag">
       <div className="trend-tag__title">
-        <h2>熱門標籤</h2>
+        <h2>
+          <FaHotjar />
+          熱門標籤
+        </h2>
         <Button
           color="white"
           text={width > 768 ? '更多標籤' : '更多'}

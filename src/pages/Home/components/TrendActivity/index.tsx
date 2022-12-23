@@ -5,6 +5,7 @@ import { Card } from 'components/Card';
 import { TagDataType } from 'types/ActivityDataType';
 import { TagType } from 'components/Tag';
 import Button from 'components/Button';
+import { FaHotjar } from 'react-icons/fa';
 import { BsArrowRight } from 'react-icons/bs';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import dummyData from './dummyTrendActivity.json';
@@ -16,7 +17,10 @@ function TrendActivity() {
   return (
     <div className="trend-activity">
       <div className="trend-activity__header">
-        <h2 className="trend__title">熱門活動</h2>
+        <h2 className="trend__title">
+          <FaHotjar />
+          熱門活動
+        </h2>
         <Button color="white" text={screenWidth > 768 ? '更多熱門活動' : '更多'} iconAfter={<BsArrowRight />} />
       </div>
       <div className="trend-activity__items">
