@@ -1,0 +1,47 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.feature__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  transition: all 0.4s;
+
+  .feature {
+    &__title {
+      display: flex;
+      align-items: center;
+      transition: all 0.4s;
+    }
+
+    &__img {
+      width: 8rem;
+      height: 6rem;
+      object-fit: cover;
+    }
+
+    &__detail {
+      font-size: 0.8rem;
+      width: 10rem;
+      text-align: center;
+      white-space: pre-line;
+      opacity: 0;
+    }
+  }
+
+
+
+  &:hover {
+    transform: scale(105%);
+
+    .feature__title * {
+      color: $secondary-color;
+    }
+
+    .feature__detail {
+      opacity: 1;
+    }
+  }
+}
