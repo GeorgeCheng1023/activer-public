@@ -2,12 +2,9 @@
 @import '~/src/_global';
 
 .trend-tag {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-
-  @include media(mobile, tablet) {
-    max-width: none;
+  &__title {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__container {
@@ -17,8 +14,8 @@
     grid-row-gap: 15px;
 
     width: 100%;
-    margin-top: 1em;
     margin: 0 1em;
+    margin-top: 1em;
 
     @include media(tablet, laptop) {
       grid-template-columns: repeat(2, 1fr 3fr);

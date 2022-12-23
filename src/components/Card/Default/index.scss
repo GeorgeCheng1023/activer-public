@@ -28,7 +28,12 @@
   }
 
   &:hover {
-    box-shadow: 0 3px 2em rgba(0, 0, 0, 0.16)
+    box-shadow: 0 3px 2em rgba(0, 0, 0, 0.16);
+
+    .card__image {
+      transition: transform 0.3s;
+      transform: scale(1.1)
+    }
   }
 
   &::after {
@@ -58,10 +63,6 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s;
-
-      &:hover {
-        transform: scale(1.1)
-      }
     }
 
     @include media(mobile, tablet) {

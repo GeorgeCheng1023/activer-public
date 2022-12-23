@@ -1,8 +1,21 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
 .home {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   gap: 1em;
+
+  >*:not(.hero) {
+    margin: 0 1em;
+
+    @include media(desktop, tablet) {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
 
   h2 {
     margin-left: 1em;

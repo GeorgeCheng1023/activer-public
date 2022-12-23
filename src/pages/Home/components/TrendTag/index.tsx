@@ -1,12 +1,26 @@
 import React from 'react';
 import Tag, { TagType } from 'components/Tag';
-import dummyTagCount from './dummyTagCount.json';
 import './index.scss';
+import Button from 'components/Button';
+
+import useWindowWidth from 'hooks/window/useWindowWidth';
+import { BsArrowRight } from 'react-icons/bs';
+import dummyTagCount from './dummyTagCount.json';
 
 function TrendTag() {
+  const width = useWindowWidth();
+
   return (
     <div className="trend-tag">
-      <h2>熱門標籤</h2>
+      <div className="trend-tag__title">
+        <h2>熱門標籤</h2>
+        <Button
+          color="white"
+          text={width > 768 ? '更多標籤' : '更多'}
+          iconAfter={<BsArrowRight />}
+        />
+
+      </div>
       <div className="trend-tag__container">
 
         {dummyTagCount.map(
