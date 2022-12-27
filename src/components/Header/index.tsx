@@ -4,7 +4,7 @@ import './index.scss';
 
 // component
 
-import Navbar from './components/Navbar';
+import Navbar, { NavbarItem } from './component/Navbar';
 
 // icon
 import IconLogo from '../Icons';
@@ -18,7 +18,12 @@ function Header() {
         </div>
       </Link>
 
-      <Navbar />
+      <Navbar>
+        <>
+          <NavbarItem label="test" />
+          <NavbarItem label="test" />
+        </>
+      </Navbar>
     </div>
   );
 }

@@ -1,0 +1,19 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.navbar {
+  &__nav {
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    justify-self: flex-end;
+    gap: 1em;
+  }
+
+  &__item {
+    width: fit-content;
+    height: 100%;
+    padding: 5px;
+    margin: 2px;
+  }
+}

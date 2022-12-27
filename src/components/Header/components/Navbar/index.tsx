@@ -58,7 +58,7 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div
         className={`navbar__container navbar__container${expended ? '--expended' : ''}`}
       >
@@ -123,7 +123,7 @@ function Navbar() {
           aria-hidden="true"
         />
       )}
-    </div>
+    </nav>
 
   );
 }
