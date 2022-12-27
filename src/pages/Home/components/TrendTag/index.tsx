@@ -13,8 +13,8 @@ function TrendTag() {
 
   return (
     <div className="trend-tag">
-      <div className="trend-tag__title">
-        <h2>
+      <div className="home__header">
+        <h2 className="home__title">
           <FaHotjar />
           熱門標籤
         </h2>

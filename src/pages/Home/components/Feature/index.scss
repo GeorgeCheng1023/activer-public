@@ -1,6 +1,15 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
 .feature {
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
   margin-top: 1em;
+  gap: 1em;
+
+  @include media(mobile, tablet) {
+    flex-direction: column;
+
+  }
 }

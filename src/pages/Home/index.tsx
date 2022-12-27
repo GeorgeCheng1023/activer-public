@@ -2,7 +2,7 @@ import React from 'react';
 
 // component
 import {
-  Hero, TrendActivity, TrendTag, Feature,
+  Hero, TrendActivity, TrendTag, Feature, NewActivity,
 } from './components';
 import './index.scss';
 
@@ -12,6 +12,7 @@ function Home() {
       <Hero />
       <Feature />
 
+      <NewActivity />
       <TrendActivity />
 
       <TrendTag />

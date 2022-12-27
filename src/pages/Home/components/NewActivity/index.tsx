@@ -1,27 +1,24 @@
 import React from 'react';
-import './index.scss';
-
-import { Card } from 'components/Card';
+import Button from 'components/Button';
+import { BsArrowRight } from 'react-icons/bs';
 import { TagDataType } from 'types/ActivityDataType';
 import { TagType } from 'components/Tag';
-import Button from 'components/Button';
-import { FaHotjar } from 'react-icons/fa';
-import { BsArrowRight } from 'react-icons/bs';
+import { Card } from 'components/Card';
 import useWindowWidth from 'hooks/window/useWindowWidth';
+import { FcPositiveDynamic } from 'react-icons/fc';
 import dummyData from './dummyTrendActivity.json';
-// component
 
-function TrendActivity() {
+function NewActivity() {
   const screenWidth = useWindowWidth();
 
   // TODO: fetch data
 
   return (
-    <div className="trend-activity">
+    <div className="new-activity">
       <div className="home__header">
-        <h2 className="home__title">
-          <FaHotjar />
-          熱門活動
+        <h2>
+          <FcPositiveDynamic />
+          最新活動
         </h2>
         <Button color="white" text={screenWidth > 768 ? '更多熱門活動' : '更多'} iconAfter={<BsArrowRight />} />
       </div>
@@ -48,4 +45,4 @@ function TrendActivity() {
   );
 }
 
-export default TrendActivity;
+export default NewActivity;

@@ -2,14 +2,14 @@
 @import '~/src/_global';
 
 .footer {
+  position: absolute;
+  left: 0;
   bottom: 0;
 
   height: 10rem;
   width: 100%;
 
   background-color: $primary-dilute-color;
-
-  margin-top: 1em;
   display: flex;
   justify-content: space-between;
   padding: 1rem 5rem;

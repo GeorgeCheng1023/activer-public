@@ -78,7 +78,7 @@
     height: 4.5em;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 0 0.6rem;
+    padding: 0 0.5rem;
   }
 
   &__detail {
@@ -108,6 +108,7 @@
 
   &__content {
     all: inherit;
+    width: 100%;
 
     @include media(mobile, tablet) {
       flex-direction: column;
