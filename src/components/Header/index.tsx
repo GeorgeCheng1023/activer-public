@@ -5,6 +5,7 @@ import './index.scss';
 // component
 
 import Navbar, { NavbarItem } from './component/Navbar';
+import NavbarDropdown from './component/NavbarDropdown';
 
 // icon
 import IconLogo from '../Icons';
@@ -22,6 +23,9 @@ function Header() {
         <>
           <NavbarItem label="test" />
           <NavbarItem label="test" />
+          <NavbarItem label="dropdown">
+            <NavbarDropdown />
+          </NavbarItem>
         </>
       </Navbar>
     </div>

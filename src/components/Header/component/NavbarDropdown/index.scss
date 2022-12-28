@@ -1,0 +1,68 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.navbar__dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid $secondary-font-color;
+  border-radius: 0.2em;
+  padding: 0.2em;
+  width: fit-content;
+  overflow: hidden;
+  width: 6em;
+  transition: height 0.3s;
+
+  &__item {
+    height: 2em;
+    display: flex;
+    align-items: center;
+    border-radius: 0.2em;
+    transition: background 0.5s;
+    padding: 0.5em;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: darken($secondary-font-color, 0.3);
+    }
+  }
+
+  &__menu {
+    width: 100%;
+
+    &--primary {
+      &-enter {
+        position: absolute;
+        transform: translateX(-110%)
+      }
+
+      &-enter-active {
+        transform: translateX(0%);
+        transition: all 0.5s ease;
+      }
+
+      &-exit {
+        position: absolute;
+      }
+
+      &-exit-active {
+        transform: translateX(-110%);
+      }
+    }
+
+    &--secondary {
+      &-enter {
+        transform: translateX(110%)
+      }
+
+      &-enter-active {
+        transform: translateX(0%);
+        transition: all 0.5s ease;
+      }
+
+      &-exit-active {
+        transform: translateX(110%);
+        transition: all 0.5s ease;
+      }
+    }
+  }
+}
