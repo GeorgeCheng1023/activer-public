@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, Children, cloneElement } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import NavbarDropdownItem from '../NavbarDropdownItem';
+import NavbarDropdownItem, { NavbarDropdownItemType } from '../NavbarDropdownItem';
+
 import './index.scss';
 
-function NavbarDropdown() {
+interface NavbarDropdownType {
+  children: React.ReactNode;
+  name: string;
+}
+
+function NavbarDropdown({ children, name }: NavbarDropdownType) {
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState<number | null>(null);
 
@@ -19,7 +25,18 @@ function NavbarDropdown() {
         height: menuHeight || 'fitContent',
       }}
     >
-      <CSSTransition
+      {Children.map(children, (child: React.ReactNode) => {
+        if (!React.isValidElement<NavbarDropdownItemType>(child)) {
+          return child;
+        }
+        const elementChild: React.ReactElement<NavbarDropdownItemType> = child;
+
+        return React.cloneElement(elementChild, {
+          setMenu: setActiveMenu,
+        });
+      })}
+
+      {/* <CSSTransition
         in={activeMenu === 'main'}
         unmountOnExit
         timeout={500}
@@ -54,7 +71,7 @@ function NavbarDropdown() {
           <NavbarDropdownItem>Basic</NavbarDropdownItem>
           <NavbarDropdownItem>Safe</NavbarDropdownItem>
         </div>
-      </CSSTransition>
+      </CSSTransition> */}
     </div>
   );
 }

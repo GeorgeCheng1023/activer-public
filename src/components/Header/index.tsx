@@ -4,8 +4,7 @@ import './index.scss';
 
 // component
 
-import Navbar, { NavbarItem } from './component/Navbar';
-import NavbarDropdown from './component/NavbarDropdown';
+import { Navbar, NavbarItem, NavbarDropdown } from './component';
 
 // icon
 import IconLogo from '../Icons';
@@ -21,10 +20,19 @@ function Header() {
 
       <Navbar>
         <>
-          <NavbarItem label="test" />
-          <NavbarItem label="test" />
-          <NavbarItem label="dropdown">
-            <NavbarDropdown />
+          <NavbarItem label="搜尋活動" />
+          <NavbarItem label="熱門活動" />
+          <NavbarItem label="探索">
+            <NavbarDropdown>
+              <NavbarDropdownMenu name="main">
+                <NavbarDropdownItem>My profile</NavbarDropdownItem>
+                <NavbarDropdownItem gotoMenu="setting">Setting</NavbarDropdownItem>
+              </NavbarDropdownMenu>
+              <NavbarDropdownMenu name="setting">
+                <NavbarDropdownItem gotoMenu="main">Back</NavbarDropdownItem>
+                <NavbarDropdownItem>Password</NavbarDropdownItem>
+              </NavbarDropdownMenu>
+            </NavbarDropdown>
           </NavbarItem>
         </>
       </Navbar>

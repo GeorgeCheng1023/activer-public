@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface NavbarDropdownItemType {
+export interface NavbarDropdownItemType {
   children: React.ReactNode;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
