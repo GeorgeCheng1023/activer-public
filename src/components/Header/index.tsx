@@ -1,26 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
 import './index.scss';
-
 // component
-
+import { AiOutlineMenu } from 'react-icons/ai';
 import {
   Navbar, NavbarItem, NavbarDropdown, NavbarDropdownMenu, NavbarDropdownItem,
 } from './component';
-
-// icon
-import IconLogo from '../Icons';
+import Logo from './component/Logo';
+import UserAuth from './component/UserAuth';
 
 function Header() {
+  // mobile support
+  const [expended, setExpended] = useState(false);
+  const handleBackdropClick = useCallback(() => {
+    setExpended(false);
+  }, []);
+  const handleToggleClick = useCallback(() => {
+    setExpended(!expended);
+  }, []);
   return (
     <div className="header">
 
       {/* Logo */}
-      <Link to="/">
-        <div className="header__logo">
-          <IconLogo />
-        </div>
-      </Link>
+      <Logo />
 
       {/* Navigation */}
       <Navbar>
@@ -39,6 +40,26 @@ function Header() {
           </NavbarDropdown>
         </NavbarItem>
       </Navbar>
+
+      <UserAuth />
+
+      {/* Mobile toggle */}
+      <button
+        type="button"
+        className="navbar__toggle-button"
+        onClick={handleToggleClick}
+      >
+        <AiOutlineMenu />
+      </button>
+
+      {expended
+      && (
+        <div
+          className="navbar__backdrop"
+          onClick={handleBackdropClick}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }

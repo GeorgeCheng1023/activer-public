@@ -50,11 +50,6 @@
     }
   }
 
-  &__user {
-    display: flex;
-    gap: 10px;
-  }
-
   &__toggle-button {
     display: none;
     font-size: 2em;
@@ -63,6 +58,7 @@
       display: block
     }
   }
+
   &__backdrop {
     position: fixed;
     inset: 0;
@@ -72,8 +68,8 @@
     background-color: transparent;
   }
 
-   &__user-avatar {
-     width: 2rem;
+  &__user-avatar {
+    width: 2rem;
     height: 2rem;
   }
 }

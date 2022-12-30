@@ -1,0 +1,14 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.header__logo {
+  width: 4em;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  * {
+    color: $primary-color;
+  }
+}
