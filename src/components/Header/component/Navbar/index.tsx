@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 interface NavbarType {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 function Navbar({ children }: NavbarType) {

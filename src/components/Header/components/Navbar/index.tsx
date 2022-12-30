@@ -95,9 +95,6 @@ function Navbar() {
           }
 
           <div className="navbar__login-button">
-            {/* <button type="button" onClick={handleLoginClick}>
-              <img className="navbar__user-avatar" src="/user.png" alt="user" />
-            </button> */}
             <Button
               color="primary"
               text={userIsLoggined ? '個人資料' : '登入/註冊'}
