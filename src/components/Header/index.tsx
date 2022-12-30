@@ -2,9 +2,7 @@ import React, { useCallback, useState } from 'react';
 import './index.scss';
 // component
 import { AiOutlineMenu } from 'react-icons/ai';
-import {
-  Navbar, NavbarItem, NavbarDropdown, NavbarDropdownMenu, NavbarDropdownItem,
-} from './component';
+import Navigation from './component/Navigation';
 import Logo from './component/Logo';
 import UserAuth from './component/UserAuth';
 
@@ -17,6 +15,7 @@ function Header() {
   const handleToggleClick = useCallback(() => {
     setExpended(!expended);
   }, []);
+
   return (
     <div className="header">
 
@@ -24,29 +23,15 @@ function Header() {
       <Logo />
 
       {/* Navigation */}
-      <Navbar>
-        <NavbarItem label="搜尋活動" />
-        <NavbarItem label="熱門活動" />
-        <NavbarItem label="探索">
-          <NavbarDropdown>
-            <NavbarDropdownMenu name="main">
-              <NavbarDropdownItem>My profile</NavbarDropdownItem>
-              <NavbarDropdownItem gotoMenu="setting">Setting</NavbarDropdownItem>
-            </NavbarDropdownMenu>
-            <NavbarDropdownMenu name="setting">
-              <NavbarDropdownItem gotoMenu="main">Back</NavbarDropdownItem>
-              <NavbarDropdownItem>Password</NavbarDropdownItem>
-            </NavbarDropdownMenu>
-          </NavbarDropdown>
-        </NavbarItem>
-      </Navbar>
+      <Navigation />
 
+      {/* UserAuth: Login/Logout, user interface */}
       <UserAuth />
 
       {/* Mobile toggle */}
       <button
         type="button"
-        className="navbar__toggle-button"
+        className="header__toggle-button"
         onClick={handleToggleClick}
       >
         <AiOutlineMenu />
@@ -55,7 +40,7 @@ function Header() {
       {expended
       && (
         <div
-          className="navbar__backdrop"
+          className="header__backdrop"
           onClick={handleBackdropClick}
           aria-hidden="true"
         />

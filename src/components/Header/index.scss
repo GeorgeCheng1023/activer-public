@@ -1,18 +1,36 @@
 @import '~/src/_variables';
+@import '~/src/_global';
 
 .header {
   position: relative;
-  width: 100%;
-  height: 6em;
-  padding: 20px 2em;
-  margin: 0 auto;
 
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-grow: 0;
 
+  width: 100%;
+  height: $header-height;
+  padding: 1em 2em;
+  margin: 0 auto;
+
   background-color: #FFF;
 
+  &__toggle-button {
+    display: none;
+    font-size: 2em;
 
+    @include media(mobile, tablet) {
+      display: block
+    }
+  }
+
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $zindex-modal-backdrop;
+    background-color: transparent;
+  }
 }

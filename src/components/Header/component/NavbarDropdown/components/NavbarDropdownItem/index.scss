@@ -1,0 +1,16 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
+.navbar__dropdown__item {
+  height: 2em;
+  display: flex;
+  align-items: center;
+  border-radius: 0.2em;
+  transition: background 0.5s;
+  padding: 0.5em;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: darken($secondary-font-color, 0.3);
+  }
+}
