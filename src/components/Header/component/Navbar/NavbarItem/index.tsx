@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
+import useWindowWidth from 'hooks/window/useWindowWidth';
 
 interface NavbarItemType {
   label: string;
@@ -8,6 +9,7 @@ interface NavbarItemType {
 
 function NavbarItem({ label, children }: NavbarItemType) {
   const [open, setOpen] = useState(false);
+  const windowWidth = useWindowWidth();
 
   const handleClick:
   React.MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -18,13 +20,17 @@ function NavbarItem({ label, children }: NavbarItemType) {
   return (
     <li
       className="navbar__item"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onBlur={() => setOpen(false)}
+      onMouseEnter={() => { if (windowWidth > 768) { setOpen(true); } }}
+      onMouseLeave={() => { if (windowWidth > 768) { setOpen(false); } }}
     >
-      <a href="/" onClick={handleClick}>
+      <a
+        href="/"
+        onClick={handleClick}
+      >
         {label}
+        {open && children}
       </a>
-      {open && children}
     </li>
   );
 }

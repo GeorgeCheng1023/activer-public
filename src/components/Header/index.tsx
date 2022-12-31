@@ -1,20 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import './index.scss';
 // component
-import { AiOutlineMenu } from 'react-icons/ai';
-import Navigation from './component/Navigation';
+// import { AiOutlineMenu } from 'react-icons/ai';
+import useWindowWidth from 'hooks/window/useWindowWidth';
+import Navigation, { MobileNavigation } from './component/Navigation';
 import Logo from './component/Logo';
 import UserAuth from './component/UserAuth';
 
 function Header() {
-  // mobile support
-  const [expended, setExpended] = useState(false);
-  const handleBackdropClick = useCallback(() => {
-    setExpended(false);
-  }, []);
-  const handleToggleClick = useCallback(() => {
-    setExpended(!expended);
-  }, []);
+  const windowWidth = useWindowWidth();
 
   return (
     <div className="header">
@@ -22,29 +16,17 @@ function Header() {
       {/* Logo */}
       <Logo />
 
-      {/* Navigation */}
-      <Navigation />
+      {/* Desktop and laptop Navigation */}
+      {windowWidth > 768
+        ? (
+          <>
+            <Navigation />
+            {/* UserAuth: Login/Logout, user interface */}
+            <UserAuth />
+          </>
+        )
+        : <MobileNavigation />}
 
-      {/* UserAuth: Login/Logout, user interface */}
-      <UserAuth />
-
-      {/* Mobile toggle */}
-      <button
-        type="button"
-        className="header__toggle-button"
-        onClick={handleToggleClick}
-      >
-        <AiOutlineMenu />
-      </button>
-
-      {expended
-      && (
-        <div
-          className="header__backdrop"
-          onClick={handleBackdropClick}
-          aria-hidden="true"
-        />
-      )}
     </div>
   );
 }

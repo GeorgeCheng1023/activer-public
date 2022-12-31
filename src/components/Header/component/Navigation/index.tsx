@@ -36,4 +36,32 @@ function Navagation() {
   );
 }
 
+export function MobileNavigation() {
+  return (
+    <Navbar>
+      <NavbarItem label="|||">
+        <NavbarDropdown>
+          <NavbarDropdownMenu name="m-main" order="primary">
+            <NavbarDropdownItem gotoMenu="m-search">搜尋活動</NavbarDropdownItem>
+            <NavbarDropdownItem gotoMenu="m-trend">熱門活動</NavbarDropdownItem>
+            <NavbarDropdownItem gotoMenu="m-explore">探索</NavbarDropdownItem>
+          </NavbarDropdownMenu>
+          <NavbarDropdownMenu name="m-explore" order="secondary">
+            <NavbarDropdownItem gotoMenu="m-main">Back</NavbarDropdownItem>
+            <NavbarDropdownItem>藝術與人文</NavbarDropdownItem>
+            <NavbarDropdownItem gotoMenu="social">社會科學</NavbarDropdownItem>
+          </NavbarDropdownMenu>
+          <NavbarDropdownMenu name="m-social" order="secondary">
+            <NavbarDropdownItem gotoMenu="m-explore">Back</NavbarDropdownItem>
+            <NavbarDropdownItem>歷史與考古</NavbarDropdownItem>
+            <NavbarDropdownItem>哲學</NavbarDropdownItem>
+            <NavbarDropdownItem>新聞與傳播</NavbarDropdownItem>
+          </NavbarDropdownMenu>
+        </NavbarDropdown>
+      </NavbarItem>
+    </Navbar>
+
+  );
+}
+
 export default Navagation;
