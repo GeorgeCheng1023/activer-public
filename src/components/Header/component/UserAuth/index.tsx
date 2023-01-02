@@ -38,7 +38,7 @@ function LoginLogoutButton() {
       {
         userIsLoggined
         && (
-          <div className="navbar__logout-btn">
+          <div className="navbar__user-auth__logout">
             <Button
               color="primary"
               text="登出"
@@ -49,7 +49,7 @@ function LoginLogoutButton() {
         )
       }
 
-      <div className="navbar__login-button">
+      <div className="navbar__user-auth__login">
         <Button
           color="primary"
           text={userIsLoggined ? '個人資料' : '登入/註冊'}

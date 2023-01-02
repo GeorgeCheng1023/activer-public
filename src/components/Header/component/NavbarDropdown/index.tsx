@@ -1,19 +1,23 @@
 import React, { useState, Children, cloneElement } from 'react';
+import useWindowWidth from 'hooks/window/useWindowWidth';
 import { NavbarDropdownMenuType } from './components/NavbarDropdownMenu';
-
 import './index.scss';
 
 interface NavbarDropdownType {
   children: React.ReactNode;
+  defaultMenu: string;
 }
 
-function NavbarDropdown({ children }: NavbarDropdownType) {
-  const [activeMenu, setActiveMenu] = useState('main');
+function NavbarDropdown({ children, defaultMenu }: NavbarDropdownType) {
+  const [activeMenu, setActiveMenu] = useState(defaultMenu);
   const [menuHeight, setMenuHeight] = useState<number | null>(null);
+  const windowWidth = useWindowWidth();
 
   const handleEnter = (e: any) => {
     const height = e.offsetHeight;
-    setMenuHeight(height);
+    if (windowWidth > 768) {
+      setMenuHeight(height);
+    }
   };
 
   return (

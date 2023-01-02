@@ -4,6 +4,7 @@
 .navbar__item {
   all: initial;
   position: relative;
+
   line-height: 1.2em;
   cursor: pointer;
 
@@ -30,5 +31,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  &__backdrop {
+    position: fixed;
+    z-index: $zindex-modal-backdrop;
+    top: 0;
+    right: 0;
+
+    width: 100vh;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5)
   }
 }

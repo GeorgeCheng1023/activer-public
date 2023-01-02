@@ -6,6 +6,9 @@
   z-index: $zindex-dropdown;
   overflow: hidden;
 
+  display: flex;
+  flex-direction: column;
+
   padding: 0.2em;
   width: 8em;
 
@@ -14,4 +17,13 @@
   border-radius: 0.2em;
 
   transition: height 0.3s;
+
+  @include media(mobile, tablet) {
+    position: fixed;
+    z-index: $zindex-modal-panel;
+    top: 0;
+    right: 0;
+
+    height: 100%;
+  }
 }

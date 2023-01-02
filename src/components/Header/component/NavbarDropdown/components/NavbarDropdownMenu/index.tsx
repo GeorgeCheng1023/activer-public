@@ -7,7 +7,7 @@ export interface NavbarDropdownMenuType {
   children: React.ReactNode;
   name: string;
   activeMenu?: string;
-  order: 'primary' | 'secondary';
+  order: 'primary' | 'secondary' | 'third';
   onEnter?: (e: any) => void;
   setActiveMenu? : React.Dispatch<React.SetStateAction<string>>
 }

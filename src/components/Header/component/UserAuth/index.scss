@@ -1,4 +1,17 @@
+@import '~/src/_variables';
+@import '~/src/_global';
+
 .navbar__user-auth {
+
   display: flex;
   gap: 10px;
+
+  @include media(mobile, tablet) {
+    margin-top: auto;
+    flex-direction: column;
+
+    &__logout {
+      order: 2;
+    }
+  }
 }
