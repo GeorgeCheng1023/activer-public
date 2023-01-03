@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useAppDispatch } from 'hooks/redux';
-import { show } from 'store/searchPanel';
+import { show as showPanel } from 'store/searchPanel';
 import {
   Navbar,
   NavbarItem,
@@ -14,16 +14,18 @@ import UserAuth from '../UserAuth';
 function Navagation() {
   const dispatch = useAppDispatch();
 
+  const handleClickSearch = (e: any) => {
+    e.preventDefault();
+    dispatch(showPanel());
+  };
+
   return (
     <Navbar>
       <NavbarItem
         label="搜尋活動"
-        onClick={(e) => {
-          e.preventDefault();
-          dispatch(show);
-        }}
+        onClick={handleClickSearch}
       />
-      <NavbarItem label="熱門活動" />
+      <NavbarItem label="熱門活動" link="/detail/1" />
       <NavbarItem label="探索">
         <NavbarDropdown defaultMenu="main">
           <NavbarDropdownMenu name="main" order="primary">
@@ -52,13 +54,20 @@ function Navagation() {
 }
 
 export function MobileNavigation() {
+  const dispatch = useAppDispatch();
+
+  const handleClickSearch = (e: any) => {
+    e.preventDefault();
+    dispatch(showPanel());
+  };
+
   return (
     <Navbar>
       <NavbarItem label={<AiOutlineMenu />}>
         <NavbarDropdown defaultMenu="m-main">
           <NavbarDropdownMenu name="m-main" order="primary">
-            <NavbarDropdownItem gotoMenu="m-search">搜尋活動</NavbarDropdownItem>
-            <NavbarDropdownItem gotoMenu="m-trend">熱門活動</NavbarDropdownItem>
+            <NavbarDropdownItem onClick={handleClickSearch}>搜尋活動</NavbarDropdownItem>
+            <NavbarDropdownItem link="/detail/1">熱門活動</NavbarDropdownItem>
             <NavbarDropdownItem gotoMenu="m-explore">探索</NavbarDropdownItem>
           </NavbarDropdownMenu>
           <NavbarDropdownMenu name="m-explore" order="secondary">

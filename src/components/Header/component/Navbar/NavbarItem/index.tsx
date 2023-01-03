@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './index.scss';
 import useWindowWidth from 'hooks/window/useWindowWidth';
+import { useNavigate } from 'react-router-dom';
 
 interface NavbarItemType {
   label: React.ReactNode;
@@ -17,12 +18,18 @@ function NavbarItem({
 }: NavbarItemType) {
   const [open, setOpen] = useState(false);
   const windowWidth = useWindowWidth();
+  const navigate = useNavigate();
 
   const handleClick:
   React.MouseEventHandler<HTMLAnchorElement | HTMLDivElement> = (e) => {
     e.preventDefault();
     if (onClick) { onClick(e); }
-    setOpen(!open);
+    if (link) {
+      navigate(link);
+      setOpen(false);
+    } else {
+      setOpen(!open);
+    }
   };
 
   return (
@@ -50,7 +57,7 @@ function NavbarItem({
 }
 
 NavbarItem.defaultProps = {
-  link: '/',
+  link: null,
   children: null,
   onClick: undefined,
 };
