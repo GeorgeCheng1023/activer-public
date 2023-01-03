@@ -14,4 +14,9 @@
       order: 2;
     }
   }
+
+  @include media(desktop, laptop) {
+    margin-left: auto;
+  }
+
 }
