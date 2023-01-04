@@ -11,8 +11,7 @@ $danger-color: #ff4444;
 $primary-font-color: #4A4949;
 $secondary-font-color: #A5A5A5;
 
-$primary-dilute-color: rgba(243, 182, 85, 0.5);
-
+$primary-dilute-color: rgb(246, 218, 173);
 // z-index
 $zindex-after-marker: -1;
 $zindex-base: 1;
@@ -24,6 +23,8 @@ $zindex-modal-panel: 1050;
 $zindex-modal-close-btn: 1055;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
+$zindex-footer: 1080;
 
 // height
 $header-height: 6em;
+$footer-height: 10rem;

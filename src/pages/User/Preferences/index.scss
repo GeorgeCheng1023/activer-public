@@ -44,6 +44,7 @@
 
       &__right {
         display: flex;
+        align-items: baseline;
         gap: 1em;
 
         @include media(mobile, tablet) {
@@ -62,7 +63,7 @@
           justify-content: flex-end;
           gap: 1em;
 
-          height: 2em;
+          height: fit-content;
 
           @include media(mobile) {
             flex-direction: column;

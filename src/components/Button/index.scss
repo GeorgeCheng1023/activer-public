@@ -1,6 +1,7 @@
 @import '~/src/_variables';
 
-$_btn-config:(primary:(class: 'primary',
+$_btn-config: (
+  primary:(class: 'primary',
     color: white,
     bg: $primary-color,
   ),
@@ -21,7 +22,8 @@ $_btn-config:(primary:(class: 'primary',
     bg: white, ),
   danger:(class:'danger',
     color: white,
-    bg:$danger-color));
+    bg:$danger-color)
+);
 
 @mixin setColor ($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;
@@ -40,6 +42,7 @@ $_btn-config:(primary:(class: 'primary',
   padding: 0.6em 1.8em;
   border-radius: 0.8em;
 
+  font-size: 1em;
   letter-spacing: 1px;
 
   transition-duration: 0.3s;
@@ -101,6 +104,7 @@ $_btn-config:(primary:(class: 'primary',
 
   // reverse color variant
   &.button--reverse-color {
+
     @each $name,
     $value in $_btn-config {
       $class: map-get($value, class);

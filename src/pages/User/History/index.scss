@@ -30,8 +30,21 @@
     }
   }
 
-  &__activity>* {
-    margin-bottom: 2em;
+  &__activity {
+    margin: 1em 0;
+    border: 1px solid $secondary-font-color;
+    border-radius: 1em;
+
+    >div:nth-child(2n) {
+      border-top: 1px solid $secondary-font-color;
+    }
+
+    >* {
+
+      &:hover {
+        box-shadow: 0 3px 2em rgba(0, 0, 0, 0.16)
+      }
+    }
   }
 
   &__h2 {

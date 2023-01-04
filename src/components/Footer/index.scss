@@ -3,10 +3,11 @@
 
 .footer {
   position: absolute;
+  z-index: $zindex-footer;
   left: 0;
   bottom: 0;
 
-  height: 10rem;
+  height: $footer-height;
   width: 100%;
 
   background-color: $primary-dilute-color;

@@ -4,6 +4,7 @@
 .user {
   &__container {
     display: flex;
+    padding-bottom: $footer-height;
   }
 
   &__main-content {
