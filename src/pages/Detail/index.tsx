@@ -9,7 +9,6 @@ import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
 import ManageNav from 'components/ManageNav';
 
 import {
-  DetailComment,
   DetailImage,
   DetailSources,
   DetailTags,
@@ -102,7 +101,7 @@ function Detail() {
         <DetailSources sources={Sources} id={Id} />
         <DetailConnection connection={Connection} />
         <DetailHolder holder={Holder} />
-        <DetailComment />
+        {/* <DetailComment /> */}
       </div>
     </div>
   );

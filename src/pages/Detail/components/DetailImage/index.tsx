@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'components/Carousel';
-import IconLogo from 'components/Icons';
+import { IconLogo } from 'components/Icons';
 import './index.scss';
 
 type Props = {

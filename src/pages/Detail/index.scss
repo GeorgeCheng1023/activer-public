@@ -32,10 +32,6 @@
       @include media(mobile, tablet) {
         width: 100%;
       }
-
-      h2 {
-        text-align: center;
-      }
     }
 
     &--properties {
@@ -49,11 +45,8 @@
 
   // components
 
-
-
-
-
-
+  * {text-align: justify;}
+  
 
   &__a {
     text-decoration: underline;
