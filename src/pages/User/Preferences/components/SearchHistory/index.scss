@@ -1,6 +1,15 @@
+@import '~/src/_global';
+
 .preferences__history {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   margin-top: 1em;
+
+  @include media(mobile) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+  }
 }
