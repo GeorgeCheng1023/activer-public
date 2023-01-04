@@ -1,10 +1,9 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .navbar__user-auth {
   display: flex;
   gap: 10px;
-
   font-size: 0.8rem;
 
   @include media(mobile, tablet) {
@@ -19,5 +18,4 @@
   @include media(desktop, laptop) {
     margin-left: auto;
   }
-
 }

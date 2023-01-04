@@ -1,19 +1,15 @@
-@import '~/src/_global.scss';
-@import '~/src/_variables';
+@import "~/src/global";
+@import "~/src/variables";
 
 .manage-nav__button {
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin: 1em 2em;
   padding-bottom: 0.5em;
-
   font-size: 1rem;
   font-weight: 300;
-
   transition: all 1s ease;
   cursor: pointer;
 
@@ -26,20 +22,17 @@
   &::before {
     position: absolute;
     bottom: 0;
-
+    margin: 0;
     width: 0%;
     height: 2px;
-    margin: 0;
-
     background-color: $primary-font-color;
     border-radius: 14px;
-
-    content: "";
     transition: 0.2s ease-out;
+    content: "";
   }
 
   &:active {
-    scale: 1.2
+    scale: 1.2;
   }
 
   &.focus {

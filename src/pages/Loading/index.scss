@@ -1,14 +1,13 @@
-@import  url(https://fonts.googleapis.com/css?family=Montserrat);
+@import "https://fonts.googleapis.com/css?family=Montserrat";
 
 $width: 15px;
 $height: 15px;
-$bounce_height: 30px;
+$bounce-height: 30px;
 
 .loading-body {
-  position: relative; 
+  position: relative;
   width: 100%;
   height: 65vh;
-  font-family: Montserrat;
 }
 
 .wrap {
@@ -20,26 +19,27 @@ $bounce_height: 30px;
 }
 
 .text {
-  color: #fbae17;
   display: inline-block;
   margin-left: 5px;
+  color: #fbae17;
 }
 
 .bounceball {
   position: relative;
   display: inline-block;
-  height: 37px;
-  width: $width;
   margin-right: 0.5rem;
-  &:before {
+  width: $width;
+  height: 37px;
+
+  &::before {
     position: absolute;
-    content: '';
-    display: block;
     top: 0;
+    display: block;
     width: $width;
     height: $height;
-    border-radius: 50%;
     background-color: #fbae17;
+    border-radius: 50%;
+    content: "";
     transform-origin: 50%;
     animation: bounce 500ms alternate infinite ease;
   }
@@ -47,16 +47,18 @@ $bounce_height: 30px;
 
 @keyframes bounce {
   0% {
-    top: $bounce_height;
+    top: $bounce-height;
     height: 5px;
     border-radius: 60px 60px 20px 20px;
     transform: scaleX(2);
   }
+
   35% {
     height: $height;
     border-radius: 50%;
     transform: scaleX(1);
   }
+
   100% {
     top: 0;
   }

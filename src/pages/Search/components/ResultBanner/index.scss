@@ -1,14 +1,12 @@
-
 @import "~/src/variables";
 
-.result__banner{
+.result__banner {
   display: flex;
-  
-  background-color: $primary-color;
   justify-content: space-between;
   padding: 1rem 2rem;
-  &__h1{
+  background-color: $primary-color;
+
+  &__h1 {
     color: white;
   }
 }
-

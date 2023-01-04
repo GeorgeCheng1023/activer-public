@@ -1,16 +1,17 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@use "sass:color";
+@import "~/src/variables";
+@import "~/src/global";
 
 .navbar__dropdown__item {
-  height: 2em;
   display: flex;
   align-items: center;
+  padding: 0.5em;
+  height: 2em;
+  white-space: nowrap;
   border-radius: 0.2em;
   transition: background 0.5s;
-  padding: 0.5em;
-  white-space: nowrap;
 
   &:hover {
-    background-color: darken($secondary-font-color, 0.3);
+    background-color: color.adjust($secondary-font-color, $lightness: 30%);
   }
 }

@@ -1,32 +1,28 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@use "sass:color";
+@import "~/src/variables";
+@import "~/src/global";
 
-$_tag-config: (
-  primary: (class: 'primary',
-    color: $primary-color),
-  secondary: (class:'secondary',
-    color: $secondary-color),
-  success: (class :'success',
-    color: $success-color)
+$tag-config: (
+  primary: (class: "primary",
+  color: $primary-color),
+  secondary: (class:"secondary",
+  color: $secondary-color),
+  success: (class :"success",
+  color: $success-color)
 );
 
 .tag {
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  margin: 0;
+  padding: 0.6em 1em;
   width: fit-content;
   height: fit-content;
-  padding: 0.6em 1em;
-  margin: 0;
-  border-radius: 0.8em;
-
   font-size: 0.6rem;
-  color: #FFF;
-
+  color: #fff;
+  border-radius: 0.8em;
   transition: filter 0.3s;
-
   cursor: pointer;
 
   &:hover {
@@ -34,20 +30,20 @@ $_tag-config: (
   }
 
   @each $key,
-  $value in $_tag-config {
-    $_class: map-get($value, class);
-    $_color: map-get($value, color);
+    $value in $tag-config {
+    $class: map.get($value, class);
+    $color: map.get($value, color);
 
-    &--#{$_class} {
-      background-color: $_color;
+    &--#{$class} {
+      background-color: $color;
     }
   }
 
   &__icon {
-    padding: 0 0.5em;
-    font-size: 1.4em;
     display: flex;
     align-items: center;
+    padding: 0 0.5em;
+    font-size: 1.4em;
     justify-items: center;
 
     * {
@@ -56,8 +52,8 @@ $_tag-config: (
   }
 
   &__text {
-    color: #FFFFFF;
     font-size: 1em;
+    color: #fff;
   }
 
   &--sm {
@@ -66,12 +62,10 @@ $_tag-config: (
 
   &:disabled,
   &:disabled * {
-
     cursor: default;
 
     &:hover {
       filter: brightness(100%);
     }
-
   }
 }

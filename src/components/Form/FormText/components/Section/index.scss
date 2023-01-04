@@ -1,26 +1,26 @@
-@import '~/src/_variables';
+@import "~/src/variables";
 
-@mixin inputSection--container {
+@mixin input-section-container {
   width: 100%;
   height: 5rem;
 }
-@mixin inputSection--base {
+
+@mixin input-section-base {
+  padding: 13px 10px 13px 54px;
   border: 1px solid $secondary-font-color;
   border-radius: 15px;
-  padding: 13px 10px 13px 54px;
 }
-@mixin formFontStyle {
-  font-family: 'Inter';
-  font-weight: 400;
+
+@mixin font-style {
   font-size: 1.8rem;
+  font-weight: 400;
   line-height: 29px;
 }
 
-.inputSection-container{
-  display: flex;
+.inputSection-container {
   position: absolute;
   bottom: 0;
-
+  display: flex;
   width: 100%;
   height: 5rem;
 
@@ -32,24 +32,27 @@
 .inputSection--default,
 .inputSection--withButton,
 .inputSection--withoutLabel {
-  @include inputSection--container();
-  @include inputSection--base();
-  @include formFontStyle;
+  @include input-section-container;
+  @include input-section-base;
+  @include font-style;
 }
+
 .inputSection__button {
   position: absolute;
   left: 433px;
   align-self: center;
 }
+
 .inputSection--disabled {
   opacity: 0.5;
-  @include inputSection--container();
-  @include inputSection--base();
-  @include formFontStyle;
+
+  @include input-section-container;
+  @include input-section-base;
+  @include font-style;
 }
 
 .inputSection--default:focus,
 .inputSection--withButton:focus,
 .inputSection--withoutLabel:focus {
-   outline: 2px $primary-color solid;
+  outline: 2px $primary-color solid;
 }

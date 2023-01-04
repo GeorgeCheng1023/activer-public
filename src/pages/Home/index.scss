@@ -1,5 +1,5 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .home {
   display: flex;
@@ -11,9 +11,9 @@
     margin: 0 1em;
 
     @include media(desktop, tablet) {
-      max-width: 1280px;
-      width: 100%;
       margin: 0 auto;
+      width: 100%;
+      max-width: 1280px;
     }
   }
 
@@ -50,8 +50,7 @@
 
     @include media(mobile, tablet) {
       flex-direction: column;
-      gap: 0em;
-
+      gap: 0;
     }
   }
 }

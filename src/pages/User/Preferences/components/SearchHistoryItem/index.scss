@@ -1,23 +1,20 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .search-history-item {
   display: flex;
   align-items: center;
-
   padding: 1em;
-
   border: 1px solid $secondary-font-color;
   border-radius: 0.3em;
 
   &:hover {
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    background-color: rgba(207, 207, 207, 0.32);
+    background-color: rgb(207 207 207 / 32%);
+    box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
   }
 
-
   &__keyword {
-    flex-grow: 0.6
+    flex-grow: 0.6;
   }
 
   &__tags {
@@ -33,9 +30,9 @@
   }
 
   @include media(mobile) {
+    padding: 1rem;
+    width: 10rem;
     flex-direction: column;
     gap: 1em;
-    width: 10rem;
-    padding: 1rem;
   }
 }

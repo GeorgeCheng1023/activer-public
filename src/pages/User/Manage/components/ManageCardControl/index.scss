@@ -1,5 +1,5 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .manage-control {
   flex-grow: 0.2;
@@ -10,16 +10,13 @@
   height: 100%;
 
   &__label {
-    white-space: nowrap
+    white-space: nowrap;
   }
 
   @include media(mobile, tablet) {
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: center;
     width: 100%;
     gap: 2em;
-    flex-wrap: wrap;
-
   }
-
 }

@@ -1,23 +1,22 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .feature__item {
   display: grid;
+  align-items: center;
+  padding: 0 1em;
+  transition: all 0.4s;
   grid-template-rows: 1.5em 5em 3em;
   justify-items: center;
-  align-items: center;
   gap: 1em;
-  transition: all 0.4s;
   grid-auto-flow: row;
-  padding: 0 1em;
 
   @include media(mobile, tablet) {
+    margin: 0 auto;
+    width: 90%;
     grid-template-rows: 2em 5em;
     grid-template-columns: 8rem 60%;
     justify-items: start;
-    width: 90%;
-    margin: 0 auto;
-
   }
 
   .feature {
@@ -32,7 +31,7 @@
       }
 
       @include media(mobile, tablet) {
-        order: 2
+        order: 2;
       }
     }
 
@@ -48,21 +47,19 @@
     }
 
     &__detail {
-      font-size: 0.8rem;
       width: 10rem;
+      font-size: 0.8rem;
       text-align: center;
       white-space: pre-line;
       opacity: 0;
 
       @include media(mobile, tablet) {
-        order: 3;
-        opacity: 1;
         text-align: start;
+        opacity: 1;
+        order: 3;
       }
     }
   }
-
-
 
   &:hover {
     transform: scale(105%);

@@ -1,5 +1,4 @@
-// DetailProperties
-@import '~/src/_global';
+@import "~/src/global";
 
 .detail__properties {
   position: relative;
@@ -11,6 +10,4 @@
   @include media(mobile, tablet) {
     padding: 0;
   }
-
-
 }

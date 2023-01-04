@@ -1,5 +1,5 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 // DetailImage
 .detail__img {
@@ -7,6 +7,6 @@
   height: 15em;
 
   * {
-    color: $success-color
+    color: $success-color;
   }
 }

@@ -1,28 +1,25 @@
-@import "~/src/_variables";
-@import "~/src/_global";
+@import "~/src/variables";
+@import "~/src/global";
 
 .hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2em 0;
   width: 100%;
   height: fit-content;
-  padding: 2em 0;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  background-color: #fef6d8;
   gap: 70px;
-
-  background-color: #FEF6D8;
 
   &__left {
     height: fit-content;
-
   }
 
   &__text {
-    font-weight: 400;
     font-size: 48px;
-    line-height: 70px;
+    font-weight: 400;
     color: $primary-font-color;
+    line-height: 70px;
   }
 
   &__left__section {
@@ -30,7 +27,6 @@
   }
 
   @include media(mobile) {
-
     flex-direction: column;
     padding: 2em;
 
@@ -39,26 +35,22 @@
     }
   }
 
-
   &__h1 {
     &--highlight {
-      color: $secondary-color;
       position: relative;
+      color: $secondary-color;
       z-index: $zindex-base;
 
-      &:after {
-        content: "";
+      &::after {
         position: absolute;
         bottom: 5px;
-        left: 0;
         right: 0;
+        left: 0;
         height: 10px;
-        background-color: rgba(250, 242, 0, 0.8);
+        background-color: rgb(250 242 0 / 80%);
         z-index: $zindex-after-marker;
+        content: "";
       }
-
     }
   }
-
-
 }
