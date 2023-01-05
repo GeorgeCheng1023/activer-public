@@ -1,23 +1,22 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .navbar__item {
   all: initial;
   position: relative;
-
   line-height: 1.2em;
   cursor: pointer;
 
   @include media(desktop, laptop) {
     &::before {
-      content: "";
       position: absolute;
+      bottom: 0;
       width: 25%;
       height: 2px;
       background-color: $primary-font-color;
       border-radius: 14px;
-      bottom: 0;
       transition: 0.2s ease-out;
+      content: "";
     }
 
     &:hover {
@@ -35,12 +34,11 @@
 
   &__backdrop {
     position: fixed;
-    z-index: $zindex-modal-backdrop;
     top: 0;
     right: 0;
-
     width: 100vh;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5)
+    background-color: rgb(0 0 0 / 50%);
+    z-index: $zindex-modal-backdrop;
   }
 }

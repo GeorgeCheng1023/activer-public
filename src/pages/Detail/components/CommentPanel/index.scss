@@ -1,9 +1,7 @@
-@import '~/src/_global';
+@import "~/src/global";
 
 .comment-panel {
-
   padding: 1em;
-
   background-color: white;
   border-radius: 1em;
 
@@ -14,8 +12,8 @@
   }
 
   &__content {
-    width: 100%;
     padding: 1em;
+    width: 100%;
     font-size: 1.3em;
   }
 }

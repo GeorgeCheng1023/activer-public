@@ -1,24 +1,24 @@
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .verify-user {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  
-  height: 60vh;
+  justify-content: center;
   width: 50vw;
+  height: 60vh;
+  flex-direction: column;
 
   // border: 1px black solid;
-  
+
   &__container {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 70vh;
   }
-  
+
   &__section {
     display: flex;
     flex-direction: row;
@@ -30,20 +30,20 @@
     @include media(tablet) {
       gap: 1rem;
     }
+
     @include media(mobile) {
-      gap: .5rem;
+      gap: 0.5rem;
     }
 
     // border: 1px gray solid;
 
     &__code {
       display: flex;
-      justify-content: center;
       align-items: center;
-    
+      justify-content: center;
       width: 3.5rem;
       height: 3.5rem;
-      border: 1px hsl(100, 4%, 27%) solid;
+      border: 1px hsl(100deg 4% 27%) solid;
       border-radius: 100%;
 
       @include media(mobile) {
@@ -53,41 +53,42 @@
     }
 
     &__number {
-      text-align: center;
-    
       width: 1.8ch;
-      height: 2rem; 
-
+      height: 2rem;
       font-size: 1.5rem;
+      text-align: center;
 
       @include media(mobile) {
         font-size: 1.4rem;
       }
     }
+
     &__number::-webkit-inner-spin-button {
-      -webkit-appearance: none;
+      appearance: none;
     }
+
     &__number::placeholder {
-      color: hsl(98, 4%, 69%);
+      color: hsl(98deg 4% 69%);
     }
   }
 
   &__resend {
     display: flex;
     flex-direction: row;
-    gap: .5rem;
-    
+    gap: 0.5rem;
     margin-bottom: 3rem;
 
     &__text {
       font-weight: 800;
     }
+
     &__btn {
-      color: hsl(110, 4%, 67%);
+      color: hsl(110deg 4% 67%);
     }
+
     &__btn:hover,
     &__btn:active {
-      color: hsl(40, 92%, 61%);
+      color: hsl(40deg 92% 61%);
     }
-  } 
+  }
 }

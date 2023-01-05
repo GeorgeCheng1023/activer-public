@@ -1,12 +1,9 @@
-// DetailTags
 .detail__tags {
   display: flex;
-  flex-direction: column;
+  flex-flow: wrap column;
   align-items: center;
   justify-content: center;
-  flex-wrap: 1;
   gap: 1em;
-
   margin: 1em;
 
   &__group {

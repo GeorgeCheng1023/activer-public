@@ -1,19 +1,15 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .header {
   position: relative;
-
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  flex-grow: 0;
-
+  margin: 0 auto;
+  padding: 1em 2em;
   width: 100%;
   height: $header-height;
-  padding: 1em 2em;
-  margin: 0 auto;
-
-  background-color: #FFF;
-
+  background-color: #fff;
+  flex-grow: 0;
 }

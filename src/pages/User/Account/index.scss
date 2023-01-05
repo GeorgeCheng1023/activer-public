@@ -1,4 +1,4 @@
-@import '~/src/_global';
+@import "~/src/global";
 
 .user-account {
   display: flex;
@@ -7,8 +7,8 @@
   margin-top: 5%;
 
   &__input {
-    width: 50%;
     margin: 2em 0;
+    width: 50%;
 
     @include media(mobile, tablet) {
       width: 90%;

@@ -1,12 +1,12 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
-$_warning-color: #cc3300;
+$warning-color: #c30;
 
 button {
-  outline: 0;
+  background-color: #fff;
   border: 0;
-  background-color: #FFF;
+  outline: 0;
 }
 
 .login-container {
@@ -19,35 +19,35 @@ button {
 }
 
 .login-section {
+  display: flex;
+  padding-bottom: 3rem;
   width: 40%;
   min-width: 450px;
-  display: flex;
+  background-color: #fff;
   flex-direction: column;
-  padding-bottom: 3rem;
-  background-color: #FFF;
   scale: 0.7;
 
   &__title {
-    font-size: 3rem;
-    align-self: center;
     width: fit-content;
     height: fit-content;
+    font-size: 3rem;
+    align-self: center;
   }
 
   &__text-field {
     margin-top: 2.5rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     font-size: 31px;
     scale: 0.93;
   }
 
   &__btn-group {
     display: flex;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+    width: 80%;
     align-self: center;
     flex-direction: row;
-    justify-content: space-evenly;
-    width: 80%;
-    margin-top: 3rem;
     margin-bottom: 2rem;
     scale: 1.4;
   }
@@ -63,13 +63,13 @@ button {
   }
 
   &__check-persist-section {
-    width: fit-content;
-    height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
     margin-left: 2rem;
+    width: fit-content;
+    height: fit-content;
+    gap: 5px;
   }
 
   &__check-persist-section input {
@@ -81,9 +81,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: fit-content;
-  width: fit-content;
   margin: 0 6rem;
+  width: fit-content;
+  height: fit-content;
 }
 
 .or-aside {
@@ -92,26 +92,26 @@ button {
   justify-content: center;
   width: 3px;
   height: 22rem;
-  background-color: rgba(154, 133, 133, 0.5);
+  background-color: rgb(154 133 133 / 50%);
 
   &::after {
-    content: 'or';
     display: flex;
     align-items: center;
     justify-content: center;
     width: 3rem;
     height: 4rem;
-    background-color: #FFF;
-    color: rgba(154, 133, 133);
     font-size: 2rem;
+    color: rgb(154 133 133);
+    background-color: #fff;
+    content: "or";
   }
 }
 
 .errmsg {
-  align-self: center;
-  color: $_warning-color;
   font-size: 25px;
   font-weight: bold;
+  color: $warning-color;
+  align-self: center;
   transform: translateY(-20px);
 }
 
@@ -122,27 +122,25 @@ button {
 
 .instructions {
   margin-left: 20px;
-  color: $_warning-color;
   font-weight: 600;
+  color: $warning-color;
 
-  &>* {
-    color: $_warning-color;
-    margin-left: .3rem;
+  & > * {
+    margin-left: 0.3rem;
+    color: $warning-color;
   }
 }
 
 .pwd-instructions {
-  margin-left: 20px;
   margin-top: 5px;
-  color: $_warning-color;
+  margin-left: 20px;
   font-weight: 600;
+  color: $warning-color;
 
-  &>* {
-    color: $_warning-color;
-    margin-left: .3rem;
+  & > * {
+    margin-left: 0.3rem;
+    color: $warning-color;
   }
-
-
 }
 
 @media screen and (max-width: 800px) {
@@ -163,5 +161,4 @@ button {
   .other-login-section {
     margin: 4rem 0;
   }
-
 }

@@ -1,17 +1,18 @@
-@import '~/src/_global';
+@import "~/src/global";
 
 .forgot-pwd {
-  width: 100vw;
-  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  height: 70vh;
   flex-direction: column;
 
   &__title {
-    font-size: 2rem;
     margin: 2rem 0;
+    font-size: 2rem;
   }
+
   &__subtitle {
     font-size: 1rem;
   }
@@ -23,15 +24,18 @@
     @include media(tablet, laptop, desktop) {
       min-width: 20rem;
     }
+
     @include media(mobile) {
       width: 80vw;
     }
   }
+
   &__submit-btn {
     margin: 2rem 0;
   }
+
   &__back-btn {
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-weight: 600;
     opacity: 0.55;
   }

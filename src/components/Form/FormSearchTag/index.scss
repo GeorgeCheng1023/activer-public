@@ -1,22 +1,20 @@
-@import "~/src/_variables";
+@use "sass:color";
+@import "~/src/variables";
 
 .search-tag {
   position: relative;
-
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-
+  padding: 1em;
   width: 100%;
   height: 2em;
-  padding: 1em;
-
-  outline: 1px solid $secondary-font-color;
-  border-radius: 1em;
-  background: #FFFFFF;
   font-size: 1.5rem;
+  background: #fff;
+  border-radius: 1em;
+  outline: 1px solid $secondary-font-color;
+  flex-direction: row;
+  gap: 14px;
 
   &--expend {
     border-radius: 1em 1em 0 0;
@@ -33,20 +31,17 @@
 
   &__suggestion {
     position: absolute;
-    z-index: $zindex-dropdown;
     top: 2em;
     left: 0;
-    overflow: hidden;
-
     display: none;
     align-items: flex-start;
-    flex-direction: column;
-
+    overflow: hidden;
     width: inherit;
-
-    outline: 1px solid $secondary-font-color;
-    border-radius: 0 0 1em 1em;
     background-color: white;
+    border-radius: 0 0 1em 1em;
+    outline: 1px solid $secondary-font-color;
+    z-index: $zindex-dropdown;
+    flex-direction: column;
 
     &--expend {
       display: flex;
@@ -61,15 +56,12 @@
       background-color: transparent;
 
       &:hover {
-        background-color: darken(white, 10%);
+        background-color: color.adjust(white, $lightness: -10%);
       }
 
       &.selected {
-        background-color: darken(white, 10%);
+        background-color: color.adjust(white, $lightness: -10%);
       }
-
-    
     }
-
   }
 }

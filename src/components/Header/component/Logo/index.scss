@@ -1,12 +1,12 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .header__logo {
-  width: 4em;
-  height: 4em;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 4em;
+  height: 4em;
 
   * {
     color: $primary-color;

@@ -1,25 +1,19 @@
-@import "~/src/_variables";
+@import "~/src/variables";
 
 .form-input {
   position: relative;
-
   display: flex;
-  flex-direction: column;
-  height: fit-content;
-
   width: 100%;
-
+  height: fit-content;
   font-size: 1rem;
   color: $primary-font-color;
+  flex-direction: column;
 
   &__label {
     position: absolute;
     left: 0.6em;
-
-    padding: 0 .5em;
-
-    background-color: #FFF;
-
+    padding: 0 0.5em;
+    background-color: #fff;
     z-index: $zindex-dropdown-label;
 
     &--withoutLabel {
@@ -32,10 +26,10 @@
     margin-top: 1rem;
 
     &__input {
-      border: 1px solid $secondary-font-color;
-      border-radius: .5em;
       padding: 1em;
       width: 100%;
+      border: 1px solid $secondary-font-color;
+      border-radius: 0.5em;
       line-height: 1rem;
     }
 
@@ -54,15 +48,14 @@
     }
 
     &__error-Message {
-      color: red;
-      font-size: 0.8em;
       display: none;
+      font-size: 0.8em;
+      color: red;
     }
   }
 }
 
-
-.form-input input:invalid~span {
+.form-input input:invalid ~ span {
   display: block;
 }
 

@@ -1,17 +1,15 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .search {
   display: flex;
-  flex-direction: column;
-
-  padding: 3em;
-  margin: 0 auto;
-
-  font-size: 0.8em;
-  background-color: #f8f8f8;
-  color: $primary-font-color;
   overflow-y: auto;
+  margin: 0 auto;
+  padding: 3em;
+  font-size: 0.8em;
+  color: $primary-font-color;
+  background-color: #f8f8f8;
+  flex-direction: column;
 
   @include media(mobile, tablet) {
     flex-direction: column;
@@ -28,52 +26,44 @@
 
     .tag-manage {
       display: flex;
-      flex-direction: column;
+      margin-top: 1em;
       width: 70%;
+      flex-direction: column;
       flex-grow: 0.7;
       gap: 1em;
-      margin-top: 1em;
 
       @include media(mobile, tablet) {
         width: 100%;
         height: fit-content;
-
       }
 
       @include media(desktop, laptop) {
-        height: 70vh;
         margin-right: 2em;
+        height: 70vh;
       }
     }
 
     .tag-recommend,
     .tag-storage {
       display: flex;
+      margin-right: 1em;
+      height: 33%;
       flex-direction: column;
       gap: 5px;
       justify-items: flex-end;
-      height: 33%;
-      margin-right: 1em;
     }
-
-
 
     .tag-sorting {
       display: flex;
-      flex-direction: column;
-
-      gap: 5px;
-
-      height: 100%;
       width: 20em;
+      height: 100%;
+      flex-direction: column;
+      gap: 5px;
 
       @include media(mobile, tablet) {
         width: 100%;
       }
     }
-
-
-
   }
 
   &__h2 {
@@ -90,6 +80,5 @@
       flex-wrap: nowrap;
       overflow-x: auto;
     }
-
   }
 }

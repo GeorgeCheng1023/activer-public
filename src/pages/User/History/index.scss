@@ -1,4 +1,4 @@
-@import '~/src/_global';
+@import "~/src/global";
 
 .history {
   &__analytics {
@@ -40,15 +40,14 @@
     }
 
     >* {
-
       &:hover {
-        box-shadow: 0 3px 2em rgba(0, 0, 0, 0.16)
+        box-shadow: 0 3px 2em rgb(0 0 0 / 16%);
       }
     }
   }
 
   &__h2 {
-    font-size: 2em;
     margin-top: 1em;
+    font-size: 2em;
   }
 }

@@ -1,20 +1,19 @@
-// global mixin
-@import '~/src/_variables';
+@import "~/src/variables";
 
 // responsive
-$_min-breakpoints: (mobile: 0px,
-  tablet: 481px,
-  laptop: 769px,
-  desktop: 1025px);
-$_max-breakpoints: (mobile : 480px,
-  tablet:768px,
-  laptop: 1024px,
-  desktop: 3000px);
+$min-breakpoints: (mobile: 0,
+tablet: 481px,
+laptop: 769px,
+desktop: 1025px);
+$max-breakpoints: (mobile : 480px,
+tablet:768px,
+laptop: 1024px,
+desktop: 3000px);
 
 @mixin media($keys...) {
   @each $key in $keys {
-    @media (max-width: map-get($_max-breakpoints, $key)) and (min-width: map-get($_min-breakpoints, $key)) {
-      @content
+    @media (max-width: map-get($max-breakpoints, $key)) and (min-width: map-get($min-breakpoints, $key)) {
+      @content;
     }
   }
 }
@@ -22,20 +21,20 @@ $_max-breakpoints: (mobile : 480px,
 // scoll
 @mixin scrollbar() {
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
     border-radius: 10px;
-    background-color: #F5F5F5;
+    box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
   }
 
   &::-webkit-scrollbar {
     width: 6px;
+    background-color: #f5f5f5;
     border-radius: 3px;
-    background-color: #F5F5F5;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .3);
     background-color: $primary-font-color;
+    border-radius: 10px;
+    box-shadow: inset 0 0 4px rgb(0 0 0 / 30%);
   }
 }

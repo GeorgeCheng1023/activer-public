@@ -1,5 +1,5 @@
-@import '~/src/_global';
-@import '~/src/_variables';
+@import "~/src/global";
+@import "~/src/variables";
 
 .preferences {
   &__h2 {
@@ -26,7 +26,6 @@
         flex-grow: 0.5;
       }
     }
-
   }
 
   &__default-tags {
@@ -62,7 +61,6 @@
           align-self: flex-end;
           justify-content: flex-end;
           gap: 1em;
-
           height: fit-content;
 
           @include media(mobile) {
@@ -72,8 +70,7 @@
             margin-right: 1em;
 
             .button {
-
-              padding: 0.4em 0.8em
+              padding: 0.4em 0.8em;
             }
           }
         }
@@ -84,13 +81,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1em;
-
       margin: 0.5em;
       padding: 2em;
-
       border: 1px solid $primary-font-color;
       border-radius: 1em;
     }
   }
-
 }

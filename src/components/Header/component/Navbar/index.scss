@@ -1,16 +1,15 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .navbar {
-
   @include media(desktop, laptop) {
     width: 60%;
   }
 
   &__nav {
-    height: fit-content;
     display: flex;
-    gap: 1em;
     align-items: baseline;
+    height: fit-content;
+    gap: 1em;
   }
 }

@@ -1,22 +1,19 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .footer {
-  margin-top: 1rem;
-  width: 100%;
-
-  background-color: $primary-dilute-color;
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
   padding: 1rem 5rem;
+  width: 100%;
+  background-color: $primary-dilute-color;
   flex-wrap: wrap;
-
   gap: 1em;
 
   @include media(mobile, tablet) {
     padding: 1rem;
   }
-
 
   &__pages,
   &__other {
@@ -36,15 +33,13 @@
     }
   }
 
-
   a,
   button {
-    text-decoration: underline;
     font-size: 0.8em;
+    text-decoration: underline;
 
     &:hover {
       color: $secondary-font-color;
     }
   }
-
 }

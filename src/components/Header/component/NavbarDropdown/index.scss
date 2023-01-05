@@ -1,29 +1,24 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .navbar__dropdown {
   position: absolute;
-  z-index: $zindex-dropdown;
-  overflow: hidden;
-
   display: flex;
-  flex-direction: column;
-
+  overflow: hidden;
   padding: 0.2em;
   width: 8em;
-
   background-color: white;
   border: 1px solid $secondary-font-color;
   border-radius: 0.2em;
-
+  z-index: $zindex-dropdown;
   transition: height 0.3s;
+  flex-direction: column;
 
   @include media(mobile, tablet) {
     position: fixed;
-    z-index: $zindex-modal-panel;
     top: 0;
     right: 0;
-
     height: 100%;
+    z-index: $zindex-modal-panel;
   }
 }
