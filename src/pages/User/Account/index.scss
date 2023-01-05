@@ -7,11 +7,11 @@
   margin-top: 5%;
 
   &__input {
-    margin: 2em 0;
-    width: 50%;
-
     @include media(mobile, tablet) {
       width: 90%;
     }
+
+    width: 50%;
+    margin: 2em 0;
   }
 }

@@ -1,13 +1,13 @@
 @import "~/src/global";
 
 .preferences__history {
-  display: flex;
-  flex-flow: column;
-  gap: 0.5em;
-  margin-top: 1em;
-
   @include media(mobile) {
     flex-flow: row wrap;
     justify-content: center;
   }
+
+  display: flex;
+  flex-flow: column;
+  gap: 0.5em;
+  margin-top: 1em;
 }

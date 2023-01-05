@@ -2,11 +2,11 @@
 
 .Reset-pwd {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 70vh;
-  flex-direction: column;
 
   &__title {
     margin: 2rem 0;
@@ -18,9 +18,6 @@
   }
 
   &__text-field {
-    width: 25vw;
-    margin-bottom: 1rem;
-
     @include media(tablet, laptop, desktop) {
       min-width: 20rem;
     }
@@ -28,6 +25,9 @@
     @include media(mobile) {
       width: 80vw;
     }
+
+    width: 25vw;
+    margin-bottom: 1rem;
   }
 
   &__submit-btn {
@@ -35,8 +35,8 @@
   }
 
   &__back-btn {
-    font-size: 0.8rem;
     font-weight: 600;
+    font-size: 0.8rem;
     opacity: 0.55;
   }
 }

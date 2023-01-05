@@ -5,10 +5,10 @@
 .navbar__dropdown__item {
   display: flex;
   align-items: center;
-  padding: 0.5em;
   height: 2em;
-  white-space: nowrap;
+  padding: 0.5em;
   border-radius: 0.2em;
+  white-space: nowrap;
   transition: background 0.5s;
 
   &:hover {

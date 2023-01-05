@@ -2,25 +2,29 @@
 @import "~/src/global";
 
 .feature__item {
-  display: grid;
-  align-items: center;
-  padding: 0 1em;
-  transition: all 0.4s;
-  grid-template-rows: 1.5em 5em 3em;
-  justify-items: center;
-  gap: 1em;
-  grid-auto-flow: row;
-
   @include media(mobile, tablet) {
-    margin: 0 auto;
-    width: 90%;
     grid-template-rows: 2em 5em;
     grid-template-columns: 8rem 60%;
     justify-items: start;
+    width: 90%;
+    margin: 0 auto;
   }
+
+  display: grid;
+  grid-template-rows: 1.5em 5em 3em;
+  grid-auto-flow: row;
+  gap: 1em;
+  align-items: center;
+  justify-items: center;
+  padding: 0 1em;
+  transition: all 0.4s;
 
   .feature {
     &__title {
+      @include media(mobile, tablet) {
+        order: 2;
+      }
+
       display: flex;
       transition: all 0.4s;
 
@@ -29,35 +33,31 @@
         margin-top: 3px;
         margin-right: 3px;
       }
-
-      @include media(mobile, tablet) {
-        order: 2;
-      }
     }
 
     &__img {
+      @include media(mobile, tablet) {
+        grid-row: 1/3;
+        order: 1;
+      }
+
+      object-fit: cover;
       width: 8rem;
       height: 6rem;
-      object-fit: cover;
-
-      @include media(mobile, tablet) {
-        order: 1;
-        grid-row: 1/3;
-      }
     }
 
     &__detail {
+      @include media(mobile, tablet) {
+        order: 3;
+        text-align: start;
+        opacity: 1;
+      }
+
       width: 10rem;
       font-size: 0.8rem;
       text-align: center;
       white-space: pre-line;
       opacity: 0;
-
-      @include media(mobile, tablet) {
-        text-align: start;
-        opacity: 1;
-        order: 3;
-      }
     }
   }
 

@@ -13,23 +13,6 @@ $tag-config: (
 );
 
 .tag {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0;
-  padding: 0.6em 1em;
-  width: fit-content;
-  height: fit-content;
-  font-size: 0.6rem;
-  color: #fff;
-  border-radius: 0.8em;
-  transition: filter 0.3s;
-  cursor: pointer;
-
-  &:hover {
-    filter: brightness(85%);
-  }
-
   @each $key,
     $value in $tag-config {
     $class: map.get($value, class);
@@ -40,12 +23,29 @@ $tag-config: (
     }
   }
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  padding: 0.6em 1em;
+  border-radius: 0.8em;
+  color: #fff;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(85%);
+  }
+
   &__icon {
     display: flex;
     align-items: center;
+    justify-items: center;
     padding: 0 0.5em;
     font-size: 1.4em;
-    justify-items: center;
 
     * {
       color: white;
@@ -53,8 +53,8 @@ $tag-config: (
   }
 
   &__text {
-    font-size: 1em;
     color: #fff;
+    font-size: 1em;
   }
 
   &--sm {

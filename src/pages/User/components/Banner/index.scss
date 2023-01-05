@@ -4,14 +4,14 @@
   &__container {
     position: relative;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 3em;
     background-color: $primary-color;
   }
 
   &__h1 {
-    font-weight: 400;
     color: white;
+    font-weight: 400;
   }
 }

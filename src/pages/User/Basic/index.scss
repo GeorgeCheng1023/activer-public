@@ -2,32 +2,32 @@
 @import "~/src/global";
 
 .user-basic {
-  margin: 2rem 5%;
-  font-size: 1.2em;
-
   @include media(mobile, tablet) {
     margin: 2rem 3%;
   }
 
+  margin: 2rem 5%;
+  font-size: 1.2em;
+
   &__portrait {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+
     .img {
       width: 10rem;
       height: 10rem;
       border-radius: 50%;
     }
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
   }
 
   &__input {
     display: flex;
-    margin: 1em 0;
-    width: 100%;
     flex-direction: column;
     gap: 0.5em;
+    width: 100%;
+    margin: 1em 0;
 
     &__nick-name {
       width: 70%;
@@ -35,39 +35,39 @@
 
     &__location__county,
     &__location__area {
-      width: 50%;
       flex-grow: 0.5;
+      width: 50%;
     }
   }
 
   &__container {
+    @include media(mobile, tablet) {
+      flex-direction: column;
+    }
+
+    @include media(mobile, tablet) {
+      align-items: flex-start;
+    }
+
     display: flex;
-    justify-content: space-between;
     gap: 5%;
+    justify-content: space-between;
     width: 100%;
 
     >div {
       flex-grow: 1;
     }
 
-    @include media(mobile, tablet) {
-      flex-direction: column;
-    }
-
     &--column {
-      display: flex;
-      align-items: center;
-      margin: 0 15px;
-      width: 100%;
-      flex-direction: column;
-
       @include media(mobile, tablet) {
         margin: 0;
       }
-    }
 
-    @include media(mobile, tablet) {
-      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin: 0 15px;
     }
   }
 }

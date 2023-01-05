@@ -4,17 +4,17 @@
 .dropdown {
   position: relative;
   display: flex;
-  height: fit-content;
-  font-size: 1rem;
-  color: $primary-font-color;
   flex-direction: column;
+  height: fit-content;
+  color: $primary-font-color;
+  font-size: 1rem;
 
   &__label {
     position: absolute;
     left: 0.6em;
+    z-index: $zindex-dropdown-label;
     padding: 0 0.5em;
     background-color: #fff;
-    z-index: $zindex-dropdown-label;
   }
 
   &::-ms-expand {
@@ -25,45 +25,45 @@
     position: relative;
     margin-top: 1rem;
     padding: 1em 3.5em 1em 1em;
-    background-position:
-      calc(100% - 20px) 50%,
-      calc(100% - 15px) 50%,
-      calc(100% - 2.5em) 50%;
-    background-repeat: no-repeat;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
-    background-color: white;
     border-color: $secondary-font-color;
     border-radius: 4px;
-
-    /* reset */
-    box-sizing: border-box;
-    appearance: none;
-    line-height: 1rem;
+    background-color: white;
 
     // arrow
     background-image:
       linear-gradient(45deg, transparent 50%, gray 50%),
       linear-gradient(135deg, gray 50%, transparent 50%),
       linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) 50%,
+      calc(100% - 15px) 50%,
+      calc(100% - 2.5em) 50%;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    line-height: 1rem;
+
+    /* reset */
+    box-sizing: border-box;
+    appearance: none;
 
     &:focus {
-      background-position:
-        calc(100% - 15px) 50%,
-        calc(100% - 20px) 50%,
-        calc(100% - 2.5em) 50%;
-      background-repeat: no-repeat;
-      background-size:
-        5px 5px,
-        5px 5px,
-        1px 1.5em;
-      outline: 0;
       background-image:
         linear-gradient(45deg, gray 50%, transparent 50%),
         linear-gradient(135deg, transparent 50%, gray 50%),
         linear-gradient(to right, #ccc, #ccc);
+      background-position:
+        calc(100% - 15px) 50%,
+        calc(100% - 20px) 50%,
+        calc(100% - 2.5em) 50%;
+      background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+      background-repeat: no-repeat;
+      outline: 0;
     }
   }
 
@@ -71,21 +71,21 @@
   select {
     option[title] {
       &::before {
+        content: attr(title);
         position: absolute;
         top: calc(100% + 5px);
         left: 0;
-        padding: 5px 10px;
-        white-space: nowrap;
-        color: #fff;
-        background: #333;
-        border-radius: 3px;
         z-index: 1;
-        content: attr(title);
+        padding: 5px 10px;
+        border-radius: 3px;
+        color: #fff;
+        white-space: nowrap;
+        background: #333;
       }
 
       &:hover::before {
-        opacity: 1;
         visibility: visible;
+        opacity: 1;
       }
     }
   }

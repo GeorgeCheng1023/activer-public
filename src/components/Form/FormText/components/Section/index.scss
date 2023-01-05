@@ -12,8 +12,8 @@
 }
 
 @mixin font-style {
-  font-size: 1.8rem;
   font-weight: 400;
+  font-size: 1.8rem;
   line-height: 29px;
 }
 
@@ -44,11 +44,11 @@
 }
 
 .inputSection--disabled {
-  opacity: 0.5;
-
   @include input-section-container;
   @include input-section-base;
   @include font-style;
+
+  opacity: 0.5;
 }
 
 .inputSection--default:focus,

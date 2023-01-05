@@ -3,18 +3,18 @@
 .form-input {
   position: relative;
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: fit-content;
-  font-size: 1rem;
   color: $primary-font-color;
-  flex-direction: column;
+  font-size: 1rem;
 
   &__label {
     position: absolute;
     left: 0.6em;
+    z-index: $zindex-dropdown-label;
     padding: 0 0.5em;
     background-color: #fff;
-    z-index: $zindex-dropdown-label;
 
     &--withoutLabel {
       visibility: hidden;
@@ -26,8 +26,8 @@
     margin-top: 1rem;
 
     &__input {
-      padding: 1em;
       width: 100%;
+      padding: 1em;
       border: 1px solid $secondary-font-color;
       border-radius: 0.5em;
       line-height: 1rem;
@@ -49,8 +49,8 @@
 
     &__error-Message {
       display: none;
-      font-size: 0.8em;
       color: red;
+      font-size: 0.8em;
     }
   }
 }

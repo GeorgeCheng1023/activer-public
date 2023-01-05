@@ -3,30 +3,23 @@
 
 .verify-user {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 50vw;
   height: 60vh;
-  flex-direction: column;
 
   // border: 1px black solid;
 
   &__container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 70vh;
   }
 
   &__section {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-
     @include media(tablet) {
       gap: 1rem;
     }
@@ -35,32 +28,39 @@
       gap: 0.5rem;
     }
 
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+
     // border: 1px gray solid;
 
     &__code {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 3.5rem;
-      height: 3.5rem;
-      border: 1px hsl(100deg 4% 27%) solid;
-      border-radius: 100%;
-
       @include media(mobile) {
         width: 2.7rem;
         height: 2.7rem;
       }
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border: 1px hsl(100deg 4% 27%) solid;
+      border-radius: 100%;
     }
 
     &__number {
+      @include media(mobile) {
+        font-size: 1.4rem;
+      }
+
       width: 1.8ch;
       height: 2rem;
       font-size: 1.5rem;
       text-align: center;
-
-      @include media(mobile) {
-        font-size: 1.4rem;
-      }
     }
 
     &__number::-webkit-inner-spin-button {

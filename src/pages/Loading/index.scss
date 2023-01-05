@@ -27,19 +27,19 @@ $bounce-height: 30px;
 .bounceball {
   position: relative;
   display: inline-block;
-  margin-right: 0.5rem;
   width: $width;
   height: 37px;
+  margin-right: 0.5rem;
 
   &::before {
+    content: "";
     position: absolute;
     top: 0;
     display: block;
     width: $width;
     height: $height;
-    background-color: #fbae17;
     border-radius: 50%;
-    content: "";
+    background-color: #fbae17;
     transform-origin: 50%;
     animation: bounce 500ms alternate infinite ease;
   }

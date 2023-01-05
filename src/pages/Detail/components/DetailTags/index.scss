@@ -1,9 +1,9 @@
 .detail__tags {
   display: flex;
   flex-flow: wrap column;
-  align-items: center;
-  justify-content: center;
   gap: 1em;
+  justify-content: center;
+  align-items: center;
   margin: 1em;
 
   &__group {

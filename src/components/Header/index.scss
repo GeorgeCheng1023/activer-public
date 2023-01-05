@@ -4,12 +4,12 @@
 .header {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  flex-grow: 0;
   justify-content: space-between;
-  margin: 0 auto;
-  padding: 1em 2em;
+  align-items: flex-end;
   width: 100%;
   height: $header-height;
+  margin: 0 auto;
+  padding: 1em 2em;
   background-color: #fff;
-  flex-grow: 0;
 }

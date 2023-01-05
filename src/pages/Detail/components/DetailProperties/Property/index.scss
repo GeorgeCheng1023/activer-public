@@ -1,9 +1,9 @@
 @import "~/src/variables";
 
 .detail__property {
-  border-bottom: 1px solid $primary-font-color;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
+  border-bottom: 1px solid $primary-font-color;
 
   &__location {
     border: none;

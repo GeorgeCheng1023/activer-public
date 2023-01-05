@@ -4,17 +4,17 @@
 .search-tag {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1em;
-  width: 100%;
-  height: 2em;
-  font-size: 1.5rem;
-  background: #fff;
-  border-radius: 1em;
-  outline: 1px solid $secondary-font-color;
   flex-direction: row;
   gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2em;
+  padding: 1em;
+  border-radius: 1em;
+  outline: 1px solid $secondary-font-color;
+  font-size: 1.5rem;
+  background: #fff;
 
   &--expend {
     border-radius: 1em 1em 0 0;
@@ -33,15 +33,15 @@
     position: absolute;
     top: 2em;
     left: 0;
+    z-index: $zindex-dropdown;
     display: none;
+    flex-direction: column;
     align-items: flex-start;
     overflow: hidden;
     width: inherit;
-    background-color: white;
     border-radius: 0 0 1em 1em;
+    background-color: white;
     outline: 1px solid $secondary-font-color;
-    z-index: $zindex-dropdown;
-    flex-direction: column;
 
     &--expend {
       display: flex;
@@ -49,11 +49,11 @@
     }
 
     &__choice {
-      padding: 1.5em;
       width: 100%;
+      padding: 1.5em;
+      background-color: transparent;
       text-align: left;
       cursor: pointer;
-      background-color: transparent;
 
       &:hover {
         background-color: color.adjust(white, $lightness: -10%);

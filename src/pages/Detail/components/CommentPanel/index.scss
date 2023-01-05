@@ -2,8 +2,8 @@
 
 .comment-panel {
   padding: 1em;
-  background-color: white;
   border-radius: 1em;
+  background-color: white;
 
   &__control {
     display: flex;
@@ -12,8 +12,8 @@
   }
 
   &__content {
-    padding: 1em;
     width: 100%;
+    padding: 1em;
     font-size: 1.3em;
   }
 }

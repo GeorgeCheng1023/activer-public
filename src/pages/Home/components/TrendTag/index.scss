@@ -3,13 +3,6 @@
 
 .trend-tag {
   &__container {
-    display: grid;
-    margin: 0 1em;
-    margin-top: 1em;
-    width: 100%;
-    grid-template-columns: repeat(3, 1fr 3fr);
-    grid-gap: 1em 15px;
-
     @include media(tablet, laptop) {
       grid-template-columns: repeat(2, 1fr 3fr);
     }
@@ -18,6 +11,13 @@
       grid-template-columns: 1fr 3fr;
       grid-column-gap: 0;
     }
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr 3fr);
+    grid-gap: 1em 15px;
+    width: 100%;
+    margin: 0 1em;
+    margin-top: 1em;
   }
 
   &__count {

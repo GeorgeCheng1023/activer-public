@@ -2,8 +2,15 @@
 @import "~/src/global";
 
 .manage-control {
-  flex-grow: 0.2;
+  @include media(mobile, tablet) {
+    flex-flow: row wrap;
+    gap: 2em;
+    justify-content: center;
+    width: 100%;
+  }
+
   display: flex;
+  flex-grow: 0.2;
   flex-direction: column;
   justify-content: space-between;
   width: fit-content;
@@ -11,12 +18,5 @@
 
   &__label {
     white-space: nowrap;
-  }
-
-  @include media(mobile, tablet) {
-    flex-flow: row wrap;
-    justify-content: center;
-    width: 100%;
-    gap: 2em;
   }
 }

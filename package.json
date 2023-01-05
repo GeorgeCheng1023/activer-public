@@ -63,7 +63,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "stylelint \"**/*.scss\""
+    "lint": "stylelint \"**/*.scss\" --fix"
   },
   "eslintConfig": {
     "extends": [

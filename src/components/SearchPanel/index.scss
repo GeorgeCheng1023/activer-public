@@ -2,67 +2,67 @@
 @import "~/src/global";
 
 .search {
-  display: flex;
-  overflow-y: auto;
-  margin: 0 auto;
-  padding: 3em;
-  font-size: 0.8em;
-  color: $primary-font-color;
-  background-color: #f8f8f8;
-  flex-direction: column;
-
   @include media(mobile, tablet) {
     flex-direction: column;
     height: 100%;
   }
 
-  &__tag {
-    display: flex;
-    margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin: 0 auto;
+  padding: 3em;
+  background-color: #f8f8f8;
+  color: $primary-font-color;
+  font-size: 0.8em;
 
+  &__tag {
     @include media(mobile, tablet) {
       flex-direction: column;
     }
 
-    .tag-manage {
-      display: flex;
-      margin-top: 1em;
-      width: 70%;
-      flex-direction: column;
-      flex-grow: 0.7;
-      gap: 1em;
+    display: flex;
+    margin-top: 1em;
 
+    .tag-manage {
       @include media(mobile, tablet) {
         width: 100%;
         height: fit-content;
       }
 
       @include media(desktop, laptop) {
-        margin-right: 2em;
         height: 70vh;
+        margin-right: 2em;
       }
+
+      display: flex;
+      flex-grow: 0.7;
+      flex-direction: column;
+      gap: 1em;
+      width: 70%;
+      margin-top: 1em;
     }
 
     .tag-recommend,
     .tag-storage {
       display: flex;
-      margin-right: 1em;
-      height: 33%;
       flex-direction: column;
       gap: 5px;
       justify-items: flex-end;
+      height: 33%;
+      margin-right: 1em;
     }
 
     .tag-sorting {
-      display: flex;
-      width: 20em;
-      height: 100%;
-      flex-direction: column;
-      gap: 5px;
-
       @include media(mobile, tablet) {
         width: 100%;
       }
+
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 20em;
+      height: 100%;
     }
   }
 
@@ -71,14 +71,14 @@
   }
 
   &--flex {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    width: 100%;
-
     @include media(mobile, tablet) {
       flex-wrap: nowrap;
       overflow-x: auto;
     }
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    width: 100%;
   }
 }

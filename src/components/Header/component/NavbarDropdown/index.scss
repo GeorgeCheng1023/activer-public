@@ -2,23 +2,23 @@
 @import "~/src/global";
 
 .navbar__dropdown {
-  position: absolute;
-  display: flex;
-  overflow: hidden;
-  padding: 0.2em;
-  width: 8em;
-  background-color: white;
-  border: 1px solid $secondary-font-color;
-  border-radius: 0.2em;
-  z-index: $zindex-dropdown;
-  transition: height 0.3s;
-  flex-direction: column;
-
   @include media(mobile, tablet) {
     position: fixed;
     top: 0;
     right: 0;
-    height: 100%;
     z-index: $zindex-modal-panel;
+    height: 100%;
   }
+
+  position: absolute;
+  z-index: $zindex-dropdown;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 8em;
+  padding: 0.2em;
+  border: 1px solid $secondary-font-color;
+  border-radius: 0.2em;
+  background-color: white;
+  transition: height 0.3s;
 }

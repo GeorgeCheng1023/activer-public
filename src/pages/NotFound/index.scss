@@ -1,7 +1,7 @@
 .notFound {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 80vh;
 }
@@ -14,7 +14,7 @@
 
   &__number {
     position: relative;
-    background: #fff;
+    letter-spacing: 5vmin;
     text-shadow:
       2px -1px 0 #000,
       4px -2px 0 #0a0a0a,
@@ -24,17 +24,15 @@
       12px -6px 0 #1f1f1f,
       14px -7px 0 #242424,
       16px -8px 0 #292929;
-    letter-spacing: 5vmin;
+    background: #fff;
   }
 
   &__number::before {
+    content: "";
     position: absolute;
     display: block;
     width: 100%;
     height: 100%;
-    background-position: -100vmin 20vmin, 100vmin -25vmin;
-    background-repeat: repeat-x;
-    background-size: 40vmin 40vmin;
     background-color: #673ab7;
     background-image:
       radial-gradient(
@@ -43,16 +41,18 @@
         rgb(0 0 0 / 0%)
       ),
       radial-gradient(closest-side at 50% 50%, #e91e63 100%, rgb(0 0 0 / 0%));
-    mix-blend-mode: screen;
+    background-position: -100vmin 20vmin, 100vmin -25vmin;
+    background-size: 40vmin 40vmin;
+    background-repeat: repeat-x;
     animation: moving 10s linear infinite both;
-    content: "";
+    mix-blend-mode: screen;
   }
 
   &__text {
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem;
     align-self: center;
+    margin-bottom: 2rem;
   }
 
   &__text span {

@@ -16,24 +16,24 @@ input {
 
 .register-section {
   display: flex;
+  flex-direction: column;
 
   // justify-content: center;
   align-items: center;
-  margin-top: 3rem;
   width: 40vw;
   height: 84vh;
-  flex-direction: column;
+  margin-top: 3rem;
 
   &__title {
     align-self: center;
-    font-size: 2.5rem;
     font-weight: 600;
+    font-size: 2.5rem;
   }
 
   &__text-field {
-    margin-top: 1rem;
     width: 100%;
     max-width: 20rem;
+    margin-top: 1rem;
   }
 
   &__tag {
@@ -48,9 +48,9 @@ input {
   }
 
   &__register-error {
-    margin-top: 0.5rem;
     width: 100%;
     max-width: 20rem;
+    margin-top: 0.5rem;
     color: rgb(216 14 14);
 
     &__symbol {

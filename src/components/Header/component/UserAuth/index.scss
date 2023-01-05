@@ -2,13 +2,9 @@
 @import "~/src/global";
 
 .navbar__user-auth {
-  display: flex;
-  gap: 10px;
-  font-size: 0.8rem;
-
   @include media(mobile, tablet) {
-    margin-top: auto;
     flex-direction: column;
+    margin-top: auto;
 
     &__logout {
       order: 2;
@@ -18,4 +14,8 @@
   @include media(desktop, laptop) {
     margin-left: auto;
   }
+
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
 }

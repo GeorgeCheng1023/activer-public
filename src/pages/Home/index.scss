@@ -3,18 +3,18 @@
 
 .home {
   display: flex;
-  flex-direction: column;
   flex-grow: 1;
+  flex-direction: column;
   gap: 1em;
 
   >*:not(.hero) {
-    margin: 0 1em;
-
     @include media(desktop, tablet) {
-      margin: 0 auto;
       width: 100%;
       max-width: 1280px;
+      margin: 0 auto;
     }
+
+    margin: 0 1em;
   }
 
   h2 {
@@ -24,17 +24,17 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-    margin-bottom: 1em;
     width: 100%;
     max-width: 1280px;
+    margin: 0 auto;
+    margin-bottom: 1em;
 
     .button {
-      height: 3em;
-
       @include media(mobile, tablet) {
         text-decoration: underline;
       }
+
+      height: 3em;
     }
   }
 
@@ -44,13 +44,13 @@
   }
 
   &__card-container {
-    display: flex;
-    gap: 1em;
-    justify-content: center;
-
     @include media(mobile, tablet) {
       flex-direction: column;
       gap: 0;
     }
+
+    display: flex;
+    gap: 1em;
+    justify-content: center;
   }
 }

@@ -7,12 +7,12 @@
   }
 
   &__main-content {
-    margin: 0 auto;
-    width: 80%;
-    min-height: 100vh;
-
     @include media(mobile, tablet) {
       width: 100%;
     }
+
+    width: 80%;
+    min-height: 100vh;
+    margin: 0 auto;
   }
 }

@@ -2,12 +2,12 @@
 
 .tag-sort {
   overflow-y: scroll;
-  padding: 1rem 2rem;
   width: 100%;
   height: 20rem;
-  background-color: transparent;
+  padding: 1rem 2rem;
   border: 1px solid $secondary-font-color;
   border-radius: 0.5rem;
+  background-color: transparent;
   scroll-behavior: smooth;
 
   &::-webkit-scrollbar-track {
@@ -37,6 +37,6 @@
 }
 
 .drag-tag {
-  user-select: none;
   background-color: transparent;
+  user-select: none;
 }

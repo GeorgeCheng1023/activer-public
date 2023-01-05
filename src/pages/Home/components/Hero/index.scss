@@ -2,30 +2,6 @@
 @import "~/src/global";
 
 .hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 2em 0;
-  width: 100%;
-  height: fit-content;
-  background-color: #fef6d8;
-  gap: 70px;
-
-  &__left {
-    height: fit-content;
-  }
-
-  &__text {
-    font-size: 48px;
-    font-weight: 400;
-    color: $primary-font-color;
-    line-height: 70px;
-  }
-
-  &__left__section {
-    margin-bottom: 20px;
-  }
-
   @include media(mobile) {
     flex-direction: column;
     padding: 2em;
@@ -35,21 +11,45 @@
     }
   }
 
+  display: flex;
+  gap: 70px;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2em 0;
+  background-color: #fef6d8;
+
+  &__left {
+    height: fit-content;
+  }
+
+  &__text {
+    color: $primary-font-color;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 70px;
+  }
+
+  &__left__section {
+    margin-bottom: 20px;
+  }
+
   &__h1 {
     &--highlight {
       position: relative;
-      color: $secondary-color;
       z-index: $zindex-base;
+      color: $secondary-color;
 
       &::after {
+        content: "";
         position: absolute;
-        bottom: 5px;
         right: 0;
+        bottom: 5px;
         left: 0;
+        z-index: $zindex-after-marker;
         height: 10px;
         background-color: rgb(250 242 0 / 80%);
-        z-index: $zindex-after-marker;
-        content: "";
       }
     }
   }

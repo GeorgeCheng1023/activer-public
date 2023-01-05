@@ -2,18 +2,18 @@
 @import "~/src/global";
 
 .footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-  padding: 1rem 5rem;
-  width: 100%;
-  background-color: $primary-dilute-color;
-  flex-wrap: wrap;
-  gap: 1em;
-
   @include media(mobile, tablet) {
     padding: 1rem;
   }
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem 5rem;
+  background-color: $primary-dilute-color;
 
   &__pages,
   &__other {

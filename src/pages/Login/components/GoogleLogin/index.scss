@@ -2,18 +2,18 @@
 
 .google-button {
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
-  padding: 0 7px;
+  align-items: center;
   width: 13rem;
   height: 2rem;
-  font-weight: 600;
-  color: rgb(128 139 142 / 87.8%);
+  padding: 0 7px;
   border: 1px solid rgb(208 217 220 / 88%);
   border-radius: 20px;
+  color: rgb(128 139 142 / 87.8%);
   box-shadow: 0 8px 8px -2px rgb(0 0 0 / 25%);
-  transition: all 0.4s ease-in-out;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.4s ease-in-out;
   scale: 1.35;
 
   &:hover {

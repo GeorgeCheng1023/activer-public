@@ -3,8 +3,8 @@
 
 .preferences {
   &__h2 {
-    font-size: 1.5em;
     color: $primary-font-color;
+    font-size: 1.5em;
   }
 
   &__history {
@@ -12,12 +12,6 @@
     flex-wrap: wrap;
 
     .history__container {
-      display: flex;
-      flex-direction: column;
-      margin: 10px;
-      gap: 10px;
-      flex-grow: 0.25;
-
       @include media(mobile) {
         flex-grow: 1;
       }
@@ -25,6 +19,12 @@
       @include media(tablet) {
         flex-grow: 0.5;
       }
+
+      display: flex;
+      flex-grow: 0.25;
+      flex-direction: column;
+      gap: 10px;
+      margin: 10px;
     }
   }
 
@@ -34,45 +34,45 @@
     margin-top: 2em;
 
     &__control {
-      display: flex;
-      justify-content: space-between;
-
       @include media(mobile, tablet) {
         flex-direction: column;
       }
 
-      &__right {
-        display: flex;
-        align-items: baseline;
-        gap: 1em;
+      display: flex;
+      justify-content: space-between;
 
+      &__right {
         @include media(mobile, tablet) {
-          justify-content: space-between;
           gap: 0.5em;
+          justify-content: space-between;
         }
+
+        display: flex;
+        gap: 1em;
+        align-items: baseline;
 
         &__search-bar {
           flex-grow: 0.4;
         }
 
         &__buttons {
-          display: flex;
-          flex-grow: 0.6;
-          align-self: flex-end;
-          justify-content: flex-end;
-          gap: 1em;
-          height: fit-content;
-
           @include media(mobile) {
             flex-direction: column;
-            align-items: flex-end;
             gap: 0.5em;
+            align-items: flex-end;
             margin-right: 1em;
 
             .button {
               padding: 0.4em 0.8em;
             }
           }
+
+          display: flex;
+          flex-grow: 0.6;
+          gap: 1em;
+          justify-content: flex-end;
+          align-self: flex-end;
+          height: fit-content;
         }
       }
     }
