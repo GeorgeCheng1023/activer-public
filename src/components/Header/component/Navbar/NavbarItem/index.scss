@@ -28,9 +28,9 @@
   }
 
   position: relative;
-  line-height: 1.2em;
+  display: flex;
+  line-height: 1.5em;
   cursor: pointer;
-  all: initial;
 
   &__backdrop {
     position: fixed;

@@ -7,7 +7,8 @@ interface NavbarItemType {
   label: React.ReactNode;
   link?: string;
   onClick?: (e: any) => void;
-  children?: React.ReactNode
+  children?: React.ReactNode;
+  afterIcon?: React.ReactNode;
 }
 
 function NavbarItem({
@@ -15,6 +16,7 @@ function NavbarItem({
   children,
   link,
   onClick,
+  afterIcon,
 }: NavbarItemType) {
   const [open, setOpen] = useState(false);
   const windowWidth = useWindowWidth();
@@ -43,6 +45,7 @@ function NavbarItem({
         onClick={handleClick}
       >
         {label}
+        {afterIcon}
       </a>
       {open && children}
       {(windowWidth <= 768 && open) && (
@@ -60,6 +63,7 @@ NavbarItem.defaultProps = {
   link: null,
   children: null,
   onClick: undefined,
+  afterIcon: undefined,
 };
 
 export default NavbarItem;

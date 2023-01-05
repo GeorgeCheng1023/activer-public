@@ -45,8 +45,8 @@ bg:$danger-color)
       @include set-color($bg, $color, $bg);
 
       &:hover:not([disabled]) {
-        border-color: color.adjust($color, $lightness: -10%);
-        background-color: color.adjust($color, $lightness: -10%);
+        border-color: color.adjust($bg, $lightness: -10%);
+        background-color: color.adjust($bg, $lightness: -10%);
       }
     }
   }
@@ -85,7 +85,7 @@ bg:$danger-color)
         @include set-color($bg, $bg, $color);
 
         &:hover:not([disabled]) {
-          background-color: color.adjust($color, $lightness: 30%);
+          background-color: color.adjust($bg, $lightness: 25%);
         }
       }
     }
