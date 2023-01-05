@@ -1,3 +1,4 @@
+@use "sass:color";
 @import "~/src/variables";
 
 .search-tag {
@@ -55,11 +56,11 @@
       background-color: transparent;
 
       &:hover {
-        background-color: color.adjust($color, $lightness: - $amount);
+        background-color: color.adjust(white, $lightness: -10%);
       }
 
       &.selected {
-        background-color: color.adjust($color, $lightness: - $amount);
+        background-color: color.adjust(white, $lightness: -10%);
       }
     }
   }
