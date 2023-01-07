@@ -10,10 +10,18 @@ $primary-font-color: #4a4949;
 $secondary-font-color: #a5a5a5;
 $primary-dilute-color: rgb(246 218 173);
 
+// height
+$header-height: 60px;
+$footer-height: 10rem;
+
+// font-weight:
+$fontweight-bold: 500;
+
 // z-index
 $zindex-after-marker: -1;
 $zindex-base: 1;
 $zindex-dropdown-label: 990;
+$zindex-dropdown-backdrop: 995;
 $zindex-dropdown: 1000;
 $zindex-navbar: 1030;
 $zindex-modal-backdrop: 1040;
@@ -22,7 +30,3 @@ $zindex-modal-close-btn: 1055;
 $zindex-popover: 1060;
 $zindex-tooltip: 1070;
 $zindex-footer: 1080;
-
-// height
-$header-height: 6em;
-$footer-height: 10rem;

@@ -5,8 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4em;
-  height: 4em;
+  height: $header-height;
 
   * {
     color: $primary-color;

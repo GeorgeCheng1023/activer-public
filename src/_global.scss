@@ -38,3 +38,9 @@ desktop: 3000px);
     box-shadow: inset 0 0 4px rgb(0 0 0 / 30%);
   }
 }
+
+// container
+@mixin container-main {
+  max-width: 1024px;
+  margin: 0 auto;
+}

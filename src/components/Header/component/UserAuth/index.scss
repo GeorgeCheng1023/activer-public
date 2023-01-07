@@ -1,21 +1,15 @@
-@import "~/src/variables";
-@import "~/src/global";
-
-.navbar__user-auth {
-  @include media(mobile, tablet) {
-    flex-direction: column;
-    margin-top: auto;
-
-    &__logout {
-      order: 2;
-    }
-  }
-
-  @include media(desktop, laptop) {
-    margin-left: auto;
-  }
-
+.user-auth {
   display: flex;
-  gap: 10px;
-  font-size: 0.8rem;
+  justify-content: end;
+  align-items: center;
+  width: 5em;
+  margin-left: auto;
+
+  &::before {
+    display: none;
+  }
+
+  .button {
+    font-size: 0.2em;
+  }
 }

@@ -9,6 +9,7 @@ interface NavbarItemType {
   onClick?: (e: any) => void;
   children?: React.ReactNode;
   afterIcon?: React.ReactNode;
+  className?:string;
 }
 
 function NavbarItem({
@@ -17,6 +18,7 @@ function NavbarItem({
   link,
   onClick,
   afterIcon,
+  className,
 }: NavbarItemType) {
   const [open, setOpen] = useState(false);
   const windowWidth = useWindowWidth();
@@ -36,7 +38,7 @@ function NavbarItem({
 
   return (
     <li
-      className="navbar__item"
+      className={`navbar__item ${className && className}`}
       onMouseEnter={() => { if (windowWidth > 768) { setOpen(true); } }}
       onMouseLeave={() => { if (windowWidth > 768) { setOpen(false); } }}
     >
@@ -64,6 +66,7 @@ NavbarItem.defaultProps = {
   children: null,
   onClick: undefined,
   afterIcon: undefined,
+  className: null,
 };
 
 export default NavbarItem;

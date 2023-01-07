@@ -11,12 +11,12 @@
   }
 
   position: absolute;
-  top: 1.6em;
+  top: calc($header-height - 8px);
   z-index: $zindex-dropdown;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  width: 8em;
+  min-width: 130px;
   padding: 0.2em;
   border: 1px solid $secondary-font-color;
   border-radius: 0.2em;
