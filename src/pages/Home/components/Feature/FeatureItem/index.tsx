@@ -4,20 +4,19 @@ import './index.scss';
 interface FeatureItemType {
   title : string;
   titleIcon: React.ReactNode;
-  img: string;
   detail: string;
 }
 
 function FeatureItem({
-  title, titleIcon, img, detail,
+  title, titleIcon, detail,
 }: FeatureItemType) {
   return (
     <div className="feature__item">
-      <div className="feature__title">
-        {titleIcon}
+      <div className="feature__item__title">
+        <span className="feature__item__icon">{titleIcon}</span>
         <h3>{title}</h3>
       </div>
-      <img className="feature__img" src={img} alt={title} />
+
       <p className="feature__detail">{detail}</p>
     </div>
   );
