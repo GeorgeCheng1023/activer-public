@@ -28,12 +28,10 @@ function Account() {
     <form onSubmit={handleSubmit} className="user-account">
       <div className="user-account__input user-account__input__account">
         <FormInput
-          inputProps={{
-            id: 'account',
-            name: 'account',
-            label: '帳號',
-            placeholder: userData.Email,
-          }}
+          id="account"
+          name="account"
+          label="帳號"
+          placeholder={userData.Email}
           onChange={handleChange}
           disabled
           formValue={accountValue}
@@ -41,17 +39,15 @@ function Account() {
       </div>
       <div className="user-account__input user-account__input__password">
         <FormInput
-          inputProps={{
-            id: 'password',
-            name: 'password',
-            label: '密碼',
-            inputType: 'password',
-            placeholder: 'Enter your password',
-            pattern: userData.Password,
-            errorMessage: '密碼錯誤',
-          }}
+          id="password"
+          name="password"
+          label="密碼"
+          type="password"
           onChange={handleChange}
           formValue={accountValue}
+          placeholder="Enter your password"
+          pattern={userData.Password}
+          errorMessage="密碼錯誤"
         />
       </div>
       <Button

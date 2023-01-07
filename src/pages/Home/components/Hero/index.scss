@@ -1,36 +1,8 @@
-@import "~/src/_variables";
-@import "~/src/_global";
+@import "~/src/variables";
+@import "~/src/global";
 
 .hero {
-  width: 100%;
-  height: fit-content;
-  padding: 2em 0;
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 70px;
-
-  background-color: #FEF6D8;
-
-  &__left {
-    height: fit-content;
-
-  }
-
-  &__text {
-    font-weight: 400;
-    font-size: 48px;
-    line-height: 70px;
-    color: $primary-font-color;
-  }
-
-  &__left__section {
-    margin-bottom: 20px;
-  }
-
   @include media(mobile) {
-
     flex-direction: column;
     padding: 2em;
 
@@ -39,4 +11,46 @@
     }
   }
 
+  display: flex;
+  gap: 70px;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2em 0;
+  background-color: #fef6d8;
+
+  &__left {
+    height: fit-content;
+  }
+
+  &__text {
+    color: $primary-font-color;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 70px;
+  }
+
+  &__left__section {
+    margin-bottom: 20px;
+  }
+
+  &__h1 {
+    &--highlight {
+      position: relative;
+      z-index: $zindex-base;
+      color: $secondary-color;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+        left: 0;
+        z-index: $zindex-after-marker;
+        height: 10px;
+        background-color: rgb(250 242 0 / 80%);
+      }
+    }
+  }
 }

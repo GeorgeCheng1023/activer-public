@@ -6,6 +6,7 @@ import DetailSources from './DetailSources';
 import DetailConnection from './DetailConnection';
 import DetailTags from './DetailTags';
 import DetailHolder from './DetailHolder';
+import LinkWrapper from './LinkWrapper';
 
 export {
   DetailComment,
@@ -16,4 +17,5 @@ export {
   DetailConnection,
   DetailSubtitle,
   DetailHolder,
+  LinkWrapper,
 };

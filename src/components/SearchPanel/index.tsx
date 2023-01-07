@@ -1,7 +1,6 @@
 import React from 'react';
 // hooks
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
-
 // style
 import './index.scss';
 // store
@@ -32,12 +31,12 @@ function Search() {
 
   // handle search submit event and update keyword in searchValue
   const handleSearchSubmit = (inputValue: string) => {
+    // TODO: fetch activity data by inputValue
     console.log(inputValue);
   };
 
   // redux
   return (
-
     <Popup
       display={display}
       onClose={() => dispatch(hide())}
@@ -49,7 +48,7 @@ function Search() {
           <div className="search__keyword-bar">
             <SearchBar
               onSubmit={handleSearchSubmit}
-              placeHolder="搜尋活動關鍵字"
+              placeholder="搜尋活動關鍵字"
               defaultText={keyword}
             />
           </div>
@@ -64,7 +63,7 @@ function Search() {
             {/* tag searching */}
             <div className="search__tag tag-manage__search">
               <SearchTag
-                placeHolder="搜尋活動標籤"
+                placeholder="搜尋活動標籤"
                 onSuggestionClick={handleSuggestionClick}
               />
             </div>

@@ -1,50 +1,51 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@use "sass:color";
+@use "sass:map";
+@import "~/src/variables";
+@import "~/src/global";
 
-$_tag-config: (primary: (class: 'primary',
-    color: $primary-color),
-  secondary: (class:'secondary',
-    color: $secondary-color),
-  success: (class :'success',
-    color: $success-color));
+$tag-config: (
+  primary: (class: "primary",
+  color: $primary-color),
+  secondary: (class:"secondary",
+  color: $secondary-color),
+  success: (class :"success",
+  color: $success-color)
+);
 
 .tag {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @each $key,
+    $value in $tag-config {
+    $class: map.get($value, class);
+    $color: map.get($value, color);
 
+    &--#{$class} {
+      background-color: $color;
+    }
+  }
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: fit-content;
   height: fit-content;
-  padding: 0.6em 1em;
   margin: 0;
+  padding: 0.6em 1em;
   border-radius: 0.8em;
-
-  color: #FFF;
-
-  transition: filter 0.3s;
-
+  color: #fff;
+  font-size: 0.6rem;
   cursor: pointer;
+  transition: filter 0.3s;
 
   &:hover {
     filter: brightness(85%);
   }
 
-  @each $key,
-  $value in $_tag-config {
-    $_class: map-get($value, class);
-    $_color: map-get($value, color);
-
-    &--#{$_class} {
-      background-color: $_color;
-    }
-  }
-
   &__icon {
-    padding: 0 0.5em;
-    font-size: 1.4em;
     display: flex;
     align-items: center;
     justify-items: center;
+    padding: 0 0.5em;
+    font-size: 1.4em;
 
     * {
       color: white;
@@ -52,7 +53,7 @@ $_tag-config: (primary: (class: 'primary',
   }
 
   &__text {
-    color: #FFFFFF;
+    color: #fff;
     font-size: 1em;
   }
 
@@ -62,12 +63,10 @@ $_tag-config: (primary: (class: 'primary',
 
   &:disabled,
   &:disabled * {
-
     cursor: default;
 
     &:hover {
       filter: brightness(100%);
     }
-
   }
 }

@@ -22,14 +22,12 @@ function NewPwd() {
 
         <div className="new-pwd__text-field">
           <FormInput
-            inputProps={{
-              id: 'password',
-              name: 'password',
-              inputType: 'password',
-              placeholder: '密碼',
-              pattern: PWD_REGEX_PATTERN,
-              errorMessage: '密碼格式錯誤',
-            }}
+            id="password"
+            name="password"
+            type="password"
+            placeholder="密碼"
+            pattern={PWD_REGEX_PATTERN}
+            errorMessage="密碼格式錯誤"
             onChange={handleChange}
             formValue={passwords.password}
           />
@@ -39,14 +37,12 @@ function NewPwd() {
 
         <div className="new-pwd__text-field">
           <FormInput
-            inputProps={{
-              id: 'confirmPassword',
-              name: 'confirmPassword',
-              inputType: 'password',
-              placeholder: '確認密碼',
-              pattern: passwords.password,
-              errorMessage: '密碼格式錯誤',
-            }}
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="確認密碼"
+            pattern={passwords.password}
+            errorMessage="密碼格式錯誤"
             onChange={handleChange}
             formValue={passwords.password}
           />

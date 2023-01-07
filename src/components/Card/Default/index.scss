@@ -1,0 +1,109 @@
+// components/Card/Row
+@import "~/src/variables";
+@import "~/src/global";
+
+.card {
+  @include media(mobile, tablet) {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10rem;
+    border-width: 0;
+  }
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  width: 12rem;
+  height: 17rem;
+  border: 1px solid $secondary-font-color;
+  cursor: pointer;
+  background: #fff;
+
+  &__image {
+    @include media(mobile, tablet) {
+      justify-content: center;
+      height: 90%;
+    }
+
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 3px 2em rgb(0 0 0 / 16%);
+
+    .card__image {
+      transform: scale(1.1);
+      transition: transform 0.3s;
+    }
+  }
+
+  &::after {
+    @include media(mobile, tablet) {
+      width: 100%;
+      height: 3px;
+    }
+
+    content: "";
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 12rem;
+    height: 5px;
+    background-color: $primary-color;
+  }
+
+  &__title {
+    overflow: hidden;
+    height: 4.5em;
+    padding: 0 0.5rem;
+    line-height: 1.5;
+    text-align: justify;
+    text-overflow: ellipsis;
+  }
+
+  &__detail {
+    padding: 0 0.6rem;
+    color: $primary-font-color;
+    font-size: 0.8em;
+    text-align: justify;
+    white-space: pre-wrap;
+  }
+
+  &__tag {
+    @include media(mobile, tablet) {
+      align-self: flex-start;
+    }
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.3em;
+    overflow: clip;
+    margin-top: auto;
+    padding: 0 0.6rem;
+    padding-bottom: 0.5em;
+    text-overflow: ellipsis;
+  }
+
+  &__content {
+    @include media(mobile, tablet) {
+      flex-direction: column;
+    }
+
+    width: 100%;
+    all: inherit;
+  }
+}

@@ -22,14 +22,12 @@ import Modal from './components/modal';
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function LoginSection() {
-  let sessionToken: string;
-
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
 
   const navigate = useNavigate();
 
-  const [, setCookie] = useCookies<string>(['user']);
+  const [cookies, setCookie] = useCookies<string>(['user']);
 
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
@@ -120,7 +118,7 @@ function LoginSection() {
     event.preventDefault();
 
     try {
-      const response = await apiUserResendVerify(sessionToken);
+      const response = await apiUserResendVerify(cookies.sessionToken);
       console.log(response);
     } catch (err) {
       console.log(err);

@@ -1,0 +1,25 @@
+@import "~/src/variables";
+@import "~/src/global";
+
+.navbar__dropdown {
+  @include media(mobile, tablet) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: $zindex-modal-panel;
+    height: 100%;
+  }
+
+  position: absolute;
+  top: 1.6em;
+  z-index: $zindex-dropdown;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 8em;
+  padding: 0.2em;
+  border: 1px solid $secondary-font-color;
+  border-radius: 0.2em;
+  background-color: white;
+  transition: height 0.3s;
+}

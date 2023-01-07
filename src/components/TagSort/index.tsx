@@ -5,13 +5,13 @@ import './index.scss';
 import update from 'immutability-helper';
 import DragTag from './components/DragTag';
 
-type Props = {
+interface TagSortType {
   disabled?: boolean;
   onChange?: (tag: TagType[]) => void;
   tags: Array<TagType>
-};
+}
 
-function TagSort({ onChange, disabled, tags: tagsInput }: Props) {
+function TagSort({ onChange, disabled, tags: tagsInput }: TagSortType) {
   const [tags, setTags] = useState<Array<TagType>>(tagsInput);
 
   useEffect(() => {

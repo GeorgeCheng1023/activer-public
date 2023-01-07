@@ -1,31 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import './index.scss';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-export interface PopupDisplayProps {
+export interface PopupDisplayType {
   display: boolean,
   onClose: () => void,
 }
 
-interface Props extends PopupDisplayProps {
+interface PopupType extends PopupDisplayType {
   children: React.ReactNode,
   effectCallback?: React.EffectCallback
 }
-
+/**
+ * @effectCallback {React.EffectCallback} execute when popup show or close
+ */
 function Popup({
   children,
   onClose,
   display,
   effectCallback,
-}: Props) {
+}: PopupType) {
   const handleClickBackdrop:
-  React.MouseEventHandler<HTMLDivElement> = (e) => {
+  React.MouseEventHandler<HTMLDivElement> = useCallback((e) => {
     e.preventDefault();
     onClose();
-    // for display change
-  };
+  }, []);
 
+  // hidden window scroll to avoid scrolling backdrop page
   useEffect(() => {
     if (display) {
       document.body.style.overflow = 'hidden';

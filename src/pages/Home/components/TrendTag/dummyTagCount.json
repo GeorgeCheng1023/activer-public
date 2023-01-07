@@ -1,0 +1,56 @@
+[
+  {
+    "Id": 100,
+    "Text": "特殊教育",
+    "Type": "area",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 102,
+    "Text": "幼兒教育",
+    "Type": "area",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 105,
+    "Text": "免費",
+    "Type": "other",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 100,
+    "Text": "特殊教育",
+    "Type": "area",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 102,
+    "Text": "幼兒教育",
+    "Type": "area",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 105,
+    "Text": "免費",
+    "Type": "other",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 100,
+    "Text": "特殊教育",
+    "Type": "area",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 102,
+    "Text": "幼兒教育",
+    "Type": "area",
+    "RelatedActivity": 1023
+  },
+  {
+    "Id": 105,
+    "Text": "免費",
+    "Type": "other",
+    "RelatedActivity": 1023
+  }
+]

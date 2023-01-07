@@ -1,0 +1,45 @@
+@import "~/src/variables";
+@import "~/src/global";
+
+.footer {
+  @include media(mobile, tablet) {
+    padding: 1rem;
+  }
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem 5rem;
+  background-color: $primary-dilute-color;
+
+  &__pages,
+  &__other {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+
+  &__connection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+
+    &__social-media {
+      display: flex;
+      gap: 0.5em;
+    }
+  }
+
+  a,
+  button {
+    font-size: 0.8em;
+    text-decoration: underline;
+
+    &:hover {
+      color: $secondary-font-color;
+    }
+  }
+}

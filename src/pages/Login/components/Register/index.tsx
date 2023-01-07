@@ -133,13 +133,11 @@ function Register() {
 
         <section className="register-section__text-field">
           <FormInput
-            inputProps={{
-              id: 'username',
-              name: 'username',
-              label: '名稱',
-              inputType: 'text',
-              placeholder: '輸入您的名稱',
-            }}
+            id="username"
+            name="username"
+            label="名稱"
+            type="text"
+            placeholder="輸入您的名稱"
             formValue={user}
             onChange={handleUserChange}
           />
@@ -147,13 +145,11 @@ function Register() {
 
         <section className="register-section__text-field">
           <FormInput
-            inputProps={{
-              id: 'email',
-              name: 'email',
-              label: '電子信箱',
-              inputType: 'email',
-              placeholder: '輸入您的電子信箱',
-            }}
+            id="email"
+            name="email"
+            label="電子信箱"
+            type="email"
+            placeholder="輸入您的電子信箱"
             formValue={email}
             onChange={handleEmailChange}
           />
@@ -165,13 +161,11 @@ function Register() {
 
         <section className="register-section__text-field">
           <FormInput
-            inputProps={{
-              id: 'password',
-              name: 'password',
-              label: '密碼',
-              inputType: 'password',
-              placeholder: '輸入您的密碼',
-            }}
+            id="password"
+            name="password"
+            label="密碼"
+            type="password"
+            placeholder="輸入您的密碼"
             formValue={pwd}
             onChange={handlePwdChange}
           />
@@ -190,13 +184,11 @@ function Register() {
 
         <section className="register-section__text-field">
           <FormInput
-            inputProps={{
-              id: 'confirm-password',
-              name: 'confirm-password',
-              label: '確認密碼',
-              inputType: 'password',
-              placeholder: '確認密碼',
-            }}
+            id="confirm-password"
+            name="confirm-password"
+            label="確認密碼"
+            type="password"
+            placeholder="確認密碼"
             formValue={confirmPwd}
             onChange={handleConfirmPwdChange}
           />

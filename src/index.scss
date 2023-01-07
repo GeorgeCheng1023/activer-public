@@ -1,27 +1,40 @@
-// global stylesheet
-@import '~/src/_variables';
+@import "~/src/variables";
 
 html {
-  font-size: calc(14px + 0.390625vw);
+  font-size: calc(14px + 0.3906vw);
   font-family: "Noto Sans CJK TC", "Microsoft JhengHei", PingFang, STHeiti, sans-serif, serif;
 }
 
 * {
-  padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  padding: 0;
   color: $primary-font-color;
+  box-sizing: border-box;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &:nth-child(1) {
+    flex-grow: 1;
+  }
 }
 
 body {
   position: relative;
 }
 
+ul {
+  list-style: none;
+}
+
 button {
-  background: none;
   border: none;
   outline: none;
   cursor: pointer;
+  background: none;
 }
 
 h1 {
@@ -42,8 +55,8 @@ p {
 }
 
 a {
-  text-decoration: none;
   font-size: 1rem;
+  text-decoration: none;
 
   // wrap
   white-space: pre-wrap;

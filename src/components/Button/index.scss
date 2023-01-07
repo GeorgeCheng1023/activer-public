@@ -1,99 +1,97 @@
-@import '~/src/_variables';
+@use "sass:map";
+@use "sass:color";
+@import "~/src/variables";
 
-$_btn-config:(primary:(class: 'primary',
-    color: white,
-    bg: $primary-color,
-  ),
-  secondary:(class: 'secondary',
-    color: white,
-    bg: $secondary-color,
-  ),
-  success:(class: 'success',
-    color: white,
-    bg: $success-color,
-  ),
-  dark:(class: 'dark',
-    color: white,
-    bg: $primary-font-color,
-  ),
-  white:(class: 'white',
-    color:$primary-font-color,
-    bg: white, ),
-  danger:(class:'danger',
-    color: white,
-    bg:$danger-color));
+$btn-config: (
+  primary:(class: "primary",
+  color: white,
+  bg: $primary-color,
+),
+secondary:(class: "secondary",
+color: white,
+bg: $secondary-color,
+),
+success:(class: "success",
+color: white,
+bg: $success-color,
+),
+dark:(class: "dark",
+color: white,
+bg: $primary-font-color,
+),
+white:(class: "white",
+color:$primary-font-color,
+bg: white, ),
+danger:(class:"danger",
+color: white,
+bg:$danger-color)
+);
 
-@mixin setColor ($borderColor, $textColor, $bgColor) {
+@mixin set-color($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;
   background-color: $bgColor;
   color: $textColor;
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  // default variant
+  @each $name,
+    $value in $btn-config {
+    $class: map.get($value, class);
+    $color: map.get($value, color);
+    $bg: map.get($value, bg);
 
+    &--#{$class} {
+      @include set-color($bg, $color, $bg);
+
+      &:hover:not([disabled]) {
+        border-color: color.adjust($bg, $lightness: -10%);
+        background-color: color.adjust($bg, $lightness: -10%);
+      }
+    }
+  }
+
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
   width: fit-content;
   height: fit-content;
   padding: 0.6em 1.8em;
   border-radius: 0.8em;
-
+  font-size: 1em;
   letter-spacing: 1px;
-
-
-  transition-duration: 0.3s;
   cursor: pointer;
+  transition-duration: 0.3s;
 
   &--lg {
     font-size: 1.5em;
   }
 
   &--sm {
-    font-size: 0.8em;
     padding: 0.4em 1.8em;
-  }
-
-
-  // default variant
-  @each $name,
-  $value in $_btn-config {
-    $class: map-get($value, class);
-    $color: map-get($value, color);
-    $bg: map-get($value, bg);
-
-    &--#{$class} {
-      @include setColor($bg, $color, $bg);
-
-      &:hover:not([disabled]) {
-        border-color: darken($bg, 10%);
-        background-color: darken($bg, 10%);
-      }
-    }
+    font-size: 0.8em;
   }
 
   // outline variant
   &.button--outline {
-
     @each $name,
-    $value in $_btn-config {
-      $class: map-get($value, class);
-      $color: map-get($value, color);
-      $bg: map-get($value, bg);
+      $value in $btn-config {
+      $class: map.get($value, class);
+      $color: map.get($value, color);
+      $bg: map.get($value, bg);
 
       &.button--#{$class} {
-        @include setColor($bg, $bg, $color);
+        @include set-color($bg, $bg, $color);
 
         &:hover:not([disabled]) {
-
-          background-color: lighten($bg, 30%)
+          background-color: color.adjust($bg, $lightness: 25%);
         }
       }
     }
   }
 
-  // round variant 
+  // round variant
   &.button--round {
     width: 40px !important;
     height: 40px;
@@ -103,27 +101,25 @@ $_btn-config:(primary:(class: 'primary',
 
   // reverse color variant
   &.button--reverse-color {
-
     @each $name,
-    $value in $_btn-config {
-      $class: map-get($value, class);
-      $color: map-get($value, color);
-      $bg: map-get($value, bg);
-      $hover-color: map-get($value, hover-color);
+      $value in $btn-config {
+      $class: map.get($value, class);
+      $color: map.get($value, color);
+      $bg: map.get($value, bg);
 
       &.button--#{$class} {
-        @include setColor($color, $bg, $color);
+        @include set-color($color, $bg, $color);
 
         &:hover:not([disabled]) {
-          background-color: darken($color, 10%);
+          background-color: color.adjust($color, $lightness: -10%);
         }
       }
     }
   }
 
   * {
-    color: inherit;
     background-color: transparent;
+    color: inherit;
     text-align: center;
   }
 
@@ -133,7 +129,7 @@ $_btn-config:(primary:(class: 'primary',
   }
 
   &:disabled {
+    cursor: not-allowed;
     opacity: 0.5;
-    cursor: not-allowed
   }
 }

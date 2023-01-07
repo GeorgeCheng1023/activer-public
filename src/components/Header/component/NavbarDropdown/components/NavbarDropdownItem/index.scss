@@ -1,0 +1,17 @@
+@use "sass:color";
+@import "~/src/variables";
+@import "~/src/global";
+
+.navbar__dropdown__item {
+  display: flex;
+  align-items: center;
+  height: 2em;
+  padding: 0.5em;
+  border-radius: 0.2em;
+  white-space: nowrap;
+  transition: background 0.5s;
+
+  &:hover {
+    background-color: color.adjust($secondary-font-color, $lightness: 30%);
+  }
+}

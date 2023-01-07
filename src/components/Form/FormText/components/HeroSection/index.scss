@@ -1,25 +1,24 @@
-@import '~/src/_variables';
+@import "~/src/variables";
 
-@mixin inputSection--base {
+@mixin input-section-base {
+  padding: 23px 10px 13px 54px;
   border: 1px solid $secondary-font-color;
   border-radius: 15px;
-  padding: 23px 10px 13px 54px;
 }
-@mixin formFontStyle {
-  font-family: 'Inter';
+
+@mixin form-fontstyle {
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 29px;
 }
 
 .inputHeroSection {
+  @include form-fontstyle;
+
   position: absolute;
   bottom: 0;
-
   width: inherit;
   height: 12rem;
-
-  @include formFontStyle;
 
   &::placeholder {
     color: $secondary-font-color;
@@ -27,5 +26,5 @@
 }
 
 .inputHeroSection--style {
-  @include inputSection--base();
+  @include input-section-base;
 }

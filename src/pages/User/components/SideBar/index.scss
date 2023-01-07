@@ -1,25 +1,12 @@
-@import '~/src/_variables';
-@import '~/src/_global';
+@import "~/src/variables";
+@import "~/src/global";
 
 .sidebar {
   flex-grow: 1;
   background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 
   &__container {
-    position: fixed;
-    z-index: $zindex-modal-panel;
-    display: flex;
-
-    width: fit-content;
-
-    -webkit-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    -ms-transition: all 0.5s ease-out;
-    -o-transition: all 0.5s ease-out;
-    transition: all 0.5s ease-out;
-    transform: translateX(-9rem);
-
     @include media(mobile, tablet) {
       &--expended {
         transform: translateX(0);
@@ -27,26 +14,27 @@
     }
 
     @include media(laptop, desktop) {
-
       &:hover {
         transform: translateX(0);
       }
     }
-  }
 
-  @include media(mobile, tablet) {}
+    position: fixed;
+    z-index: $zindex-modal-panel;
+    display: flex;
+    width: fit-content;
+    transform: translateX(-9rem);
+    transition: all 0.5s ease-out;
+  }
 
   &__toggle-button {
     z-index: $zindex-modal-panel;
-
-    height: fit-content;
-    padding: 1em;
     width: fit-content;
+    height: fit-content;
     margin-top: 1em;
-
-    background-color: white;
+    padding: 1em;
     border-radius: 0 50% 50% 0;
-    box-shadow: 6px 2px 6px 0 rgba(0, 0, 0, 0.2), 8px 4px 16px 0 rgba(0, 0, 0, 0.19);
-
+    background-color: white;
+    box-shadow: 6px 2px 6px 0 rgb(0 0 0 / 20%), 8px 4px 16px 0 rgb(0 0 0 / 19%);
   }
 }

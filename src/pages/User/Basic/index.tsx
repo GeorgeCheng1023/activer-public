@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import './index.scss';
 import FAQTag from 'components/FAQ-Tag';
 import Crop from 'components/Crop';
-import FormInputFile from 'components/Form/FormInputFile';
+import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
-
-import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
-import FormDropDown from 'components/Form/FormDropdown';
 import { getUserData, userUpdate } from 'store/userAuth';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { apiUserUpdate } from 'api/axios';
@@ -89,7 +86,7 @@ function Basic() {
               <FormInputFile
                 name="Portrait"
                 setImageSrc={setImageSrc}
-                accept="image"
+                accept="image/*"
                 id="user-basic__portrait__upload"
                 label="上傳頭像"
               />
@@ -97,6 +94,7 @@ function Basic() {
           </div>
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput
+<<<<<<< HEAD
               inputProps={{
                 id: 'nick_name',
                 name: 'nickName',
@@ -106,6 +104,15 @@ function Basic() {
                 errorMessage: '暱稱不可超過15字',
                 pattern: '[\u4E00-\u9FFFA-Za-z]{1,15}',
               }}
+=======
+              id="nick_name"
+              name="NickName"
+              label="暱稱"
+              type="text"
+              placeholder="輸入暱稱姓名"
+              errorMessage="暱稱不可超過15字"
+              pattern="[\u4E00-\u9FFFA-Za-z]{1,15}"
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
               formValue={values}
               onChange={handleChange}
             />
@@ -114,6 +121,7 @@ function Basic() {
         <div className="user-basic__container--column">
           <div className="user-basic__input user-basic__input__real-name">
             <FormInput
+<<<<<<< HEAD
               inputProps={{
                 id: 'real_name',
                 name: 'realName',
@@ -123,26 +131,42 @@ function Basic() {
                 errorMessage: '真實只能接受2-6字',
                 pattern: '[\u4E00-\u9FFF]{2,6}',
               }}
+=======
+              id="real_name"
+              name="RealName"
+              label="真實姓名"
+              type="text"
+              placeholder="輸入真實姓名"
+              errorMessage="真實只能接受2-6字"
+              pattern="[\u4E00-\u9FFF]{2,6}"
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
               formValue={values}
               onChange={handleChange}
             />
           </div>
           <div className="user-basic__container">
             <div className="user-basic__input user-basic__input__gender">
-
               <FormDropDown
+<<<<<<< HEAD
                 dropdownProps={{
                   id: 'gender',
                   label: '性別',
                   name: 'gender',
                   options: ['男性', '女性', '其他', '隱藏'],
                 }}
+=======
+                id="gender"
+                label="性別"
+                name="Gender"
+                options={['男性', '女性', '其他', '隱藏']}
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
                 value={values.Gender}
                 onChange={handleChange}
               />
             </div>
             <div className="user-basic__input user-basic__input__birthday">
               <FormInput
+<<<<<<< HEAD
                 inputProps={{
                   id: 'Birthday',
                   name: 'birthday',
@@ -150,6 +174,13 @@ function Basic() {
                   inputType: 'date',
                   placeholder: '請選擇出生年月日',
                 }}
+=======
+                id="Birthday"
+                name="Birthday"
+                label="生日"
+                type="date"
+                placeholder="請選擇出生年月日"
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
                 formValue={values}
                 onChange={handleChange}
               />
@@ -157,6 +188,7 @@ function Basic() {
           </div>
           <div className="user-basic__input user-basic__input__profession">
             <FormInput
+<<<<<<< HEAD
               inputProps={{
                 id: 'Profession',
                 name: 'profession',
@@ -164,6 +196,13 @@ function Basic() {
                 inputType: 'text',
                 placeholder: '請選擇輸入您的職業',
               }}
+=======
+              id="Profession"
+              name="Profession"
+              label="職業"
+              type="text"
+              placeholder="請選擇輸入您的職業"
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
               formValue={values}
               onChange={handleChange}
             />
@@ -175,18 +214,26 @@ function Basic() {
             <div className="user-basic__container">
               <div className="user-basic__input__location__county">
                 <FormDropDown
+<<<<<<< HEAD
                   dropdownProps={{
                     id: 'country',
                     label: '縣市',
                     name: 'county',
                     options: CityCountyData.map((c) => c.CityName),
                   }}
+=======
+                  id="country"
+                  label="縣市"
+                  name="County"
+                  options={CityCountyData.map((c) => c.CityName)}
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
                   value={values.County}
                   onChange={handleCountyChange}
                 />
               </div>
               <div className="user-basic__input__location__area">
                 <FormDropDown
+<<<<<<< HEAD
                   dropdownProps={{
                     id: 'area',
                     label: '區鄉鎮',
@@ -196,6 +243,14 @@ function Basic() {
                     )?.AreaList.map((a) => a.AreaName) || [],
 
                   }}
+=======
+                  id="area"
+                  label="區鄉鎮"
+                  name="Area"
+                  options={CityCountyData.find(
+                    (c) => c.CityName === selectedCounty,
+                  )?.AreaList.map((a) => a.AreaName) || []}
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
                   value={values.Area}
                   onChange={handleChange}
                 />
@@ -206,6 +261,7 @@ function Basic() {
 
           <div className="user-basic__input user-basic__input__phone">
             <FormInput
+<<<<<<< HEAD
               inputProps={{
                 id: 'phone',
                 name: 'phone',
@@ -215,6 +271,15 @@ function Basic() {
                 pattern: '[0-9]{10}',
                 errorMessage: '電話必須是10位數字',
               }}
+=======
+              id="phone"
+              name="Phone"
+              label="電話"
+              type="text"
+              placeholder="請選擇輸入您的職業"
+              pattern="[0-9]{10}"
+              errorMessage="電話必須是10位數字"
+>>>>>>> 3dbf119432c06586459776ab91ba01b40cac453c
               formValue={values}
               onChange={handleChange}
             />

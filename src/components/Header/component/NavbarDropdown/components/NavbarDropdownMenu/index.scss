@@ -1,0 +1,48 @@
+@import "~/src/variables";
+@import "~/src/global";
+
+.navbar__dropdown__menu {
+  width: 100%;
+
+  &--primary {
+    &-enter {
+      position: absolute;
+      transform: translateX(-110%);
+    }
+
+    &-enter-active {
+      transform: translateX(0%);
+      transition: all 0.5s ease;
+    }
+
+    &-exit {
+      position: absolute;
+    }
+
+    &-exit-active {
+      transform: translateX(-110%);
+    }
+  }
+
+  &--secondary,
+  &--third {
+    &-enter {
+      position: absolute;
+      transform: translateX(110%);
+    }
+
+    &-enter-active {
+      transform: translateX(0%);
+      transition: all 0.5s ease;
+    }
+
+    &-exit {
+      position: absolute;
+    }
+
+    &-exit-active {
+      transform: translateX(110%);
+      transition: all 0.5s ease;
+    }
+  }
+}

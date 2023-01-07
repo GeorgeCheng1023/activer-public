@@ -1,35 +1,30 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './index.scss';
 
-interface DropdownType {
+interface FormDropDownType {
   id: string;
   label?: string;
   name: string;
   options: string[];
-}
-
-interface Props {
-  dropdownProps: DropdownType,
-  value: string;
+  value?: string;
   onChange: (key: any, value: any) => void;
+  descriptions? : string[];
 }
 
 function FormDropDown({
+  id,
+  label,
+  name,
+  options,
   value,
-  dropdownProps,
   onChange,
-}: Props) {
-  const {
-    id,
-    label,
-    name,
-    options,
-  } = dropdownProps;
-
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+  descriptions,
+}: FormDropDownType) {
+  const handleChange:
+  React.ChangeEventHandler<HTMLSelectElement> = useCallback((event) => {
     document.getElementById(id)?.blur();
     onChange(event.target.name, event.target.value);
-  };
+  }, []);
 
   return (
     <div className="dropdown">
@@ -51,16 +46,25 @@ function FormDropDown({
       >
         {options.map((option: string, index: number) => (
           <option
+            id={`${name}-option-${index}`}
             value={option}
             key={`${name}-option-${index}`}
             className="dropdown__option"
+            title={descriptions && descriptions[index]}
           >
             {option}
           </option>
         ))}
+
       </select>
     </div>
   );
 }
+
+FormDropDown.defaultProps = {
+  label: undefined,
+  value: undefined,
+  descriptions: undefined,
+};
 
 export default FormDropDown;

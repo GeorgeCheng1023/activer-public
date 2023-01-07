@@ -1,9 +1,6 @@
-// DetailProperties
-@import '~/src/_global';
+@import "~/src/global";
 
 .detail__properties {
-  position: relative;
-
   @include media(laptop, desktop) {
     margin-left: 1em;
   }
@@ -12,5 +9,5 @@
     padding: 0;
   }
 
-
+  position: relative;
 }

@@ -1,0 +1,14 @@
+@import "~/src/variables";
+@import "~/src/global";
+
+.feature {
+  @include media(mobile, tablet) {
+    flex-direction: column;
+  }
+
+  display: flex;
+  gap: 1em;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin-top: 1em;
+}

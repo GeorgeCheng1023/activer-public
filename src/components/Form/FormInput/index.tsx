@@ -1,70 +1,39 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './index.scss';
 
-// eslint-disable
-import Button from '../../Button';
-
-export type inputType = {
-  id: string
-  name?: string,
+interface FormInputType
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label?: string,
-  inputType?: 'text' | 'password' | 'email' | 'date',
-  placeholder: string,
+  control?:JSX.Element;
   errorMessage?: string,
-  required?: boolean,
-  pattern?: string,
-};
-
-export interface FormInputProps {
-  inputProps: inputType;
-  variant?: 'withButton' | 'withoutLabel';
-  disabled?: boolean;
   formValue: object | string;
   onChange: (key: any, value: any) => void;
-  buttonText?: string;
 }
 
-function FormInput(props: FormInputProps) {
-  const {
-    inputProps, disabled, variant, buttonText, onChange, formValue,
-  } = props;
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+function FormInput({
+  label, errorMessage, formValue, onChange, control, ...props
+}: FormInputType) {
+  const handleChange:
+  React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     onChange(event.target.name, event.target.value);
-  };
-
+  }, []);
   return (
-    <div className={`form-input ${disabled ? 'disabled' : ''}`}>
-      {variant === 'withoutLabel' ? ''
-        : (
-          <p className={`form-input__label ${variant ? `form-input__label--${variant}` : ''}`}>
-            {inputProps.label}
-          </p>
-        )}
-      <div className={`form-input__section ${variant ? `form-input__section--${variant}` : ''}`}>
-        <input
-          id={inputProps.id}
-          className="form-input__section__input"
-          type={inputProps.inputType}
-          placeholder={inputProps.placeholder}
-          name={inputProps.name}
-          onChange={handleChange}
-          value={formValue[inputProps.name as keyof typeof formValue]}
-          required={inputProps.required}
-          pattern={inputProps.pattern}
-          disabled={disabled}
-        />
-        {variant === 'withButton'
+    <div className={`form-input ${props.disabled ? 'disabled' : ''}`}>
+      {label
           && (
-            <div className="form-input__section__button">
-              <Button
-                color="secondary"
-                size="sm"
-                text={buttonText}
-              />
-            </div>
+            <p className="form-input__label">
+              {label}
+            </p>
           )}
-        <span className="form-input__section__error-Message">{inputProps.errorMessage}</span>
+      <div className="form-input__section">
+        <input
+          {...props}
+          className="form-input__section__input"
+          onChange={handleChange}
+          value={formValue[props.name as keyof typeof formValue]}
+        />
+        {control}
+        <span className="form-input__section__error-Message">{errorMessage}</span>
       </div>
     </div>
 
@@ -72,10 +41,9 @@ function FormInput(props: FormInputProps) {
 }
 
 FormInput.defaultProps = {
-  variant: undefined,
-  buttonText: 'default text',
-  disabled: false,
-
+  label: undefined,
+  errorMessage: undefined,
+  control: undefined,
 };
 
 export default FormInput;

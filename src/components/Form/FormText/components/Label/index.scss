@@ -1,25 +1,20 @@
-@import '~/src/_variables';
+@import "~/src/variables";
 
 .inputLabel {
   position: absolute;
-  left: 14px;
   top: -12px;
-
-  width: fit-content;
-  height: 3rem;
-  padding: 10px 27px;
+  left: 14px;
+  z-index: $zindex-dropdown-label;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background-color: #FFF;
-
-  font-family: 'Inter';
+  width: fit-content;
+  height: 3rem;
+  padding: 10px 27px;
+  background-color: #fff;
   font-weight: 600;
   font-size: 2rem;
   line-height: 39px;
-
-  z-index: $zindex-dropdown-label;
 }
 
 .inputLabel--default,

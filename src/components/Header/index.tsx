@@ -1,24 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './index.scss';
-
 // component
-
-import Navbar from './components/Navbar';
-
-// icon
-import IconLogo from '../Icons';
+import useWindowWidth from 'hooks/window/useWindowWidth';
+import Navigation, { MobileNavigation } from './component/Navigation';
+import Logo from './component/Logo';
 
 function Header() {
+  const windowWidth = useWindowWidth();
+
   return (
     <div className="header">
-      <Link to="/">
-        <div className="header__logo">
-          <IconLogo />
-        </div>
-      </Link>
 
-      <Navbar />
+      {/* Logo */}
+      <Logo />
+
+      {windowWidth > 768
+        ? (
+          // Destop and Laptop Navigation
+          <Navigation />
+        )
+        // Mobile Navigation
+        : <MobileNavigation />}
+
     </div>
   );
 }

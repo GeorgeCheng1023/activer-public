@@ -32,13 +32,7 @@
             "error",
             "always"
         ],
-        "indent": [
-            "error",
-            2,
-            {
-                "SwitchCase": 1
-            }
-        ],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "react/jsx-filename-extension": [
             2,
             {
@@ -97,6 +91,7 @@
             }
         ],
         "consistent-return": "off",
-        "react/no-array-index-key": "off"
+        "react/no-array-index-key": "off",
+        "react/jsx-props-no-spreading": "off"
     }
 }

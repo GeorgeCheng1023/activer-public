@@ -1,58 +1,51 @@
-@import '~/src/_global';
-@import '~/src/_variables';
+@import "~/src/global";
+@import "~/src/variables";
 
 .detail {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0 8%;
-
   // responsive
   @include media(mobile, tablet) {
     margin: 0 5%;
     margin-top: 0;
   }
 
-  //container
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 8%;
+
+  // container
   &__container {
     &--intro {
-      display: flex;
-
       @include media(mobile, tablet) {
         flex-direction: column;
       }
+
+      display: flex;
     }
 
     &--card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    &--properties {
-      width: 60%;
-
       @include media(mobile, tablet) {
         width: 100%;
       }
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+    }
+
+    &--properties {
+      @include media(mobile, tablet) {
+        width: 100%;
+      }
+
+      width: 60%;
     }
   }
 
   // components
 
-  // DetailImage
-  &__img {
-    width: 100%;
-    height: 15em;
-
-    * {
-      color: $success-color
-    }
-  }
-
-
-
-  
+  * { text-align: justify; }
 
   &__a {
     text-decoration: underline;
@@ -63,7 +56,7 @@
   }
 
   // DetailProperties > Property
-  &__property>* {
+  &__property > * {
     margin-bottom: 0.4em;
   }
 }

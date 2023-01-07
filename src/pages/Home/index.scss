@@ -1,0 +1,56 @@
+@import "~/src/variables";
+@import "~/src/global";
+
+.home {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 1em;
+
+  >*:not(.hero) {
+    @include media(desktop, tablet) {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    margin: 0 1em;
+  }
+
+  h2 {
+    margin-left: 1em;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-bottom: 1em;
+
+    .button {
+      @include media(mobile, tablet) {
+        text-decoration: underline;
+      }
+
+      height: 3em;
+    }
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__card-container {
+    @include media(mobile, tablet) {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+  }
+}

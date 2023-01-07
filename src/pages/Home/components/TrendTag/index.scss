@@ -1,0 +1,30 @@
+@import "~/src/variables";
+@import "~/src/global";
+
+.trend-tag {
+  &__container {
+    @include media(tablet, laptop) {
+      grid-template-columns: repeat(2, 1fr 3fr);
+    }
+
+    @include media(mobile) {
+      grid-template-columns: 1fr 3fr;
+      grid-column-gap: 0;
+    }
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr 3fr);
+    grid-gap: 1em 15px;
+    width: 100%;
+    margin: 0 1em;
+    margin-top: 1em;
+  }
+
+  &__count {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

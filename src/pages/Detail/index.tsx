@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Linkify from 'linkify-react';
 // api
 import { getActivity } from 'api/axios';
 // type
@@ -8,8 +7,8 @@ import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
 
 // components
 import ManageNav from 'components/ManageNav';
+
 import {
-  DetailComment,
   DetailImage,
   DetailSources,
   DetailTags,
@@ -17,6 +16,7 @@ import {
   DetailConnection,
   DetailSubtitle,
   DetailHolder,
+  LinkWrapper,
 } from './components';
 
 // style
@@ -77,7 +77,7 @@ function Detail() {
             filters={
               data.Branches.map((branch: BranchDataType) => ({
                 id: branch.Id.toString(),
-                name: branch.BranchName,
+                label: branch.BranchName,
               }))
             }
             onChangeFilter={handleChangeFilter}
@@ -96,20 +96,12 @@ function Detail() {
         <br />
         <div className="detail__content">
           <h2>活動內容</h2>
-          <Linkify
-            as="p"
-            options={{
-              target: '_blank',
-              className: 'detail__a',
-            }}
-          >
-            {Content.replace(/[\u3002]/g, '')}
-          </Linkify>
+          <LinkWrapper text={Content} />
         </div>
         <DetailSources sources={Sources} id={Id} />
         <DetailConnection connection={Connection} />
         <DetailHolder holder={Holder} />
-        <DetailComment />
+        {/* <DetailComment /> */}
       </div>
     </div>
   );

@@ -1,51 +1,43 @@
-@import '~/src/_global.scss';
-@import '~/src/_variables';
+@import "~/src/global";
+@import "~/src/variables";
 
-.manage-nav {
-  font-size: 2em;
+.manage-nav__button {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em 2em;
+  padding-bottom: 0.5em;
+  font-weight: 300;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 1s ease;
 
-  &__button {
-    // font-size: 1em;
-    font-weight: 300;
-
-    position: relative;
+  &__icon {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 1em 2em;
-    padding-bottom: 0.5em;
+    justify-items: center;
+  }
 
-    transition: all 1s ease;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    margin: 0;
+    border-radius: 14px;
+    background-color: $primary-font-color;
+    transition: 0.2s ease-out;
+  }
 
-    cursor: pointer;
+  &:active {
+    scale: 1.2;
+  }
 
-    &__icon {
-      // font-size: 2em;
-      display: flex;
-      align-items: center;
-      justify-items: center;
-    }
-
+  &.focus {
     &::before {
-      content: "";
-      position: absolute;
-      width: 0%;
-      height: 2px;
-      margin: 0;
-      background-color: $primary-font-color;
-      border-radius: 14px;
-      bottom: 0;
-      transition: 0.2s ease-out;
-    }
-
-    &:active {
-      scale: 1.2
-    }
-
-    &.focus {
-      &::before {
-        width: 100%;
-      }
+      width: 100%;
     }
   }
 }

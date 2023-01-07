@@ -1,11 +1,9 @@
-@import '~/src/_global';
+@import "~/src/global";
 
 .comment-panel {
-
   padding: 1em;
-
-  background-color: white;
   border-radius: 1em;
+  background-color: white;
 
   &__control {
     display: flex;

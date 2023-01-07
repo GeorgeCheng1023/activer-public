@@ -1,38 +1,42 @@
-@import '~/src/_global';
+@import "~/src/global";
 
 .Reset-pwd {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 
   &__title {
-    font-size: 2rem;
     margin: 2rem 0;
+    font-size: 2rem;
   }
+
   &__subtitle {
     font-size: 1rem;
   }
 
   &__text-field {
-    width: 25vw;
-    margin-bottom: 1rem;
-
     @include media(tablet, laptop, desktop) {
       min-width: 20rem;
     }
+
     @include media(mobile) {
       width: 80vw;
     }
+
+    width: 25vw;
+    margin-bottom: 1rem;
   }
+
   &__submit-btn {
     margin: 2rem 0;
   }
+
   &__back-btn {
-    font-size: .8rem;
     font-weight: 600;
+    font-size: 0.8rem;
     opacity: 0.55;
   }
 }

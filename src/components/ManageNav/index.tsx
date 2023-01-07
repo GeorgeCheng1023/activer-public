@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.scss';
-import ManageNavButton, { ManageNavFilterProps } from './ManageNavButton';
+import ManageNavButton, { ManageNavFilterType } from './ManageNavButton';
 
 type Props = {
-  filters: ManageNavFilterProps[],
+  filters: ManageNavFilterType[],
   onChangeFilter: (selectFilterStatus : string) => void,
   currentFilterId: string
 };
@@ -15,7 +15,7 @@ function ManageNav({ filters, onChangeFilter, currentFilterId }: Props) {
         <ManageNavButton
           id={filter.id}
           key={filter.id}
-          name={filter.name}
+          label={filter.label}
           icon={filter.icon}
           onClickFilter={onChangeFilter}
           active={currentFilterId === filter.id}

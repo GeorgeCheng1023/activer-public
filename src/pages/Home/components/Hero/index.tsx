@@ -3,7 +3,6 @@ import './index.scss';
 
 // component
 import SearchBar from 'components/Form/FormSearchBar';
-import CardRoll from './components/CardRoll';
 
 function Hero() {
   // handle search bar submit
@@ -17,7 +16,8 @@ function Hero() {
       <div className="hero__left">
         <div className="hero__left__section">
           <h1 className="hero__h1">
-            在這屬於學生的社群中
+            在這屬於
+            <span className="hero__h1--highlight">學生的社群中</span>
             <br />
             尋找屬於你的活動
           </h1>
@@ -25,13 +25,11 @@ function Hero() {
         <div className="hero__left__section">
           <SearchBar
             onSubmit={handleSubmit}
-            placeHolder="立即搜尋你的活動"
+            placeholder="立即搜尋你的活動"
           />
         </div>
       </div>
-      <div className="hero__right">
-        <CardRoll />
-      </div>
+
     </div>
   );
 }

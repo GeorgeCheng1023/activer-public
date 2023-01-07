@@ -28,7 +28,7 @@ function Navbar() {
   const handleLoginClick = () => {
     setExpended(false);
     if (!userIsLoggined) {
-      navigate('/login');
+      navigate('/login', { replace: true });
     } else {
       navigate('/user/basic');
     }
