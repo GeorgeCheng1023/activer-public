@@ -6,9 +6,9 @@ import LoginSection from './components/Login';
 
 function Login() {
   return (
-    <main className="main-section">
+    <div className="main-section">
       <LoginSection />
-    </main>
+    </div>
   );
 }
 

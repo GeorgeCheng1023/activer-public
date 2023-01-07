@@ -28,7 +28,7 @@ function Navbar() {
   const handleLoginClick = () => {
     setExpended(false);
     if (!userIsLoggined) {
-      navigate('/login', { replace: true });
+      navigate('/login');
     } else {
       navigate('/user/basic');
     }
@@ -81,16 +81,16 @@ function Navbar() {
         <div className="navbar__user">
           {
             userIsLoggined
-        && (
-          <div className="navbar__logout-btn">
-            <Button
-              color="primary"
-              text="登出"
-              variant={{ outline: true }}
-              onClick={handleLogout}
-            />
-          </div>
-        )
+            && (
+              <div className="navbar__logout-btn">
+                <Button
+                  color="primary"
+                  text="登出"
+                  variant={{ outline: true }}
+                  onClick={handleLogout}
+                />
+              </div>
+            )
           }
 
           <div className="navbar__login-button">
@@ -115,13 +115,13 @@ function Navbar() {
       </button>
 
       {expended
-      && (
-        <div
-          className="navbar__backdrop"
-          onClick={handleBackdropClick}
-          aria-hidden="true"
-        />
-      )}
+        && (
+          <div
+            className="navbar__backdrop"
+            onClick={handleBackdropClick}
+            aria-hidden="true"
+          />
+        )}
     </div>
 
   );

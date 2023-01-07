@@ -8,7 +8,7 @@ import { userUpdate } from 'store/userAuth';
 
 function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
-  const [cookies] = useCookies<string>(['user']);
+  const [cookies, setCookie] = useCookies<string>(['user']);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -17,13 +17,22 @@ function PersistLogin() {
     const verifyUser = async () => {
       try {
         const response = await apiUserAuth(sessionToken);
+        dispatch(userUpdate(response.data));
 
-        if (response.data.Status === 1) {
-          dispatch(userUpdate(response.data));
-        }
+        const expiresDate = new Date();
+        expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
+
+        setCookie('sessionToken', response.data.token.accessToken, {
+          expires: expiresDate,
+          path: '/',
+          sameSite: true,
+        });
 
         console.log(response);
-      } catch (err) {
+      } catch (err: any) {
+        if (err.status === 401) {
+          console.log('驗證失敗');
+        }
         console.log(err);
       }
 
@@ -33,8 +42,15 @@ function PersistLogin() {
     verifyUser();
   }, []);
 
+  let element;
+  if (isLoading) {
+    element = <Loading />;
+  } else {
+    element = <Outlet />;
+  }
+
   return (
-    isLoading ? <Loading /> : <Outlet />
+    element
   );
 }
 

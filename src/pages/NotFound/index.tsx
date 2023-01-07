@@ -12,7 +12,7 @@ function NotFound() {
       <div className="notFoundDiv">
         <div className="notFoundDiv__number">404</div>
         <div className="notFoundDiv__text">
-          <span>喔齁</span>
+          <span>糟糕</span>
           未找到此頁面
         </div>
         <Link to="/">

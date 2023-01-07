@@ -26,19 +26,30 @@ function Basic() {
     setValues({ ...values, [key]: value });
   };
 
-  const updateUserDatabase = (userFormData: FormData) => {
-    userFormData.append('Id', userData.Id);
-    userFormData.append('SessionToken', userData.SessionToken);
-    userFormData.append('Email', userData.Email);
-    userFormData.append('Password', userData.Password);
-    apiUserUpdate(userFormData);
+  const updateUserDatabase = async (userFormData: FormData) => {
+    userFormData.append('id', userData.Id);
+    userFormData.append('sessionToken', userData.SessionToken);
+    userFormData.append('email', userData.Email);
+    userFormData.append('password', userData.Password);
+    userFormData.append('verify', userData.verify);
+
+    try {
+      const response = await apiUserUpdate(userFormData);
+      dispatch(userUpdate(values));
+      console.log(response);
+    } catch (err: any) {
+      if (err.status === 401) {
+        console.log('token error');
+      } else {
+        console.log('伺服器懶蛋');
+      }
+    }
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    dispatch(userUpdate(values));
     updateUserDatabase(userFormData);
   };
 
@@ -88,7 +99,7 @@ function Basic() {
             <FormInput
               inputProps={{
                 id: 'nick_name',
-                name: 'NickName',
+                name: 'nickName',
                 label: '暱稱',
                 inputType: 'text',
                 placeholder: '輸入暱稱姓名',
@@ -105,7 +116,7 @@ function Basic() {
             <FormInput
               inputProps={{
                 id: 'real_name',
-                name: 'RealName',
+                name: 'realName',
                 label: '真實姓名',
                 inputType: 'text',
                 placeholder: '輸入真實姓名',
@@ -123,7 +134,7 @@ function Basic() {
                 dropdownProps={{
                   id: 'gender',
                   label: '性別',
-                  name: 'Gender',
+                  name: 'gender',
                   options: ['男性', '女性', '其他', '隱藏'],
                 }}
                 value={values.Gender}
@@ -134,7 +145,7 @@ function Basic() {
               <FormInput
                 inputProps={{
                   id: 'Birthday',
-                  name: 'Birthday',
+                  name: 'birthday',
                   label: '生日',
                   inputType: 'date',
                   placeholder: '請選擇出生年月日',
@@ -148,7 +159,7 @@ function Basic() {
             <FormInput
               inputProps={{
                 id: 'Profession',
-                name: 'Profession',
+                name: 'profession',
                 label: '職業',
                 inputType: 'text',
                 placeholder: '請選擇輸入您的職業',
@@ -167,7 +178,7 @@ function Basic() {
                   dropdownProps={{
                     id: 'country',
                     label: '縣市',
-                    name: 'County',
+                    name: 'county',
                     options: CityCountyData.map((c) => c.CityName),
                   }}
                   value={values.County}
@@ -179,7 +190,7 @@ function Basic() {
                   dropdownProps={{
                     id: 'area',
                     label: '區鄉鎮',
-                    name: 'Area',
+                    name: 'area',
                     options: CityCountyData.find(
                       (c) => c.CityName === selectedCounty,
                     )?.AreaList.map((a) => a.AreaName) || [],
@@ -197,7 +208,7 @@ function Basic() {
             <FormInput
               inputProps={{
                 id: 'phone',
-                name: 'Phone',
+                name: 'phone',
                 label: '電話',
                 inputType: 'text',
                 placeholder: '請選擇輸入您的職業',

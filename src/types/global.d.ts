@@ -40,21 +40,21 @@ declare global {
 
   interface UserState {
     IsLoggedIn: boolean,
-    RealName: string,
-    NickName: string,
-    Email: string,
-    Password: stringik,
-    Portrait: string,
-    Gender: string,
-    Birthday: string,
-    Profession: string,
-    Phone: string,
-    County: string,
-    Area: string,
-    ActivityHistory: Array<number>,
-    TagHistory: Array<number>,
-    Status: string;
+    realName: string,
+    nickName: string,
+    email: string,
+    verify: boolean,
+    password: string,
+    portrait: string,
+    gender: string,
+    birthday: string,
+    profession: string,
+    phone: string,
+    county: string,
+    area: string,
+    accessToken: string,
+    activityHistory: Array<number>,
+    tagHistory: Array<number>,
     Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
-    SessionToken: string, // auth
   }
 }

@@ -7,6 +7,7 @@ import { apiUserRegister } from 'api/axios';
 
 // components
 import FormInput from 'components/Form/FormInput';
+import { useCookies } from 'react-cookie';
 import Button from '../../../../components/Button';
 
 // Regex
@@ -29,6 +30,8 @@ function Register() {
   const [validConfirmPwd, setValidConfirmPwd] = useState<boolean>(true);
 
   const [errMsg, setErrMsg] = useState<string>('');
+
+  const [, setCookie] = useCookies<string>(['user']);
 
   useEffect(() => {
     setErrMsg('');
@@ -96,7 +99,17 @@ function Register() {
 
     try {
       const response = await apiUserRegister(user, email, pwd);
-      navigate('/email/verify', { replace: true });
+      console.log(response);
+      navigate('/verify');
+
+      const expiresDate = new Date();
+      expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
+
+      setCookie('sessionToken', response.data.token.accessToken, {
+        expires: expiresDate,
+        path: '/',
+        sameSite: true,
+      });
       // eslint-disable-next-line no-console
       console.log(response);
     } catch (err: any) {
