@@ -7,6 +7,7 @@ import { Card } from 'components/Card';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { FcPositiveDynamic } from 'react-icons/fc';
 import dummyData from './dummyTrendActivity.json';
+import './index.scss';
 
 function NewActivity() {
   const screenWidth = useWindowWidth();

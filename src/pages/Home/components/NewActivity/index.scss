@@ -1,9 +1,6 @@
 @import "~/src/variables";
 @import "~/src/global";
 
-.trend-activity {
+.new-activity {
   @include container-main;
-
-  display: flex;
-  flex-direction: column;
 }

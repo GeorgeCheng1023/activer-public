@@ -2,6 +2,11 @@
 @import "~/src/global";
 
 .trend-tag {
+  @include container-main;
+
+  display: flex;
+  flex-direction: column;
+
   &__container {
     @include media(tablet, laptop) {
       grid-template-columns: repeat(2, 1fr 3fr);
