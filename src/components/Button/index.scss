@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:color";
-@import "~/src/variables";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 $btn-config: (
   primary:(

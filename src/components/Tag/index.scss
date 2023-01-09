@@ -1,7 +1,7 @@
 @use "sass:color";
 @use "sass:map";
-@import "~/src/variables";
-@import "~/src/global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 $_tag-font-size: 1em;
 $_tag-padding: 0.5em;

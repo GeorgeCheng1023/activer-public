@@ -1,6 +1,6 @@
 @use "sass:math";
-@import "~/src/variables";
-@import "~/src/global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 .hero {
   height: $home-section-height;
