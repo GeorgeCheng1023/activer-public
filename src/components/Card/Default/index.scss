@@ -45,7 +45,7 @@ $_card-mobile-padding: 1em;
 
     overflow: hidden;
     width: $_card-width;
-    height: $_card-height / 2 - 1rem;
+    height: calc($_card-height / 2 - 1rem);
 
     img {
       object-fit: cover;
