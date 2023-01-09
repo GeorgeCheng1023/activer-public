@@ -21,7 +21,7 @@ function CardDefault({
         <img src={imgUrl} alt={altText} />
       </div>
       <div className="card__content">
-        <h3 className="card__title">{title}</h3>
+        <p className="card__title">{title}</p>
         {detail
       && (
         <p

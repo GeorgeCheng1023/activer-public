@@ -2,13 +2,25 @@
 @import "~/src/variables";
 @import "~/src/global";
 
+$_card-height: 18rem;
+$_card-width: 11rem;
+$_content-padding: 0.5rem;
+$_card-title-font-size: 1.2em;
+$_card-title-line-height: 1.5em;
+$_card-detail-font-size: 0.8em;
+
+// mobile
+$_card-mobile-heigth: 10rem;
+$_card-mobile-padding: 1em;
+
 .card {
   @include media(mobile, tablet) {
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 10rem;
+    height: $_card-mobile-heigth;
+    padding: $_card-mobile-padding;
     border-width: 0;
   }
 
@@ -17,22 +29,23 @@
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
-  width: 12rem;
-  height: 17rem;
-  border: 1px solid $secondary-font-color;
+  width: $_card-width;
+  height: $_card-height;
+  border: 1.2px solid $tertiary-font-color;
+  border-top: 0;
   cursor: pointer;
   background: #fff;
 
   &__image {
     @include media(mobile, tablet) {
       justify-content: center;
+      width: 40%;
       height: 90%;
     }
 
-    display: flex;
     overflow: hidden;
-    width: 100%;
-    height: 100%;
+    width: $_card-width;
+    height: $_card-height / 2 - 1rem;
 
     img {
       object-fit: cover;
@@ -42,41 +55,33 @@
     }
   }
 
-  &:hover {
-    box-shadow: 0 3px 2em rgb(0 0 0 / 16%);
-
-    .card__image {
-      transform: scale(1.1);
-      transition: transform 0.3s;
-    }
-  }
-
-  &::after {
+  &__content {
     @include media(mobile, tablet) {
-      width: 100%;
-      height: 3px;
+      flex-direction: column;
     }
 
-    content: "";
-    position: absolute;
-    bottom: 0;
-    display: block;
-    width: 12rem;
-    height: 5px;
-    background-color: $primary-color;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   &__title {
     overflow: hidden;
-    height: 4.5em;
-    padding: 0 0.5rem;
-    line-height: 1.5;
-    text-align: justify;
-    text-overflow: ellipsis;
+    width: 100%;
+    height:
+      calc(
+        $_content-padding * 2
+        + $_card-title-font-size
+        + $_card-title-line-height
+      );
+    padding: $_content-padding;
+    font-size: $_card-title-font-size;
+    line-height: $_card-title-line-height;
   }
 
   &__detail {
-    padding: 0 0.6rem;
+    padding: $_content-padding;
     color: $primary-font-color;
     font-size: 0.8em;
     text-align: justify;
@@ -93,17 +98,30 @@
     gap: 0.3em;
     overflow: clip;
     margin-top: auto;
-    padding: 0 0.6rem;
-    padding-bottom: 0.5em;
+    padding: $_content-padding;
+    padding-bottom: calc($_content-padding + 0.5em);
     text-overflow: ellipsis;
   }
 
-  &__content {
+  &:hover {
+    img {
+      transform: scale(1.3);
+      transition: transform 0.3s;
+    }
+  }
+
+  &::after {
     @include media(mobile, tablet) {
-      flex-direction: column;
+      width: calc(100% - $_card-mobile-padding * 2);
+      height: 3px;
     }
 
-    width: 100%;
-    all: inherit;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 12rem;
+    height: 5px;
+    background-color: $primary-color;
   }
 }
