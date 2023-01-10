@@ -8,7 +8,9 @@ import { apiUserRegister } from 'api/axios';
 // components
 import FormInput from 'components/Form/FormInput';
 import { useCookies } from 'react-cookie';
+import { setEmail, setPassword, setRealName } from 'store/userAuth';
 import Button from '../../../../components/Button';
+import { useAppDispatch } from '../../../../hooks/redux/index';
 
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -17,10 +19,11 @@ const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 function Register() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [user, setUser] = useState<string>('');
 
-  const [email, setEmail] = useState<string>('');
+  const [email, setUserEmail] = useState<string>('');
   const [validEmail, setValidEmail] = useState<boolean>(true);
 
   const [pwd, setPwd] = useState('');
@@ -31,8 +34,11 @@ function Register() {
 
   const [errMsg, setErrMsg] = useState<string>('');
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [, setCookie] = useCookies<string>(['user']);
 
+  // check norm
   useEffect(() => {
     setErrMsg('');
   }, [user, pwd, email]);
@@ -61,12 +67,13 @@ function Register() {
     }
   }, [email]);
 
+  // input
   const handleUserChange = (key: any, value: any) => {
     setUser(value);
   };
 
   const handleEmailChange = (key: any, value: any) => {
-    setEmail(value);
+    setUserEmail(value);
   };
 
   const handlePwdChange = (key: any, value: any) => {
@@ -77,6 +84,7 @@ function Register() {
     setConfirmPwd(value);
   };
 
+  // register
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
@@ -97,10 +105,14 @@ function Register() {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await apiUserRegister(user, email, pwd);
-      console.log(response);
       navigate('/verify');
+
+      dispatch(setRealName(user));
+      dispatch(setEmail(email));
+      dispatch(setPassword(pwd));
 
       const expiresDate = new Date();
       expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
@@ -110,8 +122,6 @@ function Register() {
         path: '/',
         sameSite: true,
       });
-      // eslint-disable-next-line no-console
-      console.log(response);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg('伺服器無回應');
@@ -123,6 +133,7 @@ function Register() {
         setErrMsg('註冊失敗');
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -198,14 +209,18 @@ function Register() {
           需要和密碼相同
         </p>
 
-        <footer className="register-section__button">
-          <Button
-            color="primary"
-            variant={{ outline: true }}
-            text="註冊"
-            onClick={(e) => handleClick(e)}
-          />
-        </footer>
+        {!loading
+          ? (
+            <div className="register-section__button">
+              <Button
+                color="primary"
+                variant={{ outline: true }}
+                text="註冊"
+                onClick={(e) => handleClick(e)}
+              />
+            </div>
+          )
+          : <div className="register-section__load-animation" />}
       </section>
     </div>
   );

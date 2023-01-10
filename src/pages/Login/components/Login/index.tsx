@@ -86,7 +86,7 @@ function LoginSection() {
         dispatch(setEmail(response.data.user.email));
       } else {
         dispatch(userLogin(response.data.user));
-        console.log(response);
+        console.log(response.data.user);
 
         navigate('/user/basic', { replace: true });
       }

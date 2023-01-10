@@ -6,15 +6,19 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import Button from 'components/Button';
-import { apiUserVerify } from 'api/axios';
+import { apiUserVerify, apiUserLogin } from 'api/axios';
 import { useCookies } from 'react-cookie';
-import Model from '../Login/components/modal';
+import { useAppSelector } from 'hooks/redux';
+import { getUserData, userLogin } from 'store/userAuth';
+import { useAppDispatch } from '../../../../hooks/redux/index';
 
 function Verify() {
   const KEY_CHECK_REGEX = /^[A-Za-z0-9]*$/;
   const WORD_REGEX = /^[A-Za-z]*$/;
 
   const nevigate = useNavigate();
+  const userData = useAppSelector(getUserData);
+  const dispatch = useAppDispatch();
 
   const [cookies] = useCookies<string>(['user']);
 
@@ -30,17 +34,20 @@ function Verify() {
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [letters, setLetters] = useState(() => Array.from({ length: numerOfInputs }, () => ''));
-  const [verifySuccess, setVerifySuccess] = useState<string>('unverified');
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errmsg, setErrmsg] = useState<string>('');
 
   function onlyLettersAndNumbers(key: string) {
     return KEY_CHECK_REGEX.test(key);
   }
 
   const handleKeyPress = (e: KeyboardEvent) => {
-    console.log(e);
     if (!onlyLettersAndNumbers(e.key) || e.key === 'Backspace') {
       return currentIndex;
     }
+
+    setErrmsg('');
 
     setCurrentIndex((prevIndex) => {
       const nextIndex = prevIndex < numerOfInputs - 1 ? prevIndex + 1 : prevIndex;
@@ -56,23 +63,26 @@ function Verify() {
   };
 
   const handleClick = async () => {
-    // eslint-disable-next-line no-console
+    setIsLoading(true);
     let verifycode = '';
     letters.forEach((code) => { verifycode = verifycode.concat(code); });
 
     try {
-      const response = await apiUserVerify(verifycode, cookies.sessionToken);
-      console.log(response);
-      setVerifySuccess('success');
+      await apiUserVerify(verifycode, cookies.sessionToken);
+      const { email, password } = userData;
+      const response = await apiUserLogin({ email, password });
+      dispatch(userLogin(response.data.user));
+      nevigate('/', { replace: true });
     } catch (err: any) {
       console.log(err);
-      if (err.status === 401) {
+      if (err.response.status === 401) {
         console.log('驗證碼不正確或已過期');
+        setErrmsg('驗證碼不正確');
       } else {
         console.log('伺服器懶蛋');
       }
-      setVerifySuccess('failure');
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -88,14 +98,8 @@ function Verify() {
 
   return (
     <div className="verify-user__container">
-      <Model open={verifySuccess !== 'unverified'} onClose={() => setVerifySuccess('unverified')}>
-        <div className="verify-user__model">
-          <img className="verify-user__model__img" src="/ok.png" alt="ok" />
-          <h1 className="verify-user__model__text">success</h1>
-        </div>
-      </Model>
-
       <main className="verify-user">
+        <div className="verify-user__errmsg">{errmsg}</div>
         <h1 className="verify-user__title">輸入驗證碼</h1>
 
         <section className="verify-user__section">
@@ -140,7 +144,9 @@ function Verify() {
           </button>
         </section>
 
-        <Button color="secondary" text="寄出" onClick={handleClick} />
+        {isLoading
+          ? <div className="verify-user__load-animation" />
+          : <Button color="secondary" text="寄出" onClick={handleClick} />}
       </main>
     </div>
   );

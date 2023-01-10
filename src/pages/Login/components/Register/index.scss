@@ -6,6 +6,26 @@ input {
   outline: 0;
 }
 
+@keyframes rotate {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 .register-container {
   position: relative;
   display: flex;
@@ -58,6 +78,30 @@ input {
       color: rgb(216 14 14);
     }
   }
+
+  &__load-animation {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    border: solid 9px $primary-color;
+    border-right-color: transparent;
+
+    // border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+
+    // transition: all 0.5s ease-in;
+    animation-name: rotate;
+    animation-name: rotate;
+
+    // -webkit-transition: all 0.5s ease-in;
+    animation-duration: 1s;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
 }
 
 @media screen and (max-width: 650px) {
@@ -68,6 +112,6 @@ input {
 
 @media screen and (min-width: 800px) {
   .register-section {
-    width: 314px;
+    width: 352px;
   }
 }

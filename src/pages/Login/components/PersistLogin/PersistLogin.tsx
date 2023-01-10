@@ -17,7 +17,7 @@ function PersistLogin() {
     const verifyUser = async () => {
       try {
         const response = await apiUserAuth(sessionToken);
-        dispatch(userUpdate(response.data));
+        dispatch(userUpdate(response.data.user));
 
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);

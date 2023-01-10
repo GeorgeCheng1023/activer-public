@@ -1,22 +1,19 @@
-@import '~/src/_global';
+@import "~/src/_global";
 
 .email-verify-test {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   align-items: center;
-
-  height: 60vh;
   width: 40vw;
-
+  height: 60vh;
   text-align: center;
 
   &__container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-
+    align-items: center;
     width: 100vw;
     height: 70vh;
   }
@@ -24,19 +21,19 @@
   &__figure {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    
+    align-items: center;
+
     &__img {
+      object-fit: cover;
       width: 10rem;
       height: 10rem;
-      object-fit: cover;
     }
 
     &__caption {
       padding-top: 1.5rem;
-      font-size: 2rem;
       font-weight: 700;
+      font-size: 2rem;
     }
   }
 
@@ -44,8 +41,9 @@
     font-size: 1rem;
     letter-spacing: 1px;
   }
+
   &__colon {
-    padding-left: .15rem;
+    padding-left: 0.15rem;
   }
 
   &__resent-btn {

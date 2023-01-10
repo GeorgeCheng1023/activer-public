@@ -29,7 +29,8 @@ function ForgetPwd() {
     event.preventDefault();
 
     if (EMAIL_REGEX.test(email)) {
-      navigate('/verify');
+      console.log('success');
+      navigate('/resetPwd');
     } else {
       setErrmsg('電子信箱格式錯誤');
     }
@@ -41,7 +42,7 @@ function ForgetPwd() {
         電子信箱格式錯誤
       </h2>
       <h1 className="forgot-pwd__title">忘記密碼?</h1>
-      <h3 className="forgot-pwd__subtitle">輸入電子郵件</h3>
+      <h3 className="forgot-pwd__subtitle">驗證電子郵件</h3>
       <div className="forgot-pwd__text-field">
         <FormInput
           id="email"

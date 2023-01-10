@@ -4,16 +4,16 @@ import { useCookies } from 'react-cookie';
 import './index.scss';
 // redux
 import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
-import { show as showSearchPanel } from 'store/searchPanel';
+// import { show as showSearchPanel } from 'store/searchPanel';
 // hook
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 // components
 import { AiOutlineMenu } from 'react-icons/ai';
 import Button from 'components/Button';
-import { BsSearch } from 'react-icons/bs';
-import { HiFire } from 'react-icons/hi';
-import NavbarItem from '../NavbarItem';
+// import { BsSearch } from 'react-icons/bs';
+// import { HiFire } from 'react-icons/hi';
+// import NavbarItem from '../NavbarItem/index';
 
 // setting hook
 function Navbar() {
@@ -48,13 +48,13 @@ function Navbar() {
   };
 
   // navbar item event
-  const handleClickSearchActivityButton = () => {
-    setExpended(false);
-    dispatch(showSearchPanel());
-  };
-  const handleClickTrendButton = () => {
-    setExpended(false);
-  };
+  // const handleClickSearchActivityButton = () => {
+  //   setExpended(false);
+  //   dispatch(showSearchPanel());
+  // };
+  // const handleClickTrendButton = () => {
+  //   setExpended(false);
+  // };
 
   return (
     <div className="navbar">
@@ -62,7 +62,7 @@ function Navbar() {
         className={`navbar__container navbar__container${expended ? '--expended' : ''}`}
       >
         <div className="navbar__items">
-          <NavbarItem
+          {/* <NavbarItem
             onClick={handleClickSearchActivityButton}
             text="搜尋活動"
             mobileIcon={<BsSearch />}
@@ -75,7 +75,7 @@ function Navbar() {
             link="/detail/1"
             color="success"
             mobileIcon={<HiFire />}
-          />
+          /> */}
         </div>
 
         <div className="navbar__user">

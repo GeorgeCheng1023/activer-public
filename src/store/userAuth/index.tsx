@@ -33,19 +33,24 @@ const userAuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setRealName: (state, action: PayloadAction<any>) => ({
+      ...state,
+      realName: action.payload,
+    }),
     setEmail: (state, action: PayloadAction<any>) => ({
       ...state,
       email: action.payload,
     }),
-    userLogin: (state, action: PayloadAction<any>) => {
-      console.log(action.payload);
-      return ({
-        ...state,
-        IsLoggedIn: true,
-        Loading: 'succeeded',
-        ...action.payload,
-      });
-    },
+    setPassword: (state, action: PayloadAction<any>) => ({
+      ...state,
+      password: action.payload,
+    }),
+    userLogin: (state, action: PayloadAction<any>) => ({
+      ...state,
+      IsLoggedIn: true,
+      Loading: 'succeeded',
+      ...action.payload,
+    }),
     userLogout: (state) => ({
       ...state,
       IsLoggedIn: false,
@@ -81,7 +86,7 @@ export const getUserRealname = (state: RootState) => state.userAuth.RealName;
 export const getUserData = (state: RootState) => state.userAuth;
 
 export const {
-  setEmail, userLogin, userLogout, userUpdate,
+  setRealName, setEmail, setPassword, userLogin, userLogout, userUpdate,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
