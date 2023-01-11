@@ -9,10 +9,14 @@ interface FeatureItemType {
 }
 
 const itemVariants = {
-  offScreen: { opacity: 0, y: -100 },
-  onScreen: {
+  hidden: {
+    scale: 1,
+    opacity: 0,
+    x: 100,
+  },
+  show: {
     opacity: 1,
-    y: 0,
+    x: 0,
   },
 };
 
@@ -22,6 +26,7 @@ function FeatureItem({
   return (
     <motion.div
       className="feature__item"
+      whileHover={{ scale: 1.05 }}
       variants={itemVariants}
     >
       <div className="feature__item__title">

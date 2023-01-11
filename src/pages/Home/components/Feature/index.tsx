@@ -5,55 +5,40 @@ import FeatureItem from './FeatureItem';
 import Jupiter from './Jupiter.png';
 import './index.scss';
 
-const mainVariant = {
-  offScreen: {},
-  onScreen: {
-    transition: {
-      staggerChildren: 0.3,
-      delayChildren: 0.5,
-    },
-  },
-};
-
-const jupiterVariant = {
-  offScreen: {
-    rotate: 0,
-    scale: 0,
-    opacity: 0,
-  },
-  onScreen: {
-    rotate: 360,
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 1,
-    },
-
-  },
-};
-
 function Feature() {
   return (
-    <motion.div
+    <div
       className="feature"
-      initial="offScreen"
-      whileInView="onScreen"
-      variants={mainVariant}
-      viewport={{ once: false, amount: 0.5 }}
     >
       <div
         className="feature__left"
       >
         <motion.img
-          variants={jupiterVariant}
           src={Jupiter}
           alt="jupiter"
-
-          // transition={{ duration: 0.8 }}
+          initial={{ scale: 0, rotate: 0, opacity: 0 }}
+          whileInView={{ scale: 1, rotate: 360, opacity: 1 }}
+          whileHover={{ rotate: 330 }}
+          viewport={{ amount: 0.5, once: false }}
+          transition={{ duration: 0.8 }}
         />
       </div>
-      <div
+      <motion.div
         className="feature__right"
+        initial="hidden"
+        whileInView="show"
+        variants={{
+          hidden: {
+            opacity: 0,
+          },
+          show: {
+            opacity: 1,
+            transition: {
+              duration: 1,
+              staggerChildren: 0.3,
+            },
+          },
+        }}
       >
         <FeatureItem
           title="多元活動探索無限可能"
@@ -70,9 +55,9 @@ function Feature() {
           titleIcon={<FcDataRecovery />}
           detail="隨時紀錄活動，圖像化分析，找尋自己喜歡的事物"
         />
-      </div>
+      </motion.div>
 
-    </motion.div>
+    </div>
   );
 }
 
