@@ -1,16 +1,60 @@
 import React from 'react';
 import { FcCandleSticks, FcProcess, FcDataRecovery } from 'react-icons/fc';
+import { motion } from 'framer-motion';
 import FeatureItem from './FeatureItem';
 import Jupiter from './Jupiter.png';
 import './index.scss';
 
+const mainVariant = {
+  offScreen: {},
+  onScreen: {
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.5,
+    },
+  },
+};
+
+const jupiterVariant = {
+  offScreen: {
+    rotate: 0,
+    scale: 0,
+    opacity: 0,
+  },
+  onScreen: {
+    rotate: 360,
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+
+  },
+};
+
 function Feature() {
   return (
-    <div className="feature">
-      <div className="feature__left">
-        <img src={Jupiter} alt="jupiter" />
+    <motion.div
+      className="feature"
+      initial="offScreen"
+      whileInView="onScreen"
+      variants={mainVariant}
+      viewport={{ once: false, amount: 0.5 }}
+    >
+      <div
+        className="feature__left"
+      >
+        <motion.img
+          variants={jupiterVariant}
+          src={Jupiter}
+          alt="jupiter"
+
+          // transition={{ duration: 0.8 }}
+        />
       </div>
-      <div className="feature__right">
+      <div
+        className="feature__right"
+      >
         <FeatureItem
           title="多元活動探索無限可能"
           titleIcon={<FcCandleSticks />}
@@ -28,7 +72,7 @@ function Feature() {
         />
       </div>
 
-    </div>
+    </motion.div>
   );
 }
 
