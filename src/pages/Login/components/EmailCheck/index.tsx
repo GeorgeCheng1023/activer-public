@@ -1,27 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './index.scss';
 import Button from 'components/Button';
 import { useAppSelector } from 'hooks/redux';
 import { getUserData } from 'store/userAuth';
-import { useNavigate } from 'react-router-dom';
 
 function EmailVerify() {
   const userData = useAppSelector(getUserData);
-  const nevigate = useNavigate();
 
   const handleResent = () => {
     console.log('resent');
   };
 
   const hideEmail = (email: string) => email.replace(email.slice(1, 4), '****');
-
-  useEffect(() => {
-    const setTimeOut = setTimeout(() => {
-      nevigate('/verify', { replace: true });
-    }, 1000);
-
-    return () => clearTimeout(setTimeOut);
-  });
 
   return (
     <div className="email-verify__container">
@@ -33,7 +23,9 @@ function EmailVerify() {
         <h4 className="email-verify__text">
           <br />
           我們已經發送了一封驗證信到
-          {hideEmail(userData.Email) || '******@gamil.com'}
+          <strong className="email-verify__email">
+            {hideEmail(userData.email) || '******@gamil.com'}
+          </strong>
           <br />
           您需要驗證您的電子郵件地址才能登錄
         </h4>

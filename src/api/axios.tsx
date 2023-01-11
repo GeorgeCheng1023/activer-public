@@ -5,12 +5,14 @@ const PORT = '5044';
 
 const TEST_URL = `http://${IP}:${PORT}`;
 
-const LOGIN_URL = '/api/user/signin';
-const REGISTER_URL = '/api/user/signup';
 const USER_UPDATE_URL = '/api/user/update';
+// api/user/auth
+const LOGIN_URL = '/api/user/auth/signin';
+const REGISTER_URL = '/api/user/auth/signup';
 const USER_AUTH_TOKEN_URL = '/api/user/auth/token';
-const USER_VERIFY_URL = '/api/user/verify';
-const USER_RESEND_VERIFY_URL = '/api/user/resendVerify';
+const USER_VERIFY_URL = '/api/user/auth/verify/email';
+const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
+const USER_RESET_PWD = '/api/User/auth/changepassword';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
@@ -78,6 +80,26 @@ export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
   {
     headers: {
       Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
+export const apiUserVerifyAndResetPwd = (accessToken: string) => axiosTest.get(
+  USER_RESET_PWD,
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
+export const apiUserResetPwd = (accessToken: string, newPassword: string) => axiosTest.post(
+  USER_RESET_PWD,
+  JSON.stringify({ newPassword }),
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
   },
 );

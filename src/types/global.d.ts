@@ -44,7 +44,6 @@ declare global {
     nickName: string,
     email: string,
     verify: boolean,
-    password: string,
     portrait: string,
     gender: string,
     birthday: string,

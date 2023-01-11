@@ -8,7 +8,7 @@ import { apiUserRegister } from 'api/axios';
 // components
 import FormInput from 'components/Form/FormInput';
 import { useCookies } from 'react-cookie';
-import { setEmail, setPassword, setRealName } from 'store/userAuth';
+import { setEmail, setRealName } from 'store/userAuth';
 import Button from '../../../../components/Button';
 import { useAppDispatch } from '../../../../hooks/redux/index';
 
@@ -112,7 +112,6 @@ function Register() {
 
       dispatch(setRealName(user));
       dispatch(setEmail(email));
-      dispatch(setPassword(pwd));
 
       const expiresDate = new Date();
       expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);

@@ -1,58 +1,99 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import './index.scss';
-
-// components
-import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
+import FormInput from 'components/Form/FormInput';
+import React, { useState } from 'react';
+import './index.scss';
+import { apiUserResetPwd } from 'api/axios';
+import { useCookies } from 'react-cookie';
 
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/;
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX_PATTERN = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}';
+// regex
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PWD_REGEX_PATTERN = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}';
 
-function ResetPwd() {
-  const navigate = useNavigate();
+function NewPwd() {
+  const [newPassword, setNewPasswords] = useState<string>('');
+  const [confirmNewPassword, setconfirmNewPassword] = useState<string>('');
+  const [cookies] = useCookies<string>(['user']);
+  const [errmsg, setErrmsg] = useState<string>('');
 
-  const [email, setEmail] = useState<string>('');
-
-  const handleChange = (key: any, value: any) => {
-    setEmail(value);
+  const handleNewPasswordChange = (key: any, value: any) => {
+    setNewPasswords(value);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleConfirmNewPasswordChange = (key: any, value: any) => {
+    setconfirmNewPassword(value);
+  };
 
-    if (EMAIL_REGEX.test(email)) {
-      navigate('/verify');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword === confirmNewPassword) {
+      try {
+        const response = await apiUserResetPwd(cookies.sessionToken, newPassword);
+        console.log(response);
+      } catch (err: any) {
+        if (!err.response) {
+          setErrmsg('伺服器無回應');
+        } else {
+          setErrmsg('伺服器懶蛋');
+        }
+      }
     }
   };
 
-  return (
-    <main className="Reset-pwd">
-      <h1 className="Reset-pwd__title">修改密碼</h1>
-      <h3 className="Reset-pwd__subtitle">輸入電子郵件</h3>
-      <div className="Reset-pwd__text-field">
-        <FormInput
-          id="email"
-          name="email"
-          type="text"
-          placeholder="電子信箱"
-          errorMessage="電子信箱格式錯誤"
-          pattern={EMAIL_REGEX_PATTERN}
-          formValue={email}
-          onChange={handleChange}
-        />
-      </div>
-      <Link to="/login">
-        <p className="Reset-pwd__back-btn">回到登入畫面</p>
-      </Link>
+  function submitGate() {
+    if ((newPassword === confirmNewPassword)
+      && PWD_REGEX.test(newPassword)) {
+      return true;
+    }
+    return false;
+  }
 
-      <div className="Reset-pwd__submit-btn">
-        <Button text="寄出" color="secondary" onClick={handleClick} disabled={!EMAIL_REGEX.test(email)} />
-      </div>
-    </main>
+  // console.log(passwords.password);
+  // console.log(passwords.confirmPassword);
+
+  return (
+    <div className="new-pwd__container">
+      <main className="new-pwd">
+        <div className="verify-user__errmsg">{errmsg}</div>
+        <form onSubmit={handleSubmit}>
+          <h1 className="new-pwd__title">建立新密碼</h1>
+
+          <h3 className="new-pwd__subtitle">輸入您的密碼</h3>
+
+          <div className="new-pwd__text-field">
+            <FormInput
+              id="password"
+              name="password"
+              type="password"
+              placeholder="密碼"
+              pattern={PWD_REGEX_PATTERN}
+              errorMessage="密碼格式錯誤"
+              onChange={handleNewPasswordChange}
+              formValue={newPassword}
+            />
+          </div>
+
+          <h3 className="new-pwd__subtitle">確認密碼</h3>
+
+          <div className="new-pwd__text-field">
+            <FormInput
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="確認密碼"
+              pattern={newPassword}
+              errorMessage="密碼錯誤"
+              onChange={handleConfirmNewPasswordChange}
+              formValue={confirmNewPassword}
+            />
+          </div>
+
+          <div className="new-pwd__submit-btn">
+            <Button color="secondary" text="修改" disabled={!submitGate()} />
+          </div>
+        </form>
+      </main>
+    </div>
   );
 }
 
-export default ResetPwd;
+export default NewPwd;

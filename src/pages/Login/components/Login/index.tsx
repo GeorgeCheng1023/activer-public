@@ -6,7 +6,9 @@ import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
-import { getUserData, setEmail, userLogin } from 'store/userAuth';
+import {
+  getUserData, setEmail, userLogin,
+} from 'store/userAuth';
 
 // Components
 import FAQTag from 'components/FAQ-Tag';
@@ -86,24 +88,19 @@ function LoginSection() {
         dispatch(setEmail(response.data.user.email));
       } else {
         dispatch(userLogin(response.data.user));
-        console.log(response.data.user);
 
         navigate('/user/basic', { replace: true });
       }
       return;
     } catch (err: any) {
-      // if (!err?.response) {
-      //   setErrMsg('伺服器無回應');
-      // } else
-      if (err.response?.status === 400) {
-        console.log('400');
-        setErrMsg('帳號和密碼不能空白');
+      console.log(err.response);
+      if (!err.response) {
+        setErrMsg('伺服器無回應');
       } else if (err.response?.status === 401) {
         setErrMsg('帳號或密碼有誤');
+      } else {
+        setErrMsg('伺服器懶蛋');
       }
-      // else {
-      //   setErrMsg('登入失敗');
-      // }
       errRef.current?.focus();
     }
   };

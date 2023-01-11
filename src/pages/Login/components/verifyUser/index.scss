@@ -1,20 +1,14 @@
-@import "~/src/variables";
 @import "~/src/global";
 
-.wow-test {
-  border: black 1px solid;
-}
-
-.verify-user {
+.new-pwd {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50vw;
-  height: 60vh;
+  height: inherit;
 
   &__container {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,113 +16,35 @@
     height: 70vh;
   }
 
-  &__errmsg {
-    position: absolute;
-    top: 2rem;
-    color: $danger-color;
-    font-weight: 600;
-    font-size: 1.5rem;
+  &__title {
+    font-size: 2rem;
   }
 
-  &__section {
-    @include media(tablet) {
-      gap: 1rem;
+  &__subtitle {
+    margin-top: 2rem;
+  }
+
+  &__text-field {
+    width: 22vw;
+
+    @media screen and (min-width: 1024px) and (max-width: 1440px) {
+      width: 25vw;
     }
 
-    @include media(mobile) {
-      gap: 0.5rem;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 35vw;
     }
 
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-
-    // border: 1px gray solid;
-
-    &__code {
-      @include media(mobile) {
-        width: 2.7rem;
-        height: 2.7rem;
-      }
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 3.5rem;
-      height: 3.5rem;
-      border: 1px hsl(100deg 4% 27%) solid;
-      border-radius: 100%;
-
-      &--focus {
-        // border-color: hsl(40, 92%, 61%);
-        border-color: hsl(0deg 92% 100%);
-        box-shadow: 0 0 5px 1.5px hsl(40deg 92% 61%);
-        transition: all 0.2s ease;
-      }
+    @media screen and (min-width: 425px) and (max-width: 768px) {
+      width: 20rem;
     }
 
-    &__number {
-      @include media(mobile) {
-        font-size: 1.4rem;
-      }
-
-      width: 1.8ch;
-      height: 2rem;
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    &__number::-webkit-inner-spin-button {
-      appearance: none;
-    }
-
-    &__number::placeholder {
-      color: hsl(98deg 4% 69%);
+    @media screen and (max-width: 425px) {
+      width: 70vw;
     }
   }
 
-  &__resend {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    margin-bottom: 3rem;
-
-    &__text {
-      font-weight: 800;
-    }
-
-    &__btn {
-      color: hsl(110deg 4% 67%);
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
-    &__btn:hover,
-    &__btn:active {
-      color: hsl(40deg 92% 61%);
-    }
-  }
-
-  &__model {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30vw;
-    height: 60vh;
-
-    &__img {
-      width: 10rem;
-      height: 10rem;
-    }
-  }
-
-  &__load-animation {
-    @include load-button-animation;
-
-    margin: 0 auto;
+  &__submit-btn {
+    margin-top: 2rem;
   }
 }

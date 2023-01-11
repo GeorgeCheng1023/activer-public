@@ -74,7 +74,6 @@ function Verify() {
       dispatch(userLogin(response.data.user));
       nevigate('/', { replace: true });
     } catch (err: any) {
-      console.log(err);
       if (err.response.status === 401) {
         console.log('驗證碼不正確或已過期');
         setErrmsg('驗證碼不正確');
