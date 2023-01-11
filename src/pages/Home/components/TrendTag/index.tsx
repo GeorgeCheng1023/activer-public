@@ -1,15 +1,13 @@
 import React from 'react';
-import Tag, { TagType } from 'components/Tag';
 import './index.scss';
 import Button from 'components/Button';
 
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
-import dummyTagCount from './dummyTagCount.json';
 
 function TrendTag() {
-  const width = useWindowWidth();
+  const windowWidth = useWindowWidth();
 
   return (
     <div className="trend-tag">
@@ -20,34 +18,36 @@ function TrendTag() {
         </h2>
         <Button
           color="white"
-          text={width > 768 ? '更多標籤' : '更多'}
+          text={windowWidth > 768 ? '更多標籤' : '更多'}
           iconAfter={<BsArrowRight />}
         />
 
       </div>
+
       <div className="trend-tag__container">
-
-        {dummyTagCount.map(
-          (tag) => (
-            <>
-              <div className="trend-tag__tag">
-                <Tag
-                  key={tag.Id.toString()}
-                  id={tag.Id.toString()}
-                  text={tag.Text}
-                  variant={tag.Type as TagType['variant']}
-                />
+        <div className="trend-tag__class">
+          <h3 className="trend-tag__class__title">專業領域</h3>
+          <div className="trend-tag__class__tags">
+            {Array(3).fill(0).map(() => (
+              <div className="trend-tag__item">
+                <div className="trend-tag__item__hashtag">
+                  <Button
+                    color="primary"
+                    text="#"
+                    variant={{ round: true, outline: true }}
+                  />
+                </div>
+                <div className="trend-tag__item__text">
+                  <p className="trend-tag__item__text__title">網頁設計</p>
+                  <p className="trend-tag__item__text__description">1000+ 相關活動</p>
+                </div>
               </div>
-              <div className="trend-tag__count">
-                {tag.RelatedActivity}
-                {' '}
-                個相關活動
-              </div>
-            </>
-          ),
-        )}
+            ))}
 
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }

@@ -8,28 +8,56 @@
   flex-direction: column;
 
   &__container {
-    @include media(tablet, laptop) {
-      grid-template-columns: repeat(2, 1fr 3fr);
-    }
-
-    @include media(mobile) {
-      grid-template-columns: 1fr 3fr;
-      grid-column-gap: 0;
-    }
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr 3fr);
-    grid-gap: 1em 15px;
-    width: 100%;
-    margin: 0 1em;
-    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
   }
 
-  &__count {
-    cursor: pointer;
+  &__class {
+    display: flex;
+    flex-flow: column;
 
-    &:hover {
-      text-decoration: underline;
+    &__title {
+      font-size: 1.5em;
+    }
+
+    &__tags {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+
+      >*:not(:last-child) {
+        padding-bottom: 0.5em;
+        border-bottom: 1px solid $tertiary-font-color;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    margin: 0.2em 0;
+    padding: 0.5em;
+    border-radius: 5px;
+    cursor: default;
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+
+      &__title {
+        font-weight: bold;
+        font-size: 1.1em;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      &__description {
+        color: $secondary-font-color;
+        font-size: 0.8em;
+      }
     }
   }
 }
