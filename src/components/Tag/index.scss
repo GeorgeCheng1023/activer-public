@@ -2,6 +2,7 @@
 @use "sass:map";
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "/src/styles/animate";
 
 $_tag-font-size: 1em;
 $_tag-padding: 0.5em;
@@ -21,22 +22,11 @@ $tag-config: (
     $color: map.get($value, color);
 
     &--#{$class} {
+      @include ripple($color, 30%);
+
       border-color: $color;
       background-color: white;
       color: $color;
-
-      &:hover {
-        background:
-          color.adjust($color, $lightness: 30%)
-          radial-gradient(circle, transparent 1%, color.adjust($color, $lightness: 30%) 1%)
-          center/15000%;
-      }
-
-      &:active {
-        background-color: color.adjust($color, $lightness: 10%);
-        background-size: 100%;
-        transition: background 0s;
-      }
     }
   }
 

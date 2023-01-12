@@ -2,6 +2,7 @@
 @use "sass:color";
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "/src/styles/animate";
 
 $btn-config: (
   primary:(
@@ -51,11 +52,12 @@ $btn-config: (
 
     &--#{$class} {
       @include set-color($bg, $color, $bg);
+      @include ripple($bg, -10%);
 
-      &:hover:not([disabled]) {
-        border-color: color.adjust($bg, $lightness: -10%);
-        background-color: color.adjust($bg, $lightness: -10%);
-      }
+      // &:hover:not([disabled]) {
+      //   border-color: color.adjust($bg, $lightness: -10%);
+      //   background-color: color.adjust($bg, $lightness: -10%);
+      // }
     }
   }
 
