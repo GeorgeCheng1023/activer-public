@@ -10,6 +10,7 @@
   &__header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     max-width: 1280px;
     margin: 0 auto;
@@ -24,7 +25,9 @@
 
   &__title {
     display: flex;
+    gap: 0.5em;
     justify-content: space-between;
+    align-items: center;
   }
 
   &__card-container {

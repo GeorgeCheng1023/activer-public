@@ -52,12 +52,10 @@ $btn-config: (
 
     &--#{$class} {
       @include set-color($bg, $color, $bg);
-      @include ripple($bg, -10%);
 
-      // &:hover:not([disabled]) {
-      //   border-color: color.adjust($bg, $lightness: -10%);
-      //   background-color: color.adjust($bg, $lightness: -10%);
-      // }
+      &:hover:not([disabled]) {
+        @include ripple($bg, -10%);
+      }
     }
   }
 
@@ -84,8 +82,8 @@ $btn-config: (
       &.button--#{$class} {
         @include set-color($bg, $bg, $color);
 
-        &:hover:not([disabled]) {
-          @include set-color($bg, $color, $bg);
+        &:not([disabled]) {
+          @include ripple($bg, 30%);
         }
       }
     }
@@ -110,8 +108,8 @@ $btn-config: (
       &.button--#{$class} {
         @include set-color($color, $bg, $color);
 
-        &:hover:not([disabled]) {
-          background-color: color.adjust($color, $lightness: -10%);
+        &:not([disabled]) {
+          @include ripple($bg, 30%);
         }
       }
     }
