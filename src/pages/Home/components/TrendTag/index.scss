@@ -11,6 +11,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+
+    // overflow: hidden;
   }
 
   &__class {
@@ -59,11 +61,9 @@
   }
 
   &__rocket {
-    z-index: $zindex-after-marker;
-    flex-grow: 1;
+    z-index: $zindex-base;
     object-fit: contain;
-
-    // width: fit-content;
+    width: fit-content;
     height: 20em;
     margin: 0 auto;
   }

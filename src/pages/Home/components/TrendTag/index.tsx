@@ -75,9 +75,9 @@ function TrendTag() {
           initial={{
             x: 200, y: 200, rotate: -30, opacity: 0,
           }}
-          whileInView={{ x: 0, y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          whileInView={{ x: [200, 100, 0], y: [200, 100, 0], opacity: [0, 0, 1] }}
+          viewport={{ once: false, amount: 0.5 }}
+          // transition={{ delay: 0.5 }}
         />
       </div>
 
