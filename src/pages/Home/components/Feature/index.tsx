@@ -19,7 +19,7 @@ function Feature() {
           initial={{ scale: 0, rotate: 0, opacity: 0 }}
           whileInView={{ scale: 1, rotate: 360, opacity: 1 }}
           whileHover={{ rotate: 330 }}
-          viewport={{ amount: 0.5, once: false }}
+          viewport={{ amount: 1, once: true }}
           transition={{ duration: 0.8 }}
         />
       </div>
@@ -27,6 +27,7 @@ function Feature() {
         className="feature__right"
         initial="hidden"
         whileInView="show"
+        viewport={{ amount: 1, once: true }}
         variants={{
           hidden: {
             opacity: 0,
