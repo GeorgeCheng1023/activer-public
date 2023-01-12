@@ -15,7 +15,7 @@ function NewActivity() {
   // TODO: fetch data
 
   return (
-    <div className="new-activity">
+    <section className="new-activity">
       <div className="home__header">
         <h2>
           <FcPositiveDynamic />
@@ -42,7 +42,7 @@ function NewActivity() {
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 
       </div>
-    </div>
+    </section>
   );
 }
 

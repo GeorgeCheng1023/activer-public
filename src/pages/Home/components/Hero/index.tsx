@@ -14,13 +14,13 @@ function Hero() {
   };
 
   return (
-    <div className="hero">
+    <section className="hero">
       <div className="hero__container">
         <div className="hero__left">
           <h1>Activer 活動者</h1>
           <h3 className="hero__h3">
             在這屬於
-            <span className="hero__h3--highlight">學生的社群中</span>
+            <mark className="hero__h3--highlight">學生的社群中</mark>
             <br />
             尋找屬於你的活動
           </h3>
@@ -40,7 +40,7 @@ function Hero() {
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -5,10 +5,8 @@ import './index.scss';
 
 function Logo() {
   return (
-    <Link to="/">
-      <div className="header__logo">
-        <IconLogo />
-      </div>
+    <Link to="/" className="header__logo">
+      <IconLogo />
     </Link>
   );
 }

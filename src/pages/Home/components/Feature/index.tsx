@@ -7,7 +7,7 @@ import './index.scss';
 
 function Feature() {
   return (
-    <div
+    <section
       className="feature"
     >
       <div
@@ -58,7 +58,7 @@ function Feature() {
         />
       </motion.div>
 
-    </div>
+    </section>
   );
 }
 

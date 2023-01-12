@@ -9,7 +9,7 @@ function Header() {
   const windowWidth = useWindowWidth();
 
   return (
-    <div className="header">
+    <header className="header">
 
       {/* Logo */}
       <Logo />
@@ -22,7 +22,7 @@ function Header() {
         // Mobile Navigation
         : <MobileNavigation />}
 
-    </div>
+    </header>
   );
 }
 

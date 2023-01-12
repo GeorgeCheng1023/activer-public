@@ -10,7 +10,7 @@ function TrendTag() {
   const windowWidth = useWindowWidth();
 
   return (
-    <div className="trend-tag">
+    <section className="trend-tag">
       <div className="home__header">
         <h2 className="home__title">
           <FaHotjar />
@@ -48,7 +48,7 @@ function TrendTag() {
         </div>
       </div>
 
-    </div>
+    </section>
   );
 }
 

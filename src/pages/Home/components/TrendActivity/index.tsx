@@ -17,7 +17,7 @@ function TrendActivity() {
   // TODO: fetch data
 
   return (
-    <div className="trend-activity">
+    <section className="trend-activity">
       <div className="home__header">
         <h2 className="home__title">
           <FaHotjar />
@@ -44,7 +44,7 @@ function TrendActivity() {
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 
       </div>
-    </div>
+    </section>
   );
 }
 
