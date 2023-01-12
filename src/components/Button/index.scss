@@ -60,26 +60,16 @@ $btn-config: (
   }
 
   display: flex;
-  gap: 10px;
+  gap: 0.5em;
   justify-content: center;
   align-items: center;
   width: fit-content;
-  height: 100%;
-  padding: 0.6em 1.8em;
-  border-radius: 5px;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
   font-size: 1em;
-  letter-spacing: 1px;
+  line-height: 1em;
   cursor: pointer;
   transition-duration: 0.3s;
-
-  &--lg {
-    font-size: 1.5em;
-  }
-
-  &--sm {
-    padding: 0.4em 1.8em;
-    font-size: 0.8em;
-  }
 
   // outline variant
   &.button--outline {
@@ -101,8 +91,8 @@ $btn-config: (
 
   // round variant
   &.button--round {
-    width: 40px !important;
-    height: 40px;
+    width: 3em;
+    height: 3em;
     padding: 1em;
     border-radius: 50%;
   }

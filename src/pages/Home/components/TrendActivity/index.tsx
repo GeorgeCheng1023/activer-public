@@ -24,6 +24,7 @@ function TrendActivity() {
           熱門活動
         </h2>
         <Button color="white" text={screenWidth > 768 ? '更多熱門活動' : '更多'} iconAfter={<BsArrowRight />} />
+        <Button iconAfter={<p>test</p>} variant={{ round: true }} />
       </div>
       <div className="home__card-container">
         {dummyData

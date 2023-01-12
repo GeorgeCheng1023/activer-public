@@ -19,7 +19,6 @@ function ResultBanner() {
         color="primary"
         variant={{ outline: true }}
         text="修改搜尋條件"
-        size="sm"
         onClick={handleClick}
       />
     </div>

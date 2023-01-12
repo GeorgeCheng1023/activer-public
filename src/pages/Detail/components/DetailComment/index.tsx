@@ -23,7 +23,6 @@ function DetailComment() {
         <Button
           text="撰寫評論"
           iconBefore={<FaEdit />}
-          size="sm"
           onClick={handleOpenCommentPanel}
         />
 

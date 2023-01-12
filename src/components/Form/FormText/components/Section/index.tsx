@@ -38,7 +38,6 @@ const Section = React.forwardRef<HTMLInputElement, Props>(
           <div className="inputSection__button">
             <ButtonFrame
               color="secondary"
-              size="sm"
               text={buttonText}
             />
           </div>

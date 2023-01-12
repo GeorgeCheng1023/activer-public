@@ -19,7 +19,6 @@ function NotFound() {
           <Button
             type="button"
             color="primary"
-            size="lg"
             text="回到首頁"
             variant={{ outline: true }}
           />
