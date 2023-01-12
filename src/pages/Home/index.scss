@@ -7,10 +7,6 @@
   flex-direction: column;
   gap: 1em;
 
-  h2 {
-    margin-left: 1em;
-  }
-
   &__header {
     display: flex;
     justify-content: space-between;
@@ -39,6 +35,6 @@
 
     display: flex;
     gap: 1em;
-    justify-content: center;
+    justify-content: space-between;
   }
 }
