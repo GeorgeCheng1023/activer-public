@@ -9,7 +9,8 @@
 
   &__container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   &__class {
@@ -55,5 +56,15 @@
         font-size: 0.8em;
       }
     }
+  }
+
+  &__rocket {
+    z-index: $zindex-after-marker;
+    flex-grow: 1;
+    object-fit: contain;
+
+    // width: fit-content;
+    height: 20em;
+    margin: 0 auto;
   }
 }

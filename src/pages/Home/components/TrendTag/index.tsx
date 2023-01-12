@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import Button from 'components/Button';
 
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
+import ManageNav from 'components/ManageNav';
+import { motion } from 'framer-motion';
+import Rocket from './Rocket.png';
 
 function TrendTag() {
   const windowWidth = useWindowWidth();
+
+  const [currentClassifyId, setCurrentClassifyId] = useState('location');
 
   return (
     <section className="trend-tag">
@@ -26,7 +31,24 @@ function TrendTag() {
 
       <div className="trend-tag__container">
         <div className="trend-tag__class">
-          <h3 className="trend-tag__class__title">專業領域</h3>
+
+          <ManageNav
+            filters={[{
+              id: 'area',
+              label: '專業領域',
+            },
+            {
+              id: 'location',
+              label: '地點',
+            },
+            {
+              id: 'other',
+              label: '其他',
+            },
+            ]}
+            onChangeFilter={setCurrentClassifyId}
+            currentFilterId={currentClassifyId}
+          />
           <div className="trend-tag__class__tags">
             {Array(3).fill(0).map(() => (
               <div className="trend-tag__item">
@@ -46,6 +68,17 @@ function TrendTag() {
 
           </div>
         </div>
+        <motion.img
+          src={Rocket}
+          alt="rocket"
+          className="trend-tag__rocket"
+          initial={{
+            x: 200, y: 200, rotate: -30, opacity: 0,
+          }}
+          whileInView={{ x: 0, y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        />
       </div>
 
     </section>
