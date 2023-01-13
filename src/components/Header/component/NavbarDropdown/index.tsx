@@ -17,7 +17,7 @@ function NavbarDropdown({ children, defaultMenu }: NavbarDropdownType) {
   const handleEnter = (e: any) => {
     const height = e.offsetHeight;
     if (windowWidth > 768) {
-      setMenuHeight(height);
+      setMenuHeight(height + 10);
     }
   };
 
