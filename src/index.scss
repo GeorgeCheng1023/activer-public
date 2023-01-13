@@ -75,3 +75,11 @@ a {
 mark {
   all: unset;
 }
+
+// disable select
+
+// disable
+.no-select {
+  user-select: none;
+  -webkit-touch-callout: none;
+}

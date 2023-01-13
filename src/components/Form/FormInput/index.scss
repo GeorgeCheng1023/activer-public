@@ -1,5 +1,6 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .form-input {
   position: relative;
@@ -7,59 +8,39 @@
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  color: $primary-font-color;
-  font-size: 1rem;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  font-size: 1em;
 
-  &__label {
-    position: absolute;
-    left: 0.6em;
-    z-index: $zindex-dropdown-label;
-    padding: 0 0.5em;
-    background-color: #fff;
-
-    &--withoutLabel {
-      visibility: hidden;
-    }
+  &__container {
+    position: relative;
+    height: 3em;
   }
 
-  &__section {
-    position: relative;
-    margin-top: 1rem;
+  &__label {
+    @include style-label;
+  }
 
-    &__input {
-      width: 100%;
-      padding: 1em;
-      border: 1px solid $secondary-font-color;
-      border-radius: 0.5em;
-      line-height: 1rem;
-    }
+  &__input {
+    @include style-input;
 
     &::placeholder {
       color: $secondary-font-color;
     }
 
-    &:focus {
-      outline: 1.5px $primary-color solid;
-    }
-
-    &__button {
-      position: absolute;
-      left: 433px;
-      align-self: center;
-    }
-
-    &__error-Message {
-      display: none;
-      color: red;
-      font-size: 0.8em;
+    &:invalid {
+      border-color: $danger-color;
     }
   }
-}
 
-.form-input input:invalid ~ span {
-  display: block;
-}
+  &.disabled {
+    opacity: 0.5;
+  }
 
-.disabled {
-  opacity: 0.5;
+  &__error-message {
+    position: absolute;
+    bottom: -1.5em;
+    color: $danger-color;
+    font-size: 0.8em;
+  }
 }
