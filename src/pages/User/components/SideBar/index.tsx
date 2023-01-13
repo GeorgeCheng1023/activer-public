@@ -1,57 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-  BsPeopleFill, BsFillShieldLockFill, BsGearFill, BsFillHeartFill,
-  BsLayoutSidebarInsetReverse,
+  BsFillShieldLockFill, BsGearFill, BsFillHeartFill,
 } from 'react-icons/bs';
-import { BiHistory } from 'react-icons/bi';
+import classNames from 'classnames';
+import { BiUser, BiHistory } from 'react-icons/bi';
+
 import SideBarLink from './components/SidebarLink';
 import './index.scss';
 
-type Props = {
-  onChangeText: (text: string) => void;
-};
+function SideBar() {
+  const sideBarRef = useRef<HTMLDivElement>(null);
 
-function SideBar({ onChangeText }: Props) {
-  const [currentText, setCurrentText] = useState('基本資料');
-  const [displaySidebar, setDisplaySidebar] = useState(true);
-
-  const handleClickLink = (text: string) => {
-    setCurrentText(text);
-  };
-  const handleToggleClick = () => {
-    setDisplaySidebar(!displaySidebar);
-  };
-
-  useEffect(() => {
-    onChangeText(currentText);
-  }, [currentText]);
-
-  const handleBlur = () => {
-    setDisplaySidebar(false);
-  };
+  const sidebarClasses = classNames({
+    sidebar: true,
+    'sidebar--scrollable': sideBarRef.current.offsetWidth > window.innerWidth,
+  });
 
   return (
-    <div
-      className={`
-        sidebar__container 
-        ${displaySidebar ? 'sidebar__container--expended' : ''}
-        `}
-      onScroll={handleBlur}
-      onBlur={handleBlur}
-    >
 
-      <div className="sidebar">
-        <SideBarLink text="基本資料" url="/user/basic" icon={<BsPeopleFill />} onClickLink={handleClickLink} />
-        <SideBarLink text="帳號安全" url="/user/account" icon={<BsFillShieldLockFill />} onClickLink={handleClickLink} />
-        <SideBarLink text="管理活動" url="/user/manage" icon={<BsGearFill />} onClickLink={handleClickLink} />
-        <SideBarLink text="偏好設定" url="/user/preferences" icon={<BsFillHeartFill />} onClickLink={handleClickLink} />
-        <SideBarLink text="活動歷程" url="/user/history" icon={<BiHistory />} onClickLink={handleClickLink} />
-      </div>
-
-      <button type="button" className="sidebar__toggle-button" onClick={handleToggleClick}>
-        <BsLayoutSidebarInsetReverse />
-      </button>
+    <div className={sidebarClasses} ref={sideBarRef}>
+      <SideBarLink text="基本資料" url="/user/basic" icon={<BiUser />} />
+      <SideBarLink text="帳號安全" url="/user/account" icon={<BsFillShieldLockFill />} />
+      <SideBarLink text="管理活動" url="/user/manage" icon={<BsGearFill />} />
+      <SideBarLink text="偏好設定" url="/user/preferences" icon={<BsFillHeartFill />} />
+      <SideBarLink text="活動歷程" url="/user/history" icon={<BiHistory />} />
     </div>
+
   );
 }
 

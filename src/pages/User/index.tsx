@@ -12,17 +12,14 @@ import SideBar from './components/SideBar';
 import Banner from './components/Banner';
 
 function User() {
+  // eslint-disable-next-line
   const [currentText, setCurrentText] = useState('');
-
-  const changeTextHandler = (text: string) => {
-    setCurrentText(text);
-  };
 
   return (
     <>
       <Banner text={currentText} />
       <div className="user__container">
-        <SideBar onChangeText={changeTextHandler} />
+        <SideBar />
         <div className="user__main-content">
           <Outlet />
         </div>
