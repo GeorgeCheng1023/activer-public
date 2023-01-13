@@ -13,8 +13,15 @@ function SideBar() {
 
   const sidebarClasses = classNames({
     sidebar: true,
-    'sidebar--scrollable': sideBarRef.current.offsetWidth > window.innerWidth,
+    'sidebar--scrollable':
+      sideBarRef.current
+        ? sideBarRef.current.offsetWidth > window.innerWidth
+        : false,
   });
+
+  useEffect(() => {
+    console.log(sideBarRef.current?.offsetWidth, window.innerWidth);
+  }, []);
 
   return (
 
