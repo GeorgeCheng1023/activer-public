@@ -64,6 +64,7 @@ export function MobileNavigation() {
 
   return (
     <Navbar>
+      <UserAuth />
       <NavbarItem label={<AiOutlineMenu />}>
         <NavbarDropdown defaultMenu="m-main">
           <NavbarDropdownMenu name="m-main" order="primary">
@@ -82,9 +83,9 @@ export function MobileNavigation() {
             <NavbarDropdownItem>哲學</NavbarDropdownItem>
             <NavbarDropdownItem>新聞與傳播</NavbarDropdownItem>
           </NavbarDropdownMenu>
-          <UserAuth />
         </NavbarDropdown>
       </NavbarItem>
+
     </Navbar>
 
   );
