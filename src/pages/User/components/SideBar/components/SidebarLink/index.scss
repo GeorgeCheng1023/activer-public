@@ -1,3 +1,4 @@
+@use "sass:color";
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
@@ -8,22 +9,28 @@
   align-items: center;
   padding: 0.5em 1em;
   border-radius: 0.2em;
-  font-size: 1em;
+  color: white;
+  font-size: 0.8em;
+  transition: all 0.3s;
 
   &.active,
   &:hover {
     background-color: $secondary-dilute-color;
+    color: color.adjust($secondary-color, $lightness: -20%);
   }
 
   &__icon {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: inherit;
     font-size: 1em;
+    * { color: inherit; }
   }
 
   &__text {
     display: flex;
     width: max-content;
+    color: inherit;
   }
 }

@@ -13,10 +13,13 @@
   &__main-content {
     @include media(mobile, tablet) {
       width: 100%;
+      padding-top: $sidebar-height;
+      padding-left: 0;
     }
 
     width: 80%;
     min-height: 100vh;
     margin: 0 auto;
+    padding-left: $sidebar-width;
   }
 }
