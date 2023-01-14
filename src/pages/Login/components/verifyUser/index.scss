@@ -1,15 +1,13 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-.verify-user {
+.new-pwd {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50vw;
-  height: 60vh;
-
-  // border: 1px black solid;
+  height: inherit;
 
   &__container {
     display: flex;
@@ -19,76 +17,35 @@
     height: 70vh;
   }
 
-  &__section {
-    @include media(tablet) {
-      gap: 1rem;
+  &__title {
+    font-size: 2rem;
+  }
+
+  &__subtitle {
+    margin-top: 2rem;
+  }
+
+  &__text-field {
+    width: 22vw;
+
+    @media screen and (min-width: 1024px) and (max-width: 1440px) {
+      width: 25vw;
     }
 
-    @include media(mobile) {
-      gap: 0.5rem;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 35vw;
     }
 
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-
-    // border: 1px gray solid;
-
-    &__code {
-      @include media(mobile) {
-        width: 2.7rem;
-        height: 2.7rem;
-      }
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 3.5rem;
-      height: 3.5rem;
-      border: 1px hsl(100deg 4% 27%) solid;
-      border-radius: 100%;
+    @media screen and (min-width: 425px) and (max-width: 768px) {
+      width: 20rem;
     }
 
-    &__number {
-      @include media(mobile) {
-        font-size: 1.4rem;
-      }
-
-      width: 1.8ch;
-      height: 2rem;
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    &__number::-webkit-inner-spin-button {
-      appearance: none;
-    }
-
-    &__number::placeholder {
-      color: hsl(98deg 4% 69%);
+    @media screen and (max-width: 425px) {
+      width: 70vw;
     }
   }
 
-  &__resend {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    margin-bottom: 3rem;
-
-    &__text {
-      font-weight: 800;
-    }
-
-    &__btn {
-      color: hsl(110deg 4% 67%);
-    }
-
-    &__btn:hover,
-    &__btn:active {
-      color: hsl(40deg 92% 61%);
-    }
+  &__submit-btn {
+    margin-top: 2rem;
   }
 }

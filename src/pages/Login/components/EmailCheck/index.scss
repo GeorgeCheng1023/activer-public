@@ -1,0 +1,54 @@
+.email-verify {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 40vw;
+  height: 60vh;
+  text-align: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 70vh;
+  }
+
+  &__figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__img {
+      object-fit: cover;
+      width: 10rem;
+      height: 10rem;
+    }
+
+    &__caption {
+      padding-top: 1.5rem;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+  }
+
+  &__text {
+    font-size: 1rem;
+    letter-spacing: 1.2px;
+  }
+
+  &__email {
+    padding: 0 3px;
+  }
+
+  &__colon {
+    padding-left: 0.15rem;
+  }
+
+  &__resent-btn {
+    margin: 1rem;
+  }
+}

@@ -24,19 +24,30 @@ function Basic() {
     setValues({ ...values, [key]: value });
   };
 
-  const updateUserDatabase = (userFormData: FormData) => {
-    userFormData.append('Id', userData.Id);
-    userFormData.append('SessionToken', userData.SessionToken);
-    userFormData.append('Email', userData.Email);
-    userFormData.append('Password', userData.Password);
-    apiUserUpdate(userFormData);
+  const updateUserDatabase = async (userFormData: FormData) => {
+    userFormData.append('id', userData.Id);
+    userFormData.append('sessionToken', userData.SessionToken);
+    userFormData.append('email', userData.Email);
+    userFormData.append('password', userData.Password);
+    userFormData.append('verify', userData.verify);
+
+    try {
+      const response = await apiUserUpdate(userFormData);
+      dispatch(userUpdate(values));
+      console.log(response);
+    } catch (err: any) {
+      if (err.status === 401) {
+        console.log('token error');
+      } else {
+        console.log('伺服器懶蛋');
+      }
+    }
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    dispatch(userUpdate(values));
     updateUserDatabase(userFormData);
   };
 

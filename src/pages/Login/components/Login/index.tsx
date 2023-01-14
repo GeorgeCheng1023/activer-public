@@ -1,21 +1,24 @@
 import React, {
   useState, useEffect, useRef,
 } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
-import { userLogin, getUserData } from 'store/userAuth';
-
-// Hook
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import {
+  getUserData, setEmail, userLogin,
+} from 'store/userAuth';
 
 // Components
 import FAQTag from 'components/FAQ-Tag';
-import ButtonFrame from '../../../../components/Button';
+import { apiUserLogin, apiUserResendVerify } from 'api/axios';
+import { useAppSelector } from 'hooks/redux';
+import Button from '../../../../components/Button';
 import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
+import { useAppDispatch } from '../../../../hooks/redux/index';
+import Modal from './components/modal';
 
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -25,10 +28,8 @@ function LoginSection() {
   const userData = useAppSelector(getUserData);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
-  const [, setCookie] = useCookies<string>(['user']);
+  const [cookies, setCookie] = useCookies<string>(['user']);
 
   const userRef = useRef<HTMLInputElement | null>(null);
   const errRef = useRef<HTMLInputElement | null>(null);
@@ -41,15 +42,14 @@ function LoginSection() {
   const [pwdFocus, setPwdFocus] = useState<boolean>(false);
 
   const [errMsg, setErrMsg] = useState<string>('');
-  const [showErr, setShowErr] = useState<boolean>(false);
+  const [emailVerified, setEmailVerified] = useState<boolean>(true);
 
   useEffect(() => {
     userRef.current?.focus();
   }, []);
 
   useEffect(() => {
-    if (showErr) setValidPwd(PWD_REGEX.test(pwd));
-    // console.log(validPwd);
+    setValidPwd(PWD_REGEX.test(pwd) || pwd === '');
   }, [pwd]);
 
   useEffect(() => {
@@ -62,7 +62,6 @@ function LoginSection() {
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    setShowErr(true);
 
     const v2 = PWD_REGEX.test(pwd);
     if (!v2) {
@@ -72,47 +71,82 @@ function LoginSection() {
     }
 
     try {
-      const response: any = await dispatch(userLogin({ email: user, password: pwd }));
-      console.log(response.meta.requestStatus);
-      if (response.meta.requestStatus === 'rejected') {
-        setErrMsg('帳號或密碼有誤');
-        return;
-      }
-      if (response.meta.requestStatus === 'fulfilled') {
-        navigate(from, { replace: true });
+      const response: any = await apiUserLogin({ email: user, password: pwd });
 
-        const expiresDate = new Date();
-        expiresDate.setDate(expiresDate.getDate() + 1);
+      const expiresDate = new Date();
+      expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
 
-        setCookie('email', user, {
-          expires: expiresDate,
-          path: '/',
-          sameSite: true,
-        });
-        setCookie('sessionToken', response.payload.data.SessionToken, {
-          expires: expiresDate,
-          path: '/',
-          sameSite: true,
-        });
+      setCookie('sessionToken', response.data.token.accessToken, {
+        expires: expiresDate,
+        path: '/',
+        sameSite: true,
+      });
+
+      if (response.data.user.verify === false) {
+        console.log('Account is unverified');
+        setEmailVerified(false);
+        dispatch(setEmail(response.data.user.email));
+      } else {
+        dispatch(userLogin(response.data.user));
+
+        navigate('/user/basic', { replace: true });
       }
+      return;
     } catch (err: any) {
-      console.log(userData);
-      if (!err?.response) {
+      console.log(err.response);
+      if (!err.response) {
         setErrMsg('伺服器無回應');
-      } else if (err.response?.status === 400) {
-        console.log('400');
-        setErrMsg('帳號和密碼不能空白');
       } else if (err.response?.status === 401) {
         setErrMsg('帳號或密碼有誤');
       } else {
-        setErrMsg('登入失敗');
+        setErrMsg('伺服器懶蛋');
       }
       errRef.current?.focus();
     }
   };
 
+  const hideEmail = (email: string) => {
+    if (email) {
+      return email.replace(email.slice(1, 4), '****');
+    }
+  };
+
+  const handleVerifyClick = async (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    try {
+      const response = await apiUserResendVerify(cookies.sessionToken);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+
+    navigate('/verify');
+  };
+
   return (
     <div className="login-container">
+
+      <Modal open={!emailVerified} onClose={() => setEmailVerified(true)}>
+        <div className="email-verify">
+          <figure className="email-verify__figure">
+            <img className="email-verify__figure__img" src="/envelope.png" alt="Email" />
+            <figcaption className="email-verify__figure__caption">您的電子信箱未驗證</figcaption>
+          </figure>
+          <h4 className="email-verify__text">
+            <br />
+            我們將發送了一封驗證信到
+            {hideEmail(userData.email) || '******@gamil.com'}
+            <br />
+            您需要驗證您的電子郵件地址才能登錄
+          </h4>
+
+          <div className="email-verify__button">
+            <Button color="primary" text="驗證電子郵件" onClick={handleVerifyClick} />
+          </div>
+        </div>
+      </Modal>
+
       <main className="login-section">
         <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
         <h1 className="login-section__title">登入</h1>
@@ -147,7 +181,7 @@ function LoginSection() {
         </section>
 
         <div className="login-section__pwd-tag">
-          <FAQTag title="忘記密碼?" url="/ForgetPwd" />
+          <FAQTag title="忘記密碼?" url="/forgetpwd" />
         </div>
 
         {/* <section className="login-section__check-persist-section">
@@ -167,16 +201,18 @@ function LoginSection() {
         </p>
 
         <section className="login-section__btn-group">
-          <ButtonFrame
+          <Button
             color="primary"
+            type="button"
             text="登入"
             onClick={
               (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e)
             }
           />
           <Link to="/register">
-            <ButtonFrame
+            <Button
               color="primary"
+              type="button"
               variant={{ outline: true }}
               text="註冊"
             />

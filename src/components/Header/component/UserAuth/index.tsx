@@ -29,7 +29,6 @@ function LoginLogoutButton() {
   // Logout Handler
   const handleLogout = useCallback(() => {
     dispatch(userLogout());
-    removeCookie('email', { path: '/' });
     removeCookie('sessionToken', { path: '/' });
     navigate('/');
   }, []);

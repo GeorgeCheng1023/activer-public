@@ -1,11 +1,18 @@
 import axios from 'axios';
 
-const TEST_URL = 'http://localhost:5000';
+const IP = '36.236.61.181';
+const PORT = '5044';
 
-const LOGIN_URL = '/api/user/signin';
-const REGISTER_URL = '/api/user/signup';
-const USER_UPDATE_URL = '/api/user';
-const USER_AUTH_URL = '/api/user/auth';
+const TEST_URL = `http://${IP}:${PORT}`;
+
+const USER_UPDATE_URL = '/api/user/update';
+// api/user/auth
+const LOGIN_URL = '/api/user/auth/signin';
+const REGISTER_URL = '/api/user/auth/signup';
+const USER_AUTH_TOKEN_URL = '/api/user/auth/token';
+const USER_VERIFY_URL = '/api/user/auth/verify/email';
+const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
+const USER_RESET_PWD = '/api/User/auth/changepassword';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
@@ -13,7 +20,7 @@ export const axiosTest = axios.create({
 
 export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
   LOGIN_URL,
-  JSON.stringify({ Email: email, Password: password }),
+  JSON.stringify({ email, password }),
   {
     headers: { 'Content-Type': 'application/json' },
     withCredentials: false,
@@ -26,7 +33,7 @@ export const apiUserRegister = (
   password: string,
 ) => axiosTest.post(
   REGISTER_URL,
-  JSON.stringify({ Realname: username, Email: email, Password: password }),
+  JSON.stringify({ username, email, password }),
   {
     headers: {
       'Content-Type': 'application/json',
@@ -39,20 +46,65 @@ export const apiUserRegister = (
 export const apiUserUpdate = (
   userFormData: FormData,
 ) => axiosTest.put(
-  `${USER_UPDATE_URL}/${userFormData.get('Id')}`,
+  USER_UPDATE_URL,
   userFormData,
   {
     headers: { 'Content-Type': 'multipart/form-data' },
   },
 );
 
-export const apiUserAuth = (Email: string, SessionToken: string) => axiosTest.post(
-  USER_AUTH_URL,
-  JSON.stringify({ Email, SessionToken }),
+export const apiUserAuth = (access_token: string) => axiosTest.get(
+  USER_AUTH_TOKEN_URL,
   {
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
   },
 );
+
+export const apiUserVerify = (verifycode: string, accessToken: string) => axiosTest.get(
+  USER_VERIFY_URL,
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    params: {
+      verifyCode: verifycode,
+    },
+  },
+);
+
+export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
+  USER_RESEND_VERIFY_URL,
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
+export const apiUserVerifyAndResetPwd = (accessToken: string) => axiosTest.get(
+  USER_RESET_PWD,
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
+export const apiUserResetPwd = (accessToken: string, newPassword: string) => axiosTest.post(
+  USER_RESET_PWD,
+  JSON.stringify({ newPassword }),
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  },
+);
+
+// export const apiUserDelete = (id: number, accessToken: string) => axiosTest.delete();
 
 // google
 export const apiUserGoogleData = (access_token: string) => axios.get(

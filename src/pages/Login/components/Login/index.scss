@@ -14,7 +14,7 @@ button {
   justify-content: center;
   align-items: center;
   width: 90vw;
-  height: fit-content;
+  height: 80vh;
   transform: translateY(-20px);
 }
 
@@ -74,6 +74,49 @@ button {
 
   &__check-persist-section input {
     scale: 1.2;
+  }
+}
+
+.email-verify {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 40vw;
+  height: 60vh;
+  margin-top: 2rem;
+  text-align: center;
+
+  &__figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__img {
+      object-fit: cover;
+      width: 8rem;
+      height: 8rem;
+    }
+
+    &__caption {
+      padding-top: 1.5rem;
+      font-weight: 700;
+      font-size: 1.6rem;
+    }
+  }
+
+  &__text {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  &__colon {
+    padding-left: 0.15rem;
+  }
+
+  &__button {
+    margin: 1rem;
   }
 }
 

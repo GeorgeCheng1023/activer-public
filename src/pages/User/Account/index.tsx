@@ -6,32 +6,49 @@ import { useAppSelector } from 'hooks/redux';
 import { getUserData } from 'store/userAuth';
 // import dummyAccountData from './dummyAccountData.json';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { apiUserVerifyAndResetPwd, apiUserLogin } from 'api/axios';
 
 function Account() {
   const nevigate = useNavigate();
   const userData = useAppSelector(getUserData);
   const [accountValue, setAccountValue] = useState(userData);
+  const [cookies] = useCookies<string>(['user']);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (key: any, value: any) => {
     setAccountValue({ ...accountValue, [key]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (userData.Password === accountValue.password) {
-      nevigate('/ResetPwd');
+
+    setLoading(true);
+    try {
+      await apiUserLogin({ email: userData.email, password: accountValue.password });
+      const response = await apiUserVerifyAndResetPwd(cookies.sessionToken);
+      console.log(response);
+      nevigate('/email/verify');
+    } catch (err: any) {
+      if (!err?.response) {
+        console.log('伺服器無回應');
+      } else if (err.response.status === 401) {
+        console.log('帳號或密碼有誤');
+      } else {
+        console.log('伺服器懶蛋');
+      }
     }
+    setLoading(false);
   };
 
   return (
-
     <form onSubmit={handleSubmit} className="user-account">
       <div className="user-account__input user-account__input__account">
         <FormInput
           id="account"
           name="account"
           label="帳號"
-          placeholder={userData.Email}
+          placeholder={userData.email}
           onChange={handleChange}
           disabled
           formValue={accountValue}
@@ -46,15 +63,18 @@ function Account() {
           onChange={handleChange}
           formValue={accountValue}
           placeholder="Enter your password"
-          pattern={userData.Password}
+          pattern={userData.password}
           errorMessage="密碼錯誤"
         />
       </div>
-      <Button
-        disabled={!(accountValue.password === userData.Password)}
-        type="submit"
-        text="修改密碼"
-      />
+      {loading
+        ? <div className="user-account__button-load-animation" />
+        : (
+          <Button
+            type="submit"
+            text="驗證"
+          />
+        )}
     </form>
 
   );
