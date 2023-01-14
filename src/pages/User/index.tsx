@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './index.scss';
 
@@ -6,26 +6,29 @@ import './index.scss';
 import Basic from './Basic';
 import Account from './Account';
 import History from './History';
+import Main from './Main';
 import Manage from './Manage';
 import Preferences from './Preferences';
 import SideBar from './components/SideBar';
+import UserHeader from './components/UserHeader';
 
 function User() {
-  // eslint-disable-next-line
-  const [currentText, setCurrentText] = useState('');
-
   return (
-    <div className="user__container">
-      <SideBar />
-      <div className="user__main-content">
-        <Outlet />
+    <>
+      <UserHeader />
+      <div className="user__container">
+        <SideBar />
+        <div className="user__main-content">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export {
   Basic, Account, History, Manage, Preferences,
+  Main,
 };
 
 export default User;

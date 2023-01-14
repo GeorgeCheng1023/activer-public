@@ -1,0 +1,31 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.user-header {
+  @include media(mobile, tablet) {
+    padding-left: 1em;
+  }
+
+  display: flex;
+  justify-content: space-between;
+  height: $header-height;
+  padding: 1em 1em 1em calc($sidebar-width + 1em);
+  font-size: 0.8em;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    width: 3em;
+    height: fit-content;
+    color: $primary-color;
+  }
+
+  &__back {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
