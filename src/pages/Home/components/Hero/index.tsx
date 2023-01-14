@@ -2,35 +2,45 @@ import React from 'react';
 import './index.scss';
 
 // component
-import SearchBar from 'components/Form/FormSearchBar';
+import Button from 'components/Button';
+import { ReactComponent as Earth } from './components/Earth.svg';
+import { ReactComponent as Star } from './components/Star.svg';
 
 function Hero() {
   // handle search bar submit
-  const handleSubmit = (inputValue: String) => {
-    // eslint-disable-next-line no-console
-    console.log(inputValue);
+  const handleSubmit:React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    // TODO: navigate to learn more`
   };
 
   return (
-    <div className="hero">
-      <div className="hero__left">
-        <div className="hero__left__section">
-          <h1 className="hero__h1">
+    <section className="hero">
+      <div className="hero__container">
+        <div className="hero__left">
+          <h1>Activer 活動者</h1>
+          <h3 className="hero__h3">
             在這屬於
-            <span className="hero__h1--highlight">學生的社群中</span>
+            <mark className="hero__h3--highlight">學生的社群中</mark>
             <br />
             尋找屬於你的活動
-          </h1>
-        </div>
-        <div className="hero__left__section">
-          <SearchBar
-            onSubmit={handleSubmit}
-            placeholder="立即搜尋你的活動"
+          </h3>
+          <Button
+            text="了解更多"
+            color="secondary"
+            type="submit"
+            variant={{ outline: true }}
+            onClick={handleSubmit}
           />
         </div>
-      </div>
+        <div className="hero__right">
+          <Earth />
+          <div className="hero__stars">
+            {Array(8).fill(0).map((element, index) => (<Star key={`hero-star-${element}${index}`} />))}
+          </div>
+        </div>
 
-    </div>
+      </div>
+    </section>
   );
 }
 

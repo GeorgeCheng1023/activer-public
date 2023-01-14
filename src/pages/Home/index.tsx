@@ -8,7 +8,7 @@ import './index.scss';
 
 function Home() {
   return (
-    <div className="home">
+    <main className="home">
       <Hero />
       <Feature />
 
@@ -17,7 +17,7 @@ function Home() {
 
       <TrendTag />
 
-    </div>
+    </main>
   );
 }
 

@@ -31,7 +31,6 @@ function FollowButton({
           color={followed ? 'danger' : 'white'}
           iconAfter={followed ? <BsHeartFill /> : <BsHeart />}
           onClick={handleClick}
-          size="lg"
         />
       </div>
 

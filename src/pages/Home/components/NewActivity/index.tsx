@@ -3,10 +3,11 @@ import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
 import { TagDataType } from 'types/ActivityDataType';
 import { TagType } from 'components/Tag';
-import { Card } from 'components/Card';
+import Card from 'components/Card/Default';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { FcPositiveDynamic } from 'react-icons/fc';
 import dummyData from './dummyTrendActivity.json';
+import './index.scss';
 
 function NewActivity() {
   const screenWidth = useWindowWidth();
@@ -14,7 +15,7 @@ function NewActivity() {
   // TODO: fetch data
 
   return (
-    <div className="new-activity">
+    <section className="new-activity">
       <div className="home__header">
         <h2>
           <FcPositiveDynamic />
@@ -30,6 +31,7 @@ function NewActivity() {
               id={data.Id.toString()}
               imgUrl={data.Image ? data.Image[0] : '/DefaultActivityPng.png'}
               title={data.Title}
+              key={`new-activity-${data.Id.toString()}`}
               altText={data.Title}
               tags={data.Tags.map((tag: TagDataType) => ({
                 id: tag.Id.toString(),
@@ -41,7 +43,7 @@ function NewActivity() {
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 
       </div>
-    </div>
+    </section>
   );
 }
 

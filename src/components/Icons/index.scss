@@ -1,7 +1,12 @@
-@import "../../global";
-@import "../../variables";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 .icon {
   width: 100%;
   height: 100%;
+  color: inherit;
+
+  path {
+    color: inherit;
+  }
 }

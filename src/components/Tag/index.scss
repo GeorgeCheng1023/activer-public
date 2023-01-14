@@ -1,8 +1,11 @@
 @use "sass:color";
 @use "sass:map";
-@import "~/src/variables";
-@import "~/src/global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
+@import "/src/styles/animate";
 
+$_tag-font-size: 1em;
+$_tag-padding: 0.5em;
 $tag-config: (
   primary: (class: "primary",
   color: $primary-color),
@@ -19,46 +22,49 @@ $tag-config: (
     $color: map.get($value, color);
 
     &--#{$class} {
-      background-color: $color;
+      @include ripple($color, 30%);
+
+      border-color: $color;
+      background-color: white;
+      color: $color;
     }
   }
 
   display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5em;
   justify-content: space-between;
-  align-items: center;
+  overflow: hidden;
   width: fit-content;
-  height: fit-content;
+  height: $_tag-font-size + $_tag-padding * 2;
   margin: 0;
-  padding: 0.6em 1em;
-  border-radius: 0.8em;
-  color: #fff;
-  font-size: 0.6rem;
+  padding: $_tag-padding calc($_tag-padding + 0.5em);
+  border: 1.2px solid;
+  border-radius: $_tag-font-size + $_tag-padding;
+  background-position: center;
+  font-size: $_tag-font-size;
+  line-height: $_tag-font-size;
+  white-space: nowrap;
   cursor: pointer;
-  transition: filter 0.3s;
-
-  &:hover {
-    filter: brightness(85%);
-  }
+  transition: background 0.5s;
 
   &__icon {
     display: flex;
     align-items: center;
     justify-items: center;
-    padding: 0 0.5em;
-    font-size: 1.4em;
+    color: currentcolor;
 
     * {
-      color: white;
+      color: currentcolor;
     }
   }
 
   &__text {
-    color: #fff;
-    font-size: 1em;
-  }
-
-  &--sm {
-    font-size: 0.03em;
+    overflow: hidden;
+    width: fit-content;
+    height: $_tag-font-size;
+    color: inherit;
+    font-weight: 900;
   }
 
   &:disabled,

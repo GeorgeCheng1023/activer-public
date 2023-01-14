@@ -1,5 +1,5 @@
-/* stylelint-disable scss/at-import-no-partial-leading-underscore */
-@import "~/src/_global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 .forgot-pwd {
   display: flex;

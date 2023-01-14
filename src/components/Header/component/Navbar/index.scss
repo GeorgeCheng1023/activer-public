@@ -1,5 +1,5 @@
-@import "~/src/variables";
-@import "~/src/global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 .navbar {
   @include media(desktop, laptop) {
@@ -9,7 +9,8 @@
   &__nav {
     display: flex;
     gap: 1em;
-    align-items: baseline;
-    height: fit-content;
+    align-items: center;
+    height: $header-height;
+    font-size: 0.8em;
   }
 }

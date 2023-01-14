@@ -58,6 +58,8 @@ function Tag({
       disabled={disabled}
     >
       <p className="tag__text">
+        #
+        {' '}
         {text}
       </p>
       {icon && (

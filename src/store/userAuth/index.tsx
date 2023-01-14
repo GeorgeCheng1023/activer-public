@@ -95,7 +95,9 @@ const userAuthSlice = createSlice({
 export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
 export const getLoadingState = (state: RootState) => state.userAuth.Loading;
 export const getUserRealname = (state: RootState) => state.userAuth.RealName;
+export const getUserPortrait = (state: RootState):string => state.userAuth.Portrait;
 export const getUserData = (state: RootState) => state.userAuth;
+export const getUserNickname = (state: RootState) => state.userAuth.Nickname;
 
 export const {
   setRealName, setEmail, userLogin, userLogout, userUpdate,

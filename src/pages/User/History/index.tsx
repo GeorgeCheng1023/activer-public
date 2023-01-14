@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import { CardRow } from 'components/Card';
+import CardRow from 'components/Card/Row';
 import { TagType } from 'components/Tag';
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';

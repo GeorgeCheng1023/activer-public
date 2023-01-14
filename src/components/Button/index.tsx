@@ -10,14 +10,13 @@ interface ButtonVariantType {
 interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger';
   variant?: ButtonVariantType;
-  size?: 'lg' | 'sm';
   text?: string;
   iconAfter?: JSX.Element;
   iconBefore? : JSX.Element;
 }
 
 function Button({
-  color, variant, text, size, iconAfter, iconBefore, ...props
+  color, variant, text, iconAfter, iconBefore, ...props
 }: ButtonType) {
   // Defined: button classes
   const classes = classNames({
@@ -26,7 +25,6 @@ function Button({
     'button--outline': variant?.outline,
     'button--round': variant?.round,
     'button--reverse-color': variant?.colorReverse,
-    [`button--${size}`]: size,
   });
 
   return (
@@ -56,7 +54,6 @@ Button.defaultProps = {
   color: 'primary',
   text: null,
   variant: undefined,
-  size: undefined,
   iconAfter: null,
   iconBefore: null,
 };

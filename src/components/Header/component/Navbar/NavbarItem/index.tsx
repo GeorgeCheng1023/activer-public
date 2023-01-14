@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './index.scss';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
+import { AnimatePresence } from 'framer-motion';
+import useOutsideClick from 'hooks/event/useOutsideClick';
 
 interface NavbarItemType {
   label: React.ReactNode;
@@ -9,6 +12,7 @@ interface NavbarItemType {
   onClick?: (e: any) => void;
   children?: React.ReactNode;
   afterIcon?: React.ReactNode;
+  className?:string;
 }
 
 function NavbarItem({
@@ -17,10 +21,13 @@ function NavbarItem({
   link,
   onClick,
   afterIcon,
+  className,
 }: NavbarItemType) {
   const [open, setOpen] = useState(false);
   const windowWidth = useWindowWidth();
   const navigate = useNavigate();
+  const childrenRef = useRef<HTMLLIElement>(null);
+  useOutsideClick(childrenRef, () => setOpen(false));
 
   const handleClick:
   React.MouseEventHandler<HTMLAnchorElement | HTMLDivElement> = (e) => {
@@ -34,9 +41,15 @@ function NavbarItem({
     }
   };
 
+  const classes = classNames({
+    navbar__item: true,
+    className,
+  });
+
   return (
     <li
-      className="navbar__item"
+      ref={childrenRef}
+      className={classes}
       onMouseEnter={() => { if (windowWidth > 768) { setOpen(true); } }}
       onMouseLeave={() => { if (windowWidth > 768) { setOpen(false); } }}
     >
@@ -47,14 +60,9 @@ function NavbarItem({
         {label}
         {afterIcon}
       </a>
-      {open && children}
-      {(windowWidth <= 768 && open) && (
-        <div
-          className="navbar__item__backdrop"
-          aria-hidden="true"
-          onClick={handleClick}
-        />
-      ) }
+      <AnimatePresence>
+        {open && children}
+      </AnimatePresence>
     </li>
   );
 }
@@ -64,6 +72,7 @@ NavbarItem.defaultProps = {
   children: null,
   onClick: undefined,
   afterIcon: undefined,
+  className: null,
 };
 
 export default NavbarItem;

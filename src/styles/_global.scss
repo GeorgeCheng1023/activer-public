@@ -1,4 +1,4 @@
-@import "~/src/variables";
+@import "/src/styles/variables";
 
 // responsive
 $min-breakpoints: (mobile: 0,
@@ -21,33 +21,26 @@ desktop: 3000px);
 // scoll
 @mixin scrollbar() {
   &::-webkit-scrollbar-track {
-    border-radius: 10px;
+    border-radius: 1.5px;
     background-color: #f5f5f5;
-    box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
   }
 
   &::-webkit-scrollbar {
-    width: 6px;
-    border-radius: 3px;
-    background-color: #f5f5f5;
+    width: 3px;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
+    border-radius: 1.5px;
     background-color: $primary-font-color;
-    box-shadow: inset 0 0 4px rgb(0 0 0 / 30%);
   }
 }
 
-// button rotate
-@keyframes rotate {
-  from {
-    transform: rotate(0turn);
-  }
-
-  to {
-    transform: rotate(1turn);
-  }
+// container
+@mixin container-main {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 @keyframes rotate {
@@ -60,7 +53,16 @@ desktop: 3000px);
   }
 }
 
-// button loading animation during request
+@keyframes rotate {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @mixin load-button-animation() {
   width: 50px;
   height: 50px;

@@ -1,33 +1,33 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './index.scss';
-// import { BsGearFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 type SidebarLinkProp = {
   text: string,
   url: string,
   icon: React.ReactNode;
-  onClickLink: (text: string) => void;
+
 };
 
 function SidebarLink({
-  text, url, icon, onClickLink,
+  text, url, icon,
 }: SidebarLinkProp) {
-  const clickHandler = () => {
-    onClickLink(text);
-  };
+  const location = useLocation();
+  const sideBarLinkClassName = classNames({
+    'sidebar-link': true,
+    active: location.pathname === url,
+  });
 
   return (
-    <Link to={url} style={{ textDecoration: 'none' }} onClick={clickHandler}>
-      <div className="sidebar-link">
-        <p className="sidebar-link__icon">
-          {icon}
-        </p>
-        <p className="sidebar-link__text">
-          {text}
-        </p>
+    <Link to={url} style={{ textDecoration: 'none' }} className={sideBarLinkClassName}>
+      <i className="sidebar-link__icon">
+        {icon}
+      </i>
+      <div className="sidebar-link__text">
+        {text}
       </div>
+
     </Link>
 
   );

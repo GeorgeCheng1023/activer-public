@@ -10,7 +10,7 @@ function Footer() {
   const [displayProblemReport, setDisplayProblemReport] = useState<boolean>(false);
 
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="footer__connection">
         <h3 className="footer__title">聯絡我們</h3>
         <div className="footer__connection__social-media">
@@ -45,7 +45,7 @@ function Footer() {
         <a href="/">關於我們</a>
         <a href="/">Sitemap</a>
       </div>
-    </div>
+    </footer>
   );
 }
 

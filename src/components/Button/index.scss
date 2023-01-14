@@ -1,31 +1,40 @@
 @use "sass:map";
 @use "sass:color";
-@import "~/src/variables";
+@import "/src/styles/variables";
+@import "/src/styles/global";
+@import "/src/styles/animate";
 
 $btn-config: (
-  primary:(class: "primary",
-  color: white,
-  bg: $primary-color,
-),
-secondary:(class: "secondary",
-color: white,
-bg: $secondary-color,
-),
-success:(class: "success",
-color: white,
-bg: $success-color,
-),
-dark:(class: "dark",
-color: white,
-bg: $primary-font-color,
-),
-white:(class: "white",
-color:$primary-font-color,
-bg: white, ),
-danger:(class:"danger",
-color: white,
-bg:$danger-color)
-);
+  primary:(
+    class: "primary",
+    color: white,
+    bg: $primary-color,
+  ),
+  secondary:(
+    class: "secondary",
+    color: white,
+    bg: $secondary-color,
+  ),
+  success:(
+    class: "success",
+    color: white,
+    bg: $success-color,
+  ),
+  dark:(
+    class: "dark",
+    color: white,
+    bg: $primary-font-color,
+  ),
+  white:(
+    class: "white",
+    color:$primary-font-color,
+    bg: white
+  ),
+  danger:(
+    class:"danger",
+    color: white,
+    bg:$danger-color)
+  );
 
 @mixin set-color($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;
@@ -45,33 +54,22 @@ bg:$danger-color)
       @include set-color($bg, $color, $bg);
 
       &:hover:not([disabled]) {
-        border-color: color.adjust($bg, $lightness: -10%);
-        background-color: color.adjust($bg, $lightness: -10%);
+        @include ripple($bg, -10%);
       }
     }
   }
 
   display: flex;
-  gap: 10px;
+  gap: 0.5em;
   justify-content: center;
   align-items: center;
   width: fit-content;
-  height: fit-content;
-  padding: 0.6em 1.8em;
-  border-radius: 0.8em;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
   font-size: 1em;
-  letter-spacing: 1px;
+  line-height: 1em;
   cursor: pointer;
   transition-duration: 0.3s;
-
-  &--lg {
-    font-size: 1.5em;
-  }
-
-  &--sm {
-    padding: 0.4em 1.8em;
-    font-size: 0.8em;
-  }
 
   // outline variant
   &.button--outline {
@@ -84,8 +82,8 @@ bg:$danger-color)
       &.button--#{$class} {
         @include set-color($bg, $bg, $color);
 
-        &:hover:not([disabled]) {
-          background-color: color.adjust($bg, $lightness: 25%);
+        &:not([disabled]) {
+          @include ripple($bg, 30%);
         }
       }
     }
@@ -93,8 +91,8 @@ bg:$danger-color)
 
   // round variant
   &.button--round {
-    width: 40px !important;
-    height: 40px;
+    width: 3em;
+    height: 3em;
     padding: 1em;
     border-radius: 50%;
   }
@@ -110,8 +108,8 @@ bg:$danger-color)
       &.button--#{$class} {
         @include set-color($color, $bg, $color);
 
-        &:hover:not([disabled]) {
-          background-color: color.adjust($color, $lightness: -10%);
+        &:not([disabled]) {
+          @include ripple($bg, 30%);
         }
       }
     }

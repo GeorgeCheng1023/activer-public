@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
-
-import { Card } from 'components/Card';
+import Card from 'components/Card/Default';
 import { TagDataType } from 'types/ActivityDataType';
 import { TagType } from 'components/Tag';
 import Button from 'components/Button';
@@ -17,7 +16,7 @@ function TrendActivity() {
   // TODO: fetch data
 
   return (
-    <div className="trend-activity">
+    <section className="trend-activity">
       <div className="home__header">
         <h2 className="home__title">
           <FaHotjar />
@@ -31,6 +30,7 @@ function TrendActivity() {
           .map((data) => (
             <Card
               id={data.Id.toString()}
+              key={`trend-activity-${data.Id.toString()}`}
               imgUrl={data.Image ? data.Image[0] : '/DefaultActivityPng.png'}
               title={data.Title}
               altText={data.Title}
@@ -44,7 +44,7 @@ function TrendActivity() {
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 
       </div>
-    </div>
+    </section>
   );
 }
 

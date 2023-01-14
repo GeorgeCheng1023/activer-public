@@ -1,25 +1,44 @@
 import React from 'react';
 import './index.scss';
+import { motion } from 'framer-motion';
 
 interface FeatureItemType {
   title : string;
   titleIcon: React.ReactNode;
-  img: string;
   detail: string;
 }
 
+const itemVariants = {
+  hidden: {
+    scale: 1,
+    opacity: 0,
+    x: 100,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
 function FeatureItem({
-  title, titleIcon, img, detail,
+  title, titleIcon, detail,
 }: FeatureItemType) {
   return (
-    <div className="feature__item">
-      <div className="feature__title">
-        {titleIcon}
+    <motion.div
+      className="feature__item"
+      whileHover={{ scale: 1.05 }}
+      variants={itemVariants}
+    >
+      <div className="feature__item__title">
+        <span className="feature__item__icon">{titleIcon}</span>
         <h3>{title}</h3>
       </div>
-      <img className="feature__img" src={img} alt={title} />
+
       <p className="feature__detail">{detail}</p>
-    </div>
+    </motion.div>
   );
 }
 

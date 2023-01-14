@@ -1,5 +1,5 @@
-@import "~/src/variables";
-@import "~/src/global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 .navbar__dropdown {
   @include media(mobile, tablet) {
@@ -8,15 +8,16 @@
     right: 0;
     z-index: $zindex-modal-panel;
     height: 100%;
+    box-shadow: 0 0 0 1600px rgb(0 0 0 / 65%);
   }
 
   position: absolute;
-  top: 1.6em;
+  top: calc($header-height - 8px);
   z-index: $zindex-dropdown;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  width: 8em;
+  min-width: 130px;
   padding: 0.2em;
   border: 1px solid $secondary-font-color;
   border-radius: 0.2em;

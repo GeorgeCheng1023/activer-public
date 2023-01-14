@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 // components
 import ManageNav from 'components/ManageNav';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
-import { CardRow } from 'components/Card';
+import CardRow from 'components/Card/Row';
 
 import { useParseTagDataArray } from 'hooks/tag';
 import { UserActivityDataType } from 'types/ActivityDataType';

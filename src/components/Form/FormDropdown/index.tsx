@@ -32,7 +32,7 @@ function FormDropDown({
       && (
         <label
           htmlFor={id}
-          className="dropdown__label"
+          className="dropdown__label active"
         >
           {label}
         </label>

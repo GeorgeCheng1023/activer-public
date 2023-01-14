@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './index.scss';
 
@@ -6,23 +6,18 @@ import './index.scss';
 import Basic from './Basic';
 import Account from './Account';
 import History from './History';
+import Main from './Main';
 import Manage from './Manage';
 import Preferences from './Preferences';
 import SideBar from './components/SideBar';
-import Banner from './components/Banner';
+import UserHeader from './components/UserHeader';
 
 function User() {
-  const [currentText, setCurrentText] = useState('');
-
-  const changeTextHandler = (text: string) => {
-    setCurrentText(text);
-  };
-
   return (
     <>
-      <Banner text={currentText} />
+      <UserHeader />
       <div className="user__container">
-        <SideBar onChangeText={changeTextHandler} />
+        <SideBar />
         <div className="user__main-content">
           <Outlet />
         </div>
@@ -33,6 +28,7 @@ function User() {
 
 export {
   Basic, Account, History, Manage, Preferences,
+  Main,
 };
 
 export default User;

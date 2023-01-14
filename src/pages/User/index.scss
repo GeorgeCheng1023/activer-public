@@ -1,18 +1,28 @@
-@import "~/src/global";
-@import "~/src/variables";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 .user {
   &__container {
+    @include media(mobile,tablet) {
+      flex-direction: column;
+    }
+
     display: flex;
+    flex-grow: 1;
+    height: 100%;
   }
 
   &__main-content {
     @include media(mobile, tablet) {
       width: 100%;
+      margin-left: 0;
+      padding-top: $sidebar-height;
     }
 
-    width: 80%;
+    width: 100%;
     min-height: 100vh;
-    margin: 0 auto;
+    margin-left: $sidebar-width;
+    padding: 1em 2em;
+    background-color: $user-main-content-color;
   }
 }

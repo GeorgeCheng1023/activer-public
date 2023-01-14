@@ -4,7 +4,7 @@ import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Login/components/Register';
 import User, {
-  Basic, Account, History, Preferences, Manage,
+  Basic, Account, History, Preferences, Manage, Main,
 } from 'pages/User';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
@@ -59,45 +59,7 @@ export const routerConfig = [
             path: '/search',
             element: <Search />,
           },
-          {
-            element: <Admin />,
-            children: [
-              {
-                path: '/user',
-                element: <User />,
-                children: [
-                  {
-                    index: true,
-                    path: 'basic',
-                    element: <Basic />,
-                  },
-                  {
-                    path: 'account',
-                    element: <Account />,
-                  },
-                  {
-                    path: 'manage',
-                    element: <Manage />,
-                  },
-                  {
-                    path: 'history',
-                    element: <History />,
 
-                  },
-                  {
-                    path: 'preferences',
-                    element: <Preferences />,
-                  },
-                  {
-                    path: 'record',
-                    element: <Record />,
-                  },
-
-                ],
-              },
-
-            ],
-          },
         ],
       },
 
@@ -115,37 +77,18 @@ export const routerConfig = [
       },
     ],
   },
-];
-
-/*
-export const routerConfig = [
   {
-    path: '/',
-    element: <Root />,
+    element: <Admin />,
     children: [
-      {
-        path: '/login',
-        element: <Login />,
-      },
-      {
-        path: '/register',
-        element: <Register />,
-      },
-      {
-        path: '/',
-        element: <Home />,
-      },
-      {
-        path: '/search',
-        element: <Search />,
-      },
-
       {
         path: '/user',
         element: <User />,
         children: [
           {
             index: true,
+            element: <Main />,
+          },
+          {
             path: 'basic',
             element: <Basic />,
           },
@@ -173,16 +116,9 @@ export const routerConfig = [
 
         ],
       },
-
-      {
-        path: '/detail',
-        element: <Detail />,
-      },
-
     ],
   },
 ];
-*/
 
 function getConfig() {
   return routerConfig;

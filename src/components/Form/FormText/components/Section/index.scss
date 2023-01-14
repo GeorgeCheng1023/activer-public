@@ -1,4 +1,5 @@
-@import "~/src/variables";
+@import "/src/styles/variables";
+@import "/src/styles/global";
 
 @mixin input-section-container {
   width: 100%;

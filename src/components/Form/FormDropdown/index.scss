@@ -1,20 +1,14 @@
-@import "~/src/variables";
-@import "~/src/global";
+@import "/src/styles/variables";
+@import "/src/styles/global";
+@import "../index";
 
 .dropdown {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: fit-content;
-  color: $primary-font-color;
-  font-size: 1rem;
 
   &__label {
-    position: absolute;
-    left: 0.6em;
-    z-index: $zindex-dropdown-label;
-    padding: 0 0.5em;
-    background-color: #fff;
+    @include style-label;
   }
 
   &::-ms-expand {
@@ -22,12 +16,9 @@
   }
 
   &__select {
-    position: relative;
-    margin-top: 1rem;
-    padding: 1em 3.5em 1em 1em;
-    border-color: $secondary-font-color;
-    border-radius: 4px;
-    background-color: white;
+    @include style-input;
+
+    padding-left: 1em;
 
     // arrow
     background-image:
@@ -43,7 +34,6 @@
       5px 5px,
       1px 1.5em;
     background-repeat: no-repeat;
-    line-height: 1rem;
 
     /* reset */
     box-sizing: border-box;
