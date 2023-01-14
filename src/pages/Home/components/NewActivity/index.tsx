@@ -3,7 +3,7 @@ import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
 import { TagDataType } from 'types/ActivityDataType';
 import { TagType } from 'components/Tag';
-import { Card } from 'components/Card';
+import Card from 'components/Card/Default';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { FcPositiveDynamic } from 'react-icons/fc';
 import dummyData from './dummyTrendActivity.json';

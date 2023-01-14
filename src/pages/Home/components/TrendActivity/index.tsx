@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
-
-import { Card } from 'components/Card';
+import Card from 'components/Card/Default';
 import { TagDataType } from 'types/ActivityDataType';
 import { TagType } from 'components/Tag';
 import Button from 'components/Button';
