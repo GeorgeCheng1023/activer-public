@@ -64,21 +64,17 @@ desktop: 3000px);
   height: 50px;
   margin: auto;
   border: solid 9px $primary-color;
-  border-right-color: transparent;
 
-  // border-left-color: transparent;
-  border-bottom-color: transparent;
+  // border-right-color: transparent;
+  // border-bottom-color: transparent;
+  border-left-color: transparent;
   border-radius: 50%;
 
   // transition: all 0.5s ease-in;
   animation-name: rotate;
-  animation-name: rotate;
 
   // -webkit-transition: all 0.5s ease-in;
   animation-duration: 1s;
-  animation-duration: 1s;
   animation-timing-function: ease;
-  animation-timing-function: ease;
-  animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }

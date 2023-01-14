@@ -2,7 +2,12 @@ import Button from 'components/Button';
 import FormInput from 'components/Form/FormInput';
 import React, { useState } from 'react';
 import './index.scss';
-import { apiUserResetPwd } from 'api/axios';
+import { apiUserResetPwd, apiUserChangePwd } from 'api/axios';
+import { useCookies } from 'react-cookie';
+import { useAppSelector } from 'hooks/redux';
+import { getUserData } from 'store/userAuth';
+import { Link } from 'react-router-dom';
+import Model from '../Login/components/modal';
 
 // regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -13,6 +18,9 @@ function NewPwd() {
   const [confirmNewPassword, setconfirmNewPassword] = useState<string>('');
   const [errmsg, setErrmsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [cookies] = useCookies<string>(['user']);
+  const userData = useAppSelector(getUserData);
+  const [success, setSuccess] = useState<boolean>(false);
 
   const handleNewPasswordChange = (key: any, value: any) => {
     setNewPasswords(value);
@@ -26,12 +34,20 @@ function NewPwd() {
     e.preventDefault();
     if (newPassword === confirmNewPassword) {
       setLoading(true);
+      let response;
       try {
-        const response = await apiUserResetPwd(newPassword);
+        if (userData.IsLoggedIn) {
+          response = await apiUserChangePwd(newPassword, cookies.sessionToken);
+        } else {
+          response = await apiUserResetPwd(newPassword);
+        }
+        setSuccess(true);
         console.log(response);
       } catch (err: any) {
         if (!err.response) {
           setErrmsg('伺服器無回應');
+        } else if (err.response.status === 401) {
+          setErrmsg('驗證碼不正確或已過期');
         } else {
           setErrmsg('伺服器懶蛋');
         }
@@ -53,6 +69,18 @@ function NewPwd() {
 
   return (
     <div className="new-pwd__container">
+      <Model open={success} onClose={() => setSuccess(false)}>
+        <div className="new-pwd__model">
+          <figure className="new-pwd__model-figure">
+            <img className="new-pwd__model-icon" src="ok.png" alt="ok" />
+            <h1>密碼更改成功</h1>
+          </figure>
+          <Link to="/">
+            <Button text="回到首頁" />
+          </Link>
+        </div>
+      </Model>
+
       <div className="new-pwd__errmsg">{errmsg}</div>
       <main className="new-pwd">
         <form className="new-pwd__form" onSubmit={handleSubmit}>
