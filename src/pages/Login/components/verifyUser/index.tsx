@@ -76,7 +76,7 @@ function Verify() {
     } catch (err: any) {
       if (err.response.status === 401) {
         console.log('驗證碼不正確或已過期');
-        setErrmsg('驗證碼不正確');
+        setErrmsg('驗證碼不正確或已過期');
       } else {
         console.log('伺服器懶蛋');
       }

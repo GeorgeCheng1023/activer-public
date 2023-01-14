@@ -63,4 +63,25 @@
   &__button-load-animation {
     @include load-button-animation;
   }
+
+  &__model {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 3.5rem;
+  }
+
+  &__model-figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__model-icon {
+    width: 7rem;
+    height: 7rem;
+  }
 }

@@ -38,22 +38,4 @@ declare global {
     sessionToken: string, // auth
   }
 
-  interface UserState {
-    IsLoggedIn: boolean,
-    realName: string,
-    nickName: string,
-    email: string,
-    verify: boolean,
-    portrait: string,
-    gender: string,
-    birthday: string,
-    profession: string,
-    phone: string,
-    county: string,
-    area: string,
-    accessToken: string,
-    activityHistory: Array<number>,
-    tagHistory: Array<number>,
-    Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
-  }
 }

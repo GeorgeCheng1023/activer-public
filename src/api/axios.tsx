@@ -94,7 +94,7 @@ export const apiUserVerifyAndChangePwd = (accessToken: string) => axiosTest.get(
   },
 );
 
-export const apiUserChangePwd = (accessToken: string, newPassword: string) => axiosTest.post(
+export const apiUserChangePwd = (newPassword: string, accessToken: string) => axiosTest.post(
   USER_CHANGE_PWD,
   JSON.stringify({ newPassword }),
   {
@@ -103,7 +103,7 @@ export const apiUserChangePwd = (accessToken: string, newPassword: string) => ax
       'Content-Type': 'application/json',
     },
     params: {
-      verifycode: '4KALPH',
+      verifycode: '7D31WD',
     },
   },
 );
@@ -126,6 +126,10 @@ export const apiUserResetPwd = (newPassword: string) => axiosTest.post(
   {
     headers: {
       'Content-Type': 'application/json',
+    },
+    params: {
+      verifycode: '5JXLK8',
+      email: '047633597q@gmail.com',
     },
   },
 );
