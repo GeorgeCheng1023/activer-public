@@ -16,7 +16,7 @@ import Loading from 'pages/Loading';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 import Verify from 'pages/Login/components/verifyUser/index';
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
-import ResetPwd from 'pages/Login/components/ResetPassword';
+import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailVerify from 'pages/Login/components/EmailCheck';
 
 export const routerConfig = [

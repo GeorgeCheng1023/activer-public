@@ -4,6 +4,24 @@ import {
 import type { RootState } from 'store';
 import { apiUserGoogleData } from 'api/axios';
 
+interface UserState {
+  IsLoggedIn: boolean,
+  realName: string,
+  nickName: string,
+  email: string,
+  verify: boolean,
+  portrait: string,
+  gender: string,
+  birthday: string,
+  profession: string,
+  phone: string,
+  county: string,
+  area: string,
+  activityHistory: Array<number>,
+  tagHistory: Array<number>,
+  Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
+}
+
 const initialState: UserState = {
   IsLoggedIn: false,
   Loading: 'idle',
@@ -18,7 +36,6 @@ const initialState: UserState = {
   phone: '',
   county: '',
   area: '',
-  accessToken: '',
   activityHistory: [],
   tagHistory: [],
 };
@@ -55,8 +72,8 @@ const userAuthSlice = createSlice({
     }),
     userUpdate: (state, action: PayloadAction<any>) => ({
       ...state,
-      ...action.payload,
       IsLoggedIn: true,
+      ...action.payload,
     }),
   },
   extraReducers: (builder) => {

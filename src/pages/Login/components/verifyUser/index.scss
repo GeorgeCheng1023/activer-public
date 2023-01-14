@@ -1,15 +1,16 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-.new-pwd {
+.verify-user {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50vw;
-  height: inherit;
+  height: 60vh;
 
   &__container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,35 +18,113 @@
     height: 70vh;
   }
 
-  &__title {
-    font-size: 2rem;
+  &__errmsg {
+    position: absolute;
+    top: 2rem;
+    color: $danger-color;
+    font-weight: 600;
+    font-size: 1.5rem;
   }
 
-  &__subtitle {
-    margin-top: 2rem;
+  &__section {
+    @include media(tablet) {
+      gap: 1rem;
+    }
+
+    @include media(mobile) {
+      gap: 0.5rem;
+    }
+
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+
+    // border: 1px gray solid;
+
+    &__code {
+      @include media(mobile) {
+        width: 2.7rem;
+        height: 2.7rem;
+      }
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border: 1px hsl(100deg 4% 27%) solid;
+      border-radius: 100%;
+
+      &--focus {
+        // border-color: hsl(40, 92%, 61%);
+        border-color: hsl(0deg 92% 100%);
+        box-shadow: 0 0 5px 1.5px hsl(40deg 92% 61%);
+        transition: all 0.2s ease;
+      }
+    }
+
+    &__number {
+      @include media(mobile) {
+        font-size: 1.4rem;
+      }
+
+      width: 1.8ch;
+      height: 2rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    &__number::-webkit-inner-spin-button {
+      appearance: none;
+    }
+
+    &__number::placeholder {
+      color: hsl(98deg 4% 69%);
+    }
   }
 
-  &__text-field {
-    width: 22vw;
+  &__resend {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
 
-    @media screen and (min-width: 1024px) and (max-width: 1440px) {
-      width: 25vw;
+    &__text {
+      font-weight: 800;
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-      width: 35vw;
+    &__btn {
+      color: hsl(110deg 4% 67%);
+      font-weight: 600;
+      font-size: 0.8rem;
     }
 
-    @media screen and (min-width: 425px) and (max-width: 768px) {
-      width: 20rem;
-    }
-
-    @media screen and (max-width: 425px) {
-      width: 70vw;
+    &__btn:hover,
+    &__btn:active {
+      color: hsl(40deg 92% 61%);
     }
   }
 
-  &__submit-btn {
-    margin-top: 2rem;
+  &__model {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 60vh;
+
+    &__img {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
+  &__load-animation {
+    @include load-button-animation;
+
+    margin: 0 auto;
   }
 }

@@ -25,11 +25,13 @@ function Basic() {
   };
 
   const updateUserDatabase = async (userFormData: FormData) => {
-    userFormData.append('id', userData.Id);
-    userFormData.append('sessionToken', userData.SessionToken);
-    userFormData.append('email', userData.Email);
-    userFormData.append('password', userData.Password);
-    userFormData.append('verify', userData.verify);
+    const userDataEntries = Object.entries(userData);
+    userDataEntries.forEach((entry: any) => {
+      if (!userFormData.has(`${entry[0]}`)) {
+        userFormData.append(`${entry[0]}`, entry[1]);
+        // console.log(entry[0], userFormData.get(`${entry[0]}`));
+      }
+    });
 
     try {
       const response = await apiUserUpdate(userFormData);

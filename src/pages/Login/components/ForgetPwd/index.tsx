@@ -5,6 +5,7 @@ import './index.scss';
 // components
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
+import { apiUserVerifyAndResetPwd } from 'api/axios';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/;
@@ -17,6 +18,8 @@ function ForgetPwd() {
   const [email, setEmail] = useState<string>('');
   const [errmsg, setErrmsg] = useState<string>('');
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleChange = (key: any, value: any) => {
     setEmail(value);
   };
@@ -25,12 +28,24 @@ function ForgetPwd() {
     setErrmsg('');
   }, [email]);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (EMAIL_REGEX.test(email)) {
       console.log('success');
-      navigate('/resetPwd');
+      setLoading(true);
+      try {
+        const response = await apiUserVerifyAndResetPwd(email);
+        console.log(response);
+        navigate('/email/verify');
+      } catch (err: any) {
+        if (!err.response) {
+          setErrmsg('伺服器沒有回應');
+        } else {
+          console.log(err);
+        }
+      }
+      setLoading(false);
     } else {
       setErrmsg('電子信箱格式錯誤');
     }
@@ -59,9 +74,13 @@ function ForgetPwd() {
         <p className="forgot-pwd__back-btn">回到登入畫面</p>
       </Link>
 
-      <div className="forgot-pwd__submit-btn">
-        <Button text="寄出" color="secondary" onClick={handleClick} />
-      </div>
+      {loading
+        ? <div className="forgot-pwd__button-load-animation" />
+        : (
+          <div className="forgot-pwd__submit-btn">
+            <Button text="寄出" color="secondary" onClick={handleClick} />
+          </div>
+        )}
     </main>
   );
 }

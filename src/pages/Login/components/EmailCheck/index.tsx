@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import Button from 'components/Button';
 import { useAppSelector } from 'hooks/redux';
 import { getUserData } from 'store/userAuth';
+import { useCookies } from 'react-cookie';
+import { apiUserVerifyAndChangePwd, apiUserVerifyAndResetPwd } from 'api/axios';
 
 function EmailVerify() {
   const userData = useAppSelector(getUserData);
+  const [cookies] = useCookies<string>(['user']);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleResent = () => {
-    console.log('resent');
+  const handleResent = async () => {
+    setLoading(true);
+    if (userData.isLoggedIn) {
+      await apiUserVerifyAndChangePwd(cookies.sessionToken);
+    } else {
+      await apiUserVerifyAndResetPwd(userData.email);
+    }
+    setLoading(false);
   };
 
   const hideEmail = (email: string) => email.replace(email.slice(1, 4), '****');
@@ -29,9 +39,13 @@ function EmailVerify() {
           <br />
           您需要驗證您的電子郵件地址才能登錄
         </h4>
-        <div className="email-verify__resent-btn">
-          <Button onClick={handleResent} color="secondary" text="重新發送" />
-        </div>
+        {loading
+          ? <div className="email-verify__button-load-animation" />
+          : (
+            <div className="email-verify__resent-btn">
+              <Button onClick={handleResent} color="secondary" text="重新發送" />
+            </div>
+          )}
       </main>
     </div>
   );

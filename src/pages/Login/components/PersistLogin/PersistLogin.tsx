@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useCookies } from 'react-cookie';
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';

@@ -37,6 +37,12 @@
     margin: 2rem 0;
   }
 
+  &__button-load-animation {
+    @include load-button-animation;
+
+    margin: 2rem 0;
+  }
+
   &__back-btn {
     font-weight: 600;
     font-size: 0.8rem;

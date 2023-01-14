@@ -127,7 +127,7 @@ function Register() {
       } else if (err.response?.status === 400) {
         setErrMsg('帳號和密碼不能空白');
       } else if (err.response?.status === 409) {
-        setErrMsg('該名稱已註冊過');
+        setErrMsg('電子郵件已被註冊過');
       } else {
         setErrMsg('註冊失敗');
       }
