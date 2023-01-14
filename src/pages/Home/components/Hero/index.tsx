@@ -3,8 +3,8 @@ import './index.scss';
 
 // component
 import Button from 'components/Button';
-import Earth from './components/Earth.png';
-import Star from './components/Star.png';
+import { ReactComponent as Earth } from './components/Earth.svg';
+import { ReactComponent as Star } from './components/Star.svg';
 
 function Hero() {
   // handle search bar submit
@@ -33,9 +33,9 @@ function Hero() {
           />
         </div>
         <div className="hero__right">
-          <img src={Earth} alt="hero-earth" />
+          <Earth />
           <div className="hero__stars">
-            {Array(8).fill(0).map(() => (<img src={Star} alt="hero-star" />))}
+            {Array(8).fill(0).map(() => (<Star />))}
           </div>
         </div>
 

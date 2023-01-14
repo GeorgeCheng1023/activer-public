@@ -6,11 +6,21 @@
     flex-direction: row;
   }
 
-  @include scrollbar;
-
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   overflow-x: scroll;
   padding: 1em;
+
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary-font-color;
+  }
+
+  &::-webkit-scrollbar-button {
+    color: red;
+  }
 }

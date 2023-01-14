@@ -2,7 +2,7 @@ import React from 'react';
 import { FcCandleSticks, FcProcess, FcDataRecovery } from 'react-icons/fc';
 import { motion } from 'framer-motion';
 import FeatureItem from './FeatureItem';
-import Jupiter from './Jupiter.png';
+import { ReactComponent as Jupiter } from './Jupiter.svg';
 import './index.scss';
 
 function Feature() {
@@ -13,15 +13,15 @@ function Feature() {
       <div
         className="feature__left"
       >
-        <motion.img
-          src={Jupiter}
-          alt="jupiter"
+        <motion.div
           initial={{ scale: 0, rotate: 0, opacity: 0 }}
           whileInView={{ scale: 1, rotate: 360, opacity: 1 }}
           whileHover={{ rotate: 330 }}
           viewport={{ amount: 1, once: true }}
           transition={{ duration: 0.8 }}
-        />
+        >
+          <Jupiter />
+        </motion.div>
       </div>
       <motion.div
         className="feature__right"
