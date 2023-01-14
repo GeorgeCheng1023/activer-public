@@ -2,13 +2,6 @@
 @import "/src/styles/global";
 
 .user-basic {
-  @include media(mobile, tablet) {
-    margin: 2rem 3%;
-  }
-
-  margin: 2rem 5%;
-  font-size: 1.2em;
-
   &__portrait {
     display: flex;
     flex-direction: column;
