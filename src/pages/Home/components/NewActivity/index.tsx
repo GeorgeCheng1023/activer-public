@@ -31,6 +31,7 @@ function NewActivity() {
               id={data.Id.toString()}
               imgUrl={data.Image ? data.Image[0] : '/DefaultActivityPng.png'}
               title={data.Title}
+              key={`new-activity-${data.Id.toString()}`}
               altText={data.Title}
               tags={data.Tags.map((tag: TagDataType) => ({
                 id: tag.Id.toString(),

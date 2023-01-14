@@ -50,8 +50,8 @@ function TrendTag() {
             currentFilterId={currentClassifyId}
           />
           <div className="trend-tag__class__tags">
-            {Array(3).fill(0).map(() => (
-              <div className="trend-tag__item">
+            {Array(3).fill(0).map((element, index) => (
+              <div className="trend-tag__item" key={`trend-tag-item-${element}${index}`}>
                 <div className="trend-tag__item__hashtag">
                   <Button
                     color="primary"

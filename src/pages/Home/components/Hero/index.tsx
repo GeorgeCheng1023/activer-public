@@ -35,7 +35,7 @@ function Hero() {
         <div className="hero__right">
           <Earth />
           <div className="hero__stars">
-            {Array(8).fill(0).map(() => (<Star />))}
+            {Array(8).fill(0).map((element, index) => (<Star key={`hero-star-${element}${index}`} />))}
           </div>
         </div>
 

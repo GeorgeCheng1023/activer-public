@@ -30,6 +30,7 @@ function TrendActivity() {
           .map((data) => (
             <Card
               id={data.Id.toString()}
+              key={`trend-activity-${data.Id.toString()}`}
               imgUrl={data.Image ? data.Image[0] : '/DefaultActivityPng.png'}
               title={data.Title}
               altText={data.Title}
