@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const IP = '36.236.61.181';
+const IP = '36.236.28.96';
 const PORT = '5044';
 
 const TEST_URL = `http://${IP}:${PORT}`;
@@ -12,7 +12,8 @@ const REGISTER_URL = '/api/user/auth/signup';
 const USER_AUTH_TOKEN_URL = '/api/user/auth/token';
 const USER_VERIFY_URL = '/api/user/auth/verify/email';
 const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
-const USER_RESET_PWD = '/api/User/auth/changepassword';
+const USER_CHANGE_PWD = '/api/User/auth/changepassword';
+const USER_RESET_PWD = '/api/User/auth/resetpassword';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
@@ -84,8 +85,8 @@ export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
   },
 );
 
-export const apiUserVerifyAndResetPwd = (accessToken: string) => axiosTest.get(
-  USER_RESET_PWD,
+export const apiUserVerifyAndChangePwd = (accessToken: string) => axiosTest.get(
+  USER_CHANGE_PWD,
   {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -93,12 +94,34 @@ export const apiUserVerifyAndResetPwd = (accessToken: string) => axiosTest.get(
   },
 );
 
-export const apiUserResetPwd = (accessToken: string, newPassword: string) => axiosTest.post(
-  USER_RESET_PWD,
+export const apiUserChangePwd = (accessToken: string, newPassword: string) => axiosTest.post(
+  USER_CHANGE_PWD,
   JSON.stringify({ newPassword }),
   {
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  },
+);
+
+export const apiUserVerifyAndResetPwd = (email: string) => axiosTest.get(
+  USER_RESET_PWD,
+  {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    params: {
+      email,
+    },
+  },
+);
+
+export const apiUserResetPwd = (newPassword: string) => axiosTest.post(
+  USER_RESET_PWD,
+  JSON.stringify({ newPassword }),
+  {
+    headers: {
       'Content-Type': 'application/json',
     },
   },

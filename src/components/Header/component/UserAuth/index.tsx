@@ -25,6 +25,7 @@ function LoginLogoutButton() {
   }, []);
   // Login Handler
   const handleLoginClick = useCallback(() => {
+    console.log(userIsLoggined);
     if (!userIsLoggined) {
       navigate('/login', { replace: true });
     } else {

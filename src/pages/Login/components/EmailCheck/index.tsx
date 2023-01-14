@@ -3,12 +3,14 @@ import './index.scss';
 import Button from 'components/Button';
 import { useAppSelector } from 'hooks/redux';
 import { getUserData } from 'store/userAuth';
+import { useNavigate } from 'react-router-dom';
 
 function EmailVerify() {
   const userData = useAppSelector(getUserData);
+  const navigete = useNavigate();
 
   const handleResent = () => {
-    console.log('resent');
+    navigete(-1);
   };
 
   const hideEmail = (email: string) => email.replace(email.slice(1, 4), '****');

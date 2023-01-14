@@ -15,17 +15,17 @@ import FAQTag from 'components/FAQ-Tag';
 import { apiUserLogin, apiUserResendVerify } from 'api/axios';
 import { useAppSelector } from 'hooks/redux';
 import Button from '../../../../components/Button';
-import FormText from '../../../../components/Form/FormText';
 import GoogleLoginButton from '../GoogleLogin';
 import { useAppDispatch } from '../../../../hooks/redux/index';
 import Modal from './components/modal';
+import FormInput from '../../../../components/Form/FormInput/index';
 
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function LoginSection() {
   const dispatch = useAppDispatch();
-  const userData = useAppSelector(getUserData);
+  const userData: any = useAppSelector(getUserData);
 
   const navigate = useNavigate();
 
@@ -35,14 +35,20 @@ function LoginSection() {
   const errRef = useRef<HTMLInputElement | null>(null);
 
   const [user, setUser] = useState<string>('');
-  const [userFocus, setUserFocus] = useState<boolean>(false);
 
   const [pwd, setPwd] = useState<string>('');
   const [validPwd, setValidPwd] = useState<boolean>(true);
-  const [pwdFocus, setPwdFocus] = useState<boolean>(false);
 
   const [errMsg, setErrMsg] = useState<string>('');
   const [emailVerified, setEmailVerified] = useState<boolean>(true);
+
+  const handleUserChange = (key: any, value: any) => {
+    setUser(value);
+  };
+
+  const handlePwdChange = (key: any, value: any) => {
+    setPwd(value);
+  };
 
   useEffect(() => {
     userRef.current?.focus();
@@ -51,14 +57,6 @@ function LoginSection() {
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd) || pwd === '');
   }, [pwd]);
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [userFocus]);
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [pwdFocus]);
 
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -152,30 +150,25 @@ function LoginSection() {
         <h1 className="login-section__title">登入</h1>
 
         <section className="login-section__text-field">
-          <FormText
-            variant="default"
-            labelText="帳號"
+          <FormInput
+            id="user"
+            label="帳號"
             placeholder="輸入您的電子信箱"
-            inputType="email"
-            ref={userRef}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUser(e.target.value)}
-            value={user}
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)}
+            type="email"
+            onChange={handleUserChange}
+            formValue={user}
             required
           />
         </section>
 
         <section className="login-section__text-field">
-          <FormText
-            variant="default"
-            labelText="密碼"
+          <FormInput
+            id="password"
+            label="密碼"
             placeholder="輸入您的密碼"
-            inputType="password"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPwd(e.target.value)}
-            value={pwd}
-            onFocus={() => setPwdFocus(true)}
-            onBlur={() => setPwdFocus(false)}
+            type="password"
+            onChange={handlePwdChange}
+            formValue={pwd}
             required
           />
         </section>

@@ -1,6 +1,6 @@
 @import "~/src/global";
 
-.Reset-pwd {
+.new-pwd {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,8 +8,20 @@
   width: 100vw;
   height: 70vh;
 
+  &__container {
+    position: relative;
+    height: 80vh;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__title {
-    margin: 2rem 0;
+    margin-top: 3rem;
     font-size: 2rem;
   }
 
@@ -38,5 +50,17 @@
     font-weight: 600;
     font-size: 0.8rem;
     opacity: 0.55;
+  }
+
+  &__errmsg {
+    position: absolute;
+    top: 0;
+    color: $danger-color;
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+
+  &__button-load-animation {
+    @include load-button-animation;
   }
 }

@@ -1,4 +1,4 @@
-@import "~/src/_variables";
+/* stylelint-disable scss/at-import-no-partial-leading-underscore */
 @import "~/src/_global";
 
 .forgot-pwd {
@@ -34,6 +34,12 @@
   }
 
   &__submit-btn {
+    margin: 2rem 0;
+  }
+
+  &__button-load-animation {
+    @include load-button-animation;
+
     margin: 2rem 0;
   }
 

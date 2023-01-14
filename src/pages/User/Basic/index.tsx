@@ -24,11 +24,13 @@ function Basic() {
   };
 
   const updateUserDatabase = async (userFormData: FormData) => {
-    userFormData.append('id', userData.Id);
-    userFormData.append('sessionToken', userData.SessionToken);
-    userFormData.append('email', userData.Email);
-    userFormData.append('password', userData.Password);
-    userFormData.append('verify', userData.verify);
+    const userDataEntries = Object.entries(userData);
+    userDataEntries.forEach((entry: any) => {
+      if (!userFormData.has(`${entry[0]}`)) {
+        userFormData.append(`${entry[0]}`, entry[1]);
+        // console.log(entry[0], userFormData.get(`${entry[0]}`));
+      }
+    });
 
     try {
       const response = await apiUserUpdate(userFormData);
@@ -84,7 +86,7 @@ function Basic() {
             <img className="user-basic__portrait img" src={values.Portrait || '/user.png'} alt="user-portrait" />
             <div className="user-basic__portrait upload-button">
               <FormInputFile
-                name="Portrait"
+                name="portrait"
                 setImageSrc={setImageSrc}
                 accept="image/*"
                 id="user-basic__portrait__upload"
@@ -95,7 +97,7 @@ function Basic() {
           <div className="user-basic__input user-basic__input__nick-name">
             <FormInput
               id="nick_name"
-              name="NickName"
+              name="nickName"
               label="暱稱"
               type="text"
               placeholder="輸入暱稱姓名"
@@ -110,7 +112,7 @@ function Basic() {
           <div className="user-basic__input user-basic__input__real-name">
             <FormInput
               id="real_name"
-              name="RealName"
+              name="realName"
               label="真實姓名"
               type="text"
               placeholder="輸入真實姓名"
@@ -125,7 +127,7 @@ function Basic() {
               <FormDropDown
                 id="gender"
                 label="性別"
-                name="Gender"
+                name="gender"
                 options={['男性', '女性', '其他', '隱藏']}
                 value={values.Gender}
                 onChange={handleChange}
@@ -134,7 +136,7 @@ function Basic() {
             <div className="user-basic__input user-basic__input__birthday">
               <FormInput
                 id="Birthday"
-                name="Birthday"
+                name="birthday"
                 label="生日"
                 type="date"
                 placeholder="請選擇出生年月日"
@@ -146,7 +148,7 @@ function Basic() {
           <div className="user-basic__input user-basic__input__profession">
             <FormInput
               id="Profession"
-              name="Profession"
+              name="profession"
               label="職業"
               type="text"
               placeholder="請選擇輸入您的職業"
@@ -163,7 +165,7 @@ function Basic() {
                 <FormDropDown
                   id="country"
                   label="縣市"
-                  name="County"
+                  name="county"
                   options={CityCountyData.map((c) => c.CityName)}
                   value={values.County}
                   onChange={handleCountyChange}
@@ -173,7 +175,7 @@ function Basic() {
                 <FormDropDown
                   id="area"
                   label="區鄉鎮"
-                  name="Area"
+                  name="area"
                   options={CityCountyData.find(
                     (c) => c.CityName === selectedCounty,
                   )?.AreaList.map((a) => a.AreaName) || []}
@@ -188,7 +190,7 @@ function Basic() {
           <div className="user-basic__input user-basic__input__phone">
             <FormInput
               id="phone"
-              name="Phone"
+              name="phone"
               label="電話"
               type="text"
               placeholder="請選擇輸入您的職業"
