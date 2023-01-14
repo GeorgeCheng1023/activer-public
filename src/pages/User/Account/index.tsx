@@ -7,7 +7,7 @@ import { getUserData } from 'store/userAuth';
 // import dummyAccountData from './dummyAccountData.json';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { apiUserVerifyAndResetPwd, apiUserLogin } from 'api/axios';
+import { apiUserLogin, apiUserVerifyAndChangePwd } from 'api/axios';
 
 function Account() {
   const nevigate = useNavigate();
@@ -26,7 +26,7 @@ function Account() {
     setLoading(true);
     try {
       await apiUserLogin({ email: userData.email, password: accountValue.password });
-      const response = await apiUserVerifyAndResetPwd(cookies.sessionToken);
+      const response = await apiUserVerifyAndChangePwd(cookies.sessionToken);
       console.log(response);
       nevigate('/email/verify');
     } catch (err: any) {

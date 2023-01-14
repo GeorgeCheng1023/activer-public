@@ -102,6 +102,9 @@ export const apiUserChangePwd = (accessToken: string, newPassword: string) => ax
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
+    params: {
+      verifycode: '4KALPH',
+    },
   },
 );
 

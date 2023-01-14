@@ -39,6 +39,7 @@ desktop: 3000px);
   }
 }
 
+// button rotate
 @keyframes rotate {
   from {
     transform: rotate(0turn);
@@ -59,6 +60,7 @@ desktop: 3000px);
   }
 }
 
+// button loading animation during request
 @mixin load-button-animation() {
   width: 50px;
   height: 50px;
@@ -72,13 +74,9 @@ desktop: 3000px);
 
   // transition: all 0.5s ease-in;
   animation-name: rotate;
-  animation-name: rotate;
 
   // -webkit-transition: all 0.5s ease-in;
   animation-duration: 1s;
-  animation-duration: 1s;
   animation-timing-function: ease;
-  animation-timing-function: ease;
-  animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
