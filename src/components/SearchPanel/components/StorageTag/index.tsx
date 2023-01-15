@@ -23,6 +23,7 @@ function StorageTag() {
         key={tag.id}
         type={tag.type}
         icon="minus"
+        variant={{ reverse: true }}
         text={tag.text}
         id={tag.id}
         onClick={handleRemoveTag}

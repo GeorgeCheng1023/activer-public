@@ -48,6 +48,23 @@ $tag-config: (
   cursor: pointer;
   transition: background 0.5s;
 
+  // reverse
+  &--reverse {
+    @each $key,
+      $value in $tag-config {
+      $class: map.get($value, class);
+      $color: map.get($value, color);
+
+      &.tag--#{$class} {
+        @include ripple($color, -10%);
+
+        border-color: $color;
+        background-color: $color;
+        color: white;
+      }
+    }
+  }
+
   &__icon {
     display: flex;
     align-items: center;
@@ -65,14 +82,5 @@ $tag-config: (
     height: $_tag-font-size;
     color: inherit;
     font-weight: 900;
-  }
-
-  &:disabled,
-  &:disabled * {
-    cursor: default;
-
-    &:hover {
-      filter: brightness(100%);
-    }
   }
 }

@@ -19,6 +19,7 @@ function RecommendTag() {
         key={tag.id}
         type={tag.type}
         icon="plus"
+        variant={{ reverse: true }}
         text={tag.text}
         id={tag.id}
         onClick={handleAddTag}
