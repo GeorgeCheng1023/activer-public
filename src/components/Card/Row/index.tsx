@@ -25,7 +25,7 @@ function CardRow({
           {tags.map((tag: TagType) => (
             <Tag
               key={tag.id}
-              variant={tag.variant}
+              type={tag.type}
               text={tag.text}
               icon={tag.icon}
               id={tag.id}

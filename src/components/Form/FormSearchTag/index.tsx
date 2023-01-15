@@ -54,7 +54,7 @@ function FormSearchBar({
           type="button"
           onClick={() => handleSuggestionClick(tag)}
           value={tag.text}
-          data-variant={tag.variant}
+          data-variant={tag.type}
           data-id={tag.id}
           data-text={tag.text}
         />
@@ -94,7 +94,7 @@ function FormSearchBar({
         handleSuggestionClick({
           id: currentFocusSuggestion.getAttribute('data-id') as string,
           text: currentFocusSuggestion.getAttribute('data-text') as string,
-          variant: currentFocusSuggestion.getAttribute('data-variant') as TagType['variant'],
+          type: currentFocusSuggestion.getAttribute('data-variant') as TagType['type'],
         });
       }
     }

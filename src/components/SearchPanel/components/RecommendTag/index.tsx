@@ -17,7 +17,7 @@ function RecommendTag() {
     return (
       <Tag
         key={tag.id}
-        variant={tag.variant}
+        type={tag.type}
         icon="plus"
         text={tag.text}
         id={tag.id}

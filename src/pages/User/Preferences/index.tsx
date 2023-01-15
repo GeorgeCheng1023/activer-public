@@ -56,7 +56,7 @@ function Preferences() {
             <Tag
               key={tag.id}
               id={tag.id.toString()}
-              variant={tag.variant}
+              type={tag.type}
               text={tag.text}
               icon="minus"
             />

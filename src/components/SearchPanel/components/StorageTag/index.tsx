@@ -21,7 +21,7 @@ function StorageTag() {
     return (
       <Tag
         key={tag.id}
-        variant={tag.variant}
+        type={tag.type}
         icon="minus"
         text={tag.text}
         id={tag.id}

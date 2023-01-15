@@ -36,7 +36,7 @@ function NewActivity() {
               tags={data.Tags.map((tag: TagDataType) => ({
                 id: tag.Id.toString(),
                 text: tag.Text,
-                variant: tag.Type as TagType['variant'],
+                type: tag.Type as TagType['type'],
               }))}
             />
           ))

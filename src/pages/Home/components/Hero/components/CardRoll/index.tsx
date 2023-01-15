@@ -30,35 +30,35 @@ export default function CardRoll() {
           tags={[{
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }, {
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }]}
           altText="Test"
         />
@@ -72,7 +72,7 @@ export default function CardRoll() {
           tags={[{
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }]}
           altText="Test"
         />
@@ -86,7 +86,7 @@ export default function CardRoll() {
           tags={[{
             id: '1',
             text: 'test',
-            variant: 'area',
+            type: 'area',
           }]}
           detail="2022-10-1 ~ 2022-10-3"
           altText="Test"

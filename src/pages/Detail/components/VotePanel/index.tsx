@@ -64,7 +64,7 @@ function VotePanel({ display, onClose, tags }: Props) {
     } else {
       newTags.push({
         Id: parseInt(clickedTag.id, 10),
-        Type: clickedTag.variant as ActivityTagDataType['Type'],
+        Type: clickedTag.type as ActivityTagDataType['Type'],
         Text: clickedTag.text,
         TagCount: 1,
         UserVoted: true,
@@ -86,14 +86,14 @@ function VotePanel({ display, onClose, tags }: Props) {
         />
         <h3>目前標籤票數排行</h3>
         {votedTags.map((tag: ActivityTagDataType) => {
-          const variant = tag.Type as TagType['variant'];
+          const variant = tag.Type as TagType['type'];
           return (
             <div className="vote-panel__item" key={`vote-pael-item-${tag.Id.toString()}`}>
               <Tag
                 id={`vote-tag-${tag.Id.toString()}`}
                 key={`vote-tag-${tag.Id.toString()}`}
                 text={tag.Text}
-                variant={variant}
+                type={variant}
               />
               <p>
                 票數:

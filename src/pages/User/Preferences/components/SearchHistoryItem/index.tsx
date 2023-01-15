@@ -40,7 +40,7 @@ function SearchHistoryItem({ data } : Props) {
           <Tag
             text={tag.Text}
             id={tag.Id.toString()}
-            variant={tag.Type as TagType['variant']}
+            type={tag.Type as TagType['type']}
             key={`search-history-item__tags-${tag.Id.toString()}`}
             disabled
           />

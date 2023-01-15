@@ -41,14 +41,11 @@ function History() {
       <h2 className="history__h2">歷史活動</h2>
       <div className="history__activity">
         {dummyActivityHistory.map((history) => {
-          const parseTags:TagType[] = history.Activity?.Tags.map((tag) => {
-            const variant = tag.Type as TagType['variant'];
-            return ({
-              id: tag.Id,
-              text: tag.Text,
-              variant,
-            });
-          });
+          const parseTags:TagType[] = history.Activity?.Tags.map((tag) => ({
+            id: tag.Id,
+            text: tag.Text,
+            type: tag.Type as TagType['type'],
+          }));
 
           return (
             <CardRow

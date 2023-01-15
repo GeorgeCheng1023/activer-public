@@ -51,7 +51,7 @@ function ChartHistoryTag({ data }: Props) {
     setParseData(newData);
   }, [width]);
 
-  const barColor = (variant : TagType['variant']) => {
+  const barColor = (variant : TagType['type']) => {
     switch (variant) {
       case ('area'):
         return '#93C586';
@@ -74,7 +74,7 @@ function ChartHistoryTag({ data }: Props) {
           <Tooltip />
           <Bar dataKey="count" fill="#000" barSize={25} label>
             {data.map((d, index) => (
-              <Cell key={`cell-${d.tag.id}-${index}`} fill={barColor(d.tag.variant)} />
+              <Cell key={`cell-${d.tag.id}-${index}`} fill={barColor(d.tag.type)} />
             ))}
             <LabelList dataKey="count" position="top" />
           </Bar>

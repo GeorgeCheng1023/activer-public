@@ -34,7 +34,7 @@ function CardDefault({
           {tags.splice(0, 3).map((tag) => (
             <Tag
               key={`${id}-${tag.id}`}
-              variant={tag.variant}
+              type={tag.type}
               text={tag.text}
               icon={tag.icon}
               id={`${id}-${tag.id}`}
