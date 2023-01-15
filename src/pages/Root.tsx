@@ -1,6 +1,5 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import SearchPanel from 'components/SearchPanel';
 import { useAppSelector } from 'hooks/redux';
 import Footer from 'components/Footer';
 import Header from '../components/Header';
@@ -14,7 +13,6 @@ function Root() {
     isLoading === 'loading'
       ? <Loading /> : (
         <>
-          <SearchPanel />
           <Header />
           <Outlet />
           <Footer />

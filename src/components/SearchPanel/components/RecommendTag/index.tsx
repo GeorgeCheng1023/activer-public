@@ -29,8 +29,8 @@ function RecommendTag() {
   const tagsRecommend = useAppSelector(selectRecommendTags);
   return (
     <>
-      <h2 className="search__h2">推薦標籤</h2>
-      <div className="search--flex">
+      <h2 className="search-panel__h2">推薦標籤</h2>
+      <div className="search-panel__tags">
         {tagsRecommend.map(renderTag)}
       </div>
     </>

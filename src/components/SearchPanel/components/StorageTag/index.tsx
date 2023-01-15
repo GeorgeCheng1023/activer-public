@@ -33,8 +33,8 @@ function StorageTag() {
 
   return (
     <>
-      <h2 className="search__h2">你的標籤庫</h2>
-      <div className="search--flex">
+      <h2 className="search-panel__h2">你的標籤庫</h2>
+      <div className="search-panel__tags">
         {tagsStorage.map(renderTag)}
       </div>
     </>

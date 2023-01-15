@@ -149,6 +149,13 @@ function FormSearchBar({
     <div
       className={searchTagClassNames}
     >
+      <div className="search-tag__button">
+        <Button
+          iconAfter={<FiSearch />}
+          color="white"
+          variant={{ round: true }}
+        />
+      </div>
       <input
         {...props}
         ref={inputValueRef}
@@ -159,13 +166,7 @@ function FormSearchBar({
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
       />
-      <div className="search-tag__button">
-        <Button
-          iconAfter={<FiSearch />}
-          color="white"
-          variant={{ round: true }}
-        />
-      </div>
+
       {suggestionDisplay && suggestionTags
       && (
         <div className={suggestionClassNames}>{suggestionTags}</div>

@@ -23,7 +23,7 @@ function SortTag() {
   return (
 
     <>
-      <h2 className="search__h2">標籤排序</h2>
+      <h2 className="search-panel__h2">標籤排序</h2>
       <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
         <TagSort
           tags={sortTags}
