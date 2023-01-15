@@ -7,7 +7,7 @@ import './index.scss';
 
 // Slice
 import {
-  getUserData, setEmail, userLogin,
+  getUserData, setEmail, setPassword, userLogin,
 } from 'store/userAuth';
 
 // Components
@@ -84,6 +84,7 @@ function LoginSection() {
         console.log('Account is unverified');
         setEmailVerified(false);
         dispatch(setEmail(response.data.user.email));
+        dispatch(setPassword(pwd));
       } else {
         dispatch(userLogin(response.data.user));
 
