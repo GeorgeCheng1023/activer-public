@@ -26,7 +26,7 @@ function FormInput({
   }, []);
 
   useEffect(() => {
-    if (props.type === 'date') {
+    if (props.type === 'date' || props.placeholder) {
       document.getElementById(`from-input__label-${props.id}`)?.classList.add('active');
     }
   }, []);
@@ -36,7 +36,7 @@ function FormInput({
       <div className="form-input__container">
         <input
           {...props}
-          placeholder=""
+          placeholder={props.placeholder ? props.placeholder : ''}
           className="form-input__input"
           onFocus={() => {
             document.getElementById(`from-input__label-${props.id}`)?.classList.add('active');
