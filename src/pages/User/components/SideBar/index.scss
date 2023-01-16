@@ -5,6 +5,7 @@ $_sidebar-padding: 1em;
 
 .sidebar {
   @include media(mobile, tablet) {
+    position: initial;
     top: $header-height;
     flex-direction: row;
     width: 100%;

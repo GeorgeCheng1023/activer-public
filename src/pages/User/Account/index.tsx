@@ -43,6 +43,7 @@ function Account() {
 
   return (
     <form onSubmit={handleSubmit} className="user-account">
+      <h2>帳號安全</h2>
       <div className="user-account__input user-account__input__account">
         <FormInput
           id="account"
@@ -62,7 +63,7 @@ function Account() {
           type="password"
           onChange={handleChange}
           formValue={accountValue}
-          placeholder="Enter your password"
+          placeholder="輸入密碼"
           pattern={userData.password}
           errorMessage="密碼錯誤"
         />
@@ -72,7 +73,7 @@ function Account() {
         : (
           <Button
             type="submit"
-            text="驗證"
+            text="更改密碼"
           />
         )}
     </form>

@@ -9,11 +9,12 @@ export interface CardType {
   title: string,
   altText: string,
   tags: Array<TagType>,
-  detail?: string
+  detail?: string,
+  control? : React.ReactNode;
 }
 
 function CardDefault({
-  id, imgUrl, title, tags, altText, detail,
+  id, imgUrl, title, tags, altText, detail, control,
 }: CardType) {
   return (
     <div className="card">
@@ -30,6 +31,7 @@ function CardDefault({
           {detail}
         </p>
       )}
+        {control && <div className="card__control">{control}</div>}
         <div className="card__tag">
           {tags.splice(0, 3).map((tag) => (
             <Tag
@@ -49,6 +51,7 @@ function CardDefault({
 
 CardDefault.defaultProps = {
   detail: null,
+  control: null,
 };
 
 export default CardDefault;

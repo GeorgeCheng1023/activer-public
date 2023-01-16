@@ -16,8 +16,8 @@ function User() {
   return (
     <>
       <UserHeader />
+      <SideBar />
       <div className="user__container">
-        <SideBar />
         <div className="user__main-content">
           <Outlet />
         </div>

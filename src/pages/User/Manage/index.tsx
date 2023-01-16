@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 // components
 import ManageNav from 'components/ManageNav';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
-import CardRow from 'components/Card/Row';
+import Card from 'components/Card/Default';
 
 import { useParseTagDataArray } from 'hooks/tag';
 import { UserActivityDataType } from 'types/ActivityDataType';
@@ -93,6 +93,7 @@ function Manage() {
 
   return (
     <div className="manage">
+      {/* filter navbar */}
       <ManageNav
         filters={filters}
         onChangeFilter={handleChangeFilter}
@@ -101,7 +102,7 @@ function Manage() {
       <div className="manage__activity">
         {
           currentActivities?.map((activity) => (
-            <CardRow
+            <Card
               key={`manage-activity-${activity.Branch.Id}`}
               id={`manage-activity-${activity.Branch.Id}`}
               imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
