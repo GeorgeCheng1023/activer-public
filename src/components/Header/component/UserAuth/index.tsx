@@ -77,20 +77,20 @@ function LoginLogoutButton() {
         />
         <AnimatePresence>
           {displayUserAuthDroppdown
-        && (
-          <NavbarDropdown defaultMenu="user-main">
+            && (
+              <NavbarDropdown defaultMenu="user-main">
 
-            <NavbarDropdownMenu name="user-main" order="primary">
+                <NavbarDropdownMenu name="user-main" order="primary">
 
-              <NavbarDropdownItem link="/user/basic">基本資料</NavbarDropdownItem>
-              <NavbarDropdownItem link="/user/manage">管理活動</NavbarDropdownItem>
-              <NavbarDropdownItem link="/user/preferences">偏好設定</NavbarDropdownItem>
-              <NavbarDropdownItem link="/user/history">歷史活動</NavbarDropdownItem>
-              <NavbarDropdownItem onClick={handleLogout}>登出</NavbarDropdownItem>
-            </NavbarDropdownMenu>
+                  <NavbarDropdownItem link="/user/basic">基本資料</NavbarDropdownItem>
+                  <NavbarDropdownItem link="/user/manage">管理活動</NavbarDropdownItem>
+                  <NavbarDropdownItem link="/user/preferences">偏好設定</NavbarDropdownItem>
+                  <NavbarDropdownItem link="/user/history">歷史活動</NavbarDropdownItem>
+                  <NavbarDropdownItem onClick={handleLogout}>登出</NavbarDropdownItem>
+                </NavbarDropdownMenu>
 
-          </NavbarDropdown>
-        )}
+              </NavbarDropdown>
+            )}
         </AnimatePresence>
       </div>
 

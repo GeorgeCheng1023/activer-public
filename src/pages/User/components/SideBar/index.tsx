@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   BsFillShieldLockFill, BsGearFill, BsFillHeartFill,
 } from 'react-icons/bs';
@@ -8,11 +8,16 @@ import { BiUser, BiHistory, BiLogOut } from 'react-icons/bi';
 import { IconLogo } from 'components/Icons';
 import { Link } from 'react-router-dom';
 
-import SideBarLink from './components/SidebarLink';
 import './index.scss';
+import { useCookies } from 'react-cookie';
+import { useAppDispatch } from 'hooks/redux';
+import { userLogout } from 'store/userAuth';
+import SideBarLink from './components/SidebarLink';
 
 function SideBar() {
   const sideBarRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const [, , removeCookie] = useCookies<string>(['user']);
 
   const sidebarClasses = classNames({
     sidebar: true,
@@ -21,6 +26,11 @@ function SideBar() {
         ? sideBarRef.current.offsetWidth > window.innerWidth
         : false,
   });
+
+  const handleLogout = useCallback(() => {
+    dispatch(userLogout());
+    removeCookie('sessionToken', { path: '/' });
+  }, []);
 
   return (
 
@@ -43,7 +53,9 @@ function SideBar() {
       <SideBarLink text="活動歷程" url="/user/history" icon={<BiHistory />} />
 
       {/* TODO: Logout */}
-      <SideBarLink text="登出" url="/" icon={<BiLogOut />} />
+      <button type="button" onClick={handleLogout}>
+        <SideBarLink text="登出" url="/" icon={<BiLogOut />} />
+      </button>
     </motion.div>
 
   );

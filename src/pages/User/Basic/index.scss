@@ -3,7 +3,9 @@
 @import "../index";
 
 .user-basic {
-  @include user-main-container;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 1em;
 
   &__container {
     display: flex;
