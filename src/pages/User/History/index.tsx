@@ -38,7 +38,7 @@ function History() {
           <ChartArea />
         </div>
       </div> */}
-      <h2 className="history__h2">歷史活動</h2>
+      <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
         {dummyActivityHistory.map((history) => {
           const parseTags:TagType[] = history.Activity?.Tags.map((tag) => ({

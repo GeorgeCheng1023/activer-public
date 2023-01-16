@@ -25,3 +25,10 @@
     background-color: $user-main-content-color;
   }
 }
+
+@mixin user-main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+}

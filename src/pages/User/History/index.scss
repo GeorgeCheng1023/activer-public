@@ -1,7 +1,10 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .history {
+  @include user-main-container;
+
   &__analytics {
     @include media(mobile, tablet) {
       flex-direction: column;
@@ -45,10 +48,5 @@
         box-shadow: 0 3px 2em rgb(0 0 0 / 16%);
       }
     }
-  }
-
-  &__h2 {
-    margin-top: 1em;
-    font-size: 2em;
   }
 }

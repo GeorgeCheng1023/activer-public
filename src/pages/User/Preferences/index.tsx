@@ -1,5 +1,3 @@
-// eslint-disable
-
 import React, { useState } from 'react';
 
 // components
@@ -38,9 +36,10 @@ function Preferences() {
 
   return (
     <div className="preferences">
+      <h2>偏好設定</h2>
       <div className="preferences__default-tags">
         <div className="preferences__default-tags__control">
-          <h2 className="preferences__h2">您的預設標籤庫</h2>
+          <h3>您的預設標籤庫</h3>
           <div className="preferences__default-tags__control__right">
             <div className="preferences__default-tags__control_right__search-bar">
               <SearchBar placeholder="搜尋標籤" onSubmit={handleSearchTagSubmit} />

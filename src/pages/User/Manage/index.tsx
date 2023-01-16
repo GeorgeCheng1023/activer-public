@@ -93,6 +93,7 @@ function Manage() {
 
   return (
     <div className="manage">
+      <h2>管理活動</h2>
       {/* filter navbar */}
       <ManageNav
         filters={filters}

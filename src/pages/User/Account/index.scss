@@ -1,13 +1,19 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .user-account {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-  padding: 1em;
-  background-color: white;
+  @include user-main-container;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    padding: 1em;
+    background-color: white;
+  }
 
   &__input {
     @include media(mobile, tablet) {

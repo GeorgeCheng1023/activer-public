@@ -1,7 +1,10 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .manage {
+  @include user-main-container;
+
   &__activity {
     display: flex;
     flex-wrap: wrap;

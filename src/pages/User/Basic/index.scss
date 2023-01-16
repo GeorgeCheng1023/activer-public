@@ -1,10 +1,9 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .user-basic {
-  display: flex;
-  flex-flow: column wrap;
-  gap: 1em;
+  @include user-main-container;
 
   &__container {
     display: flex;
