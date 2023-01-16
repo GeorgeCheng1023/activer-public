@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const IP = '36.236.28.96';
+const IP = '220.132.244.41';
 const PORT = '5044';
 
 const TEST_URL = `http://${IP}:${PORT}`;
