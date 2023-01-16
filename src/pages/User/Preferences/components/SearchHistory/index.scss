@@ -1,14 +1,61 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-.preferences__history {
-  @include media(mobile) {
-    flex-flow: row wrap;
-    justify-content: center;
+.search-history {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1em;
+
+  &__head,
+  &__item {
+    display: flex;
+    gap: 0.5em;
+    padding: 1em;
+    text-align: left;
   }
 
-  display: flex;
-  flex-flow: column;
-  gap: 0.5em;
-  margin-top: 1em;
+  &__head {
+    border-bottom: 2px solid $tertiary-font-color;
+  }
+
+  &__item {
+    align-items: center;
+
+    &:hover {
+      background-color: rgb(237 237 237);
+    }
+  }
+
+  &__navigate {
+    .button {
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+
+  &__checkbox,
+  &__navigate {
+    width: 10%;
+  }
+
+  &__keyword {
+    overflow: hidden;
+    width: 30%;
+    text-overflow: ellipsis;
+  }
+
+  &__tag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    overflow: hidden;
+    width: 50%;
+    font-size: 0.7em;
+
+    * {
+      flex-shrink: 0;
+    }
+  }
 }

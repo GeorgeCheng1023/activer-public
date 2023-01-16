@@ -8,7 +8,7 @@ interface ButtonVariantType {
   colorReverse?: boolean;
 }
 interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger';
+  color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger' | 'transparent';
   variant?: ButtonVariantType;
   text?: string;
   iconAfter?: JSX.Element;

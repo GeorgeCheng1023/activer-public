@@ -33,8 +33,14 @@ $btn-config: (
   danger:(
     class:"danger",
     color: white,
-    bg:$danger-color)
-  );
+    bg:$danger-color
+  ),
+  transparent: (
+    class: "transparent",
+    color: $primary-font-color,
+    bg: transparent,
+  )
+);
 
 @mixin set-color($borderColor, $textColor, $bgColor) {
   border: 2px $borderColor solid;

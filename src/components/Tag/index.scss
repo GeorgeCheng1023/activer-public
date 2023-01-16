@@ -44,7 +44,6 @@ $tag-config: (
   background-position: center;
   font-size: $_tag-font-size;
   line-height: $_tag-font-size;
-  white-space: nowrap;
   cursor: pointer;
   transition: background 0.5s;
 
@@ -77,10 +76,10 @@ $tag-config: (
   }
 
   &__text {
-    overflow: hidden;
-    width: fit-content;
+    width: 100%;
     height: $_tag-font-size;
     color: inherit;
     font-weight: 900;
+    white-space: nowrap;
   }
 }
