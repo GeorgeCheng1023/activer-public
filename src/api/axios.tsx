@@ -102,9 +102,6 @@ export const apiUserChangePwd = (newPassword: string, accessToken: string) => ax
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
-    params: {
-      verifycode: '7D31WD',
-    },
   },
 );
 
@@ -126,10 +123,6 @@ export const apiUserResetPwd = (newPassword: string) => axiosTest.post(
   {
     headers: {
       'Content-Type': 'application/json',
-    },
-    params: {
-      verifycode: '5JXLK8',
-      email: '047633597q@gmail.com',
     },
   },
 );

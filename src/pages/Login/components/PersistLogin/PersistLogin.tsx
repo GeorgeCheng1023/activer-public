@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useCookies } from 'react-cookie';
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading';
 import { apiUserAuth } from 'api/axios';
 import { useAppDispatch } from 'hooks/redux';
@@ -11,6 +11,7 @@ function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
   const [cookies, setCookie] = useCookies<string>(['user']);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { sessionToken } = cookies;
@@ -35,6 +36,7 @@ function PersistLogin() {
           console.log('驗證失敗');
         }
         console.log(err);
+        navigate('/', { replace: true });
       }
 
       setIsLoading(false);

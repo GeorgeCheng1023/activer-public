@@ -22,6 +22,7 @@ import FormInput from '../../../../components/Form/FormInput/index';
 
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PWD_REGEX_STR = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$';
 
 function LoginSection() {
   const dispatch = useAppDispatch();
@@ -169,6 +170,7 @@ function LoginSection() {
             placeholder="輸入您的密碼"
             type="password"
             onChange={handlePwdChange}
+            pattern={PWD_REGEX_STR}
             formValue={pwd}
             required
           />

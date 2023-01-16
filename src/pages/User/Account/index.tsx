@@ -9,9 +9,12 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { apiUserLogin, apiUserVerifyAndChangePwd } from 'api/axios';
 
+const PWD_REGEX_STR = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$';
+
 function Account() {
   const nevigate = useNavigate();
   const userData = useAppSelector(getUserData);
+  console.log(userData.password);
   const [accountValue, setAccountValue] = useState(userData);
   const [cookies] = useCookies<string>(['user']);
   const [loading, setLoading] = useState<boolean>(false);
@@ -48,7 +51,7 @@ function Account() {
           id="account"
           name="account"
           label="帳號"
-          placeholder={userData.email}
+          placeholder={userData.email || 'errors'}
           onChange={handleChange}
           disabled
           formValue={accountValue}
@@ -63,7 +66,7 @@ function Account() {
           onChange={handleChange}
           formValue={accountValue}
           placeholder="Enter your password"
-          pattern={userData.password}
+          pattern={PWD_REGEX_STR}
           errorMessage="密碼錯誤"
         />
       </div>
