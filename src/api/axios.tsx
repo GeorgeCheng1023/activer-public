@@ -124,6 +124,9 @@ export const apiUserResetPwd = (newPassword: string) => axiosTest.post(
     headers: {
       'Content-Type': 'application/json',
     },
+    params: {
+      verifycode: 'G1WPB4',
+    },
   },
 );
 

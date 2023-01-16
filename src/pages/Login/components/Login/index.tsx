@@ -23,6 +23,7 @@ import FormInput from '../../../../components/Form/FormInput/index';
 // Regex
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const PWD_REGEX_STR = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$';
+const EMAIL_REGEX_STR = '([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})';
 
 function LoginSection() {
   const dispatch = useAppDispatch();
@@ -156,10 +157,10 @@ function LoginSection() {
             id="user"
             label="帳號"
             placeholder="輸入您的電子信箱"
-            type="email"
+            type="text"
             onChange={handleUserChange}
+            pattern={EMAIL_REGEX_STR || ''}
             formValue={user}
-            required
           />
         </section>
 
@@ -172,7 +173,6 @@ function LoginSection() {
             onChange={handlePwdChange}
             pattern={PWD_REGEX_STR}
             formValue={pwd}
-            required
           />
         </section>
 

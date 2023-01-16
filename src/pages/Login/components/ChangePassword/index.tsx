@@ -64,9 +64,6 @@ function NewPwd() {
     return false;
   }
 
-  // console.log(passwords.password);
-  // console.log(passwords.confirmPassword);
-
   return (
     <div className="new-pwd__container">
       <Model open={success} onClose={() => setSuccess(false)}>
