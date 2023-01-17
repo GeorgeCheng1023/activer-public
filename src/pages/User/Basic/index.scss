@@ -1,5 +1,6 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .user-basic {
   display: flex;
@@ -12,12 +13,14 @@
     flex-direction: column;
     gap: 1.5em;
     align-items: center;
+    width: 100%;
     padding: 2em;
     background-color: white;
   }
 
   &__input {
-    width: 20rem;
+    width: 100%;
+    max-width: 20rem;
     height: 4rem;
   }
 

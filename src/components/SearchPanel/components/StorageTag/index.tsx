@@ -21,8 +21,9 @@ function StorageTag() {
     return (
       <Tag
         key={tag.id}
-        variant={tag.variant}
+        type={tag.type}
         icon="minus"
+        variant={{ reverse: true }}
         text={tag.text}
         id={tag.id}
         onClick={handleRemoveTag}
@@ -33,8 +34,8 @@ function StorageTag() {
 
   return (
     <>
-      <h2 className="search__h2">你的標籤庫</h2>
-      <div className="search--flex">
+      <h2 className="search-panel__h2">你的標籤庫</h2>
+      <div className="search-panel__tags">
         {tagsStorage.map(renderTag)}
       </div>
     </>

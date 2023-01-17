@@ -75,7 +75,7 @@ function Basic() {
 
   return (
     <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
-
+      <h2>基本資料</h2>
       <div className="user-basic__container user-basic__basic">
         <h2>基本資訊</h2>
         {/* Portrait */}

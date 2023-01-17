@@ -1,24 +1,24 @@
 import { TagType } from 'components/Tag';
 import { TagDataType } from 'types/ActivityDataType';
 
-export const useParseTagDataArray = (TagData: TagDataType[]): Array<TagType> => (
+export const useParseArrayTagDataToTag = (TagData: TagDataType[]): Array<TagType> => (
   TagData.map((tag: TagDataType) => ({
     id: tag.Id.toString(),
     text: tag.Text,
-    variant: tag.Type as TagType['variant'],
+    type: tag.Type as TagType['type'],
   }))
 );
 
-export const useParseTag = (TagData: TagDataType) : TagType => ({
+export const useParseTagDataToTag = (TagData: TagDataType) : TagType => ({
   id: TagData.Id.toString(),
   text: TagData.Text,
-  variant: TagData.Type as TagType['variant'],
+  type: TagData.Type as TagType['type'],
 });
 
-export const useParseTagData = (inputTag: TagType): TagDataType => (
+export const useParseTagToTagData = (inputTag: TagType): TagDataType => (
   {
     Id: parseInt(inputTag.id, 10),
     Text: inputTag.text,
-    Type: inputTag.variant as TagDataType['Type'],
+    Type: inputTag.type as TagDataType['Type'],
   }
 );

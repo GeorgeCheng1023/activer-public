@@ -1,8 +1,8 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-.card-column {
-  @include media(mobile, tablet) {
+.card-row {
+  @include media(mobile, tablet, laptop) {
     flex-direction: column;
     height: fit-content;
   }
@@ -12,17 +12,20 @@
   align-items: center;
   overflow: hidden;
   width: 100%;
-  height: 15rem;
+  height: 15em;
   padding: 2em 1em;
+  background-color: white;
 
   &__image {
-    @include media(mobile, tablet) {
+    @include media(mobile, tablet, laptop) {
       width: 100%;
+      max-width: 100%;
       height: 15em;
     }
 
+    flex-shrink: 1;
     object-fit: contain;
-    width: 10em;
+    max-width: 20%;
     height: 100%;
     border: 1px solid $secondary-font-color;
   }
@@ -33,37 +36,42 @@
     flex-direction: column;
     gap: 0.5em;
     justify-content: space-between;
+    width: 40%;
     height: 100%;
 
     &__tags {
-      @include media(mobile, tablet) {
+      @include media(mobile, tablet, laptop) {
         margin: 0 auto;
       }
 
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: no-wrap;
       gap: 1em;
+      font-size: 0.8em;
     }
 
     &__title {
-      @include media(mobile, tablet) {
+      @include media(mobile, tablet, laptop) {
         width: 80%;
         margin: 0 auto;
         text-align: center;
       }
 
+      overflow: hidden;
+      height: calc(1.5 * 3em);
+      line-height: 1.5em;
       text-align: justify;
     }
 
     &__detail {
-      @include media(mobile, tablet) {
+      @include media(mobile, tablet, laptop) {
         display: none;
       }
     }
   }
 
   &__control {
-    @include media(mobile, tablet) {
+    @include media(mobile, tablet, laptop) {
       width: 100%;
     }
 

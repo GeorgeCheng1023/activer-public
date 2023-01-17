@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import './index.scss';
 import Button from 'components/Button';
 import { FiSearch } from 'react-icons/fi';
+import { GrClose } from 'react-icons/gr';
 
 interface FormSearchBarType
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> {
@@ -14,6 +15,8 @@ function FormSearchBar({
 }: FormSearchBarType) {
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState(defaultText || '');
+  // eslint-disable-next-line
+  const [focused, setFocus] = useState(false);
 
   // handle submit search
   const handleSubmit:
@@ -39,16 +42,13 @@ function FormSearchBar({
   return (
     <div
       className="search-bar"
+      onFocus={() => setFocus(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setFocus(false);
+        }
+      }}
     >
-      <input
-        {...props}
-        className="search-bar__input"
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        onKeyUp={handleKeyPress}
-      />
-
       <div className="search-bar__button">
         <Button
           disabled={props.disabled}
@@ -59,6 +59,28 @@ function FormSearchBar({
           iconAfter={<FiSearch />}
         />
       </div>
+      <input
+        {...props}
+        className="search-bar__input"
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyPress}
+      />
+
+      {focused
+      && (
+        <div className="search-bar__buton">
+          <Button
+            type="button"
+            color="white"
+            onClick={() => setInputValue('')}
+            iconAfter={<GrClose />}
+            variant={{ round: true }}
+          />
+        </div>
+      )}
+
     </div>
   );
 }

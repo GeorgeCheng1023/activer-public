@@ -13,18 +13,12 @@ import {
 import UserAuth from '../UserAuth';
 
 function Navagation() {
-  const dispatch = useAppDispatch();
-
-  const handleClickSearch = (e: any) => {
-    e.preventDefault();
-    dispatch(showPanel());
-  };
-
   return (
     <Navbar>
       <NavbarItem
         label="搜尋活動"
-        onClick={handleClickSearch}
+        link="/search"
+
       />
       <NavbarItem label="熱門活動" link="/detail/1" />
       <NavbarItem label="探索" afterIcon={<IoMdArrowDropdown />}>

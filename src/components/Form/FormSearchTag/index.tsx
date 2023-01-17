@@ -7,7 +7,7 @@ import { TagType } from 'components/Tag';
 import { FiSearch } from 'react-icons/fi';
 import Button from 'components/Button';
 // hooks
-import { useParseTagDataArray } from 'hooks/tag';
+import { useParseArrayTagDataToTag } from 'hooks/tag';
 
 // style
 import './index.scss';
@@ -22,7 +22,7 @@ function FormSearchBar({
 }: FormSearchTagType) {
   // parse all tags for suggestion
   // TODO: fetch all tags
-  const allTags = useParseTagDataArray(dummyAllTags);
+  const allTags = useParseArrayTagDataToTag(dummyAllTags);
   // suggstionDisplay is a boolean that show or hide the suggestion
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
 
@@ -54,7 +54,7 @@ function FormSearchBar({
           type="button"
           onClick={() => handleSuggestionClick(tag)}
           value={tag.text}
-          data-variant={tag.variant}
+          data-variant={tag.type}
           data-id={tag.id}
           data-text={tag.text}
         />
@@ -94,7 +94,7 @@ function FormSearchBar({
         handleSuggestionClick({
           id: currentFocusSuggestion.getAttribute('data-id') as string,
           text: currentFocusSuggestion.getAttribute('data-text') as string,
-          variant: currentFocusSuggestion.getAttribute('data-variant') as TagType['variant'],
+          type: currentFocusSuggestion.getAttribute('data-variant') as TagType['type'],
         });
       }
     }
@@ -149,6 +149,13 @@ function FormSearchBar({
     <div
       className={searchTagClassNames}
     >
+      <div className="search-tag__button">
+        <Button
+          iconAfter={<FiSearch />}
+          color="white"
+          variant={{ round: true }}
+        />
+      </div>
       <input
         {...props}
         ref={inputValueRef}
@@ -159,13 +166,7 @@ function FormSearchBar({
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
       />
-      <div className="search-tag__button">
-        <Button
-          iconAfter={<FiSearch />}
-          color="white"
-          variant={{ round: true }}
-        />
-      </div>
+
       {suggestionDisplay && suggestionTags
       && (
         <div className={suggestionClassNames}>{suggestionTags}</div>

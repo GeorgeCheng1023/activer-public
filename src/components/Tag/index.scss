@@ -31,6 +31,7 @@ $tag-config: (
   }
 
   display: flex;
+  flex-shrink: 0;
   flex-wrap: nowrap;
   gap: 0.5em;
   justify-content: space-between;
@@ -44,9 +45,25 @@ $tag-config: (
   background-position: center;
   font-size: $_tag-font-size;
   line-height: $_tag-font-size;
-  white-space: nowrap;
   cursor: pointer;
   transition: background 0.5s;
+
+  // reverse
+  &--reverse {
+    @each $key,
+      $value in $tag-config {
+      $class: map.get($value, class);
+      $color: map.get($value, color);
+
+      &.tag--#{$class} {
+        @include ripple($color, -10%);
+
+        border-color: $color;
+        background-color: $color;
+        color: white;
+      }
+    }
+  }
 
   &__icon {
     display: flex;
@@ -60,19 +77,10 @@ $tag-config: (
   }
 
   &__text {
-    overflow: hidden;
-    width: fit-content;
+    width: 100%;
     height: $_tag-font-size;
     color: inherit;
     font-weight: 900;
-  }
-
-  &:disabled,
-  &:disabled * {
-    cursor: default;
-
-    &:hover {
-      filter: brightness(100%);
-    }
+    white-space: nowrap;
   }
 }

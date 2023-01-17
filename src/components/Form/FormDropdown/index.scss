@@ -6,6 +6,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  min-width: 8em;
 
   &__label {
     @include style-label;

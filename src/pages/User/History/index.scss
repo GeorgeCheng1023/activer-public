@@ -1,7 +1,10 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
+@import "../index";
 
 .history {
+  @include user-main-container;
+
   &__analytics {
     @include media(mobile, tablet) {
       flex-direction: column;
@@ -32,23 +35,8 @@
   }
 
   &__activity {
-    margin: 1em 0;
-    border: 1px solid $secondary-font-color;
-    border-radius: 1em;
-
-    >div:nth-child(2n) {
-      border-top: 1px solid $secondary-font-color;
-    }
-
-    >* {
-      &:hover {
-        box-shadow: 0 3px 2em rgb(0 0 0 / 16%);
-      }
-    }
-  }
-
-  &__h2 {
-    margin-top: 1em;
-    font-size: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
   }
 }

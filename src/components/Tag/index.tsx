@@ -4,12 +4,19 @@ import {
   BsArrowsMove, BsPlus,
 } from 'react-icons/bs';
 import { BiMinus } from 'react-icons/bi';
+import { motion } from 'framer-motion';
+import classNames from 'classnames';
+
+interface TagVariantType {
+  reverse?: boolean;
+}
 
 export type TagType = {
   id: string;
   text: string;
   disabled?: boolean;
-  variant?: 'area' | 'location' | 'other';
+  variant?: TagVariantType;
+  type?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
   size?: 'sm' | 'lg';
   onClick?: (clickedTag: TagType) => void;
@@ -28,8 +35,8 @@ function TagIcon(icon: TagType['icon']) {
   }
 }
 
-const getColor = (variant: TagType['variant']) : string => {
-  switch (variant) {
+const getColor = (type: TagType['type']) : string => {
+  switch (type) {
     case 'area': return 'primary';
     case 'location': return 'secondary';
     case 'other': return 'success';
@@ -38,21 +45,28 @@ const getColor = (variant: TagType['variant']) : string => {
 };
 
 function Tag({
-  variant, text, icon, id, size, onClick, disabled,
+  type, text, icon, id, size, onClick, disabled, variant,
 }: TagType) {
   const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    if (onClick) { onClick({ variant, text, id }); }
+    if (onClick) { onClick({ type, text, id }); }
   };
 
+  const tagClasses = classNames({
+    tag: true,
+    [`tag--${getColor(type)}`]: true,
+    [`tag--${size}`]: size,
+    'tag--reverse': variant?.reverse,
+  });
+
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+      }}
       type="button"
-      className={`
-      tag 
-      tag--${getColor(variant)}  
-      ${size ? `tag--${size}` : ''}
-      `}
+      className={tagClasses}
       id={id}
       onClick={handleClick}
       disabled={disabled}
@@ -67,16 +81,17 @@ function Tag({
           {TagIcon(icon)}
         </div>
       ) }
-    </button>
+    </motion.button>
   );
 }
 
 Tag.defaultProps = {
-  variant: 'area',
+  type: 'area',
   icon: undefined,
   size: undefined,
   onClick: undefined,
   disabled: false,
+  variant: undefined,
 };
 
 export default Tag;
