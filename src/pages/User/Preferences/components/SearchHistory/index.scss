@@ -5,38 +5,29 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 1em;
 
   &__head,
   &__item {
     display: flex;
     gap: 0.5em;
-    padding: 1em;
+    padding: 0 1em;
     text-align: left;
   }
 
   &__head {
+    align-items: center;
     border-bottom: 2px solid $tertiary-font-color;
   }
 
   &__item {
     align-items: center;
-
-    &:hover {
-      background-color: rgb(237 237 237);
-    }
-  }
-
-  &__navigate {
-    .button {
-      &:hover {
-        background-color: white;
-      }
-    }
+    font-size: 0.7em;
   }
 
   &__checkbox,
   &__navigate {
+    display: flex;
+    justify-content: center;
     width: 10%;
   }
 
@@ -52,7 +43,6 @@
     gap: 1em;
     overflow: hidden;
     width: 50%;
-    font-size: 0.7em;
 
     * {
       flex-shrink: 0;

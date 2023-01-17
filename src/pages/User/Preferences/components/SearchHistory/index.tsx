@@ -1,71 +1,106 @@
 import Button from 'components/Button';
 import Tag from 'components/Tag';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BiSend } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import './index.scss';
+import { TagDataType } from 'types/ActivityDataType';
+import { useParseTag } from 'hooks/tag';
+import { motion } from 'framer-motion';
+import dummySearchHistory from './dummySearchHistory.json';
+
+interface SearchHistoryDataType {
+  Id: number,
+  Keyword: string,
+  Tags: TagDataType[],
+  Time: string,
+}
 
 function SearchHistory() {
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheckList, setIsCheckList] = useState<number[]>([]);
+  const [historyList, setHistoryList] = useState<SearchHistoryDataType[]>([]);
+
+  useEffect(() => {
+    setHistoryList(dummySearchHistory);
+  }, []);
+
+  const handleClickSelectAll:
+  React.MouseEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    setIsCheckAll(!isCheckAll);
+    setIsCheckList(historyList.map((el) => el.Id));
+
+    if (isCheckAll) {
+      setIsCheckList([]);
+    }
+  };
+
+  const handleClickCheckbox:
+  React.MouseEventHandler<HTMLInputElement> = (e) => {
+    const { id, checked } = e.target as HTMLInputElement;
+
+    setIsCheckList([...isCheckList, parseInt(id, 10)]);
+    if (!checked) {
+      setIsCheckList(isCheckList.filter((item) => item !== parseInt(id, 10)));
+    }
+  };
+
   return (
     <div className="search-history">
 
       <div className="search-history__head">
-        <div className="search-history__checkbox"><BsTrash /></div>
+        <div className="search-history__checkbox">
+          <input type="checkbox" onClick={handleClickSelectAll} checked={isCheckAll} />
+        </div>
         <div className="search-history__keyword">關鍵字</div>
         <div className="search-history__tag">標籤</div>
-        <div className="search-history__navigate">{' '}</div>
-      </div>
-
-      <div className="search-history__item">
-        <div className="search-history__checkbox">
-          <input id="test" type="checkbox" />
-        </div>
-        <div className="search-history__keyword">keyworsssssssssssssssssd</div>
-        <div className="search-history__tag">
-          {' '}
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-
-        </div>
         <div className="search-history__navigate">
           {' '}
           <Button
-            iconBefore={<BiSend />}
             variant={{ round: true }}
-            color="transparent"
-          />
-
-        </div>
-      </div>
-      <div className="search-history__item">
-        <div className="search-history__checkbox">
-          <input id="test" type="checkbox" />
-        </div>
-        <div className="search-history__keyword">keyword</div>
-        <div className="search-history__tag">
-          {' '}
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-          <Tag text="test" type="area" id="1" />
-
-        </div>
-        <div className="search-history__navigate">
-          {' '}
-          <Button
-            iconBefore={<BiSend />}
-            variant={{ round: true }}
+            iconBefore={<BsTrash />}
             color="white"
           />
 
         </div>
       </div>
+      {historyList.map((item) => (
+        <motion.div
+          className="search-history__item"
+          initial={{ x: '-100%', opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{
+            type: 'tween',
+          }}
+
+        >
+          <div className="search-history__checkbox">
+            <input
+              id={item.Id.toString()}
+              type="checkbox"
+              checked={isCheckList.includes(item.Id)}
+              onClick={handleClickCheckbox}
+            />
+          </div>
+          <div className="search-history__keyword">{item.Keyword}</div>
+          <div className="search-history__tag">
+            {item.Tags.map((tag) => {
+              const parseTag = useParseTag(tag);
+              return (<Tag {...parseTag} />);
+            })}
+          </div>
+          <div className="search-history__navigate">
+            {' '}
+            <Button
+              iconBefore={<BiSend />}
+              variant={{ round: true }}
+              color="transparent"
+            />
+
+          </div>
+        </motion.div>
+      ))}
 
     </div>
   );

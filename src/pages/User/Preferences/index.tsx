@@ -3,11 +3,9 @@ import React, { useState } from 'react';
 import { FormSearchTag } from 'components/Form';
 import Button from 'components/Button';
 import Tag, { TagType } from 'components/Tag';
-import SearchHistoryItem from './components/SearchHistoryItem';
 
 // data
 import dummyUserDefaultTags from './dummyUserDefaultTags.json';
-import dummyHistory from './dummyHistory.json';
 
 // style
 import './index.scss';
@@ -98,7 +96,7 @@ function Preferences() {
       <div className="preferences__history">
         {/* Title */}
         <h3>搜尋紀錄</h3>
-        {dummyHistory.map((history) => <SearchHistoryItem data={history} key={`preferences__history-${history.Id}`} />)}
+
         <SearchHistory />
       </div>
 

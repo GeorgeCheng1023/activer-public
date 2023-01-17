@@ -59,8 +59,14 @@ $btn-config: (
     &--#{$class} {
       @include set-color($bg, $color, $bg);
 
-      &:hover:not([disabled]) {
-        @include ripple($bg, -10%);
+      @if $class == "transparent" {
+        &:hover:not([disabled]) {
+          @include ripple($tertiary-font-color, -10%);
+        }
+      } @else {
+        &:hover:not([disabled]) {
+          @include ripple($bg, -10%);
+        }
       }
     }
   }
