@@ -1,62 +1,52 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-.detail {
-  // responsive
-  @include media(mobile, tablet) {
-    margin: 0 5%;
-    margin-top: 0;
-  }
-
+@mixin detail-section-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 0 8%;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 0.2em;
+  background-color: white;
+  text-align: justify;
+}
 
-  // container
+.detail {
+  background-color: $content-background-color;
+
   &__container {
-    &--intro {
-      @include media(mobile, tablet) {
-        flex-direction: column;
-      }
+    @include container-main;
+  }
 
-      display: flex;
-    }
+  &__hero {
+    display: flex;
 
-    &--card {
-      @include media(mobile, tablet) {
-        width: 100%;
-      }
+    &__left {
+      @include detail-section-container;
 
-      display: flex;
-      flex-direction: column;
+      flex-shrink: 0;
       align-items: center;
-      width: 50%;
-    }
+      width: 40%;
+      margin-right: 0;
+      margin-bottom: 0;
 
-    &--properties {
-      @include media(mobile, tablet) {
-        width: 100%;
+      .detail__image {
+        height: 10rem;
       }
+    }
 
-      width: 60%;
+    &__right {
+      @include detail-section-container;
+
+      flex-grow: 1;
+      flex-shrink: 1;
+      margin-bottom: 0;
     }
   }
 
-  // components
-
-  * { text-align: justify; }
-
-  &__a {
-    text-decoration: underline;
-
-    &:hover {
-      color: $secondary-font-color;
+  &__main {
+    >* {
+      @include detail-section-container;
     }
-  }
-
-  // DetailProperties > Property
-  &__property > * {
-    margin-bottom: 0.4em;
   }
 }
