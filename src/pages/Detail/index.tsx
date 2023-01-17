@@ -5,6 +5,9 @@ import { getActivityById } from 'api/activity';
 // type
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
 import { BsPlus } from 'react-icons/bs';
+import {
+  FcReading, FcList, FcShare, FcPhone, FcGraduationCap,
+} from 'react-icons/fc';
 // components
 import Button from 'components/Button';
 import ManageNav from 'components/ManageNav';
@@ -80,7 +83,7 @@ function Detail() {
               />
             </div>
             {/* Title */}
-            <h2>{title}</h2>
+            <h2 className="detail__header">{title}</h2>
 
             {/* SubTitle */}
             {subTitle && (
@@ -146,20 +149,29 @@ function Detail() {
 
           {/* Object */}
           <div className="detail__objective">
-            <h2>活動對象</h2>
+            <h2 className="detail__header">
+              <FcReading />
+              活動對象
+            </h2>
             <p>{objective}</p>
           </div>
 
           {/* Content */}
           <div className="detail__content">
-            <h2>活動內容</h2>
+            <h2 className="detail__header">
+              <FcList />
+              活動內容
+            </h2>
             <LinkWrapper text={content} />
           </div>
 
           {/* Sources */}
           {sources && (
             <div className="detail__source">
-              <h2>原始來源</h2>
+              <h2 className="detail__header">
+                <FcShare />
+                原始來源
+              </h2>
               {sources.map((source: string, index: number) => (
                 <a
                   href={source}
@@ -177,7 +189,10 @@ function Detail() {
           {/* Connection */}
           {connection && (
             <div className="detail__connection">
-              <h2>聯絡資訊</h2>
+              <h2 className="detail__header">
+                <FcPhone />
+                聯絡資訊
+              </h2>
               {connection.map((item: string, index: number) => (
                 <p key={`detail-connection-${index}`}>
                   {item}
@@ -190,7 +205,10 @@ function Detail() {
           {/* Holder */}
           {holder && (
             <div className="detail__holder">
-              <h2>主辦單位</h2>
+              <h2 className="detail__header">
+                <FcGraduationCap />
+                主辦單位
+              </h2>
               {holder.map((item: string, index:number) => (
                 <p key={`detail-holder-${index}`}>
                   {item}
