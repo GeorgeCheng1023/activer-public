@@ -5,7 +5,7 @@ import { BiSend } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import './index.scss';
 import { TagDataType } from 'types/ActivityDataType';
-import { useParseTag } from 'hooks/tag';
+import { useParseTagDataToTag } from 'hooks/tag';
 import { motion } from 'framer-motion';
 import dummySearchHistory from './dummySearchHistory.json';
 
@@ -86,7 +86,7 @@ function SearchHistory() {
           <div className="search-history__keyword">{item.Keyword}</div>
           <div className="search-history__tag">
             {item.Tags.map((tag) => {
-              const parseTag = useParseTag(tag);
+              const parseTag = useParseTagDataToTag(tag);
               return (<Tag {...parseTag} />);
             })}
           </div>

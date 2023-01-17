@@ -7,7 +7,7 @@ import { TagType } from 'components/Tag';
 import { FiSearch } from 'react-icons/fi';
 import Button from 'components/Button';
 // hooks
-import { useParseTagDataArray } from 'hooks/tag';
+import { useParseArrayTagDataToTag } from 'hooks/tag';
 
 // style
 import './index.scss';
@@ -22,7 +22,7 @@ function FormSearchBar({
 }: FormSearchTagType) {
   // parse all tags for suggestion
   // TODO: fetch all tags
-  const allTags = useParseTagDataArray(dummyAllTags);
+  const allTags = useParseArrayTagDataToTag(dummyAllTags);
   // suggstionDisplay is a boolean that show or hide the suggestion
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
 

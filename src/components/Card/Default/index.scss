@@ -10,7 +10,7 @@ $_card-title-line-height: 1.5em;
 $_card-detail-font-size: 0.8em;
 
 // mobile
-$_card-mobile-heigth: 10rem;
+
 $_card-mobile-padding: 1em;
 
 .card {
@@ -19,7 +19,7 @@ $_card-mobile-padding: 1em;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: $_card-mobile-heigth;
+    height: fit-content;
     padding: $_card-mobile-padding;
     border-width: 0;
   }
@@ -99,7 +99,7 @@ $_card-mobile-padding: 1em;
     overflow: clip;
     margin-top: auto;
     padding: $_content-padding;
-    padding-bottom: calc($_content-padding + 0.5em);
+    padding-bottom: calc($_content-padding + 1em);
     font-size: 0.7em;
     text-overflow: ellipsis;
   }
