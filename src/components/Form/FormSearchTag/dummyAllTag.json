@@ -1,17 +1,17 @@
 [
   {
-    "Id": 100,
-    "Text": "特殊教育",
-    "Type": "area"
+    "id": 100,
+    "text": "特殊教育",
+    "type": "area"
   },
   {
-    "Id": 102,
-    "Text": "幼兒教育",
-    "Type": "area"
+    "id": 102,
+    "text": "幼兒教育",
+    "type": "area"
   },
   {
-    "Id": 105,
-    "Text": "免費",
-    "Type": "other"
+    "id": 105,
+    "text": "免費",
+    "type": "other"
   }
 ]

@@ -1,21 +1,27 @@
 import React from 'react';
+// hooks
+import useWindowWidth from 'hooks/window/useWindowWidth';
+import { useParseArrayTagDataToTag } from 'hooks/tag';
+// component
 import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
-import { TagDataType } from 'types/ActivityDataType';
-import { TagType } from 'components/Tag';
 import Card from 'components/Card/Default';
-import useWindowWidth from 'hooks/window/useWindowWidth';
 import { FcPositiveDynamic } from 'react-icons/fc';
-import dummyData from './dummyTrendActivity.json';
+import { BaseWithTagActivityDataType } from 'types/ActivityDataType';
+// style
 import './index.scss';
+// dummy data
+import dummyData from './dummyTrendActivity.json';
 
 function NewActivity() {
   const screenWidth = useWindowWidth();
 
   // TODO: fetch data
+  const newActivities: BaseWithTagActivityDataType[] = dummyData;
 
   return (
     <section className="new-activity">
+
       <div className="home__header">
         <h2>
           <FcPositiveDynamic />
@@ -23,21 +29,17 @@ function NewActivity() {
         </h2>
         <Button color="white" text={screenWidth > 768 ? '更多熱門活動' : '更多'} iconAfter={<BsArrowRight />} />
       </div>
-      <div className="home__card-container">
-        {dummyData
 
-          .map((data) => (
+      <div className="home__card-container">
+        {newActivities
+          .map((activity: BaseWithTagActivityDataType) => (
             <Card
-              id={data.Id.toString()}
-              imgUrl={data.Image ? data.Image[0] : '/DefaultActivityPng.png'}
-              title={data.Title}
-              key={`new-activity-${data.Id.toString()}`}
-              altText={data.Title}
-              tags={data.Tags.map((tag: TagDataType) => ({
-                id: tag.Id.toString(),
-                text: tag.Text,
-                type: tag.Type as TagType['type'],
-              }))}
+              id={activity.id.toString()}
+              imgUrl={activity.images ? activity.images[0] : '/DefaultActivityPng.png'}
+              title={activity.title}
+              key={`new-activity-${activity.id.toString()}`}
+              altText={activity.title}
+              tags={useParseArrayTagDataToTag(activity.tags)}
             />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}

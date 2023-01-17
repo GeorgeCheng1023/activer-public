@@ -5,7 +5,7 @@ import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
 import Card from 'components/Card/Default';
 
 import { useParseArrayTagDataToTag } from 'hooks/tag';
-import { UserActivityDataType } from 'types/ActivityDataType';
+import { BranchDataType, UserActivityDataType } from 'types/ActivityDataType';
 import dummyUserActivity from './dummy.json';
 import ManageCardControl from './components/ManageCardControl';
 import './index.scss';
@@ -44,16 +44,15 @@ function Manage() {
   /**  function to fetch user Data */
   const getUserActivity = useCallback(() => {
     const parseUserActivities:UserActivityDataType[] = [];
-    // TODO: get user activity
     dummyUserActivity.forEach((activity) => {
-      activity.Branches.forEach((branch) => {
-        if (!branch.Status) { return; }
+      activity.branches.forEach((branch: BranchDataType) => {
+        if (!branch.status) { return; }
         parseUserActivities.push({
-          Id: activity.Id,
-          Title: activity.Title,
-          Image: activity.Image,
-          Tags: activity.Tags,
-          Branch: branch,
+          id: activity.id,
+          title: activity.title,
+          images: activity.images,
+          tags: activity.tags,
+          branch,
         });
       });
     });
@@ -82,11 +81,11 @@ function Manage() {
     setCurrentFilterId(selectFilterId);
     if (selectFilterId === '全部') {
       setCurrentActivities(
-        userActivities.filter((activity) => !!activity.Branch.Status),
+        userActivities.filter((activity) => !!activity.branch.status),
       );
     } else {
       setCurrentActivities(
-        userActivities.filter((activity) => activity.Branch.Status === selectFilterId),
+        userActivities.filter((activity) => activity.branch.status === selectFilterId),
       );
     }
   }, [userActivities]);
@@ -104,16 +103,16 @@ function Manage() {
         {
           currentActivities?.map((activity) => (
             <Card
-              key={`manage-activity-${activity.Branch.Id}`}
-              id={`manage-activity-${activity.Branch.Id}`}
-              imgUrl={activity.Image ? activity.Image[0] : '/DefaultActivityPng.png'}
-              altText={activity.Title}
-              title={activity.Title}
-              tags={useParseArrayTagDataToTag(activity.Tags)}
-              detail={activity.Branch.BranchName}
+              key={`manage-activity-${activity.branch.id}`}
+              id={`manage-activity-${activity.branch.id}`}
+              imgUrl={activity.images ? activity.images[0] : '/DefaultActivityPng.png'}
+              altText={activity.title}
+              title={activity.title}
+              tags={useParseArrayTagDataToTag(activity.tags)}
+              detail={activity.branch.branchName}
               control={(
                 <ManageCardControl
-                  branch={activity.Branch}
+                  branch={activity.branch}
                   onChange={handleChangeActivityStatus}
                 />
               )}

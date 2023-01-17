@@ -1,78 +1,62 @@
 [
   {
-    "Activity": {
-      "Id": 1,
-      "Title": "簡報表達工作坊",
-      "Date": {
-        "DateStart": "2022-10-1",
-        "DateEnd": "2022-10-2"
+    "activity": {
+      "id": 1,
+      "title": "簡報表達工作坊",
+      "date": {
+        "dateStart": "2022-10-1",
+        "dateEnd": "2022-10-2"
       },
-      "Tags": [
+      "tags": [
         {
-          "Text": "簡報表達",
-          "Id": 1,
-          "Type": "area"
+          "text": "簡報表達",
+          "id": 1,
+          "type": "area"
         },
         {
-          "Text": "社會科學",
-          "Id": 2,
-          "Type": "area"
+          "text": "社會科學",
+          "id": 2,
+          "type": "area"
         },
         {
-          "Text": "免費",
-          "Id": 3,
-          "Type": "other"
+          "text": "免費",
+          "id": 3,
+          "type": "other"
         }
       ],
-      "Image": [
-        {
-          "ImageUrl": "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFsa3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-          "ImageAlt": "照片"
-        }
+      "images": [
+        "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFsa3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
       ]
-    },
-    "Photo": [
-      "https://images.unsplash.com/photo-1659535867362-f3ed3d7b5513?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-    ],
-    "Experience": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    }
   },
   {
-    "Activity": {
-      "Id": 2,
-      "Title": "簡報表達工作坊",
-      "Date": {
-        "DateStart": "2022-10-1",
-        "DateEnd": "2022-10-2"
+    "activity": {
+      "id": 2,
+      "title": "簡報表達工作坊",
+      "date": {
+        "dateStart": "2022-10-1",
+        "dateEnd": "2022-10-2"
       },
-      "Tags": [
+      "tags": [
         {
-          "Text": "簡報表達",
-          "Id": 1,
-          "Type": "area"
+          "text": "簡報表達",
+          "id": 1,
+          "type": "area"
         },
         {
-          "Text": "社會科學",
-          "Id": 2,
-          "Type": "area"
+          "text": "社會科學",
+          "id": 2,
+          "type": "area"
         },
         {
-          "Text": "免費",
-          "Id": 3,
-          "Type": "other"
+          "text": "免費",
+          "id": 3,
+          "type": "other"
         }
       ],
-      "Image": [
-        {
-          "ImageUrl": "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFsa3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-          "ImageAlt": "照片"
-        }
+      "images": [
+        "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFsa3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
       ]
-    },
-    "Photo": [
-      "https://images.unsplash.com/photo-1659535867362-f3ed3d7b5513?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      "https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-    ],
-    "Experience": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    }
   }
 ]

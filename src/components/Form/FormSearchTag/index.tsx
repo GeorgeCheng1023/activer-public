@@ -6,11 +6,11 @@ import classNames from 'classnames';
 import { TagType } from 'components/Tag';
 import { FiSearch } from 'react-icons/fi';
 import Button from 'components/Button';
-// hooks
-import { useParseArrayTagDataToTag } from 'hooks/tag';
 
 // style
 import './index.scss';
+import { TagDataType } from 'types/ActivityDataType';
+import { useParseTagDataToTag } from 'hooks/tag';
 import dummyAllTags from './dummyAllTag.json';
 
 interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -22,7 +22,7 @@ function FormSearchBar({
 }: FormSearchTagType) {
   // parse all tags for suggestion
   // TODO: fetch all tags
-  const allTags = useParseArrayTagDataToTag(dummyAllTags);
+  const allTags:TagDataType[] = dummyAllTags;
   // suggstionDisplay is a boolean that show or hide the suggestion
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
 
@@ -52,7 +52,7 @@ function FormSearchBar({
           key={tag.id}
           tabIndex={-1}
           type="button"
-          onClick={() => handleSuggestionClick(tag)}
+          onClick={() => handleSuggestionClick(useParseTagDataToTag(tag))}
           value={tag.text}
           data-variant={tag.type}
           data-id={tag.id}

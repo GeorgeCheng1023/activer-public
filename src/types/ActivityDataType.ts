@@ -1,51 +1,55 @@
 export interface BaseActivityDataType {
-  Id: number;
-  Title: string;
-  Image: string[] | null;
-}
-
-// for Manage Page
-export interface UserActivityDataType extends BaseActivityDataType {
-  Tags: TagDataType[];
-  Branch: BranchDataType;
+  id: number;
+  title: string;
+  images: string[] | null;
 }
 
 interface ActivityDataType extends BaseActivityDataType {
-  Tags: ActivityTagDataType[] | null;
-  Branches: BranchDataType[];
-  Content: string;
-  Connection: string[] | null;
-  Holder: string[] | null ;
-  Objective: string[] | null;
-  Sources: string[] | null;
-  Subtitle:string | null;
+  tags: ActivityTagDataType[] | null;
+  branches: BranchDataType[];
+  content: string;
+  connection: string[] | null;
+  holder: string[] | null ;
+  objective: string[] | null;
+  sources: string[] | null;
+  subTitle:string | null;
 }
 
 export interface TagDataType {
-  Type: string;
-  Id: number;
-  Text: string;
+  id: number;
+  type: string;
+  text: string;
 }
 
 export interface ActivityTagDataType extends TagDataType {
-  TagCount: number;
-  UserVoted: boolean;
+  tagCount: number;
+  userVoted: boolean;
 }
 
 export interface BranchDataType {
-  Id: number;
-  BranchName: string;
-  DateStart: DateType | null;
-  DateEnd: string[] | null ;
-  ApplyStart: string[] | null ;
-  ApplyEnd: string[] | null;
-  ApplyFee: string[] | null;
-  Location: string[] | null;
-  Status: string | undefined | null;
+  id: number;
+  branchName: string;
+  dateStart: DateType | null;
+  dateEnd: string[] | null ;
+  applyStart: string[] | null ;
+  applyEnd: string[] | null;
+  applyFee: string[] | null;
+  location: string[] | null;
+  status: string | undefined | null;
 }
 
 interface DateType {
   [key: string]: string
+}
+
+// for Manage Page
+export interface UserActivityDataType extends BaseActivityDataType {
+  tags: TagDataType[];
+  branch: BranchDataType;
+}
+// NewActivity
+export interface BaseWithTagActivityDataType extends BaseActivityDataType {
+  tags: TagDataType[];
 }
 
 export default ActivityDataType;

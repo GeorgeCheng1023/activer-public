@@ -67,7 +67,7 @@ function Tag({
       }}
       type="button"
       className={tagClasses}
-      id={id}
+      id={id.toString()}
       onClick={handleClick}
       disabled={disabled}
     >

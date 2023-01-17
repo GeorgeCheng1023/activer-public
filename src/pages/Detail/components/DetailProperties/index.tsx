@@ -14,14 +14,14 @@ type Props = {
 
 function DetailProperties({ branch, activityId }: Props) {
   const {
-    ApplyStart,
-    ApplyEnd,
-    ApplyFee,
-    Location,
-    DateStart,
-    DateEnd,
-    Status,
-    Id,
+    applyStart: ApplyStart,
+    applyEnd: ApplyEnd,
+    applyFee: ApplyFee,
+    location: Location,
+    dateStart: DateStart,
+    dateEnd: DateEnd,
+    status: Status,
+    id: Id,
   } = branch;
 
   // Followed

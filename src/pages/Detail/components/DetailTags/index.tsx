@@ -26,12 +26,12 @@ function DetailTags({ tags }: Props) {
           <div className="detail__tags__group">
             {
               tags.map((tag: TagDataType) => {
-                const variant = tag.Type as TagType['type'];
+                const variant = tag.type as TagType['type'];
                 return (
                   <Tag
-                    id={`detail-tag-${tag.Id!.toString()}`}
-                    key={`detail-tag-${tag.Id!.toString()}`}
-                    text={tag.Text}
+                    id={`detail-tag-${tag.id!.toString()}`}
+                    key={`detail-tag-${tag.id!.toString()}`}
+                    text={tag.text}
                     type={variant}
                   />
                 );

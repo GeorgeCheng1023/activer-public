@@ -10,10 +10,10 @@ import { motion } from 'framer-motion';
 import dummySearchHistory from './dummySearchHistory.json';
 
 interface SearchHistoryDataType {
-  Id: number,
-  Keyword: string,
-  Tags: TagDataType[],
-  Time: string,
+  id: number,
+  keyword: string,
+  tags: TagDataType[],
+  time: string,
 }
 
 function SearchHistory() {
@@ -29,7 +29,7 @@ function SearchHistory() {
   React.MouseEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setIsCheckAll(!isCheckAll);
-    setIsCheckList(historyList.map((el) => el.Id));
+    setIsCheckList(historyList.map((el) => el.id));
 
     if (isCheckAll) {
       setIsCheckList([]);
@@ -77,15 +77,15 @@ function SearchHistory() {
         >
           <div className="search-history__checkbox">
             <input
-              id={item.Id.toString()}
+              id={item.id.toString()}
               type="checkbox"
-              checked={isCheckList.includes(item.Id)}
+              checked={isCheckList.includes(item.id)}
               onClick={handleClickCheckbox}
             />
           </div>
-          <div className="search-history__keyword">{item.Keyword}</div>
+          <div className="search-history__keyword">{item.keyword}</div>
           <div className="search-history__tag">
-            {item.Tags.map((tag) => {
+            {item.tags.map((tag) => {
               const parseTag = useParseTagDataToTag(tag);
               return (<Tag {...parseTag} />);
             })}

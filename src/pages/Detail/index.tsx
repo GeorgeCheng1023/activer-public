@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // api
-import { getActivity } from 'api/axios';
+import { getActivityById } from 'api/activity';
 // type
 import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
 
@@ -10,12 +10,8 @@ import ManageNav from 'components/ManageNav';
 
 import {
   DetailImage,
-  DetailSources,
   DetailTags,
   DetailProperties,
-  DetailConnection,
-  DetailSubtitle,
-  DetailHolder,
   LinkWrapper,
 } from './components';
 
@@ -33,7 +29,7 @@ function Detail() {
 
   // handle click branch name event
   const handleChangeFilter = (selectedId : string) => {
-    setCurrentBranch(data.Branches.find((branch) => branch.Id.toString() === selectedId)!);
+    setCurrentBranch(data.branches.find((branch) => branch.id.toString() === selectedId)!);
   };
 
   // get data
@@ -41,7 +37,7 @@ function Detail() {
     const dataFetch = async () => {
       try {
         if (!id) throw new Error('No id provided');
-        const res = await getActivity(id.toString());
+        const res = await getActivityById(id.toString());
         setData(res.data);
         setCurrentBranch(res.data.Branches[0]);
       } catch (err) {
@@ -53,54 +49,114 @@ function Detail() {
 
   // destructing data
   const {
-    Id, Image, Title, Subtitle, Tags, Holder, Objective, Content, Sources, Connection,
+    id: activityId,
+    images, title, subTitle, tags, holder, objective, content, sources, branches, connection,
   } = data;
 
   return (
     <div className="detail">
+
+      {/* Introduction */}
       <div className="detail__container--intro">
 
-        {/* left container: image, title,tags, date, holder */}
         <div className="detail__container--card">
+          {/* Image */}
           <DetailImage
-            id={Id}
-            image={Image}
-            altText={Title}
+            activityId={activityId}
+            images={images}
+            altText={title}
           />
-          <h2>{Title}</h2>
-          <DetailSubtitle subtitle={Subtitle} />
-          <DetailTags tags={Tags} />
+          {/* Title */}
+          <h2>{title}</h2>
+
+          {/* SubTitle */}
+          {subTitle && (
+            <h3>{subTitle}</h3>
+          )}
+          {/* Tags */}
+          <DetailTags tags={tags} />
         </div>
-        {/* right container: branch properties */}
+
         <div className="detail__container--properties">
+          {/* Branch Navigation */}
           <ManageNav
             filters={
-              data.Branches.map((branch: BranchDataType) => ({
-                id: branch.Id.toString(),
-                label: branch.BranchName,
+              branches.map((branch: BranchDataType) => ({
+                id: branch.id.toString(),
+                label: branch.branchName,
               }))
             }
             onChangeFilter={handleChangeFilter}
-            currentFilterId={currentBranch.Id.toString()}
+            currentFilterId={currentBranch.id.toString()}
           />
-          <DetailProperties branch={currentBranch} activityId={Id.toString()} />
+
+          {/* Branch Detail Properties */}
+          <DetailProperties
+            branch={currentBranch}
+            activityId={activityId.toString()}
+          />
         </div>
       </div>
 
-      {/* main context */}
-      <div className="detail__context">
+      {/* main content */}
+      <div className="detail__content">
+
+        {/* Object */}
         <div className="detail__objective">
           <h2>活動對象</h2>
-          <p>{Objective}</p>
+          <p>{objective}</p>
         </div>
         <br />
+
+        {/* Content */}
         <div className="detail__content">
           <h2>活動內容</h2>
-          <LinkWrapper text={Content} />
+          <LinkWrapper text={content} />
         </div>
-        <DetailSources sources={Sources} id={Id} />
-        <DetailConnection connection={Connection} />
-        <DetailHolder holder={Holder} />
+
+        {/* Sources */}
+        {sources && (
+          <div className="detail__source">
+            <h2>原始來源</h2>
+            {sources.map((source: string, index: number) => (
+              <a
+                href={source}
+                target="_blank"
+                className="detail__a"
+                key={`detail__source-${index}`}
+                rel="noreferrer"
+              >
+                {source}
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Connection */}
+        {connection && (
+          <div className="detail__connection">
+            <h2>聯絡資訊</h2>
+            {connection.map((item: string, index: number) => (
+              <p key={`detail-connection-${index}`}>
+                {item}
+              </p>
+            ))}
+          </div>
+
+        )}
+
+        {/* Holder */}
+        {holder && (
+          <div>
+            <h2>主辦單位</h2>
+            {holder.map((item: string, index:number) => (
+              <p key={`detail-holder-${index}`}>
+                {item}
+              </p>
+            ))}
+          </div>
+        )}
+
         {/* <DetailComment /> */}
       </div>
     </div>

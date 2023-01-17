@@ -25,7 +25,7 @@ function History() {
             dummyUserTagHistory.map((Tag):dataType => (
               {
                 tag: {
-                  id: Tag.Id,
+                  id: Tag.id,
                   text: Tag.Text,
                   variant: Tag.Type as TagType['variant'],
                 },
@@ -42,17 +42,17 @@ function History() {
       <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
         {dummyActivityHistory.map((history) => {
-          const parseTags:TagType[] = useParseArrayTagDataToTag(history.Activity?.Tags);
+          const parseTags:TagType[] = useParseArrayTagDataToTag(history.activity?.tags);
 
           return (
             <Card
-              id={history.Activity.Id.toString()}
-              key={history.Activity.Id}
-              imgUrl={history.Activity?.Image[0].ImageUrl}
-              title={history.Activity?.Title}
-              altText={history.Activity?.Title}
+              id={history.activity.id.toString()}
+              key={history.activity.id}
+              imgUrl={history.activity?.images[0]}
+              title={history.activity?.title}
+              altText={history.activity?.title}
               tags={parseTags}
-              detail={`${history.Activity?.Date.DateStart} - ${history.Activity?.Date.DateEnd}`}
+              // detail={`${history.activity?.date.DateStart} - ${history.activity?.date.DateEnd}`}
               control={<HistoryControl />}
             />
           );

@@ -3,22 +3,22 @@ import { TagDataType } from 'types/ActivityDataType';
 
 export const useParseArrayTagDataToTag = (TagData: TagDataType[]): Array<TagType> => (
   TagData.map((tag: TagDataType) => ({
-    id: tag.Id.toString(),
-    text: tag.Text,
-    type: tag.Type as TagType['type'],
+    id: tag.id.toString(),
+    text: tag.text,
+    type: tag.type as TagType['type'],
   }))
 );
 
 export const useParseTagDataToTag = (TagData: TagDataType) : TagType => ({
-  id: TagData.Id.toString(),
-  text: TagData.Text,
-  type: TagData.Type as TagType['type'],
+  id: TagData.id.toString(),
+  text: TagData.text,
+  type: TagData.type as TagType['type'],
 });
 
 export const useParseTagToTagData = (inputTag: TagType): TagDataType => (
   {
-    Id: parseInt(inputTag.id, 10),
-    Text: inputTag.text,
-    Type: inputTag.type as TagDataType['Type'],
+    id: parseInt(inputTag.id, 10),
+    text: inputTag.text,
+    type: inputTag.type as TagDataType['type'],
   }
 );
