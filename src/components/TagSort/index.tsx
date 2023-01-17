@@ -32,7 +32,7 @@ function TagSort({ onChange, disabled, tags: tagsInput }: TagSortType) {
 
   const renderTag = useCallback((tag: TagType, index: number) => (
     <DragTag
-      variant={tag.variant}
+      type={tag.type}
       text={tag.text}
       icon="move"
       index={index}
@@ -52,7 +52,7 @@ function TagSort({ onChange, disabled, tags: tagsInput }: TagSortType) {
             >
               <Tag
                 id={tag.id}
-                variant={tag.variant}
+                type={tag.type}
                 key={tag.id}
                 text={tag.text}
                 icon="move"

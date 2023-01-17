@@ -1,7 +1,7 @@
 [
   {
     "Activity": {
-      "ActivityId": "a1",
+      "Id": 1,
       "Title": "簡報表達工作坊",
       "Date": {
         "DateStart": "2022-10-1",
@@ -10,17 +10,17 @@
       "Tags": [
         {
           "Text": "簡報表達",
-          "Id": "t01",
+          "Id": 1,
           "Type": "area"
         },
         {
           "Text": "社會科學",
-          "Id": "t02",
+          "Id": 2,
           "Type": "area"
         },
         {
           "Text": "免費",
-          "Id": "t03",
+          "Id": 3,
           "Type": "other"
         }
       ],
@@ -39,7 +39,7 @@
   },
   {
     "Activity": {
-      "ActivityId": "a2",
+      "Id": 2,
       "Title": "簡報表達工作坊",
       "Date": {
         "DateStart": "2022-10-1",
@@ -48,17 +48,17 @@
       "Tags": [
         {
           "Text": "簡報表達",
-          "Id": "t01",
+          "Id": 1,
           "Type": "area"
         },
         {
           "Text": "社會科學",
-          "Id": "t02",
+          "Id": 2,
           "Type": "area"
         },
         {
           "Text": "免費",
-          "Id": "t03",
+          "Id": 3,
           "Type": "other"
         }
       ],

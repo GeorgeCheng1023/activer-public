@@ -1,7 +1,10 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-html {
+html,
+body {
+  height: 100%;
+  margin: 0;
   font-size: calc(14px + 0.3906vw);
   font-family: "Noto Sans CJK TC", "Microsoft JhengHei", PingFang, STHeiti, sans-serif, serif;
 }
@@ -17,16 +20,11 @@ html {
 #root {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  min-height: 100%;
 
   &:nth-child(1) {
     flex-grow: 1;
   }
-}
-
-body {
-  position: relative;
-  overflow-x: hidden;
 }
 
 ul {

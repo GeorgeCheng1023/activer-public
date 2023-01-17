@@ -18,7 +18,7 @@ interface DragTagType {
 }
 
 function DragTag({
-  variant, text, icon, index, id, handleMoveTag,
+  type: variant, text, icon, index, id, handleMoveTag,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -99,7 +99,7 @@ function DragTag({
         data-handler-id={handlerId}
       >
         <Tag
-          variant={variant}
+          type={variant}
           text={text}
           id={id}
           icon={icon}

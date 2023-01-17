@@ -45,41 +45,43 @@ function Account() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="user-account">
-      <div className="user-account__input user-account__input__account">
-        <FormInput
-          id="account"
-          name="account"
-          label="帳號"
-          placeholder={userData.email || 'errors'}
-          onChange={handleChange}
-          disabled
-          formValue={accountValue}
-        />
-      </div>
-      <div className="user-account__input user-account__input__password">
-        <FormInput
-          id="password"
-          name="password"
-          label="密碼"
-          type="password"
-          onChange={handleChange}
-          formValue={accountValue}
-          placeholder="Enter your password"
-          pattern={PWD_REGEX_STR}
-          errorMessage="密碼錯誤"
-        />
-      </div>
-      {loading
-        ? <div className="user-account__button-load-animation" />
-        : (
-          <Button
-            type="submit"
-            text="驗證"
+    <div className="user-account">
+      <h2>帳號安全</h2>
+      <form onSubmit={handleSubmit} className="user-account__form">
+        <div className="user-account__input user-account__input__account">
+          <FormInput
+            id="account"
+            name="account"
+            label="帳號"
+            placeholder={userData.email || 'errors'}
+            onChange={handleChange}
+            disabled
+            formValue={accountValue}
           />
-        )}
-    </form>
-
+        </div>
+        <div className="user-account__input user-account__input__password">
+          <FormInput
+            id="password"
+            name="password"
+            label="密碼"
+            type="password"
+            onChange={handleChange}
+            formValue={accountValue}
+            placeholder="Enter your password"
+            pattern={PWD_REGEX_STR}
+            errorMessage="密碼錯誤"
+          />
+        </div>
+        {loading
+          ? <div className="user-account__button-load-animation" />
+          : (
+            <Button
+              type="submit"
+              text="驗證"
+            />
+          )}
+      </form>
+    </div>
   );
 }
 

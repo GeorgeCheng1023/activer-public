@@ -17,28 +17,34 @@ function CardRow({
   control,
 }: CardRowType) {
   return (
-    <div className="card-column">
-      <img className="card-column__image" src={imgUrl} alt={altText} />
-      <div className="card-column__content">
-        <p className="card-column__content__title">{title}</p>
-        <div className="card-column__content__tags">
+    <div className="card-row">
+      <img
+        className="card-row__image"
+        src={imgUrl}
+        alt={altText}
+      />
+      <div className="card-row__content">
+        <p className="card-row__content__title">
+          {title}
+        </p>
+        <div className="card-row__content__tags">
           {tags.map((tag: TagType) => (
             <Tag
               key={tag.id}
-              variant={tag.variant}
+              type={tag.type}
               text={tag.text}
               icon={tag.icon}
               id={tag.id}
             />
           ))}
         </div>
-        <div className="card-column__content__detail">
+        <div className="card-row__content__detail">
           <p>{detail}</p>
         </div>
       </div>
       {control
       && (
-        <div className="card-column__control">
+        <div className="card-row__control">
           {control}
         </div>
       )}

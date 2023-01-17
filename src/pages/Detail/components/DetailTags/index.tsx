@@ -26,13 +26,13 @@ function DetailTags({ tags }: Props) {
           <div className="detail__tags__group">
             {
               tags.map((tag: TagDataType) => {
-                const variant = tag.Type as TagType['variant'];
+                const variant = tag.Type as TagType['type'];
                 return (
                   <Tag
                     id={`detail-tag-${tag.Id!.toString()}`}
                     key={`detail-tag-${tag.Id!.toString()}`}
                     text={tag.Text}
-                    variant={variant}
+                    type={variant}
                   />
                 );
               }).slice(0, 5)

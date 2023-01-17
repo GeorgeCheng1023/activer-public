@@ -1,10 +1,13 @@
 import React from 'react';
 // components
-import ResultBanner from './components/ResultBanner';
+import SearchPanel from 'components/SearchPanel';
 
 function Search() {
   return (
-    <ResultBanner />
+    <>
+      <SearchPanel />
+      <div />
+    </>
   );
 }
 export default Search;
