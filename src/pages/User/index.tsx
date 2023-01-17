@@ -1,16 +1,16 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './index.scss';
-
-// components
-import Basic from './Basic';
-import Account from './Account';
-import History from './History';
-import Main from './Main';
-import Manage from './Manage';
-import Preferences from './Preferences';
 import SideBar from './components/SideBar';
 import UserHeader from './components/UserHeader';
+
+// components
+export { default as Basic } from './Basic';
+export { default as History } from './History';
+export { default as Main } from './Main';
+export { default as Manage } from './Manage';
+export { default as Preferences } from './Preferences';
+export { default as Account } from './Account';
 
 function User() {
   return (
@@ -25,10 +25,5 @@ function User() {
     </>
   );
 }
-
-export {
-  Basic, Account, History, Manage, Preferences,
-  Main,
-};
 
 export default User;

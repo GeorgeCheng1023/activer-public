@@ -1,7 +1,3 @@
-import RecommendTag from './RecommendTag';
-import StorageTag from './StorageTag';
-import SortTag from './SortTag';
-
-export {
-  RecommendTag, SortTag, StorageTag,
-};
+export { default as StorageTag } from './StorageTag';
+export { default as SortTag } from './SortTag';
+export { default as RecommendTag } from './RecommendTag';
