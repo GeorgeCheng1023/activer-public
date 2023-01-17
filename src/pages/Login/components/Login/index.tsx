@@ -177,7 +177,7 @@ function LoginSection() {
         </section>
 
         <div className="login-section__pwd-tag">
-          <FAQTag title="忘記密碼?" url="/forgetpwd" />
+          <FAQTag title="忘記密碼?" url="/email/verify" />
         </div>
 
         {/* <section className="login-section__check-persist-section">

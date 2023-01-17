@@ -1,87 +1,127 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import './index.scss';
-
-// components
-import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
-import { apiUserVerifyAndResetPwd } from 'api/axios';
+import FormInput from 'components/Form/FormInput';
+import React, { useState } from 'react';
+import './index.scss';
+import { apiUserResetPwd } from 'api/axios';
+import { Link, useLocation } from 'react-router-dom';
+import Model from '../Login/components/modal';
 
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/;
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX_PATTERN = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}';
+// regex
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PWD_REGEX_PATTERN = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}';
 
 function ForgetPwd() {
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState<string>('');
+  const [newPassword, setNewPasswords] = useState<string>('');
+  const [confirmNewPassword, setconfirmNewPassword] = useState<string>('');
   const [errmsg, setErrmsg] = useState<string>('');
-
   const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const verifycode = searchParams.get('verifycode');
+  const email = searchParams.get('email');
 
-  const handleChange = (key: any, value: any) => {
-    setEmail(value);
+  const handleNewPasswordChange = (key: any, value: any) => {
+    setNewPasswords(value);
   };
 
-  useEffect(() => {
-    setErrmsg('');
-  }, [email]);
+  const handleConfirmNewPasswordChange = (key: any, value: any) => {
+    setconfirmNewPassword(value);
+  };
 
-  const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    if (EMAIL_REGEX.test(email)) {
-      console.log('success');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (verifycode === null || email === null) {
+      setErrmsg('驗證碼不正確或已過期');
+      return;
+    }
+    if (newPassword === confirmNewPassword) {
       setLoading(true);
+      let response;
       try {
-        const response = await apiUserVerifyAndResetPwd(email);
+        response = await apiUserResetPwd(newPassword, verifycode, email);
+        setSuccess(true);
         console.log(response);
-        navigate('/email/verify');
       } catch (err: any) {
         if (!err.response) {
-          setErrmsg('伺服器沒有回應');
+          setErrmsg('伺服器無回應');
+        } else if (err.response.status === 401) {
+          setErrmsg('驗證碼不正確或已過期');
         } else {
-          console.log(err);
+          setErrmsg('伺服器懶蛋');
         }
       }
       setLoading(false);
-    } else {
-      setErrmsg('電子信箱格式錯誤');
     }
   };
 
-  return (
-    <main className="forgot-pwd">
-      <h2 className={errmsg ? 'forgot-pwd--show' : 'forgot-pwd--hide'}>
-        電子信箱格式錯誤
-      </h2>
-      <h1 className="forgot-pwd__title">忘記密碼?</h1>
-      <h3 className="forgot-pwd__subtitle">驗證電子郵件</h3>
-      <div className="forgot-pwd__text-field">
-        <FormInput
-          id="email"
-          name="email"
-          type="text"
-          placeholder="電子信箱"
-          errorMessage="電子信箱格式錯誤"
-          pattern={EMAIL_REGEX_PATTERN}
-          formValue={email}
-          onChange={handleChange}
-        />
-      </div>
-      <Link to="/login">
-        <p className="forgot-pwd__back-btn">回到登入畫面</p>
-      </Link>
+  function submitGate() {
+    if ((newPassword === confirmNewPassword)
+      && PWD_REGEX.test(newPassword)) {
+      return true;
+    }
+    return false;
+  }
 
-      {loading
-        ? <div className="forgot-pwd__button-load-animation" />
-        : (
-          <div className="forgot-pwd__submit-btn">
-            <Button text="寄出" color="secondary" onClick={handleClick} />
+  return (
+    <div className="new-pwd__container">
+      <Model open={success} onClose={() => setSuccess(false)}>
+        <div className="new-pwd__model">
+          <figure className="new-pwd__model-figure">
+            <img className="new-pwd__model-icon" src="ok.png" alt="ok" />
+            <h1>密碼更改成功</h1>
+          </figure>
+          <Link to="/">
+            <Button text="回到首頁" />
+          </Link>
+        </div>
+      </Model>
+
+      <div className="new-pwd__errmsg">{errmsg}</div>
+      <main className="new-pwd">
+        <form className="new-pwd__form" onSubmit={handleSubmit}>
+          <h1 className="new-pwd__title">建立新密碼</h1>
+
+          <h3 className="new-pwd__subtitle">輸入您的密碼</h3>
+
+          <div className="new-pwd__text-field">
+            <FormInput
+              id="password"
+              name="password"
+              type="password"
+              placeholder="密碼"
+              pattern={PWD_REGEX_PATTERN}
+              errorMessage="密碼格式錯誤"
+              onChange={handleNewPasswordChange}
+              formValue={newPassword}
+            />
           </div>
-        )}
-    </main>
+
+          <h3 className="new-pwd__subtitle">確認密碼</h3>
+
+          <div className="new-pwd__text-field">
+            <FormInput
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="確認密碼"
+              pattern={newPassword}
+              errorMessage="密碼錯誤"
+              onChange={handleConfirmNewPasswordChange}
+              formValue={confirmNewPassword}
+            />
+          </div>
+
+          {loading
+            ? <div className="new-pwd__button-load-animation" />
+            : (
+              <div className="new-pwd__submit-btn">
+                <Button color="secondary" text="修改" disabled={!submitGate()} />
+              </div>
+            )}
+        </form>
+      </main>
+    </div>
   );
 }
 

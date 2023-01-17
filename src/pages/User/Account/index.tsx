@@ -31,7 +31,7 @@ function Account() {
       await apiUserLogin({ email: userData.email, password: accountValue.password });
       const response = await apiUserVerifyAndChangePwd(cookies.sessionToken);
       console.log(response);
-      nevigate('/email/verify');
+      nevigate('/email/loading');
     } catch (err: any) {
       if (!err?.response) {
         console.log('伺服器無回應');

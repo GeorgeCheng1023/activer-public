@@ -3,9 +3,7 @@
 
 .user-basic {
   display: flex;
-  flex-direction: column;
-  /* stylelint-disable-next-line declaration-block-no-redundant-longhand-properties */
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   gap: 1em;
 
   &__container {
