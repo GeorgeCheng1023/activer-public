@@ -13,6 +13,7 @@ import Button from 'components/Button';
 import ManageNav from 'components/ManageNav';
 
 import Tag, { TagType } from 'components/Tag';
+import Loading from 'pages/Loading';
 import VotePanel from './components/VotePanel';
 import {
   DetailImage,
@@ -66,6 +67,10 @@ function Detail() {
     id: activityId,
     images, title, subTitle, tags, holder, objective, content, sources, branches, connection,
   } = data;
+
+  if (!data) {
+    return <Loading />;
+  }
 
   return (
     <div className="detail">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // type
 import { BranchDataType } from 'types/ActivityDataType';
@@ -14,25 +14,29 @@ type Props = {
 
 function DetailProperties({ branch, activityId }: Props) {
   const {
-    applyStart: ApplyStart,
-    applyEnd: ApplyEnd,
-    applyFee: ApplyFee,
-    location: Location,
-    dateStart: DateStart,
-    dateEnd: DateEnd,
-    status: Status,
-    id: Id,
+    applyStart,
+    applyEnd,
+    applyFee,
+    location,
+    dateStart,
+    dateEnd,
+    status,
+    id,
   } = branch;
 
   // Followed
-  const [followed, setFollowed] = useState(!!Status);
+  const [followed, setFollowed] = useState(false);
+
+  useEffect(() => {
+    setFollowed(status === '願望');
+  }, [status]);
 
   const renderDateStartElement = () => {
-    if (DateStart) {
+    if (dateStart) {
       return (
         <>
           {Object
-            .entries(DateStart)
+            .entries(dateStart)
             .map((element, index) => (
               <p
                 key={`detail-date-start-${index}`}
@@ -47,13 +51,13 @@ function DetailProperties({ branch, activityId }: Props) {
   };
 
   const renderApplyDateInnerElement = () => {
-    if ((ApplyStart && ApplyEnd) && (ApplyStart.length === ApplyEnd.length)) {
+    if ((applyStart && applyEnd) && (applyStart.length === applyEnd.length)) {
       return (
         <>
           {
-            ApplyStart.map((element: string, index: number) => (
+            applyStart.map((element: string, index: number) => (
               <p key={`detail-apply-start-${index}`}>
-                {`${element} ~ ${ApplyEnd[index]}`}
+                {`${element} ~ ${applyEnd[index]}`}
               </p>
             ))
           }
@@ -64,11 +68,11 @@ function DetailProperties({ branch, activityId }: Props) {
   };
 
   const renderFeeInnerElement = () => {
-    if (ApplyFee) {
+    if (applyFee) {
       return (
         <>
           {
-            ApplyFee.map((element, index) => (
+            applyFee.map((element, index) => (
               <p key={`detail-apply-feet-${index}`}>
                 {element}
               </p>
@@ -81,11 +85,11 @@ function DetailProperties({ branch, activityId }: Props) {
   };
 
   const renderLocationInnerElement = () => {
-    if (Location) {
+    if (location) {
       return (
         <>
           {
-            Location.map((element, index) => (
+            location.map((element, index) => (
               <p key={`detail-location-${index}`}>
                 {element}
               </p>
@@ -103,7 +107,7 @@ function DetailProperties({ branch, activityId }: Props) {
         followed={followed}
         setFollowed={setFollowed}
         activityId={activityId}
-        branchId={Id.toString()}
+        branchId={id.toString()}
       />
       <Property
         name="date-start"
@@ -116,7 +120,7 @@ function DetailProperties({ branch, activityId }: Props) {
         name="date-end"
         label="活動結束日期"
         innerElement={
-          <p>{DateEnd ? DateEnd[0] : '請看活動原始連結'}</p>
+          <p>{dateEnd ? dateEnd[0] : '請看活動原始連結'}</p>
         }
       />
       <Property

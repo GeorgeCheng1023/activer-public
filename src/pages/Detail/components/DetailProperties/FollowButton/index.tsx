@@ -2,10 +2,12 @@ import React from 'react';
 import Button from 'components/Button';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { Tooltip } from 'react-tooltip';
+import { useCookies } from 'react-cookie';
 import 'react-tooltip/dist/react-tooltip.css';
 import './index.scss';
+import { updateActivityStatus } from 'api/activity';
 
-interface Props {
+interface FollowButtonType {
   followed: boolean;
   activityId: string;
   branchId: string;
@@ -13,11 +15,21 @@ interface Props {
 }
 function FollowButton({
   followed, setFollowed, branchId, activityId,
-}: Props) {
-  const handleClick:React.MouseEventHandler<HTMLButtonElement> = () => {
-    setFollowed(!followed);
-    // TODO: PUT ActivityId and BracnhID and Followed
-    console.log(activityId, branchId, followed ? '願望' : undefined);
+}: FollowButtonType) {
+  const [cookies] = useCookies<string>(['user']);
+
+  const handleClick:React.MouseEventHandler<HTMLButtonElement> = async () => {
+    try {
+      setFollowed(!followed);
+      await updateActivityStatus(
+        activityId,
+        branchId,
+        followed ? '未註冊' : '願望',
+        cookies.sessionToken,
+      );
+    } catch (e: any) {
+      alert(e.message);
+    }
   };
 
   return (
