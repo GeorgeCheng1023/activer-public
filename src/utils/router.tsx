@@ -17,7 +17,8 @@ import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 import Verify from 'pages/Login/components/verifyUser/index';
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import ResetPwd from 'pages/Login/components/ChangePassword';
-import EmailVerify from 'pages/Login/components/EmailCheck';
+import EmailLoading from 'pages/Login/components/EmailLoad';
+import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
   {
@@ -40,23 +41,26 @@ export const routerConfig = [
             element: <Register />,
           },
           {
-            path: '/resetpwd',
-            element: <ResetPwd />,
-          },
-          {
-            path: '/verify',
-            element: <Verify />,
-          },
-          {
-            path: '/email/verify',
-            element: <EmailVerify />,
-          },
-          {
             path: '/search',
             element: <Search />,
           },
-
+          {
+            path: '/resetpwd',
+            element: <ResetPwd />,
+          },
         ],
+      },
+      {
+        path: '/verify',
+        element: <Verify />,
+      },
+      {
+        path: '/email/loading',
+        element: <EmailLoading />,
+      },
+      {
+        path: '/email/verify',
+        element: <EmailVerify />,
       },
       {
         path: '/forgetpwd',

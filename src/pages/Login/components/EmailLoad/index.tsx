@@ -6,7 +6,7 @@ import { getUserData } from 'store/userAuth';
 import { useCookies } from 'react-cookie';
 import { apiUserVerifyAndChangePwd, apiUserVerifyAndResetPwd } from 'api/axios';
 
-function EmailVerify() {
+function EmailLoading() {
   const userData = useAppSelector(getUserData);
   const [cookies] = useCookies<string>(['user']);
   const [loading, setLoading] = useState<boolean>(false);
@@ -51,4 +51,4 @@ function EmailVerify() {
   );
 }
 
-export default EmailVerify;
+export default EmailLoading;

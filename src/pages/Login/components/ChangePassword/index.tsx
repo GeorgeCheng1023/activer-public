@@ -2,11 +2,9 @@ import Button from 'components/Button';
 import FormInput from 'components/Form/FormInput';
 import React, { useState } from 'react';
 import './index.scss';
-import { apiUserResetPwd, apiUserChangePwd } from 'api/axios';
+import { apiUserChangePwd } from 'api/axios';
 import { useCookies } from 'react-cookie';
-import { useAppSelector } from 'hooks/redux';
-import { getUserData } from 'store/userAuth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Model from '../Login/components/modal';
 
 // regex
@@ -19,8 +17,10 @@ function NewPwd() {
   const [errmsg, setErrmsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [cookies] = useCookies<string>(['user']);
-  const userData = useAppSelector(getUserData);
   const [success, setSuccess] = useState<boolean>(false);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const verifycode = searchParams.get('verifycode');
 
   const handleNewPasswordChange = (key: any, value: any) => {
     setNewPasswords(value);
@@ -32,15 +32,15 @@ function NewPwd() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (verifycode === null) {
+      setErrmsg('驗證碼不正確或已過期');
+      return;
+    }
     if (newPassword === confirmNewPassword) {
       setLoading(true);
       let response;
       try {
-        if (userData.IsLoggedIn) {
-          response = await apiUserChangePwd(newPassword, cookies.sessionToken);
-        } else {
-          response = await apiUserResetPwd(newPassword);
-        }
+        response = await apiUserChangePwd(newPassword, cookies.sessionToken, verifycode);
         setSuccess(true);
         console.log(response);
       } catch (err: any) {

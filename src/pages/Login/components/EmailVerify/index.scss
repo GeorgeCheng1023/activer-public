@@ -1,0 +1,67 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.forgot-pwd {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 70vh;
+  text-align: center;
+
+  &__title {
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+  }
+
+  &__text-field {
+    @include media(tablet, laptop, desktop) {
+      min-width: 20rem;
+    }
+
+    @include media(mobile) {
+      width: 80vw;
+    }
+
+    width: 25vw;
+    margin-bottom: 1rem;
+  }
+
+  &__submit-btn {
+    margin: 2rem 0;
+  }
+
+  &__button-load-animation {
+    @include load-button-animation;
+
+    margin: 2rem 0;
+  }
+
+  &__back-btn {
+    font-weight: 600;
+    font-size: 0.8rem;
+    opacity: 0.55;
+  }
+
+  &--hide {
+    color: $danger-color;
+
+    // visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+  }
+
+  &--show {
+    color: $danger-color;
+
+    // visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+  }
+}

@@ -94,13 +94,20 @@ export const apiUserVerifyAndChangePwd = (accessToken: string) => axiosTest.get(
   },
 );
 
-export const apiUserChangePwd = (newPassword: string, accessToken: string) => axiosTest.post(
+export const apiUserChangePwd = (
+  newPassword: string,
+  accessToken: string,
+  verifycode: string,
+) => axiosTest.post(
   USER_CHANGE_PWD,
   JSON.stringify({ newPassword }),
   {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
+    },
+    params: {
+      verifycode,
     },
   },
 );
@@ -117,7 +124,11 @@ export const apiUserVerifyAndResetPwd = (email: string) => axiosTest.get(
   },
 );
 
-export const apiUserResetPwd = (newPassword: string) => axiosTest.post(
+export const apiUserResetPwd = (
+  newPassword: string,
+  verifycode: string,
+  email: string,
+) => axiosTest.post(
   USER_RESET_PWD,
   JSON.stringify({ newPassword }),
   {
@@ -125,7 +136,8 @@ export const apiUserResetPwd = (newPassword: string) => axiosTest.post(
       'Content-Type': 'application/json',
     },
     params: {
-      verifycode: 'G1WPB4',
+      verifycode,
+      email,
     },
   },
 );
