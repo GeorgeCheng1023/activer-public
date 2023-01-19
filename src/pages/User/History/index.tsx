@@ -52,7 +52,6 @@ function History() {
               title={history.activity?.title}
               altText={history.activity?.title}
               tags={parseTags}
-              // detail={`${history.activity?.date.DateStart} - ${history.activity?.date.DateEnd}`}
               control={<HistoryControl />}
             />
           );
