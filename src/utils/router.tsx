@@ -45,6 +45,10 @@ export const routerConfig = [
             element: <Search />,
           },
           {
+            path: '/detail/:id',
+            element: <Detail />,
+          },
+          {
             path: '/resetpwd',
             element: <ResetPwd />,
           },
@@ -65,10 +69,6 @@ export const routerConfig = [
       {
         path: '/forgetpwd',
         element: <ForgetPwd />,
-      },
-      {
-        path: '/detail/:id',
-        element: <Detail />,
       },
       {
         path: '/loading',
