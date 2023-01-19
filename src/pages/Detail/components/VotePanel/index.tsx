@@ -8,69 +8,82 @@ import './index.scss';
 import { ActivityTagDataType } from 'types/ActivityDataType';
 
 interface Props extends PopupDisplayType {
-  tags: ActivityTagDataType[]
+  tags: ActivityTagDataType[] | null;
 }
 
-function VotePanel({ display, onClose, tags }: Props) {
-  const [votedTags, setVotedTags] = useState<ActivityTagDataType[]>(tags);
+function VotePanel({ display, onClose, tags = [] }: Props) {
+  const [votedTags, setVotedTags] = useState<ActivityTagDataType[] | null>(tags);
 
   const effectCallback = () => {
     setVotedTags(tags);
   };
 
-  const handleVotedButtonClick = (currentTag: ActivityTagDataType) => {
-    const foundedTag = tags.find((v) => v.Id === currentTag.Id);
-    if (foundedTag) {
-      // change TagCount
-      if (currentTag.UserVoted) {
-        foundedTag.TagCount -= 1;
-      } else { foundedTag.TagCount += 1; }
+  const handleVotedButtonClick = (clickedTag: ActivityTagDataType) => {
+    if (votedTags) {
+      const foundedTag = votedTags.find((v) => v.id === clickedTag.id);
 
-      // change user voted status
-      foundedTag.UserVoted = !foundedTag.UserVoted;
+      if (foundedTag) {
+        // Change FoundTag count userVoted
+        if (clickedTag.userVoted) {
+          foundedTag.tagCount -= 1;
+        } else { foundedTag.tagCount += 1; }
+        foundedTag.userVoted = !foundedTag.userVoted;
 
-      // conductVotedTag for accrpt tagCount and votedTags
-      const newVotedTags = votedTags.map((v) => {
-        if (v.Id === foundedTag.Id) {
-          return foundedTag;
-        }
-        return v;
-      });
-
-      setVotedTags(newVotedTags);
-      console.log(votedTags);
-
-      return;
-    }
-
+        // Update
+        const newVotedTags = votedTags.map((v) => {
+          if (v.id === foundedTag.id) {
+            return foundedTag;
+          }
+          return v;
+        });
+        setVotedTags(newVotedTags);
+      } else {
+        setVotedTags([...votedTags, { ...clickedTag, userVoted: true }]);
+      }
+    } else {
     // if not found, add new votedTag
-    setVotedTags([...votedTags, { ...currentTag, UserVoted: true }]);
+      setVotedTags([{ ...clickedTag, userVoted: true }]);
+    }
   };
 
   const handleSuggestionClick = (clickedTag: TagType) => {
-    const foundTag = tags.find((tag) => tag.Id.toString() === clickedTag.id);
-    let newTags = tags;
-    if (foundTag) {
-      if (foundTag.UserVoted) {
-        foundTag.TagCount += 1;
-      } else { foundTag.TagCount -= 1; }
-      // conductVotedTag for accrpt tagCount and votedTags
-      newTags = votedTags.map((v) => {
-        if (v.Id === foundTag.Id) {
-          return foundTag;
+    if (votedTags) {
+      const foundTag = votedTags.find((tag) => tag.id.toString() === clickedTag.id);
+      let newTags = votedTags;
+
+      if (foundTag) {
+        // TagCount increase and decrease
+        if (foundTag.userVoted) {
+          foundTag.tagCount += 1;
+        } else {
+          foundTag.tagCount -= 1;
         }
-        return v;
-      });
+        // Update
+        newTags = votedTags.map((v) => {
+          if (v.id === foundTag.id) {
+            return foundTag;
+          }
+          return v;
+        });
+      } else {
+        newTags.push({
+          id: parseInt(clickedTag.id, 10),
+          type: clickedTag.type as ActivityTagDataType['type'],
+          text: clickedTag.text,
+          tagCount: 1,
+          userVoted: true,
+        });
+      }
+      setVotedTags(newTags);
     } else {
-      newTags.push({
-        Id: parseInt(clickedTag.id, 10),
-        Type: clickedTag.type as ActivityTagDataType['Type'],
-        Text: clickedTag.text,
-        TagCount: 1,
-        UserVoted: true,
-      });
+      setVotedTags([{
+        id: parseInt(clickedTag.id, 10),
+        type: clickedTag.type as ActivityTagDataType['type'],
+        text: clickedTag.text,
+        tagCount: 1,
+        userVoted: true,
+      }]);
     }
-    setVotedTags(newTags);
   };
 
   return (
@@ -85,25 +98,25 @@ function VotePanel({ display, onClose, tags }: Props) {
           onSuggestionClick={handleSuggestionClick}
         />
         <h3>目前標籤票數排行</h3>
-        {votedTags.map((tag: ActivityTagDataType) => {
-          const variant = tag.Type as TagType['type'];
+        {votedTags && votedTags.map((tag: ActivityTagDataType) => {
+          const variant = tag.type as TagType['type'];
           return (
-            <div className="vote-panel__item" key={`vote-pael-item-${tag.Id.toString()}`}>
+            <div className="vote-panel__item" key={`vote-pael-item-${tag.id.toString()}`}>
               <Tag
-                id={`vote-tag-${tag.Id.toString()}`}
-                key={`vote-tag-${tag.Id.toString()}`}
-                text={tag.Text}
+                id={`vote-tag-${tag.id.toString()}`}
+                key={`vote-tag-${tag.id.toString()}`}
+                text={tag.text}
                 type={variant}
               />
               <p>
                 票數:
-                {tag.TagCount}
+                {tag.tagCount}
               </p>
               <Button
-                key={`vote-btn-${tag.Id.toString()}`}
-                iconAfter={tag.UserVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                key={`vote-btn-${tag.id.toString()}`}
+                iconAfter={tag.userVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
                 color="dark"
-                variant={{ outline: !tag.UserVoted }}
+                variant={{ outline: !tag.userVoted }}
                 onClick={() => handleVotedButtonClick(tag)}
               />
             </div>

@@ -1,36 +1,36 @@
 [
   {
-    "Id": 1,
-    "Keyword": "webDev",
-    "Tags": [
+    "id": 1,
+    "keyword": "webDev",
+    "tags": [
       {
-        "Type": "area",
-        "Id": 0,
-        "Text": "教育"
+        "type": "area",
+        "id": 0,
+        "text": "教育"
       },
       {
-        "Type": "location",
-        "Id": 0,
-        "Text": "臺北市"
+        "type": "location",
+        "id": 0,
+        "text": "臺北市"
       }
     ],
-    "Time": "2022-10-22 12:00:00"
+    "time": "2022-10-22 12:00:00"
   },
   {
-    "Id": 2,
-    "Keyword": "webDev",
-    "Tags": [
+    "id": 2,
+    "keyword": "webDev",
+    "tags": [
       {
-        "Type": "area",
-        "Id": 0,
-        "Text": "教育"
+        "type": "area",
+        "id": 0,
+        "text": "教育"
       },
       {
-        "Type": "location",
-        "Id": 0,
-        "Text": "臺北市"
+        "type": "location",
+        "id": 0,
+        "text": "臺北市"
       }
     ],
-    "Time": "2022-10-22 12:00:00"
+    "time": "2022-10-22 12:00:00"
   }
 ]

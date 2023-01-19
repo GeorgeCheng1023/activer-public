@@ -10,7 +10,7 @@ interface ManageCardControlType {
 
 function ManageCardControl({ branch, onChange } :ManageCardControlType) {
   const {
-    Id, DateStart, ApplyEnd, Status,
+    id: Id, dateStart: DateStart, applyEnd: ApplyEnd, status: Status,
   } = branch;
   const handleChange = (key: any, value: any) => {
     onChange(Id, key, value);

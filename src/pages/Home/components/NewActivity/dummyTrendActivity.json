@@ -1,114 +1,114 @@
 [
   {
-    "Id": 1,
-    "Title": "1【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
-    "Image": [
+    "id": 1,
+    "title": "1【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "images": [
       "https://images.unsplash.com/photo-1671644988451-de17597de2c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
     ],
-    "Tags": [
+    "tags": [
       {
-        "Type": "area",
-        "Id": 0,
-        "Text": "教育1",
-        "TagCount": 10,
-        "UserVoted": false
+        "type": "area",
+        "id": 0,
+        "text": "教育1",
+        "tagCount": 10,
+        "userVoted": false
       },
       {
-        "Type": "location",
-        "Id": 1,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "type": "location",
+        "id": 1,
+        "text": "臺北市",
+        "tagCount": 1,
+        "userVoted": true
       }
     ]
   },
   {
-    "Id": 2,
-    "Title": "2【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
-    "Image": null,
-    "Tags": [
+    "id": 2,
+    "title": "2【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "images": null,
+    "tags": [
       {
-        "Type": "area",
-        "Id": 0,
-        "Text": "教育2",
-        "TagCount": 10,
-        "UserVoted": false
+        "type": "area",
+        "id": 0,
+        "text": "教育2",
+        "tagCount": 10,
+        "userVoted": false
       },
       {
-        "Type": "location",
-        "Id": 1,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "type": "location",
+        "id": 1,
+        "text": "臺北市",
+        "tagCount": 1,
+        "userVoted": true
       }
     ]
   },
   {
-    "Id": 3,
-    "Title": "3【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
-    "Image": [
+    "id": 3,
+    "title": "3【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "images": [
       "https://images.unsplash.com/photo-1671642543979-ecbc42fa532f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
     ],
-    "Tags": [
+    "tags": [
       {
-        "Type": "area",
-        "Id": 0,
-        "Text": "教育3",
-        "TagCount": 10,
-        "UserVoted": false
+        "type": "area",
+        "id": 0,
+        "text": "教育3",
+        "tagCount": 10,
+        "userVoted": false
       },
       {
-        "Type": "location",
-        "Id": 1,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "type": "location",
+        "id": 1,
+        "text": "臺北市",
+        "tagCount": 1,
+        "userVoted": true
       }
     ]
   },
   {
-    "Id": 4,
-    "Title": "4【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
-    "Image": [
+    "id": 4,
+    "title": "4【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "images": [
       "https://images.unsplash.com/photo-1661956602868-6ae368943878?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
     ],
-    "Tags": [
+    "tags": [
       {
-        "Type": "area",
-        "Id": 3,
-        "Text": "教育4",
-        "TagCount": 10,
-        "UserVoted": false
+        "type": "area",
+        "id": 3,
+        "text": "教育4",
+        "tagCount": 10,
+        "userVoted": false
       },
       {
-        "Type": "location",
-        "Id": 4,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "type": "location",
+        "id": 4,
+        "text": "臺北市",
+        "tagCount": 1,
+        "userVoted": true
       }
     ]
   },
   {
-    "Id": 5,
-    "Title": "5【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
-    "Image": [
+    "id": 5,
+    "title": "5【講座】臺北市工業機器人技術教學中心辦理111年度跨群科「工業機器手臂認識與操作實務」計畫",
+    "images": [
       "https://images.unsplash.com/photo-1671567571405-1c29c517a35f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
     ],
-    "Tags": [
+    "tags": [
       {
-        "Type": "area",
-        "Id": 5,
-        "Text": "教育5",
-        "TagCount": 10,
-        "UserVoted": false
+        "type": "area",
+        "id": 5,
+        "text": "教育5",
+        "tagCount": 10,
+        "userVoted": false
       },
       {
-        "Type": "location",
-        "Id": 6,
-        "Text": "臺北市",
-        "TagCount": 1,
-        "UserVoted": true
+        "type": "location",
+        "id": 6,
+        "text": "臺北市",
+        "tagCount": 1,
+        "userVoted": true
       }
     ]
   }

@@ -9,7 +9,6 @@ import Button from 'components/Button';
 import {
   selectKeyword,
   addStorage,
-
 } from 'store/searchPanel';
 // component
 import { MdDoubleArrow } from 'react-icons/md';
@@ -17,9 +16,9 @@ import SearchBar from 'components/Form/FormSearchBar';
 import SearchTag from 'components/Form/FormSearchTag';
 import { TagType } from 'components/Tag';
 import { motion } from 'framer-motion';
-import {
-  RecommendTag, SortTag, StorageTag,
-} from './components';
+import RecommendTag from './components/RecommendTag';
+import SortTag from './components/SortTag';
+import StorageTag from './components/StorageTag';
 
 const searchPanelVariant = {
   fold: {

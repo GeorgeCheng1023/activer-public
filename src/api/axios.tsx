@@ -3,7 +3,7 @@ import axios from 'axios';
 const IP = '220.132.244.41';
 const PORT = '5044';
 
-const TEST_URL = `http://${IP}:${PORT}`;
+export const TEST_URL = `http://${IP}:${PORT}`;
 
 const USER_UPDATE_URL = '/api/user/update';
 // api/user/auth
@@ -153,15 +153,5 @@ export const apiUserGoogleData = (access_token: string) => axios.get(
     },
   },
 );
-
-// activity api
-const activityRequest = axios.create({
-  baseURL: TEST_URL.concat('/api/activity'),
-});
-export const getActivity = (id: string) => activityRequest.get(`/${id}`, {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
 
 export default axiosTest;

@@ -1,35 +1,30 @@
 import React from 'react';
 import Carousel from 'components/Carousel';
 import { IconLogo } from 'components/Icons';
-import './index.scss';
 
-type Props = {
-  image?: string[] | null;
-  id: number;
+interface DetailImagesType {
+  images?: string[] | null;
+  activityId: number;
   altText: string
-};
+}
 
-function DetailImage({ image, id, altText }: Props) {
-  if (image) {
+function DetailImage({ images, activityId, altText }: DetailImagesType) {
+  if (images) {
     return (
-      <div className="detail__img">
-        <Carousel
-          slides={image.map((img: any, index: number) => (
-            <img key={`img-${id}${index}`} src={img} alt={altText} />
-          ))}
-        />
-      </div>
+      <Carousel
+        slides={images.map((img: any, index: number) => (
+          <img key={`img-${activityId}${index}`} src={img} alt={altText} />
+        ))}
+      />
     );
   }
   return (
-    <div className="detail__img">
-      <IconLogo />
-    </div>
+    <IconLogo />
   );
 }
 
 DetailImage.defaultProps = {
-  image: null,
+  images: null,
 };
 
 export default DetailImage;
