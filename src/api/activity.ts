@@ -10,12 +10,11 @@ const activityRequest = axios.create({
 export const getActivityById = (id: string) => (
   activityRequest.get(`/${id}`, {
     headers: {
-
       'Content-Type': 'text/plain',
     },
   }));
 
-// POST: /api/Activity/branch/dreamStatus, update branch status
+// POST: update branch status
 export const updateActivityStatus = (
   activityId:string,
   branchId: string,
