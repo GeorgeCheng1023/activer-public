@@ -7,15 +7,18 @@ const activityRequest = axios.create({
 });
 
 // GET: /api/Activity/{id}, activity get by id
-export const getActivityById = (id: string) => (
+export const getActivityById = (
+  id: string,
+  accessToken: string,
+) => (
   activityRequest.get(`/${id}`, {
     headers: {
-
       'Content-Type': 'text/plain',
+      Authorization: `Bearer ${accessToken}`,
     },
   }));
 
-// POST: /api/Activity/branch/dreamStatus, update branch status
+// POST: update branch status
 export const updateActivityStatus = (
   activityId:string,
   branchId: string,
