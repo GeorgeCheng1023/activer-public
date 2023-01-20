@@ -11,7 +11,7 @@ import Button from 'components/Button';
 import './index.scss';
 import { TagDataType } from 'types/ActivityDataType';
 import { useParseTagDataToTag } from 'hooks/tag';
-import dummyAllTags from './dummyAllTag.json';
+import { getAllTags } from 'api/tag';
 
 interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> {
   onSuggestionClick: (clickedSuggestion: TagType) => void
@@ -20,16 +20,26 @@ interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> 
 function FormSearchBar({
   onSuggestionClick, ...props
 }: FormSearchTagType) {
-  // parse all tags for suggestion
-  // TODO: fetch all tags
-  const allTags:TagDataType[] = dummyAllTags;
+  const [allTags, setAllTags] = useState<TagDataType[]>([]);
   // suggstionDisplay is a boolean that show or hide the suggestion
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
-
   //  suggestion tag
   const [suggestionTags, setSuggestionTags] = useState<JSX.Element[] | null>();
   const [currentFocusSuggestionIndex, setCurrentSuggestionIndex] = useState(-1);
   const inputValueRef = useRef<HTMLInputElement>(null);
+
+  // GET: All tag
+  useEffect(() => {
+    const dataFetch = async () => {
+      try {
+        const res = await getAllTags();
+        setAllTags(res.data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    dataFetch();
+  }, []);
 
   // submit clicked Tag
   const handleSuggestionClick = useCallback((clickedTag: TagType) => {

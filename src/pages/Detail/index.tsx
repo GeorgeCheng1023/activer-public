@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 // api
 import { getActivityById } from 'api/activity';
 // type
@@ -28,6 +29,7 @@ import { initialDataState, initialBranchesState } from './utils/initialData';
 
 function Detail() {
   const { id } = useParams();
+  const [cookies] = useCookies<string>(['user']);
 
   // init state
   const [data, setData] = useState<ActivityDataType>(initialDataState);
@@ -44,7 +46,7 @@ function Detail() {
     const dataFetch = async () => {
       try {
         if (!id) throw new Error('No id provided');
-        const res = await getActivityById(id.toString());
+        const res = await getActivityById(id.toString(), cookies.sessionToken);
         setData(res.data);
 
         setCurrentBranch(res.data.branches[0]);
