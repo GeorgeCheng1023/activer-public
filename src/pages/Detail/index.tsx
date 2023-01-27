@@ -3,16 +3,14 @@ import { useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 // api
 import { getActivityById } from 'api/activity';
-// type
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
+// components
 import { BsPlus } from 'react-icons/bs';
 import {
   FcReading, FcList, FcShare, FcPhone, FcGraduationCap,
 } from 'react-icons/fc';
-// components
 import Button from 'components/Button';
 import ManageNav from 'components/ManageNav';
-
 import Tag, { TagType } from 'components/Tag';
 import Loading from 'pages/Loading';
 import VotePanel from './components/VotePanel';
@@ -38,7 +36,7 @@ function Detail() {
 
   // handle click branch name event
   const handleChangeFilter = (selectedId : string) => {
-    setCurrentBranch(data.branches.find((branch) => branch.id.toString() === selectedId)!);
+    setCurrentBranch(data.branches?.find((branch) => branch.id.toString() === selectedId)!);
   };
 
   // get data
@@ -49,7 +47,10 @@ function Detail() {
         const res = await getActivityById(id.toString(), cookies.sessionToken);
         setData(res.data);
 
-        setCurrentBranch(res.data.branches[0]);
+        // if data branch existed, set branch to first one
+        if (res.data.branches) {
+          setCurrentBranch(res.data.branches[0]);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -130,38 +131,43 @@ function Detail() {
 
           </div>
 
-          <div className="detail__hero__right">
-            {/* Branch Navigation */}
-            <ManageNav
-              filters={
-                branches.map((branch: BranchDataType) => ({
-                  id: branch.id.toString(),
-                  label: branch.branchName,
-                }))
-              }
-              onChangeFilter={handleChangeFilter}
-              currentFilterId={currentBranch.id.toString()}
-            />
+          {branches && (
+            <div className="detail__hero__right">
+              {/* Branch Navigation */}
+              <ManageNav
+                filters={
+                  branches.map((branch: BranchDataType) => ({
+                    id: branch.id.toString(),
+                    label: branch.branchName,
+                  }))
+                }
+                onChangeFilter={handleChangeFilter}
+                currentFilterId={currentBranch.id.toString()}
+              />
 
-            {/* Branch Detail Properties */}
-            <DetailProperties
-              branch={currentBranch}
-              activityId={activityId.toString()}
-            />
-          </div>
+              {/* Branch Detail Properties */}
+              <DetailProperties
+                branch={currentBranch}
+                activityId={activityId.toString()}
+              />
+            </div>
+          )}
         </div>
 
         {/* main content */}
         <div className="detail__main">
 
           {/* Object */}
-          <div className="detail__objective">
-            <h2 className="detail__header">
-              <FcReading />
-              活動對象
-            </h2>
-            <p>{objective}</p>
-          </div>
+          {objective
+          && (
+            <div className="detail__objective">
+              <h2 className="detail__header">
+                <FcReading />
+                活動對象
+              </h2>
+              <p>{objective}</p>
+            </div>
+          ) }
 
           {/* Content */}
           <div className="detail__content">
@@ -173,7 +179,7 @@ function Detail() {
           </div>
 
           {/* Sources */}
-          {sources && (
+          {sources && sources.length !== 0 && (
             <div className="detail__source">
               <h2 className="detail__header">
                 <FcShare />
@@ -194,7 +200,7 @@ function Detail() {
           )}
 
           {/* Connection */}
-          {connection && (
+          {connection && connection.length !== 0 && (
             <div className="detail__connection">
               <h2 className="detail__header">
                 <FcPhone />
@@ -206,11 +212,10 @@ function Detail() {
                 </p>
               ))}
             </div>
-
           )}
 
           {/* Holder */}
-          {holder && (
+          {holder && holder.length !== 0 && (
             <div className="detail__holder">
               <h2 className="detail__header">
                 <FcGraduationCap />
@@ -224,7 +229,6 @@ function Detail() {
             </div>
           )}
 
-          {/* <DetailComment /> */}
         </div>
       </div>
     </div>

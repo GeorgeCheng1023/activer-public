@@ -10,7 +10,7 @@ export interface ShortActivityDataType extends BaseActivityDataType {
 
 interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
-  branches: BranchDataType[];
+  branches: BranchDataType[] | null;
   content: string;
   connection: string[] | null;
   holder: string[] | null ;

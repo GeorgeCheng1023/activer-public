@@ -1,0 +1,13 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.result {
+  @include container-main;
+
+  display: flex;
+  flex-flow: wrap;
+  gap: 1em;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 1em;
+}

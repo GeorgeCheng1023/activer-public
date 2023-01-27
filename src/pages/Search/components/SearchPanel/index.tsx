@@ -57,7 +57,7 @@ function Search() {
   const searchPanelRef = useRef<HTMLDivElement>(null);
 
   // Fold when click outside of SearchPanel or mouse wheeling
-  useOutsideClick(searchPanelRef, () => dispatch(fold));
+  useOutsideClick(searchPanelRef, () => dispatch(fold()));
   function handleWheel() {
     dispatch(fold());
   }
