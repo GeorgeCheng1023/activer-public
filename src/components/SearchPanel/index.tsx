@@ -1,25 +1,32 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 // hooks
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import useOutsideClick from 'hooks/event/useOutsideClick';
 // style
 import './index.scss';
-// store
-import Button from 'components/Button';
-import {
-  selectKeyword,
-  addStorage,
-} from 'store/searchPanel';
 // component
+import Button from 'components/Button';
 import { MdDoubleArrow } from 'react-icons/md';
 import SearchBar from 'components/Form/FormSearchBar';
 import SearchTag from 'components/Form/FormSearchTag';
 import { TagType } from 'components/Tag';
 import { motion } from 'framer-motion';
+import { searchActivity } from 'api/activity';
+import {
+  selectKeyword,
+  addStorage,
+  selectSortTags,
+  setKeyword,
+  setResults,
+  fold,
+  selectExpended,
+  toggle,
+  expend,
+} from 'store/searchPanel';
 import RecommendTag from './components/RecommendTag';
 import SortTag from './components/SortTag';
 import StorageTag from './components/StorageTag';
-
+// motion variants
 const searchPanelVariant = {
   fold: {
     height: '7.5em',
@@ -32,7 +39,6 @@ const searchPanelVariant = {
     },
   },
 };
-
 const searchPanelToggleVariant = {
   fold: {
     rotate: 90,
@@ -42,28 +48,38 @@ const searchPanelToggleVariant = {
   },
 };
 
-// main function
 function Search() {
-  // setting redux hooks
-  const keyword = useAppSelector(selectKeyword);
+  // hooks init
   const dispatch = useAppDispatch();
-  const [expended, setExpended] = useState(true);
+  const keyword = useAppSelector(selectKeyword);
+  const sortTags = useAppSelector(selectSortTags);
+  const expended = useAppSelector(selectExpended);
   const searchPanelRef = useRef<HTMLDivElement>(null);
-  useOutsideClick(searchPanelRef, () => setExpended(false));
 
+  // Fold when click outside of SearchPanel or mouse wheeling
+  useOutsideClick(searchPanelRef, () => dispatch(fold));
+  function handleWheel() {
+    dispatch(fold());
+  }
+
+  // HANDLER: TagSearch suggestion click and add to storage
   const handleSuggestionClick = (clickedSuggestion: TagType) => {
     dispatch(addStorage(clickedSuggestion));
   };
 
-  // handle search submit event and update keyword in searchValue
-  const handleSearchSubmit = (inputValue: string) => {
-    // TODO: fetch activity data by inputValue
-    console.log(inputValue);
+  // HANDLER: submit, and update result
+  const handleSearchSubmit = async (inputValue: string) => {
+    dispatch(fold());
+    dispatch(setKeyword(inputValue));
+    try {
+      const res = await searchActivity(keyword, sortTags.map((tag) => tag.text));
+      dispatch(setResults(res.data));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  function handleWheel() {
-    setExpended(false);
-  }
+  // Add wheel handler to window
   useEffect(() => {
     window.addEventListener('wheel', handleWheel);
     return () => {
@@ -71,7 +87,6 @@ function Search() {
     };
   }, []);
 
-  // redux
   return (
 
     <motion.div
@@ -79,7 +94,6 @@ function Search() {
       animate={expended ? 'expend' : 'fold'}
       className="search-panel"
       variants={searchPanelVariant}
-      onWheel={handleWheel}
     >
 
       <div className="search-panel__container">
@@ -89,7 +103,9 @@ function Search() {
             <SearchBar
               onSubmit={handleSearchSubmit}
               placeholder="搜尋活動關鍵字"
-              defaultText={keyword}
+              value={keyword}
+              onClick={() => dispatch(expend())}
+              autoFocus
             />
           </div>
           <motion.div
@@ -100,8 +116,7 @@ function Search() {
             <Button
               variant={{ round: true }}
               iconAfter={<MdDoubleArrow />}
-              onClick={() => setExpended(!expended)}
-
+              onClick={() => dispatch(toggle())}
             />
           </motion.div>
         </div>

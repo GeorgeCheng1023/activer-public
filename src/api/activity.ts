@@ -43,4 +43,31 @@ export const updateActivityStatus = (
   )
 );
 
+// GET: Search
+export const searchActivity = (
+  reqKeyword: string,
+  reqTagsText: string[],
+) => {
+  const reqParams = {
+    keyword: reqKeyword,
+    tags: reqTagsText.length === 0 ? [' '] : reqTagsText,
+  };
+
+  return (
+    activityRequest.get(
+      '/search',
+      {
+        params: reqParams,
+        paramsSerializer: {
+          indexes: null,
+        },
+        headers: {
+          accept: 'text/plain',
+        },
+
+      },
+    )
+  );
+};
+
 export default activityRequest;

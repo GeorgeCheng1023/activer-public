@@ -1,7 +1,7 @@
 import React from 'react';
 // components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Card } from 'components/Card';
+import Card from 'components/Card';
 
 // Import Swiper styles
 import 'swiper/css';

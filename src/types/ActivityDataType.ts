@@ -4,6 +4,10 @@ export interface BaseActivityDataType {
   images: string[] | null;
 }
 
+export interface ShortActivityDataType extends BaseActivityDataType {
+  tags: TagDataType[];
+}
+
 interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
   branches: BranchDataType[];
