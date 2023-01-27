@@ -1,10 +1,10 @@
 import React from 'react';
 // components
-import SearchPanel from 'components/SearchPanel';
 import { useAppSelector } from 'hooks/redux';
 import { selectResults } from 'store/searchPanel';
 import Card from 'components/Card';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
+import SearchPanel from './components/SearchPanel';
 
 function Search() {
   const results = useAppSelector(selectResults);
