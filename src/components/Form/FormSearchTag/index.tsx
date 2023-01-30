@@ -87,10 +87,6 @@ function FormSearchTag({
     );
   };
 
-  useEffect(() => {
-    console.log(suggestionTags);
-  }, [suggestionTags]);
-
   // HANDLER: blur
   const handleBlur:
   React.FocusEventHandler<HTMLInputElement> = useCallback((e) => {

@@ -8,6 +8,11 @@ export interface ShortActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
 }
 
+export interface SearchLoaderDataType {
+  data: ShortActivityDataType[];
+  keyword: string | null;
+}
+
 interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
   branches: BranchDataType[] | null;

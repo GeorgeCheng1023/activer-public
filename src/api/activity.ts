@@ -19,7 +19,7 @@ export const getActivityById = (
   }));
 
 // POST: update branch status
-export const updateActivityStatus = (
+export const postActivityStatus = (
   activityId:string,
   branchId: string,
   status: string,
@@ -44,7 +44,7 @@ export const updateActivityStatus = (
 );
 
 // GET: Search
-export const searchActivity = (
+export const getSearchActivity = (
   reqKeyword: string,
   reqTagsText: string[],
 ) => {

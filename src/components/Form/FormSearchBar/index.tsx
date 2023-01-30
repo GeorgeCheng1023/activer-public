@@ -7,7 +7,7 @@ import { GrClose } from 'react-icons/gr';
 interface FormSearchBarType
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onSubmit'> {
   value: string;
-  onSubmit: (value: string) => void;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
 function FormSearchBar({
@@ -16,11 +16,6 @@ function FormSearchBar({
   // inputValue is a string that text in a input
   const [inputValue, setInputValue] = useState(value);
   const [focused, setFocus] = useState(false);
-
-  const handleSubmit = () => {
-    onSubmit(inputValue);
-  };
-
   // handle input type change event
   const handleChange:
   React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
@@ -28,9 +23,9 @@ function FormSearchBar({
   }, []);
 
   const handleKeyDown:
-  React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit();
+  React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key === 'Enter') {
+      onSubmit(event as any);
     }
   };
 
@@ -51,7 +46,6 @@ function FormSearchBar({
           color="white"
           variant={{ round: true }}
           iconAfter={<FiSearch />}
-          onClick={handleSubmit}
         />
       </div>
       <input

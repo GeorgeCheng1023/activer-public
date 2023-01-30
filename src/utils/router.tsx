@@ -8,7 +8,7 @@ import User, {
 } from 'pages/User';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
-import Search from 'pages/Search';
+import Search, { loader as searchLoader } from 'pages/Search';
 import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
 import NotFound from 'pages/NotFound';
@@ -42,6 +42,7 @@ export const routerConfig = [
           },
           {
             path: '/search',
+            loader: searchLoader,
             element: <Search />,
           },
           {
