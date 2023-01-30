@@ -18,7 +18,7 @@ import {
   toggle,
   expend,
 } from 'store/searchPanel';
-import { Form, useSubmit, useLoaderData } from 'react-router-dom';
+import { Form, useLoaderData } from 'react-router-dom';
 import { SearchLoaderDataType } from 'types/ActivityDataType';
 import RecommendTag from './components/RecommendTag';
 import SortTag from './components/SortTag';
@@ -50,7 +50,7 @@ function Search() {
   const dispatch = useAppDispatch();
   const expended = useAppSelector(selectExpended);
   const searchPanelRef = useRef<HTMLDivElement>(null);
-  const submit = useSubmit();
+
   const loaderData = useLoaderData() as SearchLoaderDataType;
 
   // Fold when click outside of SearchPanel or mouse wheeling
@@ -73,16 +73,15 @@ function Search() {
   }, []);
 
   const handleSearchSubmit:
-  React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
+  React.FormEventHandler<HTMLFormElement> = () => {
     dispatch(fold());
-    submit(event.currentTarget.form);
   };
 
   return (
     <Form
       id="search-panel"
       role="search"
+      onSubmit={handleSearchSubmit}
     >
 
       <motion.div

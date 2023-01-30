@@ -11,13 +11,14 @@ import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
 import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
-import NotFound from 'pages/NotFound';
+import NotFound from 'pages/Error/NotFound';
 import Loading from 'pages/Loading';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 import Verify from 'pages/Login/components/verifyUser/index';
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
+import SearchErrorPage from 'pages/Error/SearchErrorPage';
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
@@ -43,6 +44,7 @@ export const routerConfig = [
           {
             path: '/search',
             loader: searchLoader,
+            errorElement: <SearchErrorPage />,
             element: <Search />,
           },
           {

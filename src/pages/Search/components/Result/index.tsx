@@ -10,13 +10,17 @@ import { SearchLoaderDataType } from 'types/ActivityDataType';
 
 function Result() {
   const results = useAppSelector(selectResults);
+  // loader in src\pages\Search
   const loaderData = useLoaderData() as SearchLoaderDataType;
 
   if (loaderData.data.length > 0) {
     return (
       <div className="result">
         {results && results.map((result) => (
-          <Link to={`/detail/${result.id}`}>
+          <Link
+            to={`/detail/${result.id}`}
+            key={`result-${result.id}`}
+          >
             <Card
               id={result.id.toString()}
               tags={result.tags ? useParseArrayTagDataToTag(result.tags) : []}
