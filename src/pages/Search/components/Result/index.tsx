@@ -5,15 +5,19 @@ import Card from 'components/Card';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
 import './index.scss';
 import { Link, useLoaderData } from 'react-router-dom';
-
-import { SearchLoaderDataType } from 'types/ActivityDataType';
+import { SearchLoaderType } from 'types/ActivityDataType';
+import SearchIndex from '../SearchIndex';
 
 function Result() {
   const results = useAppSelector(selectResults);
   // loader in src\pages\Search
-  const loaderData = useLoaderData() as SearchLoaderDataType;
+  const loaderData = useLoaderData() as SearchLoaderType;
 
-  if (loaderData.data.length > 0) {
+  if (loaderData.data === null) {
+    return <SearchIndex />;
+  }
+
+  if (loaderData.data.searchResultData?.length > 0) {
     return (
       <div className="result">
         {results && results.map((result) => (

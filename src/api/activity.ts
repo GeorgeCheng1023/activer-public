@@ -44,30 +44,25 @@ export const postActivityStatus = (
 );
 
 // GET: Search
-export const getSearchActivity = (
-  reqKeyword: string,
-  reqTagsText: string[],
-) => {
-  const reqParams = {
-    keyword: reqKeyword,
-    tags: reqTagsText.length === 0 ? [' '] : reqTagsText,
-  };
+interface getSearchActivityPropsType {
+  keywords: string,
+  tags?: string[],
+  countPerSegment: number,
+  currentSegment: number,
+}
 
-  return (
-    activityRequest.get(
-      '/search',
-      {
-        params: reqParams,
-        paramsSerializer: {
-          indexes: null,
-        },
-        headers: {
-          accept: 'text/plain',
-        },
-
+export const postSearchActivity = (reqBody
+: getSearchActivityPropsType) => (
+  activityRequest.post(
+    '/search',
+    reqBody,
+    {
+      headers: {
+        accept: 'text/plain',
+        'Content-Type': 'application/json',
       },
-    )
-  );
-};
+    },
+  )
+);
 
 export default activityRequest;

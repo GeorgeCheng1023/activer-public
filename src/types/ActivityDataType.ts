@@ -8,9 +8,17 @@ export interface ShortActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
 }
 
-export interface SearchLoaderDataType {
-  data: ShortActivityDataType[];
-  keyword: string | null;
+export interface SearchResponstDataType {
+  maxSegment: number;// maximun request page
+  minSegment: number;// minimun request page
+  currentSegment: number;// current page
+  countPerSegment: number; // max number of data in its page
+  searchResultData: ActivityDataType[]; // main result data
+  totalCount: number; // total data
+}
+export interface SearchLoaderType {
+  data: SearchResponstDataType;
+  keywords: string;
 }
 
 interface ActivityDataType extends BaseActivityDataType {

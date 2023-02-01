@@ -17,9 +17,11 @@ import {
   selectExpended,
   toggle,
   expend,
+  setKeyword,
+  selectKeyword,
 } from 'store/searchPanel';
-import { Form, useLoaderData } from 'react-router-dom';
-import { SearchLoaderDataType } from 'types/ActivityDataType';
+import { Form, useLoaderData, useSearchParams } from 'react-router-dom';
+import { SearchLoaderType } from 'types/ActivityDataType';
 import RecommendTag from './components/RecommendTag';
 import SortTag from './components/SortTag';
 import StorageTag from './components/StorageTag';
@@ -49,9 +51,11 @@ function Search() {
   // hooks init
   const dispatch = useAppDispatch();
   const expended = useAppSelector(selectExpended);
+  const keyword = useAppSelector(selectKeyword);
   const searchPanelRef = useRef<HTMLDivElement>(null);
-
-  const loaderData = useLoaderData() as SearchLoaderDataType;
+  // eslint-disable-next-line
+  const [searchParams, setSearchParams] = useSearchParams();
+  const loaderData = useLoaderData() as SearchLoaderType;
 
   // Fold when click outside of SearchPanel or mouse wheeling
   useOutsideClick(searchPanelRef, () => dispatch(fold()));
@@ -72,16 +76,17 @@ function Search() {
     };
   }, []);
 
-  const handleSearchSubmit:
-  React.FormEventHandler<HTMLFormElement> = () => {
+  const handleSearchSubmit = (inputValue: string) => {
     dispatch(fold());
+    dispatch(setKeyword(inputValue));
+    const params = { keywords: keyword };
+    setSearchParams(params);
   };
 
   return (
     <Form
       id="search-panel"
       role="search"
-      onSubmit={handleSearchSubmit}
     >
 
       <motion.div
@@ -92,6 +97,7 @@ function Search() {
       >
 
         <div className="search-panel__container">
+
           {/* activity keyword search */}
           <div className="search-panel__keyword">
             <div className="search-panel__keyword__bar">
@@ -100,8 +106,8 @@ function Search() {
                 placeholder="搜尋活動關鍵字"
                 onClick={() => dispatch(expend())}
                 autoFocus
-                value={loaderData.keyword || ''}
-                name="keyword"
+                value={loaderData.keywords || ''}
+                name="keywords"
               />
             </div>
             <motion.div

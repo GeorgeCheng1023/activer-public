@@ -1,33 +1,43 @@
 import React, { useEffect } from 'react';
 import SearchPanel from 'pages/Search/components/SearchPanel';
-import { getSearchActivity } from 'api/activity';
+import { postSearchActivity } from 'api/activity';
 
 import { useLoaderData, useNavigation } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/redux';
 import { setResults } from 'store/searchPanel';
-import { ShortActivityDataType, SearchLoaderDataType } from 'types/ActivityDataType';
+import { SearchLoaderType } from 'types/ActivityDataType';
 import Loading from 'pages/Loading';
 import Result from './components/Result';
 
 export const loader = async ({ request }: any) => {
   const url = new URL(request.url);
-  const keyword = url.searchParams.get('keyword');
-  const res = await getSearchActivity(keyword || '', []);
-  return { data: res.data, keyword };
+  const keywords = url.searchParams.get('keywords');
+
+  if (keywords) {
+    const res = await postSearchActivity({
+      keywords,
+      countPerSegment: 35,
+      currentSegment: 1,
+    });
+    return { data: res.data, keywords };
+  }
+  return { data: null, keywords };
 };
 
 function Search() {
   const dispatch = useAppDispatch();
-  const loaderData = useLoaderData() as SearchLoaderDataType;
+  const loaderData = useLoaderData() as SearchLoaderType;
   const navigation = useNavigation();
 
   const searching = navigation.location
     && new URLSearchParams(navigation.location.search).has(
-      'keyword',
+      'keywords',
     );
 
   useEffect(() => {
-    dispatch(setResults(loaderData.data as ShortActivityDataType[]));
+    dispatch(
+      setResults(loaderData.data.searchResultData),
+    );
   }, [loaderData]);
 
   return (

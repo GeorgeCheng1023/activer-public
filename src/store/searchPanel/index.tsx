@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 import type { TagType } from 'components/Tag';
-import { ShortActivityDataType } from 'types/ActivityDataType';
+import ActivityDataType from 'types/ActivityDataType';
 
 interface SearchPanelState {
   expended: boolean;
@@ -10,7 +10,7 @@ interface SearchPanelState {
   sortTags: TagType[],
   recommendTags: TagType[],
   storageTags: TagType[],
-  results: ShortActivityDataType[]
+  results: ActivityDataType[]
 }
 
 const initialState: SearchPanelState = {
@@ -90,7 +90,7 @@ export const searchPanelSlice = createSlice({
       ...state,
       keyword: action.payload,
     }),
-    setResults: (state, action:PayloadAction<ShortActivityDataType[]>) => {
+    setResults: (state, action:PayloadAction<ActivityDataType[]>) => {
       const newResults = action.payload;
       return ({
         ...state,
