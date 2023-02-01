@@ -6,6 +6,7 @@ import { useParseArrayTagDataToTag } from 'hooks/tag';
 import './index.scss';
 import { Link, useLoaderData } from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
+import useConvertDate from 'hooks/date/useConvertDate';
 import SearchIndex from '../SearchIndex';
 
 function Result() {
@@ -13,27 +14,44 @@ function Result() {
   // loader in src\pages\Search
   const loaderData = useLoaderData() as SearchLoaderType;
 
-  if (loaderData.data === null) {
+  if (!loaderData.data) {
     return <SearchIndex />;
   }
 
   if (loaderData.data.searchResultData?.length > 0) {
     return (
       <div className="result">
-        {results && results.map((result) => (
-          <Link
-            to={`/detail/${result.id}`}
-            key={`result-${result.id}`}
-          >
-            <Card
-              id={result.id.toString()}
-              tags={result.tags ? useParseArrayTagDataToTag(result.tags) : []}
-              title={result.title}
-              imgUrl={result.images ? result.images[0] : '/DefaultActivityPng.png'}
-              altText={result.title}
-            />
-          </Link>
-        ))}
+        {results && results.map((result) => {
+          const {
+            id, tags, title, images, branches,
+          } = result;
+
+          const firstDateStart = branches ? branches[0].dateStart : null;
+          const firstDateEnd = branches
+            ? branches[0].dateEnd
+            : null;
+          const cardDetail = firstDateEnd
+          && firstDateStart
+            ? `${useConvertDate(firstDateStart[Object.keys(firstDateStart)[0]])} ~ ${useConvertDate(firstDateEnd[0])}`
+            : null;
+
+          return (
+
+            <Link
+              to={`/detail/${id}`}
+              key={`result-${id}`}
+            >
+              <Card
+                id={id.toString()}
+                tags={tags ? useParseArrayTagDataToTag(tags) : []}
+                title={title}
+                imgUrl={images ? images[0] : '/DefaultActivityPng.png'}
+                altText={title}
+                detail={cardDetail}
+              />
+            </Link>
+          );
+        })}
       </div>
     );
   }

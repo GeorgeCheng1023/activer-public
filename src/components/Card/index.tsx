@@ -9,7 +9,7 @@ export interface CardType {
   title: string,
   altText: string,
   tags?: Array<TagType>,
-  detail?: string,
+  detail?: string | null,
   control? : React.ReactNode;
 }
 

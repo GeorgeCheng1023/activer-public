@@ -36,9 +36,11 @@ function Search() {
     );
 
   useEffect(() => {
-    dispatch(
-      setResults(loaderData.data.searchResultData),
-    );
+    if (loaderData.data) {
+      dispatch(
+        setResults(loaderData.data.searchResultData),
+      );
+    }
   }, [loaderData]);
 
   return (
