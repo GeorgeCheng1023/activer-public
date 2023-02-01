@@ -7,20 +7,22 @@ import { getUserData } from 'store/userAuth';
 // import dummyAccountData from './dummyAccountData.json';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { apiUserLogin, apiUserVerifyAndChangePwd } from 'api/axios';
+import { apiUserLogin, apiUserVerifyAndChangePwd } from 'api/user';
+import { Alert, AlertTitle } from '@mui/material';
 
 const PWD_REGEX_STR = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$';
 
 function Account() {
   const nevigate = useNavigate();
   const userData = useAppSelector(getUserData);
-  console.log(userData.password);
   const [accountValue, setAccountValue] = useState(userData);
   const [cookies] = useCookies<string>(['user']);
+  const [errMsg, setErrMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (key: any, value: any) => {
     setAccountValue({ ...accountValue, [key]: value });
+    setErrMsg('');
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -34,11 +36,11 @@ function Account() {
       nevigate('/email/loading');
     } catch (err: any) {
       if (!err?.response) {
-        console.log('伺服器無回應');
+        setErrMsg('伺服器無回應');
       } else if (err.response.status === 401) {
-        console.log('帳號或密碼有誤');
+        setErrMsg('密碼錯誤');
       } else {
-        console.log('伺服器懶蛋');
+        setErrMsg('伺服器懶蛋');
       }
     }
     setLoading(false);
@@ -46,7 +48,25 @@ function Account() {
 
   return (
     <div className="user-account">
+      {/* <Fade in={errMsg !== ''}>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {errMsg}
+        </Alert>
+      </Fade> */}
+
       <h2>帳號安全</h2>
+
+      <div className="user-account--fade-in">
+        {errMsg
+          && (
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              {errMsg}
+            </Alert>
+          )}
+      </div>
+
       <form onSubmit={handleSubmit} className="user-account__form">
         <div className="user-account__input user-account__input__account">
           <FormInput

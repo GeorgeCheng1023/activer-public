@@ -5,7 +5,7 @@ const PORT = '5044';
 
 export const TEST_URL = `http://${IP}:${PORT}`;
 
-const USER_UPDATE_URL = '/api/user/update';
+const USER_UPDATE_URL = '/api/user';
 // api/user/auth
 const LOGIN_URL = '/api/user/auth/signin';
 const REGISTER_URL = '/api/user/auth/signup';
@@ -44,13 +44,14 @@ export const apiUserRegister = (
   },
 );
 
-export const apiUserUpdate = (
-  userFormData: FormData,
-) => axiosTest.put(
+export const apiUserUpdate = (userFormData: FormData, accessToken: string) => axiosTest.put(
   USER_UPDATE_URL,
   userFormData,
   {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${accessToken}`,
+    },
   },
 );
 

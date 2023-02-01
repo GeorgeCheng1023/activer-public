@@ -5,7 +5,7 @@ import './index.scss';
 // components
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
-import { apiUserVerifyAndResetPwd } from 'api/axios';
+import { apiUserVerifyAndResetPwd } from 'api/user';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/;
@@ -30,18 +30,19 @@ function EmailVerify() {
 
   const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     if (EMAIL_REGEX.test(email)) {
-      console.log('success');
       setLoading(true);
       try {
-        const response = await apiUserVerifyAndResetPwd(email);
-        console.log(response);
+        await apiUserVerifyAndResetPwd(email);
         navigate('/email/loading');
       } catch (err: any) {
         if (!err.response) {
           setErrmsg('伺服器沒有回應');
+        } else if (err.response.status === 404) {
+          setErrmsg('此電子信箱尚未註冊');
         } else {
+          setErrmsg('速福氣懶蛋');
+          // eslint-disable-next-line no-console
           console.log(err);
         }
       }
@@ -54,7 +55,7 @@ function EmailVerify() {
   return (
     <main className="forgot-pwd">
       <h2 className={errmsg ? 'forgot-pwd--show' : 'forgot-pwd--hide'}>
-        電子信箱格式錯誤
+        {errmsg}
       </h2>
       <h1 className="forgot-pwd__title">忘記密碼?</h1>
       <h3 className="forgot-pwd__subtitle">驗證電子郵件</h3>

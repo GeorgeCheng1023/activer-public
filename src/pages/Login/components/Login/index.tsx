@@ -1,7 +1,7 @@
 import React, {
   useState, useEffect, useRef,
 } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './index.scss';
 
@@ -12,7 +12,7 @@ import {
 
 // Components
 import FAQTag from 'components/FAQ-Tag';
-import { apiUserLogin, apiUserResendVerify } from 'api/axios';
+import { apiUserLogin, apiUserResendVerify } from 'api/user';
 import { useAppSelector } from 'hooks/redux';
 import Button from '../../../../components/Button';
 import GoogleLoginButton from '../GoogleLogin';
@@ -30,6 +30,7 @@ function LoginSection() {
   const userData: any = useAppSelector(getUserData);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [cookies, setCookie] = useCookies<string>(['user']);
 
@@ -37,10 +38,8 @@ function LoginSection() {
   const errRef = useRef<HTMLInputElement | null>(null);
 
   const [user, setUser] = useState<string>('');
-
   const [pwd, setPwd] = useState<string>('');
   const [validPwd, setValidPwd] = useState<boolean>(true);
-
   const [errMsg, setErrMsg] = useState<string>('');
   const [emailVerified, setEmailVerified] = useState<boolean>(true);
 
@@ -82,6 +81,7 @@ function LoginSection() {
         sameSite: true,
       });
 
+      // 使用者是否已用信箱驗證
       if (response.data.user.verify === false) {
         console.log('Account is unverified');
         setEmailVerified(false);
@@ -89,8 +89,9 @@ function LoginSection() {
         dispatch(setPassword(pwd));
       } else {
         dispatch(userLogin(response.data.user));
-
-        navigate('/user/basic', { replace: true });
+        const searchParams = new URLSearchParams(location.search);
+        const nextPage = searchParams.get('next');
+        navigate(nextPage || '/user/basic', { replace: true });
       }
       return;
     } catch (err: any) {

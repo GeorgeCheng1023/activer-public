@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TEST_URL } from './axios';
+import { TEST_URL } from './user';
 
 // activity api
 const activityRequest = axios.create({

@@ -2,7 +2,7 @@ import Button from 'components/Button';
 import FormInput from 'components/Form/FormInput';
 import React, { useState } from 'react';
 import './index.scss';
-import { apiUserChangePwd } from 'api/axios';
+import { apiUserChangePwd } from 'api/user';
 import { useCookies } from 'react-cookie';
 import { Link, useLocation } from 'react-router-dom';
 import Model from '../Login/components/modal';

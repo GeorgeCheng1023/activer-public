@@ -8,7 +8,7 @@ interface FormDropDownType {
   options: string[];
   value?: string;
   onChange: (key: any, value: any) => void;
-  descriptions? : string[];
+  descriptions?: string[];
 }
 
 function FormDropDown({
@@ -20,8 +20,7 @@ function FormDropDown({
   onChange,
   descriptions,
 }: FormDropDownType) {
-  const handleChange:
-  React.ChangeEventHandler<HTMLSelectElement> = useCallback((event) => {
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = useCallback((event) => {
     document.getElementById(id)?.blur();
     onChange(event.target.name, event.target.value);
   }, []);
@@ -29,14 +28,14 @@ function FormDropDown({
   return (
     <div className="dropdown">
       {label
-      && (
-        <label
-          htmlFor={id}
-          className="dropdown__label active"
-        >
-          {label}
-        </label>
-      )}
+        && (
+          <label
+            htmlFor={id}
+            className="dropdown__label active"
+          >
+            {label}
+          </label>
+        )}
       <select
         id={id}
         name={name}

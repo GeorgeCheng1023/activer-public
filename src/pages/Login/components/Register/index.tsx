@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './index.scss';
 
 // api
-import { apiUserRegister } from 'api/axios';
+import { apiUserRegister } from 'api/user';
 
 // components
 import FormInput from 'components/Form/FormInput';

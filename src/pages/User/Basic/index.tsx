@@ -7,34 +7,58 @@ import Button from 'components/Button';
 import { getUserData, userUpdate } from 'store/userAuth';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { apiUserUpdate } from 'api/axios';
+import { apiUserUpdate } from 'api/user';
 import { Tooltip } from 'react-tooltip';
+import { useCookies } from 'react-cookie';
 import CityCountyData from './CityCountyData.json';
+
+interface UserState {
+  IsLoggedIn: boolean,
+  realName: string,
+  nickName: string,
+  email: string,
+  password: string,
+  verify: boolean,
+  portrait: string,
+  gender: string,
+  birthday: string,
+  profession: string,
+  phone: string,
+  county: string,
+  area: string,
+  activityHistory: Array<number>,
+  tagHistory: Array<number>,
+  Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
+}
 
 function Basic() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
 
   // init state
-  const [values, setValues] = useState(userData);
-  const [selectedCounty, setSelectCounty] = useState(userData.County || '臺北市');
+  const [values, setValues] = useState<UserState>(userData);
+  // console.log(userData);
+  // console.log(values);
+  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
+  const [cookies] = useCookies<string>(['user']);
 
   const handleChange = (key: any, value: any) => {
+    console.log(values);
     setValues({ ...values, [key]: value });
   };
 
   const updateUserDatabase = async (userFormData: FormData) => {
     const userDataEntries = Object.entries(userData);
     userDataEntries.forEach((entry: any) => {
-      if (!userFormData.has(`${entry[0]}`)) {
+      if (entry[0] !== 'IsLoggedIn' && entry[0] !== 'Loading' && !userFormData.has(`${entry[0]}`)) {
         userFormData.append(`${entry[0]}`, entry[1]);
         // console.log(entry[0], userFormData.get(`${entry[0]}`));
       }
     });
 
     try {
-      const response = await apiUserUpdate(userFormData);
+      const response = await apiUserUpdate(userFormData, cookies.sessionToken);
       dispatch(userUpdate(values));
       console.log(response);
     } catch (err: any) {
@@ -60,11 +84,11 @@ function Basic() {
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
-    handleChange('Portrait', croppedImage);
+    handleChange('portrait', croppedImage);
   };
 
   // crop
-  const [imageSrc, setImageSrc] = useState<string>(userData.Portrait);
+  const [imageSrc, setImageSrc] = useState<string>(userData.portrait);
 
   const handleCropPanelShow = () => {
     setDisplayCropPanel(true);
@@ -86,10 +110,10 @@ function Basic() {
             onClose={() => setDisplayCropPanel(false)}
             display={displayCropPanel}
           />
-          <img className="user-basic__portrait img" src={values.Portrait || '/user.png'} alt="user-portrait" />
+          <img className="user-basic__portrait img" src={values?.portrait || '/user.png'} alt="user-portrait" />
           <div className="user-basic__portrait upload-button">
             <FormInputFile
-              name="Portrait"
+              name="portrait"
               setImageSrc={setImageSrc}
               accept="image/*"
               id="user-basic__portrait__upload"
@@ -101,10 +125,10 @@ function Basic() {
         <div className="user-basic__input user-basic__input__nick-name">
           <FormInput
             id="nick_name"
-            name="NickName"
+            name="nickName"
             label="暱稱"
             type="text"
-            placeholder="輸入暱稱姓名"
+            // placeholder="輸入暱稱姓名"
             errorMessage="暱稱不可超過15字"
             pattern="[\u4E00-\u9FFFA-Za-z]{1,15}"
             formValue={values}
@@ -115,10 +139,10 @@ function Basic() {
         <div className="user-basic__input user-basic__input__real-name">
           <FormInput
             id="real_name"
-            name="RealName"
+            name="realName"
             label="真實姓名"
             type="text"
-            placeholder="輸入真實姓名"
+            // placeholder="輸入真實姓名"
             errorMessage="真實只能接受2-6字"
             pattern="[\u4E00-\u9FFF]{2,6}"
             formValue={values}
@@ -130,17 +154,17 @@ function Basic() {
           <FormDropDown
             id="gender"
             label="性別"
-            name="Gender"
+            name="gender"
             options={['男性', '女性', '其他', '隱藏']}
-            value={values.Gender}
+            value={values.gender}
             onChange={handleChange}
           />
         </div>
         {/* Birthday */}
         <div className="user-basic__input user-basic__input__birthday">
           <FormInput
-            id="Birthday"
-            name="Birthday"
+            id="birthday"
+            name="birthday"
             label="生日"
             type="date"
             placeholder="請選擇出生年月日"
@@ -151,11 +175,11 @@ function Basic() {
         {/* Profession */}
         <div className="user-basic__input user-basic__input__profession">
           <FormInput
-            id="Profession"
-            name="Profession"
+            id="profession"
+            name="profession"
             label="職業"
             type="text"
-            placeholder="請選擇輸入您的職業"
+            // placeholder="請選擇輸入您的職業"
             formValue={values}
             onChange={handleChange}
           />
@@ -167,11 +191,11 @@ function Basic() {
         {/* Location: County */}
         <div className="user-basic__input user-basic__input__location__county">
           <FormDropDown
-            id="country"
+            id="county"
             label="縣市"
-            name="County"
+            name="county"
             options={CityCountyData.map((c) => c.CityName)}
-            value={values.County}
+            value={values.county}
             onChange={handleCountyChange}
           />
         </div>
@@ -180,11 +204,11 @@ function Basic() {
           <FormDropDown
             id="area"
             label="區鄉鎮"
-            name="Area"
+            name="area"
             options={CityCountyData.find(
               (c) => c.CityName === selectedCounty,
             )?.AreaList.map((a) => a.AreaName) || []}
-            value={values.Area}
+            value={values.area}
             onChange={handleChange}
           />
         </div>
@@ -202,10 +226,10 @@ function Basic() {
         <div className="user-basic__input user-basic__input__phone">
           <FormInput
             id="phone"
-            name="Phone"
+            name="phone"
             label="電話"
             type="text"
-            placeholder="請選擇輸入您的職業"
+            // placeholder="請選擇輸入您的電話"
             pattern="[0-9]{10}"
             errorMessage="電話必須是10位數字"
             formValue={values}

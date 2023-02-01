@@ -2,7 +2,7 @@ import Button from 'components/Button';
 import FormInput from 'components/Form/FormInput';
 import React, { useState } from 'react';
 import './index.scss';
-import { apiUserResetPwd } from 'api/axios';
+import { apiUserResetPwd } from 'api/user';
 import { Link, useLocation } from 'react-router-dom';
 import Model from '../Login/components/modal';
 
@@ -47,6 +47,8 @@ function ForgetPwd() {
           setErrmsg('伺服器無回應');
         } else if (err.response.status === 401) {
           setErrmsg('驗證碼不正確或已過期');
+        } else if (err.response.status === 404) {
+          setErrmsg('電子郵件未註冊');
         } else {
           setErrmsg('伺服器懶蛋');
         }

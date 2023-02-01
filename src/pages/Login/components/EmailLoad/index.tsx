@@ -4,7 +4,7 @@ import Button from 'components/Button';
 import { useAppSelector } from 'hooks/redux';
 import { getUserData } from 'store/userAuth';
 import { useCookies } from 'react-cookie';
-import { apiUserVerifyAndChangePwd, apiUserVerifyAndResetPwd } from 'api/axios';
+import { apiUserVerifyAndChangePwd, apiUserVerifyAndResetPwd } from 'api/user';
 
 function EmailLoading() {
   const userData = useAppSelector(getUserData);

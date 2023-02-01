@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TEST_URL } from './axios';
+import { TEST_URL } from './user';
 
 const tagRequest = axios.create({
   baseURL: TEST_URL.concat('/api/Tag'),

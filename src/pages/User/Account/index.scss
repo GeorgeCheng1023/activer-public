@@ -24,6 +24,10 @@
     margin: 2em 0;
   }
 
+  &--fade-in {
+    position: absolute;
+  }
+
   &__button-load-animation {
     @include load-button-animation;
   }

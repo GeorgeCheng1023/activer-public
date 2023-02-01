@@ -2,7 +2,7 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserGoogleData } from 'api/axios';
+import { apiUserGoogleData } from 'api/user';
 
 interface UserState {
   IsLoggedIn: boolean,
@@ -26,6 +26,7 @@ interface UserState {
 const initialState: UserState = {
   IsLoggedIn: false,
   Loading: 'idle',
+  // userinfo
   realName: '',
   nickName: '',
   portrait: '',
@@ -62,6 +63,10 @@ const userAuthSlice = createSlice({
     setPassword: (state, action: PayloadAction<any>) => ({
       ...state,
       password: action.payload,
+    }),
+    setBirthday: (state, action: PayloadAction<any>) => ({
+      ...state,
+      birthday: action.payload,
     }),
     userLogin: (state, action: PayloadAction<any>) => ({
       ...state,
@@ -106,7 +111,7 @@ export const getUserData = (state: RootState) => state.userAuth;
 export const getUserNickname = (state: RootState) => state.userAuth.Nickname;
 
 export const {
-  setRealName, setEmail, setPassword, userLogin, userLogout, userUpdate,
+  setRealName, setEmail, setPassword, setBirthday, userLogin, userLogout, userUpdate,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
