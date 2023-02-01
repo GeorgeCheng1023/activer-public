@@ -12,10 +12,11 @@ import Result from './components/Result';
 export const loader = async ({ request }: any) => {
   const url = new URL(request.url);
   const keywords = url.searchParams.get('keywords');
-
+  const tags = url.searchParams.getAll('tags');
   if (keywords) {
     const res = await postSearchActivity({
       keywords,
+      tags,
       countPerSegment: 35,
       currentSegment: 1,
     });

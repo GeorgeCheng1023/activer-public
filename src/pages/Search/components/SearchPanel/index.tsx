@@ -19,6 +19,7 @@ import {
   expend,
   setKeyword,
   selectKeyword,
+  selectSortTags,
 } from 'store/searchPanel';
 import { Form, useLoaderData, useSearchParams } from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
@@ -52,10 +53,17 @@ function Search() {
   const dispatch = useAppDispatch();
   const expended = useAppSelector(selectExpended);
   const keyword = useAppSelector(selectKeyword);
+  const sortTags = useAppSelector(selectSortTags);
   const searchPanelRef = useRef<HTMLDivElement>(null);
+  const loaderData = useLoaderData() as SearchLoaderType;
+
+  /**
+   * disable underneath rule
+   * because there no need to get search params,
+   * only need to set it
+   */
   // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
-  const loaderData = useLoaderData() as SearchLoaderType;
 
   // Fold when click outside of SearchPanel or mouse wheeling
   useOutsideClick(searchPanelRef, () => dispatch(fold()));
@@ -79,7 +87,11 @@ function Search() {
   const handleSearchSubmit = (inputValue: string) => {
     dispatch(fold());
     dispatch(setKeyword(inputValue));
-    const params = { keywords: keyword };
+    const params = new URLSearchParams();
+    params.append('keywords', keyword);
+    sortTags.forEach((tag) => {
+      params.append('tags', tag.text);
+    });
     setSearchParams(params);
   };
 
