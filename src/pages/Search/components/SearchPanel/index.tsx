@@ -131,6 +131,7 @@ function Search() {
                 variant={{ round: true }}
                 iconAfter={<MdDoubleArrow />}
                 onClick={() => dispatch(toggle())}
+                type="button"
               />
             </motion.div>
           </div>

@@ -7,18 +7,20 @@ import { useAppDispatch } from 'hooks/redux';
 import { setResults } from 'store/searchPanel';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import Loading from 'pages/Loading';
+import Pagination from './components/Pagination';
 import Result from './components/Result';
 
 export const loader = async ({ request }: any) => {
   const url = new URL(request.url);
   const keywords = url.searchParams.get('keywords');
   const tags = url.searchParams.getAll('tags');
+  const page = url.searchParams.get('page');
   if (keywords) {
     const res = await postSearchActivity({
       keywords,
       tags,
       countPerSegment: 35,
-      currentSegment: 1,
+      currentSegment: Number(page) || 1,
     });
     return { data: res.data, keywords };
   }
@@ -49,6 +51,7 @@ function Search() {
       {searching
         ? <Loading />
         : <Result />}
+      <Pagination />
     </div>
   );
 }

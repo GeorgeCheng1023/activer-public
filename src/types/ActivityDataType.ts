@@ -13,7 +13,7 @@ export interface SearchResponstDataType {
   minSegment: number;// minimun request page
   currentSegment: number;// current page
   countPerSegment: number; // max number of data in its page
-  searchResultData: ActivityDataType[]; // main result data
+  searchResultData: SearchResultDataType[]; // main result data
   totalCount: number; // total data
 }
 export interface SearchLoaderType {
@@ -32,6 +32,9 @@ interface ActivityDataType extends BaseActivityDataType {
   subTitle:string | null;
 }
 
+export interface SearchResultDataType extends ActivityDataType {
+  weights: number;
+}
 export interface TagDataType {
   id: number;
   type: string;
