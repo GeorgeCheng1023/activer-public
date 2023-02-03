@@ -8,4 +8,21 @@
   gap: 1em;
   justify-content: center;
   margin: 1em 0;
+
+  &__main,
+  &__prev,
+  &__next {
+    display: flex;
+    gap: 1em;
+  }
+
+  &__main {
+    display: flex;
+    flex: 0;
+  }
+
+  &__prev,
+  &__next {
+    flex: 1;
+  }
 }

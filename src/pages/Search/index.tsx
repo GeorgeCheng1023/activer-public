@@ -20,7 +20,7 @@ export const loader = async ({ request }: any) => {
       keywords,
       tags,
       countPerSegment: 35,
-      currentSegment: Number(page) || 1,
+      currentSegment: page ? Number(page) : 1,
     });
     return { data: res.data, keywords };
   }
