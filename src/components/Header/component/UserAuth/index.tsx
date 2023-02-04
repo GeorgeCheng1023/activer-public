@@ -21,6 +21,7 @@ function LoginLogoutButton() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [, , removeCookie] = useCookies<string>(['user']);
+  const restrictedPage = ['/email/verify', '/email/loading', '/register', '/login'];
 
   const userIsLoggined = useAppSelector(getUserIsLoggedIn);
   const userPortrait = useAppSelector(getUserPortrait);
@@ -41,7 +42,12 @@ function LoginLogoutButton() {
   // Login Handler
   const handleLogin = () => {
     if (!userIsLoggined) {
-      const loginUrl = `/login?next=${location.pathname}`;
+      let loginUrl = '/login?next=/';
+      if (restrictedPage.includes(location.pathname)) {
+        loginUrl = '/login?next=/';
+      } else {
+        loginUrl = `/login?next=${location.pathname}`;
+      }
       navigate(loginUrl);
     } else {
       navigate('/user/basic');

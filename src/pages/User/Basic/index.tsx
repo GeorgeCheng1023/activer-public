@@ -1,66 +1,51 @@
 import React, { useState } from 'react';
 import './index.scss';
-import Crop from 'components/Crop';
-import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
-import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
-import Button from 'components/Button';
-import { getUserData, userUpdate } from 'store/userAuth';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
-import { useAppDispatch, useAppSelector } from 'hooks/redux';
-import { apiUserUpdate } from 'api/user';
 import { Tooltip } from 'react-tooltip';
 import { useCookies } from 'react-cookie';
-import CityCountyData from './CityCountyData.json';
 
-interface UserState {
-  IsLoggedIn: boolean,
-  realName: string,
-  nickName: string,
-  email: string,
-  password: string,
-  verify: boolean,
-  portrait: string,
-  gender: string,
-  birthday: string,
-  profession: string,
-  phone: string,
-  county: string,
-  area: string,
-  activityHistory: Array<number>,
-  tagHistory: Array<number>,
-  Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
-}
+// components
+import Crop from 'components/Crop';
+import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
+import Button from 'components/Button';
+
+// api
+import { apiUserUpdate } from 'api/user';
+
+// hook
+import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
+
+// redux
+import {
+  getUserData, userUpdate,
+} from 'store/userAuth';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { Alert, Fade } from '@mui/material';
+import CityCountyData from './CityCountyData.json';
 
 function Basic() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
-
-  // init state
-  const [values, setValues] = useState<UserState>(userData);
-  // console.log(userData);
-  // console.log(values);
-  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
-  const [displayCropPanel, setDisplayCropPanel] = useState(false);
   const [cookies] = useCookies<string>(['user']);
 
-  const handleChange = (key: any, value: any) => {
-    console.log(values);
-    setValues({ ...values, [key]: value });
-  };
+  // init state
+  const [values, setValues] = useState(userData);
+  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
+  const [displayCropPanel, setDisplayCropPanel] = useState(false);
+  const [displaySuccess, setDisplaySuccess] = useState(false);
 
+  // submit userData
   const updateUserDatabase = async (userFormData: FormData) => {
     const userDataEntries = Object.entries(userData);
     userDataEntries.forEach((entry: any) => {
       if (entry[0] !== 'IsLoggedIn' && entry[0] !== 'Loading' && !userFormData.has(`${entry[0]}`)) {
         userFormData.append(`${entry[0]}`, entry[1]);
-        // console.log(entry[0], userFormData.get(`${entry[0]}`));
       }
     });
 
     try {
-      const response = await apiUserUpdate(userFormData, cookies.sessionToken);
+      await apiUserUpdate(userFormData, cookies.sessionToken);
       dispatch(userUpdate(values));
-      console.log(response);
     } catch (err: any) {
       if (err.status === 401) {
         console.log('token error');
@@ -75,16 +60,26 @@ function Basic() {
     const userFormData = new FormData(event.target as HTMLFormElement);
 
     updateUserDatabase(userFormData);
+    setDisplaySuccess(true);
+  };
+
+  // change userData
+  const handleChange = (key: any, value: any) => {
+    console.log(values, key, value);
+    setValues({ ...values, [key]: value });
+    setDisplaySuccess(false);
   };
 
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
     handleChange(key, value);
+    setDisplaySuccess(false);
   };
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('portrait', croppedImage);
+    setDisplaySuccess(false);
   };
 
   // crop
@@ -99,8 +94,17 @@ function Basic() {
 
   return (
     <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
+
       <h2>基本資料</h2>
       <div className="user-basic__container user-basic__basic">
+
+        {/* update user data successfully */}
+        <div className="user-basic__success-msg-section">
+          <Fade in={displaySuccess}>
+            <Alert severity="success">資料更改成功</Alert>
+          </Fade>
+        </div>
+
         <h2>基本資訊</h2>
         {/* Portrait */}
         <div className="user-basic__portrait">

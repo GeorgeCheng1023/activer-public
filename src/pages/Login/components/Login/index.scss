@@ -31,6 +31,7 @@ button {
     align-self: center;
     width: fit-content;
     height: fit-content;
+    margin-top: 4rem;
     font-size: 2rem;
   }
 
@@ -72,6 +73,16 @@ button {
 
   &__check-persist-section input {
     scale: 1.2;
+  }
+
+  &__err-msg-section {
+    align-self: center;
+    width: 80%;
+    height: 0;
+  }
+
+  &__err-msg {
+    font-weight: 600;
   }
 }
 
@@ -187,6 +198,8 @@ button {
 @media screen and (max-width: 800px) {
   .login-container {
     flex-direction: column;
+    width: 30%;
+    margin-top: 2.5rem;
   }
 
   .login-section {

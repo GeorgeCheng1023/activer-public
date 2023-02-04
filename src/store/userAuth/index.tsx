@@ -2,7 +2,7 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserGoogleData } from 'api/user';
+import { apiUserAuth, apiUserGoogleData } from 'api/user';
 
 interface UserState {
   IsLoggedIn: boolean,
@@ -48,6 +48,11 @@ export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', asyn
   return response;
 });
 
+export const asyncGetUserData = createAsyncThunk('auth/getUserData', async (sessionToken: string) => {
+  const response = await apiUserAuth(sessionToken);
+  return response;
+});
+
 const userAuthSlice = createSlice({
   name: 'auth',
   initialState,
@@ -60,10 +65,10 @@ const userAuthSlice = createSlice({
       ...state,
       email: action.payload,
     }),
-    setPassword: (state, action: PayloadAction<any>) => ({
-      ...state,
-      password: action.payload,
-    }),
+    // setPassword: (state, action: PayloadAction<any>) => ({
+    //   ...state,
+    //   password: action.payload,
+    // }),
     setBirthday: (state, action: PayloadAction<any>) => ({
       ...state,
       birthday: action.payload,
@@ -99,7 +104,10 @@ const userAuthSlice = createSlice({
           Email: userData.email,
           Loading: 'succeeded',
         });
-      });
+      })
+      .addCase(asyncGetUserData.fulfilled, (state) => ({
+        ...state,
+      }));
   },
 });
 
@@ -111,7 +119,7 @@ export const getUserData = (state: RootState) => state.userAuth;
 export const getUserNickname = (state: RootState) => state.userAuth.Nickname;
 
 export const {
-  setRealName, setEmail, setPassword, setBirthday, userLogin, userLogout, userUpdate,
+  setRealName, setEmail, setBirthday, userLogin, userLogout, userUpdate,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

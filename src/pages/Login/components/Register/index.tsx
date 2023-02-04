@@ -8,7 +8,8 @@ import { apiUserRegister } from 'api/user';
 // components
 import FormInput from 'components/Form/FormInput';
 import { useCookies } from 'react-cookie';
-import { setEmail, setPassword, setRealName } from 'store/userAuth';
+import { setEmail, setRealName } from 'store/userAuth';
+import { Alert, Fade } from '@mui/material';
 import Button from '../../../../components/Button';
 import { useAppDispatch } from '../../../../hooks/redux/index';
 
@@ -112,7 +113,6 @@ function Register() {
 
       dispatch(setRealName(user));
       dispatch(setEmail(email));
-      dispatch(setPassword(pwd));
 
       const expiresDate = new Date();
       expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
@@ -139,7 +139,15 @@ function Register() {
   return (
     <div className="register-container">
       <section className="register-section">
-        <p className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
+
+        <div className="register-section__err-msg-section">
+          <Fade in={errMsg !== ''}>
+            <Alert severity="error">
+              <div className="register-section__err-msg">{errMsg}</div>
+            </Alert>
+          </Fade>
+        </div>
+
         <h1 className="register-section__title">註冊</h1>
 
         <section className="register-section__text-field">

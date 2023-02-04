@@ -8,7 +8,7 @@ import { getUserData } from 'store/userAuth';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { apiUserLogin, apiUserVerifyAndChangePwd } from 'api/user';
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert, Fade } from '@mui/material';
 
 const PWD_REGEX_STR = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$';
 
@@ -48,25 +48,13 @@ function Account() {
 
   return (
     <div className="user-account">
-      {/* <Fade in={errMsg !== ''}>
+      <Fade in={errMsg !== ''}>
         <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {errMsg}
+          <div className="user-account__err-msg">{errMsg}</div>
         </Alert>
-      </Fade> */}
+      </Fade>
 
       <h2>帳號安全</h2>
-
-      <div className="user-account--fade-in">
-        {errMsg
-          && (
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              {errMsg}
-            </Alert>
-          )}
-      </div>
-
       <form onSubmit={handleSubmit} className="user-account__form">
         <div className="user-account__input user-account__input__account">
           <FormInput

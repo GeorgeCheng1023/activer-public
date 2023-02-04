@@ -11,7 +11,6 @@ function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
   const [cookies, setCookie] = useCookies<string>(['user']);
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
   const dateFormat = /\d{4}-\d{2}-\d{2}/;
 
   useEffect(() => {
@@ -33,16 +32,13 @@ function PersistLogin() {
           sameSite: true,
         });
 
-        console.log(response);
+        setIsLoading(false);
       } catch (err: any) {
         if (err.status === 401) {
           console.log('驗證失敗');
         }
-        console.log(err);
-        // navigate('/', { replace: true });
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     };
 
     verifyUser();

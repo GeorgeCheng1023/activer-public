@@ -3,14 +3,15 @@ import { useCookies } from 'react-cookie';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading';
 import { apiUserAuth } from 'api/user';
-// import { userUpdate } from 'store/userAuth';
-// import { useAppDispatch } from 'hooks/redux';
+import { setBirthday, userUpdate } from 'store/userAuth';
+import { useAppDispatch } from 'hooks/redux';
 
 function Admin() {
   const [cookies, setCookie] = useCookies<string>(['user']);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const dateFormat = /\d{4}-\d{2}-\d{2}/;
 
   useEffect(() => {
     const { sessionToken } = cookies;
@@ -21,7 +22,9 @@ function Admin() {
     const verifyUser = async () => {
       try {
         const response = await apiUserAuth(sessionToken);
-        // dispatch(userUpdate(response.data.user));
+        dispatch(userUpdate(response.data.user));
+        const date = response.data.user.birthday.match(dateFormat);
+        dispatch(setBirthday(date[0]));
 
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
@@ -31,17 +34,17 @@ function Admin() {
           path: '/',
           sameSite: true,
         });
+        setLoading(false);
       } catch (err: any) {
         if (err.status === 401) {
           console.log('Admin page 驗證失敗');
         }
-        console.log(err);
         navigate('/', { replace: true });
+        setLoading(false);
       }
     };
 
     verifyUser();
-    setLoading(false);
   }, []);
 
   return (
