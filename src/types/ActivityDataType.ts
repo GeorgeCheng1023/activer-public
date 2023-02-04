@@ -4,9 +4,26 @@ export interface BaseActivityDataType {
   images: string[] | null;
 }
 
+export interface WithTagsBaseActivityDataType extends BaseActivityDataType {
+  tags: TagDataType[];
+}
+
+export interface SearchResponstDataType {
+  maxSegment: number;// maximun request page
+  minSegment: number;// minimun request page
+  currentSegment: number;// current page
+  countPerSegment: number; // max number of data in its page
+  searchResultData: SearchResultDataType[]; // main result data
+  totalCount: number; // total data
+}
+export interface SearchLoaderType {
+  data: SearchResponstDataType;
+  keywords: string;
+}
+
 interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
-  branches: BranchDataType[];
+  branches: BranchDataType[] | null;
   content: string;
   connection: string[] | null;
   holder: string[] | null ;
@@ -15,6 +32,9 @@ interface ActivityDataType extends BaseActivityDataType {
   subTitle:string | null;
 }
 
+export interface SearchResultDataType extends ActivityDataType {
+  weights: number;
+}
 export interface TagDataType {
   id: number;
   type: string;
@@ -46,10 +66,6 @@ interface DateType {
 export interface UserActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
   branch: BranchDataType;
-}
-// NewActivity
-export interface BaseWithTagActivityDataType extends BaseActivityDataType {
-  tags: TagDataType[];
 }
 
 export default ActivityDataType;

@@ -6,7 +6,7 @@ const activityRequest = axios.create({
   baseURL: TEST_URL.concat('/api/Activity'),
 });
 
-// GET: /api/Activity/{id}, activity get by id
+// GET: activity get by id
 export const getActivityById = (
   id: string,
   accessToken: string,
@@ -18,8 +18,17 @@ export const getActivityById = (
     },
   }));
 
+// GET: get trend activity
+export const getTrendActivity = () => (
+  activityRequest.get('/trend', {
+    headers: {
+      accept: 'text/plain',
+    },
+  })
+);
+
 // POST: update branch status
-export const updateActivityStatus = (
+export const postActivityStatus = (
   activityId:string,
   branchId: string,
   status: string,
@@ -39,6 +48,28 @@ export const updateActivityStatus = (
         'Content-Type': 'application/json',
       },
 
+    },
+  )
+);
+
+// GET: Search
+interface getSearchActivityPropsType {
+  keywords: string,
+  tags?: string[],
+  countPerSegment: number,
+  currentSegment: number,
+}
+
+export const postSearchActivity = (reqBody
+: getSearchActivityPropsType) => (
+  activityRequest.post(
+    '/search',
+    reqBody,
+    {
+      headers: {
+        accept: 'text/plain',
+        'Content-Type': 'application/json',
+      },
     },
   )
 );

@@ -5,39 +5,29 @@ import { FiSearch } from 'react-icons/fi';
 import { GrClose } from 'react-icons/gr';
 
 interface FormSearchBarType
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onSubmit'> {
-  onSubmit: (inputValue: string) => void,
-  defaultText?: string
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onSubmit'> {
+  value: string;
+  onSubmit: (inputValue: string) => void;
 }
 
 function FormSearchBar({
-  onSubmit, defaultText, ...props
+  value, onSubmit, ...props
 }: FormSearchBarType) {
   // inputValue is a string that text in a input
-  const [inputValue, setInputValue] = useState(defaultText || '');
-  // eslint-disable-next-line
+  const [inputValue, setInputValue] = useState(value);
   const [focused, setFocus] = useState(false);
-
-  // handle submit search
-  const handleSubmit:
-  React.MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
-    e.preventDefault();
-    onSubmit(inputValue);
-  }, []);
-
   // handle input type change event
   const handleChange:
   React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setInputValue(e.target.value);
   }, []);
 
-  // handle keyboard press enter and search
-  const handleKeyPress:
-  React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
-    if (e.key === 'Enter') {
+  const handleKeyDown:
+  React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.key === 'Enter') {
       onSubmit(inputValue);
     }
-  }, []);
+  };
 
   return (
     <div
@@ -52,11 +42,11 @@ function FormSearchBar({
       <div className="search-bar__button">
         <Button
           disabled={props.disabled}
-          type="submit"
+          type="button"
           color="white"
-          onClick={handleSubmit}
           variant={{ round: true }}
           iconAfter={<FiSearch />}
+          onClick={() => onSubmit(inputValue)}
         />
       </div>
       <input
@@ -65,7 +55,7 @@ function FormSearchBar({
         type="text"
         value={inputValue}
         onChange={handleChange}
-        onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyDown}
       />
 
       {focused
@@ -84,9 +74,5 @@ function FormSearchBar({
     </div>
   );
 }
-
-FormSearchBar.defaultProps = {
-  defaultText: undefined,
-};
 
 export default FormSearchBar;

@@ -1,46 +1,43 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 import type { TagType } from 'components/Tag';
+import { SearchResultDataType } from 'types/ActivityDataType';
 
 interface SearchPanelState {
-  display: boolean;
+  expended: boolean;
   keyword: string,
   defaultTags: TagType[],
   sortTags: TagType[],
   recommendTags: TagType[],
   storageTags: TagType[],
+  results: SearchResultDataType[]
 }
 
 const initialState: SearchPanelState = {
-  display: false,
+  expended: false,
   defaultTags: [],
   sortTags: [],
   recommendTags: [],
   storageTags: [],
   keyword: '',
+  results: [],
 };
 
 export const searchPanelSlice = createSlice({
   name: 'searchPanel',
   initialState,
   reducers: {
-    show: (state) => {
-      document.body.style.overflow = 'hidden';
-      return ({
-        ...state,
-        display: true,
-      });
-    },
-    hide: (state) => {
-      document.body.style.overflow = 'scroll';
-      return ({
-        ...state,
-        display: false,
-      });
-    },
     toggle: (state) => ({
       ...state,
-      display: !state.display,
+      expended: !state.expended,
+    }),
+    fold: (state) => ({
+      ...state,
+      expended: false,
+    }),
+    expend: (state) => ({
+      ...state,
+      expended: true,
     }),
     setSortTag: (state, action: PayloadAction<TagType[]>) => ({
       ...state,
@@ -93,20 +90,36 @@ export const searchPanelSlice = createSlice({
       ...state,
       keyword: action.payload,
     }),
-
+    setResults: (state, action:PayloadAction<SearchResultDataType[]>) => {
+      const newResults = action.payload;
+      newResults.sort((a, b) => b.weights - a.weights);
+      return ({
+        ...state,
+        results: newResults,
+      });
+    },
   },
 });
 // export actions
 export const {
-  show, hide, toggle, setSortTag, addStorage, removeStorage, addHistoryTags, setKeyword,
+  toggle,
+  fold,
+  expend,
+  setSortTag,
+  addStorage,
+  removeStorage,
+  addHistoryTags,
+  setKeyword,
+  setResults,
 } = searchPanelSlice.actions;
 // export selector
-export const selectDisplay = (state: RootState) => state.searchPanel.display;
+export const selectExpended = (state: RootState) => state.searchPanel.expended;
 export const selectDefaultTags = (state: RootState) => state.searchPanel.defaultTags;
 export const selectSortTags = (state: RootState) => state.searchPanel.sortTags;
 export const selectStorageTags = (state: RootState) => state.searchPanel.storageTags;
 export const selectRecommendTags = (state: RootState) => state.searchPanel.recommendTags;
 export const selectKeyword = (state: RootState) => state.searchPanel.keyword;
+export const selectResults = (state: RootState) => state.searchPanel.results;
 
 // export reducer
 export default searchPanelSlice.reducer;

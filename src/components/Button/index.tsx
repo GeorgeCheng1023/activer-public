@@ -6,6 +6,7 @@ interface ButtonVariantType {
   outline?: boolean;
   round?: boolean;
   colorReverse?: boolean;
+  square? :boolean;
 }
 interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger' | 'transparent';
@@ -16,16 +17,19 @@ interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function Button({
-  color, variant, text, iconAfter, iconBefore, ...props
+  className, color, variant, text, iconAfter, iconBefore, ...props
 }: ButtonType) {
   // Defined: button classes
+  const customClassName = className?.split(' ');
+
   const classes = classNames({
     button: true,
     [`button--${color || 'primary'}`]: true,
     'button--outline': variant?.outline,
     'button--round': variant?.round,
     'button--reverse-color': variant?.colorReverse,
-  });
+    'button--square': variant?.square,
+  }, customClassName);
 
   return (
     // eslint-disable-next-line react/button-has-type
