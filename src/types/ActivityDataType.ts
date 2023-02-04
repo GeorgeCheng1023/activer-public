@@ -4,7 +4,7 @@ export interface BaseActivityDataType {
   images: string[] | null;
 }
 
-export interface ShortActivityDataType extends BaseActivityDataType {
+export interface WithTagsBaseActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
 }
 
@@ -66,10 +66,6 @@ interface DateType {
 export interface UserActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
   branch: BranchDataType;
-}
-// NewActivity
-export interface BaseWithTagActivityDataType extends BaseActivityDataType {
-  tags: TagDataType[];
 }
 
 export default ActivityDataType;

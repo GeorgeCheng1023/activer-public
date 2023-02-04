@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Home from 'pages/Home';
+import Home, { loader as homeLoader } from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Login/components/Register';
 import User, {
@@ -31,6 +31,7 @@ export const routerConfig = [
         children: [
           {
             path: '/',
+            loader: homeLoader,
             element: <Home />,
           },
           {

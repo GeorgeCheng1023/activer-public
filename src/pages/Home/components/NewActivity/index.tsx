@@ -7,7 +7,7 @@ import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
 import Card from 'components/Card';
 import { FcPositiveDynamic } from 'react-icons/fc';
-import { BaseWithTagActivityDataType } from 'types/ActivityDataType';
+import { WithTagsBaseActivityDataType } from 'types/ActivityDataType';
 // style
 import './index.scss';
 // dummy data
@@ -17,7 +17,7 @@ function NewActivity() {
   const screenWidth = useWindowWidth();
 
   // TODO: fetch data
-  const newActivities: BaseWithTagActivityDataType[] = dummyData;
+  const newActivities: WithTagsBaseActivityDataType[] = dummyData;
 
   return (
     <section className="new-activity">
@@ -32,14 +32,14 @@ function NewActivity() {
 
       <div className="home__card-container">
         {newActivities
-          .map((activity: BaseWithTagActivityDataType) => (
+          .map((activity: WithTagsBaseActivityDataType) => (
             <Card
               id={activity.id.toString()}
               imgUrl={activity.images ? activity.images[0] : '/DefaultActivityPng.png'}
               title={activity.title}
               key={`new-activity-${activity.id.toString()}`}
               altText={activity.title}
-              tags={useParseArrayTagDataToTag(activity.tags)}
+              tags={activity.tags ? useParseArrayTagDataToTag(activity.tags) : undefined}
             />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}

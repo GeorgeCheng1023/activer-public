@@ -6,7 +6,7 @@ const activityRequest = axios.create({
   baseURL: TEST_URL.concat('/api/Activity'),
 });
 
-// GET: /api/Activity/{id}, activity get by id
+// GET: activity get by id
 export const getActivityById = (
   id: string,
   accessToken: string,
@@ -17,6 +17,15 @@ export const getActivityById = (
       Authorization: `Bearer ${accessToken}`,
     },
   }));
+
+// GET: get trend activity
+export const getTrendActivity = () => (
+  activityRequest.get('/trend', {
+    headers: {
+      accept: 'text/plain',
+    },
+  })
+);
 
 // POST: update branch status
 export const postActivityStatus = (

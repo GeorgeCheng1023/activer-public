@@ -1,20 +1,18 @@
 import React from 'react';
 import './index.scss';
 import Card from 'components/Card';
-import { BaseWithTagActivityDataType } from 'types/ActivityDataType';
 import Button from 'components/Button';
 import { FaHotjar } from 'react-icons/fa';
 import { BsArrowRight } from 'react-icons/bs';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
-import dummyData from './dummyTrendActivity.json';
-// component
+import { homeLoaderDataType } from 'pages/Home';
+import { useLoaderData } from 'react-router-dom';
 
 function TrendActivity() {
   const screenWidth = useWindowWidth();
-
-  // TODO: fetch data
-  const trendActivities: BaseWithTagActivityDataType[] = dummyData;
+  const loaderData = useLoaderData() as homeLoaderDataType;
+  console.log(loaderData.trendActivityResData);
 
   return (
     <section className="trend-activity">
@@ -26,7 +24,7 @@ function TrendActivity() {
         <Button color="white" text={screenWidth > 768 ? '更多熱門活動' : '更多'} iconAfter={<BsArrowRight />} />
       </div>
       <div className="home__card-container">
-        {trendActivities
+        {loaderData.trendActivityResData
           .map((data) => (
             <Card
               id={data.id.toString()}
@@ -34,7 +32,7 @@ function TrendActivity() {
               imgUrl={data.images ? data.images[0] : '/DefaultActivityPng.png'}
               title={data.title}
               altText={data.title}
-              tags={useParseArrayTagDataToTag(data.tags)}
+              tags={data.tags ? useParseArrayTagDataToTag(data.tags) : undefined}
             />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}
