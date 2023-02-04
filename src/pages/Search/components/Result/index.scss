@@ -4,10 +4,20 @@
 .result {
   @include container-main;
 
-  display: flex;
-  flex-flow: wrap;
-  gap: 1em;
-  justify-content: center;
-  margin: 0 auto;
-  padding-top: 1em;
+  &__relative,
+  &__other {
+    display: flex;
+    flex-flow: wrap;
+    gap: 1em;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding-top: 1em;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin: 1em 0;
+    font-weight: bold;
+  }
 }

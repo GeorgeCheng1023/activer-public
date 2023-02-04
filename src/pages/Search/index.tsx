@@ -9,6 +9,7 @@ import { SearchLoaderType } from 'types/ActivityDataType';
 import Loading from 'pages/Loading';
 import Pagination from './components/Pagination';
 import Result from './components/Result';
+import './index.scss';
 
 export const loader = async ({ request }: any) => {
   const url = new URL(request.url);

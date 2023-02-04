@@ -1,6 +1,7 @@
 // components/Card/Default
 import React from 'react';
 import Tag, { TagType } from 'components/Tag';
+import { useNavigate } from 'react-router-dom';
 import './index.scss';
 
 export interface CardType {
@@ -16,6 +17,8 @@ export interface CardType {
 function CardDefault({
   id, imgUrl, title, tags, altText, detail, control,
 }: CardType) {
+  const navigate = useNavigate();
+
   return (
     <div className="card">
       <div className="card__image">
@@ -41,6 +44,9 @@ function CardDefault({
                 type={tag.type}
                 text={tag.text}
                 icon={tag.icon}
+                onClick={() => {
+                  navigate({ search: `?tags=${tag.text}` });
+                }}
                 id={`${id}-${tag.id}`}
               />
             )).slice(0, 5)}

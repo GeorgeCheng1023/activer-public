@@ -1,57 +1,47 @@
 import React from 'react';
-import { useAppSelector } from 'hooks/redux';
-import { selectResults } from 'store/searchPanel';
-import Card from 'components/Card';
-import { useParseArrayTagDataToTag } from 'hooks/tag';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
+import { selectResults, expend } from 'store/searchPanel';
+
 import './index.scss';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
-import useConvertDate from 'hooks/date/useConvertDate';
+import ResultItem from './ResultItem';
+
 import SearchIndex from '../SearchIndex';
 
 function Result() {
   const results = useAppSelector(selectResults);
   // loader in src\pages\Search
   const loaderData = useLoaderData() as SearchLoaderType;
+  const dispatch = useAppDispatch();
+  const searchResultData = {
+    relative: results.filter((result) => result.weights > 1),
+    other: results.filter((result) => result.weights === 1),
+  };
 
   if (!loaderData.data) {
+    dispatch(expend());
     return <SearchIndex />;
   }
 
   if (loaderData.data.searchResultData?.length > 0) {
     return (
       <div className="result">
-        {results && results.map((result) => {
-          const {
-            id, tags, title, images, branches,
-          } = result;
-
-          const firstDateStart = branches ? branches[0].dateStart : null;
-          const firstDateEnd = branches
-            ? branches[0].dateEnd
-            : null;
-          const cardDetail = firstDateEnd
-          && firstDateStart
-            ? `${useConvertDate(firstDateStart[Object.keys(firstDateStart)[0]])} ~ ${useConvertDate(firstDateEnd[0])}`
-            : null;
-
-          return (
-
-            <Link
-              to={`/detail/${id}`}
-              key={`result-${id}`}
-            >
-              <Card
-                id={id.toString()}
-                tags={tags ? useParseArrayTagDataToTag(tags) : []}
-                title={title}
-                imgUrl={images ? images[0] : '/DefaultActivityPng.png'}
-                altText={title}
-                detail={cardDetail}
-              />
-            </Link>
-          );
-        })}
+        <h2>
+          {searchResultData.relative.length}
+          個最相關活動
+        </h2>
+        <div className="result__relative">
+          {results && results
+            .filter((result) => result.weights > 1)
+            .map((result) => <ResultItem result={result} />)}
+        </div>
+        <h2>其他類似活動</h2>
+        <div className="result__other">
+          {results && results
+            .filter((result) => result.weights === 1)
+            .map((result) => <ResultItem result={result} />)}
+        </div>
       </div>
     );
   }
