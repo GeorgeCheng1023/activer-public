@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import Card from 'components/Card/Default';
+import Card from 'components/Card';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
 import { TagType } from 'components/Tag';
 import HistoryControl from './components/HistoryControl';

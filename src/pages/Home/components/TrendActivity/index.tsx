@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import Card from 'components/Card/Default';
+import Card from 'components/Card';
 import { BaseWithTagActivityDataType } from 'types/ActivityDataType';
 import Button from 'components/Button';
 import { FaHotjar } from 'react-icons/fa';

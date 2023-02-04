@@ -5,7 +5,7 @@ import { useParseArrayTagDataToTag } from 'hooks/tag';
 // component
 import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
-import Card from 'components/Card/Default';
+import Card from 'components/Card';
 import { FcPositiveDynamic } from 'react-icons/fc';
 import { BaseWithTagActivityDataType } from 'types/ActivityDataType';
 // style
