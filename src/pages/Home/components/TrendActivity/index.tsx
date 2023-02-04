@@ -7,6 +7,7 @@ import { FaHotjar } from 'react-icons/fa';
 import { BsArrowRight } from 'react-icons/bs';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
+import MainCardControl from 'components/Card/MainCardControl';
 import dummyData from './dummyTrendActivity.json';
 // component
 
@@ -35,6 +36,7 @@ function TrendActivity() {
               title={data.title}
               altText={data.title}
               tags={useParseArrayTagDataToTag(data.tags)}
+              control={<MainCardControl />}
             />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}

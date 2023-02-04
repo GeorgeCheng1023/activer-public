@@ -5,7 +5,7 @@
 $_card-height: 18em;
 $_card-width: 11em;
 $_content-padding: 0.5em;
-$_card-title-font-size: 1.2em;
+$_card-title-font-size: 1.1em;
 $_card-title-line-height: 1.5em;
 $_card-detail-font-size: 0.8em;
 
@@ -31,8 +31,9 @@ $_card-mobile-padding: 1em;
   overflow: hidden;
   width: $_card-width;
   height: $_card-height;
-  border: 1.2px solid $tertiary-font-color;
   border-top: 0;
+  border-radius: 0.3em;
+  box-shadow: rgb(149 157 165 / 20%) 0 8px 24px;
   cursor: pointer;
   background: #fff;
 
@@ -76,6 +77,7 @@ $_card-mobile-padding: 1em;
         + $_card-title-line-height
       );
     padding: $_content-padding;
+    font-weight: bold;
     font-size: $_card-title-font-size;
     line-height: $_card-title-line-height;
   }

@@ -31,7 +31,6 @@ function CardDefault({
           {detail}
         </p>
       )}
-        {control && <div className="card__control">{control}</div>}
         <div className="card__tag">
           {tags.splice(0, 3).map((tag) => (
             <Tag
@@ -43,6 +42,7 @@ function CardDefault({
             />
           )).slice(0, 5)}
         </div>
+        {control && <div className="card__control">{control}</div>}
       </div>
     </div>
 
