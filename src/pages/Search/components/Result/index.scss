@@ -4,14 +4,18 @@
 .result {
   @include container-main;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &__relative,
   &__other {
     display: flex;
-    flex-flow: wrap;
+    flex-shrink: 1;
+    flex-wrap: wrap;
     gap: 1em;
-    justify-content: space-between;
-    margin: 0 auto;
-    padding-top: 1em;
+    justify-content: center;
+    width: 100%;
   }
 
   h2 {

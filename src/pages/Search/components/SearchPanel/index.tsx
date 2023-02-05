@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 // hooks
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import useOutsideClick from 'hooks/event/useOutsideClick';
@@ -18,10 +18,12 @@ import {
   toggle,
   expend,
   setKeyword,
-  selectKeyword,
   selectSortTags,
 } from 'store/searchPanel';
-import { Form, useLoaderData, useSearchParams } from 'react-router-dom';
+import {
+  Form, useSearchParams,
+  useLoaderData,
+} from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import RecommendTag from './components/RecommendTag';
 import SortTag from './components/SortTag';
@@ -52,43 +54,25 @@ function Search() {
   // hooks init
   const dispatch = useAppDispatch();
   const expended = useAppSelector(selectExpended);
-  const keyword = useAppSelector(selectKeyword);
   const sortTags = useAppSelector(selectSortTags);
   const searchPanelRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
   const loaderData = useLoaderData() as SearchLoaderType;
 
-  /**
-   * disable underneath rule
-   * because there no need to get search params,
-   * only need to set it
-   */
-  // eslint-disable-next-line
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  // Fold when click outside of SearchPanel or mouse wheeling
+  // Fold when click outside of SearchPanel
   useOutsideClick(searchPanelRef, () => dispatch(fold()));
-  function handleWheel() {
-    dispatch(fold());
-  }
 
   // HANDLER: TagSearch suggestion click and add to storage
   const handleSuggestionClick = (clickedSuggestion: TagType) => {
     dispatch(addStorage(clickedSuggestion));
   };
 
-  // Add wheel handler to window
-  useEffect(() => {
-    window.addEventListener('wheel', handleWheel);
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
-
   const handleSearchSubmit = (inputValue: string) => {
     dispatch(fold());
     dispatch(setKeyword(inputValue));
     const params = new URLSearchParams();
-    params.append('keywords', keyword);
+    params.append('keywords', inputValue);
     sortTags.forEach((tag) => {
       params.append('tags', tag.text);
     });
@@ -118,7 +102,7 @@ function Search() {
                 placeholder="搜尋活動關鍵字"
                 onClick={() => dispatch(expend())}
                 autoFocus
-                value={loaderData.keywords || ''}
+                defaultValue={loaderData.keywords || ''}
                 name="keywords"
               />
             </div>

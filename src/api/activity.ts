@@ -18,6 +18,15 @@ export const getActivityById = (
     },
   }));
 
+// GET: newest activity
+export const getNewestActivity = () => (
+  activityRequest.get('/Newest', {
+    headers: {
+      accept: 'text/plain',
+    },
+  })
+);
+
 // GET: get trend activity
 export const getTrendActivity = () => (
   activityRequest.get('/trend', {
@@ -54,7 +63,7 @@ export const postActivityStatus = (
 
 // GET: Search
 interface getSearchActivityPropsType {
-  keywords: string,
+  keywords?: string,
   tags?: string[],
   countPerSegment: number,
   currentSegment: number,

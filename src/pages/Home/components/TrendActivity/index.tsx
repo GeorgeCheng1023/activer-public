@@ -7,13 +7,12 @@ import { BsArrowRight } from 'react-icons/bs';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
 import MainCardControl from 'components/Card/MainCardControl';
-import { homeLoaderDataType } from 'pages/Home';
+import { homeLoaderDataType } from 'types/ActivityDataType';
 import { useLoaderData } from 'react-router-dom';
 
 function TrendActivity() {
   const screenWidth = useWindowWidth();
   const loaderData = useLoaderData() as homeLoaderDataType;
-  console.log(loaderData.trendActivityResData);
 
   return (
     <section className="trend-activity">

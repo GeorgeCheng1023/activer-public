@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 import Button from 'components/Button';
 import { FiSearch } from 'react-icons/fi';
@@ -6,28 +6,32 @@ import { GrClose } from 'react-icons/gr';
 
 interface FormSearchBarType
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onSubmit'> {
-  value: string;
+  defaultValue: string;
   onSubmit: (inputValue: string) => void;
 }
 
 function FormSearchBar({
-  value, onSubmit, ...props
+  defaultValue, onSubmit, ...props
 }: FormSearchBarType) {
   // inputValue is a string that text in a input
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState('');
   const [focused, setFocus] = useState(false);
   // handle input type change event
   const handleChange:
-  React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+  React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputValue(e.target.value);
-  }, []);
+  };
 
   const handleKeyDown:
   React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Enter') {
+      event.preventDefault();
       onSubmit(inputValue);
     }
   };
+  useEffect(() => {
+    setInputValue(defaultValue);
+  }, []);
 
   return (
     <div

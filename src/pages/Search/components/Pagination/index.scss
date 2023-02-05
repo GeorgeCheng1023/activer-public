@@ -5,24 +5,23 @@
   @include container-main;
 
   display: flex;
-  gap: 1em;
-  justify-content: center;
-  margin: 1em 0;
+  margin: 1em auto;
 
   &__main,
   &__prev,
   &__next {
     display: flex;
     gap: 1em;
+    justify-content: center;
   }
 
   &__main {
     display: flex;
-    flex: 0;
+    flex-grow: 0;
   }
 
   &__prev,
   &__next {
-    flex: 1;
+    flex-grow: 1;
   }
 }

@@ -44,7 +44,7 @@ function CardDefault({
                 text={tag.text}
                 icon={tag.icon}
                 onClick={() => {
-                  navigate({ search: `?tags=${tag.text}` });
+                  navigate(`/search?tags=${tag.text}`);
                 }}
                 id={`${id}-${tag.id}`}
               />

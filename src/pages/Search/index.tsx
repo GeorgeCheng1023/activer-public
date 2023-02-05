@@ -1,31 +1,30 @@
 import React, { useEffect } from 'react';
 import SearchPanel from 'pages/Search/components/SearchPanel';
 import { postSearchActivity } from 'api/activity';
-
 import { useLoaderData, useNavigation } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/redux';
-import { setResults } from 'store/searchPanel';
+import { setKeyword, setResults } from 'store/searchPanel';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import Loading from 'pages/Loading';
 import Pagination from './components/Pagination';
 import Result from './components/Result';
 import './index.scss';
 
-export const loader = async ({ request }: any) => {
+export const loader = async ({ request }: any) : Promise<SearchLoaderType> => {
   const url = new URL(request.url);
   const keywords = url.searchParams.get('keywords');
   const tags = url.searchParams.getAll('tags');
   const page = url.searchParams.get('page');
-  if (keywords) {
-    const res = await postSearchActivity({
-      keywords,
-      tags,
-      countPerSegment: 35,
-      currentSegment: page ? Number(page) : 1,
-    });
-    return { data: res.data, keywords };
-  }
-  return { data: null, keywords };
+  const res = await postSearchActivity({
+    keywords: keywords || undefined,
+    tags: tags || undefined,
+    countPerSegment: 35,
+    currentSegment: Number(page) || 1,
+  });
+  return ({
+    data: res.data,
+    keywords,
+  });
 };
 
 function Search() {
@@ -45,6 +44,9 @@ function Search() {
       );
     }
   }, [loaderData]);
+  useEffect(() => {
+    dispatch(setKeyword(loaderData.keywords || ''));
+  }, []);
 
   return (
     <div className="search">

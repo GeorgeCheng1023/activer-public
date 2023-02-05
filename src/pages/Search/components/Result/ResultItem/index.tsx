@@ -13,7 +13,7 @@ interface ResultItemType {
 function ResultItem({ result } : ResultItemType) {
   const {
     id, tags, title, images, branches,
-  } = result;
+  } = result.activity;
 
   const firstDateStart = branches ? branches[0].dateStart : null;
   const firstDateEnd = branches
@@ -26,6 +26,7 @@ function ResultItem({ result } : ResultItemType) {
 
   return (
     <Link
+      className="result__item"
       to={`/detail/${id}`}
       key={`result-${id}`}
     >

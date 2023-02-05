@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Home, { loader as homeLoader } from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Login/components/Register';
@@ -19,6 +18,7 @@ import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
 import SearchErrorPage from 'pages/Error/SearchErrorPage';
+import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
@@ -32,6 +32,7 @@ export const routerConfig = [
           {
             path: '/',
             loader: homeLoader,
+            errorElement: <HomeErrorPage />,
             element: <Home />,
           },
           {
