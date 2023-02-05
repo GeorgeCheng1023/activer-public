@@ -28,6 +28,10 @@
     font-weight: 600;
   }
 
+  &__err-msg-section {
+    height: 0.7rem;
+  }
+
   &__button-load-animation {
     @include load-button-animation;
   }

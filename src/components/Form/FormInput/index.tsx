@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.scss';
 
 interface FormInputType
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label?: string,
-  control?:JSX.Element;
+  control?: JSX.Element;
   errorMessage?: string,
   formValue: object | string;
   onChange: (key: any, value: any) => void;
@@ -15,15 +15,14 @@ function FormInput({
 }: FormInputType) {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  const handleChange:
-  React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange(event.target.name, event.target.value);
     if (event.target.validity.patternMismatch) {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (props.type === 'date' || props.placeholder) {
@@ -65,14 +64,14 @@ function FormInput({
       </div>
 
       {showErrorMessage
-&& (
-  <span
-    className="form-input__error-message"
-    id={`form-input__error-message-${props.id}`}
-  >
-    {errorMessage}
-  </span>
-)}
+        && (
+          <span
+            className="form-input__error-message"
+            id={`form-input__error-message-${props.id}`}
+          >
+            {errorMessage}
+          </span>
+        )}
     </div>
 
   );

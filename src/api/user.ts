@@ -6,6 +6,7 @@ const PORT = '5044';
 export const TEST_URL = `http://${IP}:${PORT}`;
 
 const USER_UPDATE_URL = '/api/user';
+// const USER_AVATAR_URL = '/api/User/avatar/';
 // api/user/auth
 const LOGIN_URL = '/api/user/auth/signin';
 const REGISTER_URL = '/api/user/auth/signup';

@@ -32,7 +32,14 @@ function Basic() {
   const [values, setValues] = useState(userData);
   const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
-  const [displaySuccess, setDisplaySuccess] = useState(false);
+  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
+  const [imageSrc, setImageSrc] = useState(userData.avatar);
+
+  const handleChange = (key: any, value: any) => {
+    // setValues({ ...values, [key]: value });
+    setValues((prevData: any) => ({ ...prevData, [key]: value }));
+    setDisplaySuccess(false);
+  };
 
   // submit userData
   const updateUserDatabase = async (userFormData: FormData) => {
@@ -63,13 +70,6 @@ function Basic() {
     setDisplaySuccess(true);
   };
 
-  // change userData
-  const handleChange = (key: any, value: any) => {
-    console.log(values, key, value);
-    setValues({ ...values, [key]: value });
-    setDisplaySuccess(false);
-  };
-
   const handleCountyChange = (key: any, value: any) => {
     setSelectCounty(value);
     handleChange(key, value);
@@ -78,13 +78,11 @@ function Basic() {
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
-    handleChange('portrait', croppedImage);
+    handleChange('avatar', croppedImage);
     setDisplaySuccess(false);
   };
 
   // crop
-  const [imageSrc, setImageSrc] = useState<string>(userData.portrait);
-
   const handleCropPanelShow = () => {
     setDisplayCropPanel(true);
   };
@@ -94,7 +92,6 @@ function Basic() {
 
   return (
     <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
-
       <h2>基本資料</h2>
       <div className="user-basic__container user-basic__basic">
 
@@ -114,10 +111,10 @@ function Basic() {
             onClose={() => setDisplayCropPanel(false)}
             display={displayCropPanel}
           />
-          <img className="user-basic__portrait img" src={values?.portrait || '/user.png'} alt="user-portrait" />
+          <img className="user-basic__portrait img" src={values?.avatar || '/user.png'} alt="user-portrait" />
           <div className="user-basic__portrait upload-button">
             <FormInputFile
-              name="portrait"
+              name="avatar"
               setImageSrc={setImageSrc}
               accept="image/*"
               id="user-basic__portrait__upload"

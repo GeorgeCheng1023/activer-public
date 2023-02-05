@@ -48,11 +48,13 @@ function Account() {
 
   return (
     <div className="user-account">
-      <Fade in={errMsg !== ''}>
-        <Alert severity="error">
-          <div className="user-account__err-msg">{errMsg}</div>
-        </Alert>
-      </Fade>
+      <div className="user-account__err-msg-section">
+        <Fade in={errMsg !== ''}>
+          <Alert severity="error">
+            <div className="user-account__err-msg">{errMsg}</div>
+          </Alert>
+        </Fade>
+      </div>
 
       <h2>帳號安全</h2>
       <form onSubmit={handleSubmit} className="user-account__form">

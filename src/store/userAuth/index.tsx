@@ -7,11 +7,11 @@ import { apiUserAuth, apiUserGoogleData } from 'api/user';
 interface UserState {
   IsLoggedIn: boolean,
   realName: string,
+  id: number,
   nickName: string,
   email: string,
-  password: string,
   verify: boolean,
-  portrait: string,
+  avatar: string,
   gender: string,
   birthday: string,
   profession: string,
@@ -26,12 +26,12 @@ interface UserState {
 const initialState: UserState = {
   IsLoggedIn: false,
   Loading: 'idle',
+  id: 0,
   // userinfo
   realName: '',
   nickName: '',
-  portrait: '',
+  avatar: '',
   email: '',
-  password: '',
   verify: false,
   gender: '',
   birthday: '',
@@ -65,13 +65,13 @@ const userAuthSlice = createSlice({
       ...state,
       email: action.payload,
     }),
-    // setPassword: (state, action: PayloadAction<any>) => ({
-    //   ...state,
-    //   password: action.payload,
-    // }),
     setBirthday: (state, action: PayloadAction<any>) => ({
       ...state,
       birthday: action.payload,
+    }),
+    setAvatar: (state, action: PayloadAction<any>) => ({
+      ...state,
+      avatar: action.payload,
     }),
     userLogin: (state, action: PayloadAction<any>) => ({
       ...state,
@@ -119,7 +119,7 @@ export const getUserData = (state: RootState) => state.userAuth;
 export const getUserNickname = (state: RootState) => state.userAuth.Nickname;
 
 export const {
-  setRealName, setEmail, setBirthday, userLogin, userLogout, userUpdate,
+  setRealName, setEmail, setBirthday, userLogin, setAvatar, userLogout, userUpdate,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
