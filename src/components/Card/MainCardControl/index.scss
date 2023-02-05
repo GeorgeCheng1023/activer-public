@@ -1,5 +1,24 @@
-.card__control__main {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.6em;
+.card__control {
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.6em;
+  }
+
+  &__watch {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+  }
+
+  &__follow {
+    &:hover {
+      background-color: white;
+
+      .button__icon {
+        color: red;
+      }
+    }
+  }
 }

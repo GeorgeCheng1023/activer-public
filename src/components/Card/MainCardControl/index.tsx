@@ -1,11 +1,13 @@
 import Button from 'components/Button';
 import React from 'react';
-import {
-  AiOutlineEye, AiTwotoneHeart, AiOutlineLink,
-} from 'react-icons/ai';
+import { AiOutlineEye, AiTwotoneHeart } from 'react-icons/ai';
 import './index.scss';
 
-function MainCardControl() {
+interface MainCardControlType {
+  onClickFollow? :React.MouseEventHandler<HTMLButtonElement> | undefined
+}
+
+function MainCardControl({ onClickFollow }: MainCardControlType) {
   return (
     <div className="card__control__main">
       <div className="card__control__watch">
@@ -14,17 +16,19 @@ function MainCardControl() {
       </div>
       <Button
         iconBefore={<AiTwotoneHeart />}
+        type="button"
         text="收藏"
+        onClick={onClickFollow}
+        color="white"
         className="card__control__follow"
-      />
-      <Button
-        iconBefore={<AiOutlineLink />}
-        text="報名"
-        className="card__control__apply"
       />
 
     </div>
   );
 }
+
+MainCardControl.defaultProps = {
+  onClickFollow: undefined,
+};
 
 export default MainCardControl;

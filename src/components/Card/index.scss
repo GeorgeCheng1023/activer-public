@@ -102,11 +102,12 @@ $_card-mobile-padding: 1em;
     margin-top: auto;
     padding: $_content-padding;
     padding-bottom: calc($_content-padding + 1em);
-    font-size: 0.7em;
+    font-size: 0.5em;
     text-overflow: ellipsis;
   }
 
   &__control {
+    margin-top: auto;
     padding: $_content-padding;
   }
 

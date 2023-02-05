@@ -7,6 +7,11 @@ export interface BaseActivityDataType {
 export interface WithTagsBaseActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
 }
+export interface SearchResultDataType extends BaseActivityDataType {
+  tags: ActivityTagDataType[] | null;
+  branches: BranchDataType[] | null;
+  weights: number;
+}
 
 export interface SearchResponstDataType {
   maxSegment: number;// maximun request page
@@ -32,9 +37,6 @@ interface ActivityDataType extends BaseActivityDataType {
   subTitle:string | null;
 }
 
-export interface SearchResultDataType extends ActivityDataType {
-  weights: number;
-}
 export interface TagDataType {
   id: number;
   type: string;

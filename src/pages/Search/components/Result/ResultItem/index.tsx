@@ -4,6 +4,7 @@ import Card from 'components/Card';
 import { useParseArrayTagDataToTag } from 'hooks/tag';
 import useConvertDate from 'hooks/date/useConvertDate';
 import { Link } from 'react-router-dom';
+import MainCardControl from 'components/Card/MainCardControl';
 
 interface ResultItemType {
   result:SearchResultDataType
@@ -20,7 +21,7 @@ function ResultItem({ result } : ResultItemType) {
     : null;
   const cardDetail = firstDateEnd
 && firstDateStart
-    ? `${useConvertDate(firstDateStart[Object.keys(firstDateStart)[0]])} ~ ${useConvertDate(firstDateEnd[0])}`
+    ? `活動時間: \n${useConvertDate(firstDateStart[Object.keys(firstDateStart)[0]])} ~ ${useConvertDate(firstDateEnd[0])}`
     : null;
 
   return (
@@ -35,6 +36,7 @@ function ResultItem({ result } : ResultItemType) {
         imgUrl={images ? images[0] : '/DefaultActivityPng.png'}
         altText={title}
         detail={cardDetail}
+        control={<MainCardControl />}
       />
     </Link>
   );
