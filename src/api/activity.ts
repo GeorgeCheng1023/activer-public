@@ -68,10 +68,12 @@ interface getSearchActivityPropsType {
   tags?: string[],
   countPerSegment: number,
   currentSegment: number,
+  accessToken?: string
 }
 
-export const postSearchActivity = (reqBody
-: getSearchActivityPropsType) => (
+export const postSearchActivity = (
+  reqBody: getSearchActivityPropsType,
+) => (
   activityRequest.post(
     '/search',
     reqBody,
@@ -79,6 +81,7 @@ export const postSearchActivity = (reqBody
       headers: {
         accept: 'text/plain',
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${reqBody.accessToken}`,
       },
     },
   )
