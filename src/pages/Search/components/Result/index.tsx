@@ -4,7 +4,7 @@ import { selectResults } from 'store/searchPanel';
 import './index.scss';
 import { useLoaderData } from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
-import ResultItem from './ResultItem';
+import MainCard from 'components/Card/MainCard';
 
 function Result() {
   const results = useAppSelector(selectResults);
@@ -27,8 +27,8 @@ function Result() {
             <div className="result__relative">
               {classfiedSearchResultData.relative.map(
                 (result) => (
-                  <ResultItem
-                    result={result}
+                  <MainCard
+                    activity={result.activity}
                     key={`result-item-${result.activity.id}`}
                   />
                 ),
@@ -42,8 +42,8 @@ function Result() {
             {
               classfiedSearchResultData.other.map(
                 (result) => (
-                  <ResultItem
-                    result={result}
+                  <MainCard
+                    activity={result.activity}
                     key={`result-item-${result.activity.id}`}
                   />
                 ),

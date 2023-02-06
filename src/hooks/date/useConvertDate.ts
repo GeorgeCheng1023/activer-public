@@ -1,3 +1,3 @@
-export default function convertDateFormat(dateString: string) {
+export default function useConvertDatet(dateString: string) {
   return dateString.replace(/-/g, '/');
 }

@@ -22,7 +22,7 @@ function CardDefault({
   return (
     <div className="card">
       <div className="card__image">
-        <img src={imgUrl} alt={altText} />
+        <img src={encodeURI(imgUrl)} alt={altText} />
       </div>
       <div className="card__content">
         <p className="card__title">{title}</p>

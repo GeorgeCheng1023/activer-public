@@ -1,12 +1,10 @@
 import React from 'react';
 import './index.scss';
-import Card from 'components/Card';
+import MainCard from 'components/Card/MainCard';
 import Button from 'components/Button';
 import { FaHotjar } from 'react-icons/fa';
 import { BsArrowRight } from 'react-icons/bs';
 import useWindowWidth from 'hooks/window/useWindowWidth';
-import { useParseArrayTagDataToTag } from 'hooks/tag';
-import MainCardControl from 'components/Card/MainCardControl';
 import { homeLoaderDataType } from 'types/ActivityDataType';
 import { useLoaderData } from 'react-router-dom';
 
@@ -25,16 +23,8 @@ function TrendActivity() {
       </div>
       <div className="home__card-container">
         {loaderData.trendActivityResData
-          .map((data) => (
-            <Card
-              id={data.id.toString()}
-              key={`trend-activity-${data.id.toString()}`}
-              imgUrl={data.images ? data.images[0] : '/DefaultActivityPng.png'}
-              title={data.title}
-              altText={data.title}
-              control={<MainCardControl trend={data.trend} id={`trend-activity__item-${data.id.toString()}`} />}
-              tags={data.tags ? useParseArrayTagDataToTag(data.tags) : undefined}
-            />
+          .map((activity) => (
+            <MainCard activity={activity} />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 
