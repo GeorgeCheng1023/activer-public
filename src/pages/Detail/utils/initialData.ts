@@ -14,6 +14,7 @@ export const initialBranchesState: BranchDataType = {
 export const initialDataState:ActivityDataType = {
   id: 0,
   title: '',
+  trend: 0,
   content: '',
   connection: null,
   holder: null,

@@ -25,26 +25,25 @@ function Pagination() {
     return (
       <div className="search__pagination">
 
-        <div className="search__pagination__prev">
-          {page && Number(page) > 1
-        && (
-          <>
-            <Button
-              type="button"
-              text={`<< ${screenWidth > 768 ? '第一頁' : ''}`}
-              color="white"
-              onClick={() => handleSetParms(1)}
-            />
-            <Button
-              type="button"
-              text={`< ${screenWidth > 768 ? '上一頁' : ''}`}
-              color="white"
-              onClick={() => handleSetParms(Number(page) - 1)}
-            />
-          </>
-        )}
+        <div
+          className={`search__pagination__prev${Number(page) > 1 ? '--active' : ''} search__pagination__item`}
+        >
+
+          <Button
+            type="button"
+            text={`<< ${screenWidth > 768 ? '第一頁' : ''}`}
+            color="white"
+            onClick={() => handleSetParms(1)}
+          />
+          <Button
+            type="button"
+            text={`< ${screenWidth > 768 ? '上一頁' : ''}`}
+            color="white"
+            onClick={() => handleSetParms(Number(page) - 1)}
+          />
+
         </div>
-        <div className="search__pagination__main">
+        <div className="search__pagination__main search__pagination__item">
           {
             Array.from({ length: loaderData.data.maxSegment }, (_, index) => {
               const pageNumber = (index + 1);
@@ -60,25 +59,23 @@ function Pagination() {
           }
         </div>
 
-        <div className="search__pagination__next">
-          { (Number(page) < loaderData.data.maxSegment)
-        && (
-          <>
-            <Button
-              type="button"
-              color="white"
-              text={`${screenWidth > 768 ? '下一頁' : ''} >`}
-              onClick={() => handleSetParms(Number(page) + 1)}
-            />
-            <Button
-              type="button"
-              color="white"
-              text={`${screenWidth > 768 ? '最後一頁' : ''} >>`}
-              onClick={() => handleSetParms(loaderData.data.maxSegment)}
-            />
-          </>
-        )}
+        <div className={`search__pagination__next${Number(page) < loaderData.data.maxSegment ? '--active' : ''} search__pagination__item`}>
+
+          <Button
+            type="button"
+            color="white"
+            text={`${screenWidth > 768 ? '下一頁' : ''} >`}
+            onClick={() => handleSetParms(Number(page) + 1)}
+          />
+          <Button
+            type="button"
+            color="white"
+            text={`${screenWidth > 768 ? '最後一頁' : ''} >>`}
+            onClick={() => handleSetParms(loaderData.data.maxSegment)}
+          />
+
         </div>
+
       </div>
     );
   }

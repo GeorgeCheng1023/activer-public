@@ -5,23 +5,24 @@
   @include container-main;
 
   display: flex;
+  justify-content: space-around;
   margin: 1em auto;
 
-  &__main,
-  &__prev,
-  &__next {
+  &__main {
+    flex: 0 0 auto;
+  }
+
+  &__item {
     display: flex;
     gap: 1em;
-    justify-content: center;
-  }
-
-  &__main {
-    display: flex;
-    flex-grow: 0;
   }
 
   &__prev,
   &__next {
-    flex-grow: 1;
+    opacity: 0;
+
+    &--active {
+      opacity: 1;
+    }
   }
 }

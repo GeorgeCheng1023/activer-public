@@ -32,7 +32,7 @@ function TrendActivity() {
               imgUrl={data.images ? data.images[0] : '/DefaultActivityPng.png'}
               title={data.title}
               altText={data.title}
-              control={<MainCardControl />}
+              control={<MainCardControl trend={data.trend} id={`trend-activity__item-${data.id.toString()}`} />}
               tags={data.tags ? useParseArrayTagDataToTag(data.tags) : undefined}
             />
           ))

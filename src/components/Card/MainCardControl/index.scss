@@ -1,3 +1,6 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
 .card__control {
   &__main {
     display: flex;
@@ -13,11 +16,17 @@
   }
 
   &__follow {
+    &--active {
+      .button__icon {
+        color: $danger-color;
+      }
+    }
+
     &:hover {
       background-color: white;
 
       .button__icon {
-        color: red;
+        color: $danger-color;
       }
     }
   }

@@ -138,7 +138,7 @@ function Detail() {
                 filters={
                   branches.map((branch: BranchDataType) => ({
                     id: branch.id.toString(),
-                    label: branch.branchName,
+                    label: branch.branchName || '',
                   }))
                 }
                 onChangeFilter={handleChangeFilter}

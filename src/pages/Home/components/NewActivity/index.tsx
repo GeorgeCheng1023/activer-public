@@ -36,7 +36,12 @@ function NewActivity() {
                 key={`new-activity-${activity.id.toString()}`}
                 altText={activity.title}
                 tags={activity.tags ? useParseArrayTagDataToTag(activity.tags) : undefined}
-                control={<MainCardControl />}
+                control={(
+                  <MainCardControl
+                    trend={activity.trend}
+                    id={`new-activity__item-${activity.id.toString()}`}
+                  />
+                )}
               />
             </Link>
           ))

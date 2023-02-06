@@ -6,13 +6,14 @@ export interface BaseActivityDataType {
 
 export default interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
-  branches: BranchDataType[] | null;
+  branches: BranchDataType[];
   content: string;
   connection: string[] | null;
   holder: string[] | null ;
   objective: string[] | null;
   sources: string[] | null;
   subTitle:string | null;
+  trend: number;
 }
 
 export interface SearchResultDataType {
@@ -42,7 +43,7 @@ export interface ActivityTagDataType extends TagDataType {
 
 export interface BranchDataType {
   id: number;
-  branchName: string;
+  branchName: string | null;
   dateStart: DateType | null;
   dateEnd: string[] | null ;
   applyStart: string[] | null ;

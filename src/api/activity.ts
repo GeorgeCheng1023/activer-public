@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BranchDataType } from 'types/ActivityDataType';
 import { TEST_URL } from './axios';
 
 // activity api
@@ -40,7 +41,7 @@ export const getTrendActivity = () => (
 export const postActivityStatus = (
   activityId:string,
   branchId: string,
-  status: string,
+  status: BranchDataType['status'],
   accessToken: string,
 ) => (
   activityRequest.post(
