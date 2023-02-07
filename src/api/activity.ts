@@ -43,4 +43,14 @@ export const updateActivityStatus = (
   )
 );
 
+export const getActivityDreamAndRegistered = (accessToken: string) => activityRequest.get(
+  '/dreamAndRegistered',
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  },
+);
+
 export default activityRequest;

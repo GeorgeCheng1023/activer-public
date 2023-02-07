@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Descendant } from 'slate';
 
 const IP = '220.132.244.41';
 const PORT = '5044';
@@ -6,7 +7,6 @@ const PORT = '5044';
 export const TEST_URL = `http://${IP}:${PORT}`;
 
 const USER_UPDATE_URL = '/api/user';
-// const USER_AVATAR_URL = '/api/User/avatar/';
 // api/user/auth
 const LOGIN_URL = '/api/user/auth/signin';
 const REGISTER_URL = '/api/user/auth/signup';
@@ -15,6 +15,7 @@ const USER_VERIFY_URL = '/api/user/auth/verify/email';
 const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
 const USER_CHANGE_PWD = '/api/User/auth/changepassword';
 const USER_RESET_PWD = '/api/User/auth/resetpassword';
+const USER_RECORD = 'api/User/activity/record';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
@@ -144,7 +145,27 @@ export const apiUserResetPwd = (
   },
 );
 
-// export const apiUserDelete = (id: number, accessToken: string) => axiosTest.delete();
+export const apiPostUserRecord = (content: Descendant[], accessToken: string) => axiosTest.post(
+  USER_RECORD,
+  JSON.stringify(content),
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
+export const apiGetUserRecord = (
+  activityId: number,
+  accessToken: string,
+) => axiosTest.get<Descendant[]>(
+  `${USER_RECORD}/${activityId}`,
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
 
 // google
 export const apiUserGoogleData = (access_token: string) => axios.get(
