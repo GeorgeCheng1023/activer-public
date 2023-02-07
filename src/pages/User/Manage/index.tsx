@@ -4,7 +4,7 @@ import ManageNav from 'components/ManageNav';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
 import Card from 'components/Card';
 
-import { useParseArrayTagDataToTag } from 'hooks/tag';
+import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { BranchDataType, UserActivityDataType } from 'types/ActivityDataType';
 import dummyUserActivity from './dummy.json';
 import ManageCardControl from './components/ManageCardControl';
@@ -108,7 +108,7 @@ function Manage() {
               imgUrl={activity.images ? activity.images[0] : '/DefaultActivityPng.png'}
               altText={activity.title}
               title={activity.title}
-              tags={useParseArrayTagDataToTag(activity.tags)}
+              tags={parseArrayTagDataToTag(activity.tags)}
               detail={activity.branch.branchName}
               control={(
                 <ManageCardControl

@@ -6,8 +6,8 @@ import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
 import { useCookies } from 'react-cookie';
 import { initialBranchesState } from 'pages/Detail/utils/initialData';
 import { postActivityStatus } from 'api/activity';
-import { useParseArrayTagDataToTag } from 'hooks/tag';
-import useConvertDate from 'hooks/date/useConvertDate';
+import { parseArrayTagDataToTag } from 'utils/parseTag';
+import useConvertDate from 'utils/convertDate';
 
 interface MainCardType {
   activity: ActivityDataType
@@ -69,7 +69,7 @@ function MainCard({ activity }: MainCardType) {
     >
       <Card
         id={id.toString()}
-        tags={tags ? useParseArrayTagDataToTag(tags) : []}
+        tags={tags ? parseArrayTagDataToTag(tags) : []}
         title={title}
         imgUrl={images ? images[0] : '/DefaultActivityPng.png'}
         altText={title}

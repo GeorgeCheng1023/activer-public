@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BranchDataType, SearchResultDataType } from 'types/ActivityDataType';
 import Card from 'components/Card';
-import { useParseArrayTagDataToTag } from 'hooks/tag';
-import useConvertDate from 'hooks/date/useConvertDate';
+import { parseArrayTagDataToTag } from 'utils/parseTag';
+import useConvertDate from 'utils/convertDate';
 import { Link } from 'react-router-dom';
 import MainCardControl from 'components/Card/MainCardControl';
 import { postActivityStatus } from 'api/activity';
@@ -69,7 +69,7 @@ function ResultItem({ result } : ResultItemType) {
     >
       <Card
         id={id.toString()}
-        tags={tags ? useParseArrayTagDataToTag(tags) : []}
+        tags={tags ? parseArrayTagDataToTag(tags) : []}
         title={title}
         imgUrl={images ? encodeURI(images[0]) : '/DefaultActivityPng.png'}
         altText={title}

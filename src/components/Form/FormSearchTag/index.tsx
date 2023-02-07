@@ -9,7 +9,7 @@ import Button from 'components/Button';
 // style
 import './index.scss';
 import { TagDataType } from 'types/ActivityDataType';
-import { useParseTagDataToTag } from 'hooks/tag';
+import { parseTagDataToTag } from 'utils/parseTag';
 import { getAllTags } from 'api/tag';
 
 interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -62,7 +62,7 @@ function FormSearchTag({
             key={tag.id}
             tabIndex={-1}
             type="button"
-            onClick={() => handleSuggestionClick(useParseTagDataToTag(tag))}
+            onClick={() => handleSuggestionClick(parseTagDataToTag(tag))}
             value={tag.text}
             data-variant={tag.type}
             data-id={tag.id}
