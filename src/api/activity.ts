@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { BranchDataType } from 'types/ActivityDataType';
+import {
+  BranchDataType, ManageResponseDataType, SearchResponseDataType,
+} from 'types/ActivityDataType';
 import { TEST_URL } from './axios';
 
 // activity api
@@ -70,11 +72,10 @@ interface getSearchActivityPropsType {
   currentSegment: number,
   accessToken?: string
 }
-
 export const postSearchActivity = (
   reqBody: getSearchActivityPropsType,
 ) => (
-  activityRequest.post(
+  activityRequest.post<SearchResponseDataType>(
     '/search',
     reqBody,
     {
@@ -88,3 +89,16 @@ export const postSearchActivity = (
 );
 
 export default activityRequest;
+
+// GET: Activity in Manage Page
+export const getManageActivity = (accessToken: string) => (
+  activityRequest.get<ManageResponseDataType[]>(
+    '/dreamAndRegistered',
+    {
+      headers: {
+        accept: 'text/plain',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+);

@@ -5,8 +5,10 @@ import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
 import Card from 'components/Card';
 
 import { parseArrayTagDataToTag } from 'utils/parseTag';
-import { BranchDataType, UserActivityDataType } from 'types/ActivityDataType';
-import dummyUserActivity from './dummy.json';
+import { BranchDataType, ManageResponseDataType, UserActivityDataType } from 'types/ActivityDataType';
+import { getManageActivity } from 'api/activity';
+import getCookie from 'utils/getCookies';
+import { useLoaderData } from 'react-router-dom';
 import ManageCardControl from './components/ManageCardControl';
 import './index.scss';
 
@@ -28,6 +30,30 @@ const filters = [
   },
 ];
 
+function parseManageResponseToUserActivity(data: ManageResponseDataType[])
+  : UserActivityDataType[] {
+  const parseUserActivities:UserActivityDataType[] = [];
+  data.forEach((activity) => {
+    activity.branches.forEach((branch: BranchDataType) => {
+      if (!branch.status) { return; }
+      parseUserActivities.push({
+        id: activity.id,
+        title: activity.title,
+        images: activity.images,
+        tags: activity.tags,
+        branch,
+      });
+    });
+  });
+  return parseUserActivities;
+}
+
+export async function loader() {
+  const res = await getManageActivity(getCookie('sessionToken'));
+  console.log('loader call');
+  return parseManageResponseToUserActivity(res.data);
+}
+
 function Manage() {
   /** State init
    * @userActivities  User's activity
@@ -40,35 +66,12 @@ function Manage() {
     currentActivities,
     setCurrentActivities,
   ] = useState<UserActivityDataType[] | undefined>();
+  const loaderData = useLoaderData() as UserActivityDataType[];
 
-  /**  function to fetch user Data */
-  const getUserActivity = useCallback(() => {
-    const parseUserActivities:UserActivityDataType[] = [];
-    dummyUserActivity.forEach((activity) => {
-      activity.branches.forEach((branch: BranchDataType) => {
-        if (!branch.status) { return; }
-        parseUserActivities.push({
-          id: activity.id,
-          title: activity.title,
-          images: activity.images,
-          tags: activity.tags,
-          branch,
-        });
-      });
-    });
-    setUserActivities(parseUserActivities);
-    setCurrentActivities(parseUserActivities);
-  }, []);
   /** execute getUserActivity in first time render */
   useEffect(() => {
-    getUserActivity();
-  }, []);
-
-  /** handler to listen activity's Status dropdown change */
-  const handleChangeActivityStatus = useCallback((branchId: number, key:string, value: string) => {
-    // TODO: update branch Status
-    console.log(branchId, key, value);
-    getUserActivity();
+    setUserActivities(loaderData);
+    setCurrentActivities(loaderData);
   }, []);
 
   /** handler to listen ManageNav Change and
@@ -108,14 +111,9 @@ function Manage() {
               imgUrl={activity.images ? activity.images[0] : '/DefaultActivityPng.png'}
               altText={activity.title}
               title={activity.title}
-              tags={parseArrayTagDataToTag(activity.tags)}
+              tags={parseArrayTagDataToTag(activity.tags || [])}
               detail={activity.branch.branchName}
-              control={(
-                <ManageCardControl
-                  branch={activity.branch}
-                  onChange={handleChangeActivityStatus}
-                />
-              )}
+              control={<ManageCardControl activity={activity} />}
             />
           ))
         }

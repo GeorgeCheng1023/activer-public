@@ -22,6 +22,7 @@ function FormDropDown({
 }: FormDropDownType) {
   const handleChange:
   React.ChangeEventHandler<HTMLSelectElement> = useCallback((event) => {
+    event.preventDefault();
     document.getElementById(id)?.blur();
     onChange(event.target.name, event.target.value);
   }, []);

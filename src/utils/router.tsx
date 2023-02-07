@@ -5,6 +5,7 @@ import Register from 'pages/Login/components/Register';
 import User, {
   Basic, Account, History, Preferences, Manage, Main,
 } from 'pages/User';
+import { loader as manageLoader } from 'pages/User/Manage';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
@@ -25,6 +26,7 @@ export const routerConfig = [
   {
     path: '/',
     element: <Root />,
+
     children: [
       {
         element: <PersistLogin />,
@@ -86,6 +88,7 @@ export const routerConfig = [
     ],
   },
   {
+
     element: <Admin />,
     children: [
       {
@@ -106,6 +109,7 @@ export const routerConfig = [
           },
           {
             path: 'manage',
+            loader: manageLoader,
             element: <Manage />,
           },
           {
