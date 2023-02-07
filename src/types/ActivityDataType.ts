@@ -72,3 +72,7 @@ export interface homeLoaderDataType {
   trendActivityResData:ActivityDataType[];
   newestActivityResData:ActivityDataType[];
 }
+
+export interface HistoryLoaderDataType {
+  newestActivityResData:ActivityDataType[];
+}

@@ -5,6 +5,7 @@ import Register from 'pages/Login/components/Register';
 import User, {
   Basic, Account, History, Preferences, Manage, Main,
 } from 'pages/User';
+import { loader as historyLouder } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
@@ -110,15 +111,15 @@ export const routerConfig = [
           },
           {
             path: 'history',
+            loader: historyLouder,
             element: <History />,
-
           },
           {
             path: 'preferences',
             element: <Preferences />,
           },
           {
-            path: 'record',
+            path: 'record/:activityId',
             element: <Record />,
           },
 

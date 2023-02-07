@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Descendant } from 'slate';
 
 const IP = '220.132.244.41';
 const PORT = '5044';
@@ -145,9 +144,13 @@ export const apiUserResetPwd = (
   },
 );
 
-export const apiPostUserRecord = (content: Descendant[], accessToken: string) => axiosTest.post(
+export const apiPostUserRecord = (
+  activityId: number,
+  content: string,
+  accessToken: string,
+) => axiosTest.post(
   USER_RECORD,
-  JSON.stringify(content),
+  { activityId, content },
   {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -158,7 +161,7 @@ export const apiPostUserRecord = (content: Descendant[], accessToken: string) =>
 export const apiGetUserRecord = (
   activityId: number,
   accessToken: string,
-) => axiosTest.get<Descendant[]>(
+) => axiosTest.get(
   `${USER_RECORD}/${activityId}`,
   {
     headers: {

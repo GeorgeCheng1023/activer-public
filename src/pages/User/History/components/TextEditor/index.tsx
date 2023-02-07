@@ -30,6 +30,7 @@ import {
 
 import { useCookies } from 'react-cookie';
 import Loading from 'pages/Loading';
+import { useParams } from 'react-router-dom';
 import withShortcuts from './utils/withShortcuts';
 import withImages from './utils/withImages';
 
@@ -88,6 +89,9 @@ function TextEditor() {
   const [record, setRecord] = useState<Descendant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [cookies] = useCookies<string>(['user']);
+  const params = useParams();
+  const activityId: number = parseInt(params.activityId || '', 10);
+  // console.log(activityId);
 
   const renderElement = useCallback(
     (props: RenderElementProps) => (
@@ -126,7 +130,7 @@ function TextEditor() {
 
   const sendRecord = async (content: Descendant[]) => {
     try {
-      await apiPostUserRecord(content, cookies.sessionToken);
+      await apiPostUserRecord(activityId, JSON.stringify(content), cookies.sessionToken);
     } catch (err: any) {
       if (!err.response) {
         // eslint-disable-next-line no-console
@@ -142,14 +146,12 @@ function TextEditor() {
   };
 
   useEffect(() => {
-    const fetchRecord = async (activityId: number) => {
+    const fetchRecord = async (id: number) => {
       try {
-        const response = await apiGetUserRecord(activityId, cookies.sessionToken);
-        console.log(response.data);
-        setRecord([{
-          type: 'paragraph',
-          children: [{ text: 'A line of text in a paragraph.' }],
-        }]);
+        const response = await apiGetUserRecord(id, cookies.sessionToken);
+        if (response.data.content && response.data.content !== '') {
+          setRecord(JSON.parse(response.data.content));
+        }
         setLoading(false);
       } catch (err: any) {
         if (!err.response) {
@@ -166,7 +168,7 @@ function TextEditor() {
       }
     };
 
-    fetchRecord(1504);
+    fetchRecord(activityId);
   }, []);
 
   if (loading) return <Loading />;
@@ -211,7 +213,7 @@ function TextEditor() {
           className="text-editor__textarea"
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          placeholder="Enter some rich text…"
+          placeholder="寫入您的心得感想..."
           spellCheck
           autoFocus
           onDOMBeforeInput={() => handleDOMBeforeInput(editor)}

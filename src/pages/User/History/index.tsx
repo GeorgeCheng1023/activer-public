@@ -4,6 +4,8 @@ import React from 'react';
 import Card from 'components/Card';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
+import { getNewestActivity } from 'api/activity';
+import { useLoaderData } from 'react-router-dom';
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 // import ChartArea from './components/ChartArea';
@@ -12,10 +14,21 @@ import HistoryControl from './components/HistoryControl';
 import './index.scss';
 
 // data
-import dummyActivityHistory from './dummyActivityHistory.json';
+// import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
+import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
+
+export async function loader() {
+  const newestActivityRes = await getNewestActivity();
+  return ({
+    newestActivityResData: newestActivityRes.data,
+  });
+}
 
 function History() {
+  const louderData = useLoaderData() as HistoryLoaderDataType;
+  const activity = louderData.newestActivityResData;
+
   return (
     <div className="history">
       {/* <h2 className="history__h2">興趣分析</h2>
@@ -41,18 +54,18 @@ function History() {
       </div> */}
       <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
-        {dummyActivityHistory.map((history) => {
-          const parseTags:TagType[] = parseArrayTagDataToTag(history.activity?.tags);
+        {activity.map((history) => {
+          const parseTags: TagType[] = parseArrayTagDataToTag(history.tags || []);
 
           return (
             <Card
-              id={history.activity.id.toString()}
-              key={history.activity.id}
-              imgUrl={history.activity?.images[0]}
-              title={history.activity?.title}
-              altText={history.activity?.title}
+              id={history.id.toString()}
+              key={history.id}
+              imgUrl={history.images ? history.images[0] : ''}
+              title={history.title}
+              altText={history.title}
               tags={parseTags}
-              control={<HistoryControl />}
+              control={<HistoryControl activityId={history.id} />}
             />
           );
         })}
