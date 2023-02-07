@@ -1,0 +1,13 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.home__error-page {
+  @include container-main;
+
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,13 +1,10 @@
 import React from 'react';
-// components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Card } from 'components/Card';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import 'swiper/css/navigation';
 import './index.scss';
+import Card from 'components/Card';
 
 // import required modules
 import { EffectCards, Navigation } from 'swiper';

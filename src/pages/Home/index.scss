@@ -6,6 +6,7 @@
   flex-grow: 1;
   flex-direction: column;
   gap: 1em;
+  background-color: $content-background-color;
 
   &__header {
     display: flex;

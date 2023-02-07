@@ -1,6 +1,5 @@
 import React from 'react';
-
-import Home from 'pages/Home';
+import Home, { loader as homeLoader } from 'pages/Home';
 import Login from 'pages/Login';
 import Register from 'pages/Login/components/Register';
 import User, {
@@ -8,16 +7,18 @@ import User, {
 } from 'pages/User';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
-import Search from 'pages/Search';
+import Search, { loader as searchLoader } from 'pages/Search';
 import Detail from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
-import NotFound from 'pages/NotFound';
+import NotFound from 'pages/Error/NotFound';
 import Loading from 'pages/Loading';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 import Verify from 'pages/Login/components/verifyUser/index';
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
+import SearchErrorPage from 'pages/Error/SearchErrorPage';
+import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
@@ -30,6 +31,8 @@ export const routerConfig = [
         children: [
           {
             path: '/',
+            loader: homeLoader,
+            errorElement: <HomeErrorPage />,
             element: <Home />,
           },
           {
@@ -42,6 +45,8 @@ export const routerConfig = [
           },
           {
             path: '/search',
+            loader: searchLoader,
+            errorElement: <SearchErrorPage />,
             element: <Search />,
           },
           {

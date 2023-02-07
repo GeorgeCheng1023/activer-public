@@ -1,7 +1,9 @@
 import { TagType } from 'components/Tag';
-import { TagDataType } from 'types/ActivityDataType';
+import { ActivityTagDataType, TagDataType } from 'types/ActivityDataType';
 
-export const useParseArrayTagDataToTag = (TagData: TagDataType[]): Array<TagType> => (
+export const parseArrayTagDataToTag = (
+  TagData: TagDataType[] | ActivityTagDataType[],
+): Array<TagType> => (
   TagData.map((tag: TagDataType) => ({
     id: tag.id.toString(),
     text: tag.text,
@@ -9,13 +11,13 @@ export const useParseArrayTagDataToTag = (TagData: TagDataType[]): Array<TagType
   }))
 );
 
-export const useParseTagDataToTag = (TagData: TagDataType) : TagType => ({
+export const parseTagDataToTag = (TagData: TagDataType) : TagType => ({
   id: TagData.id.toString(),
   text: TagData.text,
   type: TagData.type as TagType['type'],
 });
 
-export const useParseTagToTagData = (inputTag: TagType): TagDataType => (
+export const parseTagToTagData = (inputTag: TagType): TagDataType => (
   {
     id: parseInt(inputTag.id, 10),
     text: inputTag.text,

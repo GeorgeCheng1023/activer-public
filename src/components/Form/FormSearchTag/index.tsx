@@ -6,29 +6,27 @@ import classNames from 'classnames';
 import { TagType } from 'components/Tag';
 import { FiSearch } from 'react-icons/fi';
 import Button from 'components/Button';
-
 // style
 import './index.scss';
 import { TagDataType } from 'types/ActivityDataType';
-import { useParseTagDataToTag } from 'hooks/tag';
+import { parseTagDataToTag } from 'utils/parseTag';
 import { getAllTags } from 'api/tag';
 
 interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> {
   onSuggestionClick: (clickedSuggestion: TagType) => void
 }
 
-function FormSearchBar({
+function FormSearchTag({
   onSuggestionClick, ...props
 }: FormSearchTagType) {
+  // INIT: state
   const [allTags, setAllTags] = useState<TagDataType[]>([]);
-  // suggstionDisplay is a boolean that show or hide the suggestion
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
-  //  suggestion tag
   const [suggestionTags, setSuggestionTags] = useState<JSX.Element[] | null>();
   const [currentFocusSuggestionIndex, setCurrentSuggestionIndex] = useState(-1);
   const inputValueRef = useRef<HTMLInputElement>(null);
 
-  // GET: All tag
+  // API: get all tags
   useEffect(() => {
     const dataFetch = async () => {
       try {
@@ -41,52 +39,62 @@ function FormSearchBar({
     dataFetch();
   }, []);
 
-  // submit clicked Tag
+  // HANDLER: suggestion click
   const handleSuggestionClick = useCallback((clickedTag: TagType) => {
-    onSuggestionClick(clickedTag);
-    setSuggestionDisplay(false);
-    inputValueRef.current!.value = clickedTag.text;
+    onSuggestionClick(clickedTag); // call parent function
+    setSuggestionDisplay(false); // hide suggestion
+    inputValueRef.current!.value = clickedTag.text; // update input value
   }, []);
 
+  // FUNCTION: filter tag and render
   const filterTag = (value: string):JSX.Element[] | null => {
+    // if value is empty
     if (value === '') {
       return null;
     }
-
-    return (allTags
-      .filter((tag) => (tag.text.includes(value)))
-      .map((tag, index: number) => (
-        <input
-          className="search-tag__suggestion__choice"
-          id={`search-tag-suggestion-${index}`}
-          key={tag.id}
-          tabIndex={-1}
-          type="button"
-          onClick={() => handleSuggestionClick(useParseTagDataToTag(tag))}
-          value={tag.text}
-          data-variant={tag.type}
-          data-id={tag.id}
-          data-text={tag.text}
-        />
-      ))
+    return (
+      allTags
+        .filter((tag) => (tag.text.includes(value))) // if tag include tag.text
+        .map((tag, index: number) => (
+          <input
+            className="search-tag__suggestion__choice"
+            id={`search-tag-suggestion-${index}`}
+            key={tag.id}
+            tabIndex={-1}
+            type="button"
+            onClick={() => handleSuggestionClick(parseTagDataToTag(tag))}
+            value={tag.text}
+            data-variant={tag.type}
+            data-id={tag.id}
+            data-text={tag.text}
+          />
+        ))
     );
   };
 
-  // handle input type change event
+  // HANDLER: change
   const handleChange:
-  React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+  React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    // show suggestion
     setSuggestionDisplay(true);
+    // set suggesion index
     setCurrentSuggestionIndex(-1);
-    setSuggestionTags(filterTag(e.target.value)?.length === 0 ? null : filterTag(e.target.value));
-  }, []);
+    // filter tag
+    setSuggestionTags(
+      filterTag(e.target.value)?.length === 0 // if no tags are filtered
+        ? null
+        : filterTag(e.target.value),
+    );
+  };
 
-  // handle blur event when click outside of suggestion
+  // HANDLER: blur
   const handleBlur:
   React.FocusEventHandler<HTMLInputElement> = useCallback((e) => {
     if (!e.relatedTarget) {
       setSuggestionDisplay(false);
     }
   }, []);
+  // HANDLER: focus
   const handleFocus:
   React.FocusEventHandler<HTMLInputElement> = useCallback((e) => {
     if (!e.relatedTarget) {
@@ -94,24 +102,13 @@ function FormSearchBar({
     }
   }, []);
 
+  // HANDLER: key down
   const handleKeyDown:
   React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
+    //  find the suggestion currently focused
     const currentFocusSuggestion = document.getElementById(`search-tag-suggestion-${currentFocusSuggestionIndex}`);
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (inputValueRef.current && currentFocusSuggestion) {
-        inputValueRef.current.value = (currentFocusSuggestion as HTMLInputElement).value;
-        handleSuggestionClick({
-          id: currentFocusSuggestion.getAttribute('data-id') as string,
-          text: currentFocusSuggestion.getAttribute('data-text') as string,
-          type: currentFocusSuggestion.getAttribute('data-variant') as TagType['type'],
-        });
-      }
-    }
-    if (suggestionTags?.length === 1) {
-      setCurrentSuggestionIndex(0);
-      return;
-    }
+
+    // Arrow Down: set suggestion index to next
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       if (currentFocusSuggestion) {
@@ -135,9 +132,29 @@ function FormSearchBar({
         newIndex = suggestionLength - 1;
       }
       setCurrentSuggestionIndex(newIndex);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+
+      if (inputValueRef.current && currentFocusSuggestion) {
+        inputValueRef.current.value = (currentFocusSuggestion as HTMLInputElement).value;
+        handleSuggestionClick({
+          id: currentFocusSuggestion.getAttribute('data-id') as string,
+          text: currentFocusSuggestion.getAttribute('data-text') as string,
+          type: currentFocusSuggestion.getAttribute('data-variant') as TagType['type'],
+        });
+      }
+    }
+
+    /**
+     * if the suggestion only had 1 result,
+     * then set suggestion index to that result
+     */
+    if (suggestionTags?.length === 1) {
+      setCurrentSuggestionIndex(0);
     }
   }, [currentFocusSuggestionIndex, suggestionTags]);
 
+  // EFFECT: to append background-color to selected suggestion
   useEffect(() => {
     const focusSuggestion = document.getElementById(`search-tag-suggestion-${currentFocusSuggestionIndex}`);
     if (focusSuggestion) {
@@ -184,4 +201,4 @@ function FormSearchBar({
     </div>
   );
 }
-export default FormSearchBar;
+export default FormSearchTag;

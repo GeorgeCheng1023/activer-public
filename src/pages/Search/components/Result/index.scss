@@ -1,0 +1,27 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.result {
+  @include container-main;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__relative,
+  &__other {
+    display: flex;
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    width: 100%;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin: 1em 0;
+    font-weight: bold;
+  }
+}

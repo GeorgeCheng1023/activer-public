@@ -1,17 +1,25 @@
 import React from 'react';
-
-// component
+import { getTrendActivity, getNewestActivity } from 'api/activity';
 import {
   Hero, TrendActivity, TrendTag, Feature, NewActivity,
 } from './components';
 import './index.scss';
 
+export async function loader() {
+  const trendActivityRes = await getTrendActivity();
+  const newestActivityRes = await getNewestActivity();
+  return ({
+    trendActivityResData: trendActivityRes.data,
+    newestActivityResData: newestActivityRes.data,
+  });
+}
+
 function Home() {
   return (
     <main className="home">
       <Hero />
-      <Feature />
 
+      <Feature />
       <NewActivity />
       <TrendActivity />
 

@@ -4,7 +4,7 @@ export interface BaseActivityDataType {
   images: string[] | null;
 }
 
-interface ActivityDataType extends BaseActivityDataType {
+export default interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
   branches: BranchDataType[];
   content: string;
@@ -13,22 +13,37 @@ interface ActivityDataType extends BaseActivityDataType {
   objective: string[] | null;
   sources: string[] | null;
   subTitle:string | null;
+  trend: number;
+}
+
+export interface SearchResultDataType {
+  activity: ActivityDataType;
+  weights: number; // for sorting result
+}
+
+export interface SearchResponseDataType {
+  maxSegment: number;// maximun request page
+  minSegment: number;// minimun request page
+  currentSegment: number;// current page
+  countPerSegment: number; // max number of data in its page
+  searchResultData: SearchResultDataType[]; // main result data
+  totalCount: number; // total data
 }
 
 export interface TagDataType {
   id: number;
-  type: string;
+  type: string; // 'area' | 'location' | 'other'
   text: string;
 }
 
 export interface ActivityTagDataType extends TagDataType {
-  tagCount: number;
-  userVoted: boolean;
+  tagCount: number; // user voted tag count
+  userVoted: boolean; // check if user voted this tag
 }
 
 export interface BranchDataType {
   id: number;
-  branchName: string;
+  branchName: string | null;
   dateStart: DateType | null;
   dateEnd: string[] | null ;
   applyStart: string[] | null ;
@@ -47,9 +62,13 @@ export interface UserActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
   branch: BranchDataType;
 }
-// NewActivity
-export interface BaseWithTagActivityDataType extends BaseActivityDataType {
-  tags: TagDataType[];
-}
 
-export default ActivityDataType;
+// Page Loader Response Data Type
+export interface SearchLoaderType {
+  data: SearchResponseDataType;
+  keywords: string | null;
+}
+export interface homeLoaderDataType {
+  trendActivityResData:ActivityDataType[];
+  newestActivityResData:ActivityDataType[];
+}

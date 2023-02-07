@@ -1,0 +1,28 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.search__pagination {
+  @include container-main;
+
+  display: flex;
+  justify-content: space-around;
+  margin: 1em auto;
+
+  &__main {
+    flex: 0 0 auto;
+  }
+
+  &__item {
+    display: flex;
+    gap: 1em;
+  }
+
+  &__prev,
+  &__next {
+    opacity: 0;
+
+    &--active {
+      opacity: 1;
+    }
+  }
+}

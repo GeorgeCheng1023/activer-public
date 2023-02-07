@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useAppDispatch } from 'hooks/redux';
-import { show as showPanel } from 'store/searchPanel';
+import { expend as showPanel } from 'store/searchPanel';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import {
   Navbar,

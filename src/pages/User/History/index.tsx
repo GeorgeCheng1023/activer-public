@@ -1,8 +1,8 @@
 import React from 'react';
 
 // components
-import Card from 'components/Card/Default';
-import { useParseArrayTagDataToTag } from 'hooks/tag';
+import Card from 'components/Card';
+import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
@@ -42,7 +42,7 @@ function History() {
       <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
         {dummyActivityHistory.map((history) => {
-          const parseTags:TagType[] = useParseArrayTagDataToTag(history.activity?.tags);
+          const parseTags:TagType[] = parseArrayTagDataToTag(history.activity?.tags);
 
           return (
             <Card

@@ -46,6 +46,7 @@ $btn-config: (
   border: 2px $borderColor solid;
   background-color: $bgColor;
   color: $textColor;
+  stroke: $textColor;
 }
 
 .button {
@@ -127,6 +128,12 @@ $btn-config: (
     }
   }
 
+  // square variant
+  &.button--square {
+    width: 3em;
+    height: 3em;
+  }
+
   * {
     background-color: transparent;
     color: inherit;
@@ -136,6 +143,10 @@ $btn-config: (
   &__icon {
     display: flex;
     align-items: center;
+    stroke: inherit;
+
+    svg,
+    path { stroke: inherit; }
   }
 
   &:disabled {

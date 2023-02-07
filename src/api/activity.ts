@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { BranchDataType } from 'types/ActivityDataType';
 import { TEST_URL } from './user';
 
 // activity api
@@ -6,7 +7,7 @@ const activityRequest = axios.create({
   baseURL: TEST_URL.concat('/api/Activity'),
 });
 
-// GET: /api/Activity/{id}, activity get by id
+// GET: activity get by id
 export const getActivityById = (
   id: string,
   accessToken: string,
@@ -18,11 +19,29 @@ export const getActivityById = (
     },
   }));
 
+// GET: newest activity
+export const getNewestActivity = () => (
+  activityRequest.get('/Newest', {
+    headers: {
+      accept: 'text/plain',
+    },
+  })
+);
+
+// GET: get trend activity
+export const getTrendActivity = () => (
+  activityRequest.get('/trend', {
+    headers: {
+      accept: 'text/plain',
+    },
+  })
+);
+
 // POST: update branch status
-export const updateActivityStatus = (
+export const postActivityStatus = (
   activityId:string,
   branchId: string,
-  status: string,
+  status: BranchDataType['status'],
   accessToken: string,
 ) => (
   activityRequest.post(
@@ -43,14 +62,29 @@ export const updateActivityStatus = (
   )
 );
 
-export const getActivityDreamAndRegistered = (accessToken: string) => activityRequest.get(
-  '/dreamAndRegistered',
-  {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
+// GET: Search
+interface getSearchActivityPropsType {
+  keywords?: string,
+  tags?: string[],
+  countPerSegment: number,
+  currentSegment: number,
+  accessToken?: string
+}
+
+export const postSearchActivity = (
+  reqBody: getSearchActivityPropsType,
+) => (
+  activityRequest.post(
+    '/search',
+    reqBody,
+    {
+      headers: {
+        accept: 'text/plain',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${reqBody.accessToken}`,
+      },
     },
-  },
+  )
 );
 
 export default activityRequest;

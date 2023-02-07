@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tooltip';
 import { useCookies } from 'react-cookie';
 import 'react-tooltip/dist/react-tooltip.css';
 import './index.scss';
-import { updateActivityStatus } from 'api/activity';
+import { postActivityStatus } from 'api/activity';
 
 interface FollowButtonType {
   followed: boolean;
@@ -21,7 +21,7 @@ function FollowButton({
   const handleClick:React.MouseEventHandler<HTMLButtonElement> = async () => {
     try {
       setFollowed(!followed);
-      await updateActivityStatus(
+      await postActivityStatus(
         activityId,
         branchId,
         followed ? '未註冊' : '願望',
