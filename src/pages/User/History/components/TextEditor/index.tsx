@@ -36,7 +36,6 @@ import withImages from './utils/withImages';
 
 import BlockButton from './components/BlockButton';
 import MarkButton from './components/MarkButton';
-import InsertImageButton from './components/InsertImageButton';
 import Leaf from './components/Leaf';
 import Element from './components/Element';
 
@@ -151,6 +150,13 @@ function TextEditor() {
         const response = await apiGetUserRecord(id, cookies.sessionToken);
         if (response.data.content && response.data.content !== '') {
           setRecord(JSON.parse(response.data.content));
+        } else {
+          setRecord([
+            {
+              type: 'paragraph',
+              children: [{ text: '寫入您的心得感想...' }],
+            },
+          ]);
         }
         setLoading(false);
       } catch (err: any) {
@@ -207,7 +213,6 @@ function TextEditor() {
           <BlockButton format="center" icon={<MdOutlineFormatAlignCenter />} />
           <BlockButton format="right" icon={<MdOutlineFormatAlignRight />} />
           <BlockButton format="justify" icon={<MdOutlineFormatAlignJustify />} />
-          <InsertImageButton />
         </div>
         <Editable
           className="text-editor__textarea"
