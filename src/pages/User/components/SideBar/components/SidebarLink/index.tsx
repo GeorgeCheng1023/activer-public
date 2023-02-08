@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './index.scss';
 import classNames from 'classnames';
 
@@ -20,7 +20,7 @@ function SidebarLink({
   });
 
   return (
-    <Link to={url} style={{ textDecoration: 'none' }} className={sideBarLinkClassName}>
+    <NavLink to={url} style={{ textDecoration: 'none' }} className={sideBarLinkClassName}>
       <i className="sidebar-link__icon">
         {icon}
       </i>
@@ -28,7 +28,7 @@ function SidebarLink({
         {text}
       </div>
 
-    </Link>
+    </NavLink>
 
   );
 }

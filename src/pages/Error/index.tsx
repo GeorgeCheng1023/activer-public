@@ -1,40 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Button from 'components/Button';
 import './index.scss';
 
-function ErrorMessage() {
-  const error = useRouteError();
-  if (isRouteErrorResponse(error)) {
-    if (error.status === 404) {
-      return <h1 className="error__message">此頁面不存在</h1>;
-    }
-
-    if (error.status === 401) {
-      return <h1 className="error__message">你沒有權限閱讀此頁</h1>;
-    }
-
-    if (error.status === 503) {
-      return <h1 className="error__message">伺服器錯誤</h1>;
-    }
-
-    if (error.status === 418) {
-      return <h1 className="error__message">🫖</h1>;
-    }
+function generateErrorMessage(errorCode: number): string {
+  if (errorCode === 404) {
+    return '此頁面不存在';
   }
 
-  return <h1 className="error__message">似乎發生了錯誤</h1>;
+  if (errorCode === 401) {
+    return '你沒有權限閱讀此頁';
+  }
+
+  if (errorCode === 503 || errorCode === 500) {
+    return '伺服器錯誤';
+  }
+
+  if (errorCode === 418) {
+    return '🫖';
+  }
+  return '似乎發生一些未預期的錯誤';
 }
 
 function RootErrorBoundary() {
   const navigate = useNavigate();
+  const error = useRouteError() as any;
+  const [errorMessage, setErrorMessage] = useState<string | null>('似乎發生一些未預期的錯誤');
+
+  /** react-router-dom */
+  if (isRouteErrorResponse(error)) {
+    setErrorMessage(generateErrorMessage(error.status));
+  }
+
+  /** Axios */
+  if (error.response) {
+    setErrorMessage(error.response.status);
+  }
+  useEffect(() => {
+    console.error(error);
+  }, []);
+
   return (
     <div className="error">
       <Header />
       <div className="error__main">
-        <ErrorMessage />
+        <div className="error__message">
+          {errorMessage}
+        </div>
         <Button text="問題回報" />
         <Button
           text="按此返回上一頁"

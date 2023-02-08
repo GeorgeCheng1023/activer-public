@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import './index.scss';
 
 interface FormDropDownType {
@@ -21,11 +21,11 @@ function FormDropDown({
   descriptions,
 }: FormDropDownType) {
   const handleChange:
-  React.ChangeEventHandler<HTMLSelectElement> = useCallback((event) => {
+  React.ChangeEventHandler<HTMLSelectElement> = (event) => {
     event.preventDefault();
     document.getElementById(id)?.blur();
     onChange(event.target.name, event.target.value);
-  }, []);
+  };
 
   return (
     <div className="dropdown">

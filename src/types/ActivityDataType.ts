@@ -73,7 +73,7 @@ export interface SearchHistoryResponseType {
   createAt:string;
 }
 
-/** Router louder return type */
+/** Router loaeder return type */
 export interface SearchLoaderType {
   data: SearchResponseDataType;
   keywords: string | null;
@@ -81,4 +81,9 @@ export interface SearchLoaderType {
 export interface homeLoaderDataType {
   trendActivityResData:ActivityDataType[];
   newestActivityResData:ActivityDataType[];
+}
+export interface ManageLoaderType {
+  all :UserActivityDataType[];
+  dream: UserActivityDataType[];
+  enroll: UserActivityDataType[];
 }

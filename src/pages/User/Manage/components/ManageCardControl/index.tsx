@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { UserActivityDataType } from 'types/ActivityDataType';
 import { FormDropDown } from 'components/Form';
 import './index.scss';
-import { postActivityStatus } from 'api/activity';
 import { useCookies } from 'react-cookie';
+import { Form, useSubmit } from 'react-router-dom';
 
 interface ManageCardControlType {
   activity: UserActivityDataType;
@@ -14,42 +14,39 @@ function ManageCardControl({ activity } :ManageCardControlType) {
   const { id: branchId, status } = branch;
   const [currentStatus, setCurrentStatus] = useState(status);
   const [cookies] = useCookies<string>(['user']);
-  const [error, setError] = useState<any>(null);
+  const submit = useSubmit();
 
-  const handleChange = async (key: any, value: any) => {
-    try {
-      await postActivityStatus(
-        activityId.toString(),
-        branchId.toString(),
-        value,
-        cookies.sessionToken,
-      );
-      setCurrentStatus(value);
-    } catch (err: any) {
-      setError(err);
-    }
+  // set formData befor submit
+  const formData = new FormData();
+  const handleChange = (key: any, value: any) => {
+    setCurrentStatus(value);
+    formData.set('status', value);
+    formData.set('activityId', activityId.toString());
+    formData.set('branchId', branchId.toString());
+    formData.set('sessionToken', cookies.sessionToken);
   };
 
   return (
-    <div className="manage__control">
+    <Form
+      className="manage__control"
+      method="post"
+      onChange={() => {
+        // after underneath submit, the router action will call
+        submit(formData, { method: 'post' });
+      }}
+    >
 
       <div className="manage__control__status">
         <FormDropDown
           options={['已報名', '願望']}
           id={`manage-contro-${branchId}`}
           label="狀態"
-          name={`manage-contro-${branchId}`}
+          name="status"
           value={currentStatus || '願望'}
           onChange={handleChange}
         />
       </div>
-      {error && (
-        <div className="manage__control__error">
-          更新失敗:
-          {error.message}
-        </div>
-      )}
-    </div>
+    </Form>
   );
 }
 

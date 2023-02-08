@@ -6,6 +6,7 @@ import User, {
   Basic, Account, History, Preferences, Manage, Main,
 } from 'pages/User';
 import { loader as manageLoader } from 'pages/User/Manage';
+import ManageActivity, { action as manageAction } from 'pages/User/Manage/components/ManageActivity';
 import { loader as preferenceLoader } from 'pages/User/Preferences';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
@@ -22,6 +23,7 @@ import EmailLoading from 'pages/Login/components/EmailLoad';
 import SearchErrorPage from 'pages/Error/SearchErrorPage';
 import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import RootErrorBoundary from 'pages/Error';
+
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
@@ -110,9 +112,17 @@ export const routerConfig = [
             element: <Account />,
           },
           {
-            path: 'manage',
+            path: 'manage/:filterId?',
             loader: manageLoader,
+            id: 'manage',
+            action: manageAction,
             element: <Manage />,
+            children: [
+              {
+                path: '',
+                element: <ManageActivity />,
+              },
+            ],
           },
           {
             path: 'history',

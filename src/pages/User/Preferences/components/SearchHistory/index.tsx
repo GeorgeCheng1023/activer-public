@@ -20,7 +20,7 @@ function SearchHistory({ history }: SearchHistoryType) {
   const navigate = useNavigate();
 
   const handleClickSelectAll:
-  React.MouseEventHandler<HTMLInputElement> = (e) => {
+  React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setIsCheckAll(!isCheckAll);
     setIsCheckList(history.map((el) => el.sequence));
@@ -31,7 +31,7 @@ function SearchHistory({ history }: SearchHistoryType) {
   };
 
   const handleClickCheckbox:
-  React.MouseEventHandler<HTMLInputElement> = (e) => {
+  React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { id, checked } = e.target as HTMLInputElement;
 
     setIsCheckList([...isCheckList, parseInt(id, 10)]);
@@ -55,7 +55,7 @@ function SearchHistory({ history }: SearchHistoryType) {
 
       <div className="search-history__head search-history__col">
         <div className="search-history__checkbox">
-          <input type="checkbox" onClick={handleClickSelectAll} checked={isCheckAll} />
+          <input type="checkbox" onChange={handleClickSelectAll} checked={isCheckAll} />
         </div>
         <div className="search-history__keyword">關鍵字</div>
         <div className="search-history__tag">標籤</div>
@@ -72,7 +72,9 @@ function SearchHistory({ history }: SearchHistoryType) {
       {history.map((item) => (
         <motion.div
           className="search-history__item search-history__col"
-          initial={{ x: '-10%', opacity: 0, backgroundColor: 'white' }}
+          id={`search-history__item-${item.sequence}`}
+          key={`search-history__item-${item.sequence}`}
+          initial={{ x: '-10%', opacity: 0, backgroundColor: '#ffffff' }}
           whileInView={{ x: 0, opacity: 1 }}
           whileHover={{ backgroundColor: '#e3e3e3' }}
           transition={{
@@ -88,14 +90,19 @@ function SearchHistory({ history }: SearchHistoryType) {
               id={item.sequence.toString()}
               type="checkbox"
               checked={isCheckList.includes(item.sequence)}
-              onClick={handleClickCheckbox}
+              onChange={handleClickCheckbox}
             />
           </div>
           <div className="search-history__keyword">{item.keyword}</div>
           <div className="search-history__tag">
             {item.tags.map((tag) => {
               const parseTag = parseTagDataToTag(tag);
-              return (<Tag {...parseTag} />);
+              return (
+                <Tag
+                  {...parseTag}
+                  key={`search-history-${item.sequence}-tag-${tag.id}`}
+                />
+              );
             })}
           </div>
           <div className="search-history__time">
