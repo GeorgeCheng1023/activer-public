@@ -5,7 +5,10 @@ import Register from 'pages/Login/components/Register';
 import User, {
   Basic, Account, History, Preferences, Manage, Main,
 } from 'pages/User';
-import { loader as historyLouder } from 'pages/User/History';
+import { loader as manageLoader } from 'pages/User/Manage';
+import ManageActivity, { action as manageAction } from 'pages/User/Manage/components/ManageActivity';
+import { loader as preferenceLoader } from 'pages/User/Preferences';
+import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
@@ -20,12 +23,15 @@ import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
 import SearchErrorPage from 'pages/Error/SearchErrorPage';
 import HomeErrorPage from 'pages/Error/HomeErrorPage';
+import RootErrorBoundary from 'pages/Error';
+
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
   {
     path: '/',
     element: <Root />,
+    errorElement: <RootErrorBoundary />,
     children: [
       {
         element: <PersistLogin />,
@@ -88,6 +94,7 @@ export const routerConfig = [
   },
   {
     element: <Admin />,
+    errorElement: <RootErrorBoundary />,
     children: [
       {
         path: '/user',
@@ -106,16 +113,26 @@ export const routerConfig = [
             element: <Account />,
           },
           {
-            path: 'manage',
+            path: 'manage/:filterId?',
+            loader: manageLoader,
+            id: 'manage',
+            action: manageAction,
             element: <Manage />,
+            children: [
+              {
+                path: '',
+                element: <ManageActivity />,
+              },
+            ],
           },
           {
             path: 'history',
-            loader: historyLouder,
+            loader: historyLoader,
             element: <History />,
           },
           {
             path: 'preferences',
+            loader: preferenceLoader,
             element: <Preferences />,
           },
           {

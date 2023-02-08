@@ -16,20 +16,6 @@ export default interface ActivityDataType extends BaseActivityDataType {
   trend: number;
 }
 
-export interface SearchResultDataType {
-  activity: ActivityDataType;
-  weights: number; // for sorting result
-}
-
-export interface SearchResponseDataType {
-  maxSegment: number;// maximun request page
-  minSegment: number;// minimun request page
-  currentSegment: number;// current page
-  countPerSegment: number; // max number of data in its page
-  searchResultData: SearchResultDataType[]; // main result data
-  totalCount: number; // total data
-}
-
 export interface TagDataType {
   id: number;
   type: string; // 'area' | 'location' | 'other'
@@ -63,7 +49,31 @@ export interface UserActivityDataType extends BaseActivityDataType {
   branch: BranchDataType;
 }
 
-// Page Loader Response Data Type
+/** API Response Type */
+export interface SearchResultDataType {
+  activity: ActivityDataType;
+  weights: number; // for sorting result
+}
+export interface SearchResponseDataType {
+  maxSegment: number;// maximun request page
+  minSegment: number;// minimun request page
+  currentSegment: number;// current page
+  countPerSegment: number; // max number of data in its page
+  searchResultData: SearchResultDataType[]; // main result data
+  totalCount: number; // total data
+}
+export interface ManageResponseDataType extends BaseActivityDataType {
+  tags: TagDataType[];
+  branches: BranchDataType[]
+}
+export interface SearchHistoryResponseType {
+  sequence: number;
+  keyword: string;
+  tags: TagDataType[];
+  createAt:string;
+}
+
+/** Router loaeder return type */
 export interface SearchLoaderType {
   data: SearchResponseDataType;
   keywords: string | null;
@@ -71,6 +81,11 @@ export interface SearchLoaderType {
 export interface homeLoaderDataType {
   trendActivityResData:ActivityDataType[];
   newestActivityResData:ActivityDataType[];
+}
+export interface ManageLoaderType {
+  all :UserActivityDataType[];
+  dream: UserActivityDataType[];
+  enroll: UserActivityDataType[];
 }
 
 export interface HistoryLoaderDataType {
