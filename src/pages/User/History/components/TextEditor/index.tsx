@@ -1,4 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 
 import {
   Editable, withReact, Slate, RenderLeafProps, RenderElementProps,
@@ -26,6 +28,9 @@ import {
   MdOutlineFormatAlignJustify,
 } from 'react-icons/md';
 
+import { useCookies } from 'react-cookie';
+import Loading from 'pages/Loading';
+import { useParams } from 'react-router-dom';
 import withShortcuts from './utils/withShortcuts';
 import withImages from './utils/withImages';
 
@@ -38,8 +43,10 @@ import Element from './components/Element';
 import './index.scss';
 
 import { handleKeyDown, handleDOMBeforeInput } from './handlers';
+import { apiGetUserRecord, apiPostUserRecord } from '../../../../../api/user';
 
-const initialValue: Descendant[] = [
+/*
+const defaultValue: Descendant[] = [
   {
     type: 'paragraph',
     children: [
@@ -76,8 +83,16 @@ const initialValue: Descendant[] = [
     children: [{ text: 'Try it out for yourself!' }],
   },
 ];
+*/
 
 function TextEditor() {
+  const [record, setRecord] = useState<Descendant[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [cookies] = useCookies<string>(['user']);
+  const params = useParams();
+  const activityId: number = parseInt(params.activityId || '', 10);
+  // console.log(activityId);
+
   const renderElement = useCallback(
     (props: RenderElementProps) => (
 
@@ -113,8 +128,69 @@ function TextEditor() {
     [],
   );
 
+  const sendRecord = async (content: Descendant[]) => {
+    try {
+      await apiPostUserRecord(activityId, JSON.stringify(content), cookies.sessionToken);
+    } catch (err: any) {
+      if (!err.response) {
+        // eslint-disable-next-line no-console
+        console.log('伺服器無回應');
+      } else if (err.response?.status === 401) {
+        // eslint-disable-next-line no-console
+        console.log('驗證碼錯誤');
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('伺服器懶蛋');
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchRecord = async (id: number) => {
+      try {
+        const response = await apiGetUserRecord(id, cookies.sessionToken);
+        if (response.data.content && response.data.content !== '') {
+          setRecord(JSON.parse(response.data.content));
+        }
+        setLoading(false);
+      } catch (err: any) {
+        if (!err.response) {
+          // eslint-disable-next-line no-console
+          console.log('伺服器無回應');
+        } else if (err.response?.status === 401) {
+          // eslint-disable-next-line no-console
+          console.log('驗證碼錯誤');
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('伺服器懶蛋');
+        }
+        setLoading(false);
+      }
+    };
+
+    fetchRecord(activityId);
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
-    <Slate editor={editor} value={initialValue}>
+    <Slate
+      editor={editor}
+      value={record}
+      onChange={(value) => {
+        const isAstChange = editor.operations.some(
+          (op) => op.type !== 'set_selection',
+        );
+        // eslint-disable-next-line no-console
+        console.log(isAstChange);
+        if (isAstChange) {
+          // Save the value to Local Storage.
+          // const content = JSON.stringify(value);
+          // localStorage.setItem('slate-content', content);
+          sendRecord(value);
+        }
+      }}
+    >
       <div className="text-editor">
         <div className="text-editor__toolbar">
           <MarkButton format="bold" icon={<BsTypeBold />} />
@@ -137,14 +213,13 @@ function TextEditor() {
           className="text-editor__textarea"
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          placeholder="Enter some rich text…"
+          placeholder="寫入您的心得感想..."
           spellCheck
           autoFocus
           onDOMBeforeInput={() => handleDOMBeforeInput(editor)}
           onKeyDown={(e) => handleKeyDown(e, editor)}
         />
       </div>
-
     </Slate>
   );
 }

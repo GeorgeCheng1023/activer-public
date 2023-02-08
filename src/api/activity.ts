@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   BranchDataType, ManageResponseDataType, SearchHistoryResponseType, SearchResponseDataType,
 } from 'types/ActivityDataType';
-import { TEST_URL } from './axios';
+import { TEST_URL } from './user';
 
 // activity api
 const activityRequest = axios.create({

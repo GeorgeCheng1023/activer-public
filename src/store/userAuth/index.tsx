@@ -2,16 +2,16 @@ import {
   createAsyncThunk, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
-import { apiUserGoogleData } from 'api/axios';
+import { apiUserAuth, apiUserGoogleData } from 'api/user';
 
 interface UserState {
   IsLoggedIn: boolean,
   realName: string,
+  id: number,
   nickName: string,
   email: string,
-  password: string,
   verify: boolean,
-  portrait: string,
+  avatar: string,
   gender: string,
   birthday: string,
   profession: string,
@@ -26,11 +26,12 @@ interface UserState {
 const initialState: UserState = {
   IsLoggedIn: false,
   Loading: 'idle',
+  id: 0,
+  // userinfo
   realName: '',
   nickName: '',
-  portrait: '',
+  avatar: '',
   email: '',
-  password: '',
   verify: false,
   gender: '',
   birthday: '',
@@ -47,6 +48,11 @@ export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', asyn
   return response;
 });
 
+export const asyncGetUserData = createAsyncThunk('auth/getUserData', async (sessionToken: string) => {
+  const response = await apiUserAuth(sessionToken);
+  return response;
+});
+
 const userAuthSlice = createSlice({
   name: 'auth',
   initialState,
@@ -59,9 +65,13 @@ const userAuthSlice = createSlice({
       ...state,
       email: action.payload,
     }),
-    setPassword: (state, action: PayloadAction<any>) => ({
+    setBirthday: (state, action: PayloadAction<any>) => ({
       ...state,
-      password: action.payload,
+      birthday: action.payload,
+    }),
+    setAvatar: (state, action: PayloadAction<any>) => ({
+      ...state,
+      avatar: action.payload,
     }),
     userLogin: (state, action: PayloadAction<any>) => ({
       ...state,
@@ -94,7 +104,10 @@ const userAuthSlice = createSlice({
           Email: userData.email,
           Loading: 'succeeded',
         });
-      });
+      })
+      .addCase(asyncGetUserData.fulfilled, (state) => ({
+        ...state,
+      }));
   },
 });
 
@@ -106,7 +119,7 @@ export const getUserData = (state: RootState) => state.userAuth;
 export const getUserNickname = (state: RootState) => state.userAuth.Nickname;
 
 export const {
-  setRealName, setEmail, setPassword, userLogin, userLogout, userUpdate,
+  setRealName, setEmail, setBirthday, userLogin, setAvatar, userLogout, userUpdate,
 } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

@@ -5,7 +5,7 @@ const PORT = '5044';
 
 export const TEST_URL = `http://${IP}:${PORT}`;
 
-const USER_UPDATE_URL = '/api/user/update';
+const USER_UPDATE_URL = '/api/user';
 // api/user/auth
 const LOGIN_URL = '/api/user/auth/signin';
 const REGISTER_URL = '/api/user/auth/signup';
@@ -14,6 +14,7 @@ const USER_VERIFY_URL = '/api/user/auth/verify/email';
 const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
 const USER_CHANGE_PWD = '/api/User/auth/changepassword';
 const USER_RESET_PWD = '/api/User/auth/resetpassword';
+const USER_RECORD = 'api/User/activity/record';
 
 export const axiosTest = axios.create({
   baseURL: TEST_URL,
@@ -44,13 +45,14 @@ export const apiUserRegister = (
   },
 );
 
-export const apiUserUpdate = (
-  userFormData: FormData,
-) => axiosTest.put(
+export const apiUserUpdate = (userFormData: FormData, accessToken: string) => axiosTest.put(
   USER_UPDATE_URL,
   userFormData,
   {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${accessToken}`,
+    },
   },
 );
 
@@ -142,7 +144,31 @@ export const apiUserResetPwd = (
   },
 );
 
-// export const apiUserDelete = (id: number, accessToken: string) => axiosTest.delete();
+export const apiPostUserRecord = (
+  activityId: number,
+  content: string,
+  accessToken: string,
+) => axiosTest.post(
+  USER_RECORD,
+  { activityId, content },
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
+export const apiGetUserRecord = (
+  activityId: number,
+  accessToken: string,
+) => axiosTest.get(
+  `${USER_RECORD}/${activityId}`,
+  {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
 
 // google
 export const apiUserGoogleData = (access_token: string) => axios.get(

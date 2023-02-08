@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import Button from 'components/Button';
-import { apiUserVerify, apiUserLogin } from 'api/axios';
+import { apiUserVerify, apiUserLogin } from 'api/user';
 import { useCookies } from 'react-cookie';
 import { useAppSelector } from 'hooks/redux';
 import { getUserData, userLogin } from 'store/userAuth';

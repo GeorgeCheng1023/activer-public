@@ -31,6 +31,7 @@ button {
     align-self: center;
     width: fit-content;
     height: fit-content;
+    margin-top: 2.5rem;
     font-size: 2rem;
   }
 
@@ -72,6 +73,16 @@ button {
 
   &__check-persist-section input {
     scale: 1.2;
+  }
+
+  &__err-msg-section {
+    align-self: center;
+    width: 80%;
+    height: 0;
+  }
+
+  &__err-msg {
+    font-weight: 600;
   }
 }
 
@@ -148,14 +159,6 @@ button {
   }
 }
 
-.errmsg {
-  align-self: center;
-  color: $warning-color;
-  font-weight: bold;
-  font-size: 25px;
-  transform: translateY(-20px);
-}
-
 .offscreen {
   position: absolute;
   left: -9999px;
@@ -175,8 +178,10 @@ button {
 .pwd-instructions {
   margin-top: 5px;
   margin-left: 20px;
+  padding: 0 4rem;
   color: $warning-color;
   font-weight: 600;
+  font-size: 0.5rem;
 
   & > * {
     margin-left: 0.3rem;
@@ -187,6 +192,8 @@ button {
 @media screen and (max-width: 800px) {
   .login-container {
     flex-direction: column;
+    width: 30%;
+    margin-top: 2.5rem;
   }
 
   .login-section {

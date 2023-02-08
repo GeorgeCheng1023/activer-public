@@ -6,7 +6,11 @@ import Button from 'components/Button';
 import { FaComments, FaEdit } from 'react-icons/fa';
 import './index.scss';
 
-function HistoryControl() {
+export interface historyControlType {
+  activityId: number;
+}
+
+function HistoryControl({ activityId }: historyControlType) {
   return (
     <div className="history-control">
       <Button
@@ -14,7 +18,7 @@ function HistoryControl() {
         iconBefore={<FaComments />}
         text="評論"
       />
-      <Link to="/user/record">
+      <Link to={`/user/record/${activityId}`}>
         <Button
           color="white"
           iconBefore={<FaEdit />}

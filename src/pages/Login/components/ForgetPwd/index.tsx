@@ -2,8 +2,9 @@ import Button from 'components/Button';
 import FormInput from 'components/Form/FormInput';
 import React, { useState } from 'react';
 import './index.scss';
-import { apiUserResetPwd } from 'api/axios';
+import { apiUserResetPwd } from 'api/user';
 import { Link, useLocation } from 'react-router-dom';
+import { Alert, Fade } from '@mui/material';
 import Model from '../Login/components/modal';
 
 // regex
@@ -13,7 +14,7 @@ const PWD_REGEX_PATTERN = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}
 function ForgetPwd() {
   const [newPassword, setNewPasswords] = useState<string>('');
   const [confirmNewPassword, setconfirmNewPassword] = useState<string>('');
-  const [errmsg, setErrmsg] = useState<string>('');
+  const [errMsg, setErrmsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const location = useLocation();
@@ -47,6 +48,8 @@ function ForgetPwd() {
           setErrmsg('伺服器無回應');
         } else if (err.response.status === 401) {
           setErrmsg('驗證碼不正確或已過期');
+        } else if (err.response.status === 404) {
+          setErrmsg('電子郵件未註冊');
         } else {
           setErrmsg('伺服器懶蛋');
         }
@@ -77,7 +80,14 @@ function ForgetPwd() {
         </div>
       </Model>
 
-      <div className="new-pwd__errmsg">{errmsg}</div>
+      <div className="new-pwd__err-msg-section">
+        <Fade in={errMsg !== ''}>
+          <Alert severity="error">
+            <div className="new-pwd__err-msg">{errMsg}</div>
+          </Alert>
+        </Fade>
+      </div>
+
       <main className="new-pwd">
         <form className="new-pwd__form" onSubmit={handleSubmit}>
           <h1 className="new-pwd__title">建立新密碼</h1>

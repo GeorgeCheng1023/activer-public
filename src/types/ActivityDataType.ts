@@ -87,3 +87,7 @@ export interface ManageLoaderType {
   dream: UserActivityDataType[];
   enroll: UserActivityDataType[];
 }
+
+export interface HistoryLoaderDataType {
+  newestActivityResData:ActivityDataType[];
+}

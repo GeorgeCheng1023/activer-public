@@ -24,6 +24,14 @@
     margin: 2em 0;
   }
 
+  &__err-msg {
+    font-weight: 600;
+  }
+
+  &__err-msg-section {
+    height: 0.7rem;
+  }
+
   &__button-load-animation {
     @include load-button-animation;
   }

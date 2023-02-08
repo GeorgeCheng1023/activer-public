@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import useOutsideClick from 'hooks/event/useOutsideClick';
 // redux
@@ -17,9 +17,11 @@ import './index.scss';
 
 function LoginLogoutButton() {
   // hooks
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [, , removeCookie] = useCookies<string>(['user']);
+  const restrictedPage = ['/email/verify', '/email/loading', '/register', '/login'];
 
   const userIsLoggined = useAppSelector(getUserIsLoggedIn);
   const userPortrait = useAppSelector(getUserPortrait);
@@ -38,13 +40,19 @@ function LoginLogoutButton() {
   useOutsideClick(dropdownRef, () => setDisplayUserAuthDroppdown(false));
 
   // Login Handler
-  const handleLogin = useCallback(() => {
+  const handleLogin = () => {
     if (!userIsLoggined) {
-      navigate('/login', { replace: true });
+      let loginUrl = '/login?next=/';
+      if (restrictedPage.includes(location.pathname)) {
+        loginUrl = '/login?next=/';
+      } else {
+        loginUrl = `/login?next=${location.pathname}`;
+      }
+      navigate(loginUrl);
     } else {
       navigate('/user/basic');
     }
-  }, []);
+  };
 
   if (userIsLoggined) {
     return (

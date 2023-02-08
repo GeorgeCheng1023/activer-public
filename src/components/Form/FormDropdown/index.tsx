@@ -8,7 +8,7 @@ interface FormDropDownType {
   options: string[];
   value?: string;
   onChange: (key: any, value: any) => void;
-  descriptions? : string[];
+  descriptions?: string[];
 }
 
 function FormDropDown({
@@ -30,14 +30,14 @@ function FormDropDown({
   return (
     <div className="dropdown">
       {label
-      && (
-        <label
-          htmlFor={id}
-          className="dropdown__label active"
-        >
-          {label}
-        </label>
-      )}
+        && (
+          <label
+            htmlFor={id}
+            className="dropdown__label active"
+          >
+            {label}
+          </label>
+        )}
       <select
         id={id}
         name={name}

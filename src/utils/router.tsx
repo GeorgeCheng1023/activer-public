@@ -8,6 +8,7 @@ import User, {
 import { loader as manageLoader } from 'pages/User/Manage';
 import ManageActivity, { action as manageAction } from 'pages/User/Manage/components/ManageActivity';
 import { loader as preferenceLoader } from 'pages/User/Preferences';
+import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
@@ -126,8 +127,8 @@ export const routerConfig = [
           },
           {
             path: 'history',
+            loader: historyLoader,
             element: <History />,
-
           },
           {
             path: 'preferences',
@@ -135,7 +136,7 @@ export const routerConfig = [
             element: <Preferences />,
           },
           {
-            path: 'record',
+            path: 'record/:activityId',
             element: <Record />,
           },
 

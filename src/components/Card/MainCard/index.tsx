@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MainCardControl from 'components/Card/MainCardControl';
 import Card from 'components/Card';
 import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
@@ -8,6 +8,8 @@ import { initialBranchesState } from 'pages/Detail/utils/initialData';
 import { postActivityStatus } from 'api/activity';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { replaceDateMinus } from 'utils/convertDate';
+import { getUserIsLoggedIn } from 'store/userAuth';
+import { useAppSelector } from 'hooks/redux';
 
 interface MainCardType {
   activity: ActivityDataType
@@ -15,6 +17,8 @@ interface MainCardType {
 
 function MainCard({ activity }: MainCardType) {
   const [cookies] = useCookies<string>(['user']);
+  const isLoggedIn = useAppSelector(getUserIsLoggedIn);
+  const navigate = useNavigate();
 
   // destructing activity
   const {
@@ -31,16 +35,19 @@ function MainCard({ activity }: MainCardType) {
 
   const [status, setStatus] = useState<BranchDataType['status']>(initStatus);
 
-  const handleClick
-  :React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     const target = event.target as HTMLDivElement;
     if (target.id === resultItemControlId) {
       event.preventDefault();
     }
   };
 
-  const handleClickFollow:React.MouseEventHandler<HTMLButtonElement> = async () => {
-    // TODO: Analyize user login token and redirect if not logged in
+  const handleClickFollow: React.MouseEventHandler<HTMLButtonElement> = async () => {
+    if (!isLoggedIn) {
+      // TODO: use popup?
+      navigate('/login');
+    }
+
     const getNewStatus = (): BranchDataType['status'] => {
       if (status === '已註冊') {
         return status;

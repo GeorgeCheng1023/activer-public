@@ -32,20 +32,20 @@ input {
   justify-content: center;
   width: 100vw;
   height: 90vh;
+  margin-bottom: 3rem;
 }
 
 .register-section {
   display: flex;
   flex-direction: column;
-
-  // justify-content: center;
   align-items: center;
   width: 40vw;
   height: 84vh;
-  margin-top: 3rem;
+  margin-top: 1rem;
 
   &__title {
     align-self: center;
+    margin-top: 1rem;
     font-weight: 600;
     font-size: 2.5rem;
   }
@@ -79,10 +79,18 @@ input {
     }
   }
 
+  &__err-msg-section {
+    width: 100%;
+  }
+
+  &__err-msg {
+    font-weight: 600;
+  }
+
   &__load-animation {
     width: 50px;
     height: 50px;
-    margin: 2rem 0;
+    margin: 2rem  0;
     border: solid 9px $primary-color;
     border-right-color: transparent;
 

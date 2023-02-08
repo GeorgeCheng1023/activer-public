@@ -1,19 +1,20 @@
 import React, {
   useState, useEffect, useRef,
 } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
 import {
-  getUserData, setEmail, setPassword, userLogin,
+  getUserData, setEmail, userLogin,
 } from 'store/userAuth';
 
 // Components
 import FAQTag from 'components/FAQ-Tag';
-import { apiUserLogin, apiUserResendVerify } from 'api/axios';
+import { apiUserLogin, apiUserResendVerify } from 'api/user';
 import { useAppSelector } from 'hooks/redux';
+import { Alert, Fade } from '@mui/material';
 import Button from '../../../../components/Button';
 import GoogleLoginButton from '../GoogleLogin';
 import { useAppDispatch } from '../../../../hooks/redux/index';
@@ -30,6 +31,7 @@ function LoginSection() {
   const userData: any = useAppSelector(getUserData);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [cookies, setCookie] = useCookies<string>(['user']);
 
@@ -37,22 +39,31 @@ function LoginSection() {
   const errRef = useRef<HTMLInputElement | null>(null);
 
   const [user, setUser] = useState<string>('');
-
   const [pwd, setPwd] = useState<string>('');
   const [validPwd, setValidPwd] = useState<boolean>(true);
-
   const [errMsg, setErrMsg] = useState<string>('');
   const [emailVerified, setEmailVerified] = useState<boolean>(true);
 
   const handleUserChange = (key: any, value: any) => {
     setUser(value);
+    setErrMsg('');
   };
 
   const handlePwdChange = (key: any, value: any) => {
     setPwd(value);
+    setErrMsg('');
   };
 
+  function scrollToTop() {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+    if (c > 0) {
+      window.requestAnimationFrame(scrollToTop);
+      window.scrollTo(0, c - c / 8);
+    }
+  }
+
   useEffect(() => {
+    scrollToTop();
     userRef.current?.focus();
   }, []);
 
@@ -82,19 +93,18 @@ function LoginSection() {
         sameSite: true,
       });
 
+      // 使用者是否已用信箱驗證
       if (response.data.user.verify === false) {
-        console.log('Account is unverified');
         setEmailVerified(false);
         dispatch(setEmail(response.data.user.email));
-        dispatch(setPassword(pwd));
       } else {
         dispatch(userLogin(response.data.user));
-
-        navigate('/user/basic', { replace: true });
+        const searchParams = new URLSearchParams(location.search);
+        const nextPage = searchParams.get('next');
+        navigate(nextPage || '/user/basic', { replace: true });
       }
       return;
     } catch (err: any) {
-      console.log(err.response);
       if (!err.response) {
         setErrMsg('伺服器無回應');
       } else if (err.response?.status === 401) {
@@ -128,6 +138,7 @@ function LoginSection() {
   return (
     <div className="login-container">
 
+      {/* Modal */}
       <Modal open={!emailVerified} onClose={() => setEmailVerified(true)}>
         <div className="email-verify">
           <figure className="email-verify__figure">
@@ -149,9 +160,16 @@ function LoginSection() {
       </Modal>
 
       <main className="login-section">
-        <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">{errMsg}</p>
-        <h1 className="login-section__title">登入</h1>
 
+        <div className="login-section__err-msg-section">
+          <Fade in={errMsg !== ''}>
+            <Alert severity="error">
+              <div className="login-section__err-msg">{errMsg}</div>
+            </Alert>
+          </Fade>
+        </div>
+
+        <h1 className="login-section__title">登入</h1>
         <section className="login-section__text-field">
           <FormInput
             id="user"
