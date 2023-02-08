@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  BranchDataType, ManageResponseDataType, SearchResponseDataType,
+  BranchDataType, ManageResponseDataType, SearchHistoryResponseType, SearchResponseDataType,
 } from 'types/ActivityDataType';
 import { TEST_URL } from './axios';
 
@@ -101,4 +101,14 @@ export const getManageActivity = (accessToken: string) => (
       },
     },
   )
+);
+
+// GET: fetch user's search history
+export const getSearchHistory = (accessToken: string) => (
+  activityRequest.get<SearchHistoryResponseType[]>('/searchHistory', {
+    headers: {
+      accept: 'text/plain',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
 );

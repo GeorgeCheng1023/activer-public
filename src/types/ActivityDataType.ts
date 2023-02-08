@@ -66,6 +66,12 @@ export interface ManageResponseDataType extends BaseActivityDataType {
   tags: TagDataType[];
   branches: BranchDataType[]
 }
+export interface SearchHistoryResponseType {
+  sequence: number;
+  keyword: string;
+  tags: TagDataType[];
+  createAt:string;
+}
 
 /** Router louder return type */
 export interface SearchLoaderType {

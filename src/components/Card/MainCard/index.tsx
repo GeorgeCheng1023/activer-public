@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 import { initialBranchesState } from 'pages/Detail/utils/initialData';
 import { postActivityStatus } from 'api/activity';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
-import useConvertDate from 'utils/convertDate';
+import { replaceDateMinus } from 'utils/convertDate';
 
 interface MainCardType {
   activity: ActivityDataType
@@ -26,7 +26,7 @@ function MainCard({ activity }: MainCardType) {
   } = firstBranches;
   const resultItemControlId = `result__item-control__${id.toString()}`;
   const cardDetail = dateEnd && dateStart
-    ? `活動時間: \n${useConvertDate(dateStart[Object.keys(dateStart)[0]])} ~ ${useConvertDate(dateEnd[0])}`
+    ? `活動時間: \n${replaceDateMinus(dateStart[Object.keys(dateStart)[0]])} ~ ${replaceDateMinus(dateEnd[0])}`
     : null;
 
   const [status, setStatus] = useState<BranchDataType['status']>(initStatus);
