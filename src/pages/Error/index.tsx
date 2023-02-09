@@ -4,8 +4,9 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Button from 'components/Button';
 import './index.scss';
+import { AxiosError } from 'axios';
 
-function generateErrorMessage(errorCode: number): string {
+function generateErrorMessage(errorCode: number | undefined): string {
   if (errorCode === 404) {
     return '此頁面不存在';
   }
@@ -39,23 +40,27 @@ export function throwError(message: string, status: number) {
 function RootErrorBoundary() {
   const navigate = useNavigate();
   const error = useRouteError() as any;
-  const [errorMessage, setErrorMessage] = useState<string | null>('似乎發生一些未預期的錯誤');
-  const [errorDetail, setErrorDetail] = useState<string | null>();
+  const [errorTitle, setErrorTitle] = useState<string>('Oops!');
+  const [errorMessage, setErrorMessage] = useState<string>('似乎發生一些未預期的錯誤');
+  const [errorDetail, setErrorDetail] = useState<string>();
 
   useEffect(() => {
     if (isRouteErrorResponse(error)) {
       /** react-router-dom */
-      setErrorMessage(generateErrorMessage(error.status));
+      setErrorTitle(error.statusText);
+      setErrorMessage(`${error.status}: ${generateErrorMessage(error.status)}`);
       setErrorDetail('React router dom error');
-    } else if (error.response) {
+    } else if (error instanceof AxiosError<any>) {
       /** Axios Error */
-      setErrorMessage(error.response.status);
+      setErrorTitle(error.response?.data);
+      setErrorMessage(
+        `${error.response?.status} ${generateErrorMessage(error.response?.status)}`,
+      );
       setErrorDetail('Axios Error');
     } else if (error instanceof CustomError) {
       /** Custom Error */
       setErrorMessage(generateErrorMessage(error.status));
     }
-
     // show in console
     console.error(error);
   }, []);
@@ -64,16 +69,20 @@ function RootErrorBoundary() {
     <div className="error">
       <Header />
       <div className="error__main">
-        {error.message
-        && (
-          <h1 className="error__title">
-            {error.message}
-          </h1>
-        )}
+
+        <h1 className="error__title">
+          {errorTitle}
+        </h1>
+
         <div className="error__message">
           {errorMessage}
-          {errorDetail && errorDetail}
         </div>
+        {errorDetail
+        && (
+          <div className="error__detail">
+            {errorDetail && errorDetail}
+          </div>
+        )}
         <Button text="問題回報" />
         <Button
           text="按此返回上一頁"
