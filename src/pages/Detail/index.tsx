@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 // api
 import { getActivityById } from 'api/activity';
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
@@ -17,7 +17,6 @@ import getCookie from 'utils/getCookies';
 import {
   DetailImage,
   DetailProperties,
-  LinkWrapper,
 } from './components';
 import VotePanel from './components/VotePanel';
 import './index.scss';
@@ -35,6 +34,7 @@ function Detail() {
   const [displayVotePanel, setDisplayVotePanel] = useState(false);
   const data = useLoaderData() as ActivityDataType;
   const [currentBranch, setCurrentBranch] = useState<BranchDataType>(data.branches[0]);
+  const navigate = useNavigate();
 
   // handle click branch name event
   const handleChangeFilter = (selectedId : string) => {
@@ -60,62 +60,69 @@ function Detail() {
 
   return (
     <div className="detail">
-      <div className="detail__container">
-        {/* Introduction */}
-        <div className="detail__hero">
 
-          <div className="detail__hero__left">
-            {/* Image */}
-            <div className="detail__image">
-              <DetailImage
-                activityId={activityId}
-                images={images}
-                altText={title}
-              />
+      {/* Introduction */}
+      <div className="detail__hero">
+
+        <div className="detail__hero__left">
+          <Button
+            onClick={() => navigate(-1)}
+            color="white"
+            variant={{ underline: true }}
+            text="返回上一頁"
+            className="detail__hero__left__back"
+          />
+
+          {/* Image */}
+          <DetailImage
+            images={images}
+            altText={title}
+          />
+
+          {/* Title */}
+          <h2 className="detail__header">{title}</h2>
+
+          {/* SubTitle */}
+          {subTitle && (
+            <h3>{subTitle}</h3>
+          )}
+          {/* Tags */}
+          {tags && (
+            <div className="detail__tags">
+              {tags.map((tag: ActivityTagDataType) => {
+                const variant = tag.type as TagType['type'];
+                return (
+                  <Tag
+                    id={`detail-tag-${tag.id!.toString()}`}
+                    key={`detail-tag-${tag.id!.toString()}`}
+                    text={tag.text}
+                    type={variant}
+                  />
+                );
+              }).slice(0, 5)}
             </div>
-            {/* Title */}
-            <h2 className="detail__header">{title}</h2>
+          )}
 
-            {/* SubTitle */}
-            {subTitle && (
-              <h3>{subTitle}</h3>
-            )}
-            {/* Tags */}
-            {tags && (
-              <div className="detail__tags">
-                {tags.map((tag: ActivityTagDataType) => {
-                  const variant = tag.type as TagType['type'];
-                  return (
-                    <Tag
-                      id={`detail-tag-${tag.id!.toString()}`}
-                      key={`detail-tag-${tag.id!.toString()}`}
-                      text={tag.text}
-                      type={variant}
-                    />
-                  );
-                }).slice(0, 5)}
-              </div>
-            )}
+          {/* Add Tag Button */}
+          <Button
+            text="新增標籤"
+            onClick={handleShowVotePanel}
+            color="dark"
+            iconAfter={<BsPlus />}
+          />
 
-            {/* Add Tag Button */}
-            <Button
-              text="新增標籤"
-              onClick={handleShowVotePanel}
-              color="dark"
-              iconAfter={<BsPlus />}
-            />
+          {/* Tag Vote Panel */}
+          <VotePanel
+            display={displayVotePanel}
+            onClose={() => setDisplayVotePanel(false)}
+            tags={tags}
+          />
 
-            {/* Tag Vote Panel */}
-            <VotePanel
-              display={displayVotePanel}
-              onClose={() => setDisplayVotePanel(false)}
-              tags={tags}
-            />
+        </div>
 
-          </div>
-
+        <div className="detail__hero__right">
           {branches && (
-            <div className="detail__hero__right">
+            <>
               {/* Branch Navigation */}
               <ManageNav
                 filters={
@@ -133,15 +140,16 @@ function Detail() {
                 branch={currentBranch}
                 activityId={activityId.toString()}
               />
-            </div>
+            </>
           )}
         </div>
+      </div>
 
-        {/* main content */}
-        <div className="detail__main">
+      {/* main content */}
+      <div className="detail__main">
 
-          {/* Object */}
-          {objective
+        {/* Object */}
+        {objective
           && (
             <div className="detail__objective">
               <h2 className="detail__header">
@@ -152,67 +160,70 @@ function Detail() {
             </div>
           ) }
 
-          {/* Content */}
-          <div className="detail__content">
-            <h2 className="detail__header">
-              <FcList />
-              活動內容
-            </h2>
-            <LinkWrapper text={content} />
-          </div>
-
-          {/* Sources */}
-          {sources && sources.length !== 0 && (
-            <div className="detail__source">
-              <h2 className="detail__header">
-                <FcShare />
-                原始來源
-              </h2>
-              {sources.map((source: string, index: number) => (
-                <a
-                  href={source}
-                  target="_blank"
-                  className="detail__a"
-                  key={`detail__source-${index}`}
-                  rel="noreferrer"
-                >
-                  {source}
-                </a>
-              ))}
-            </div>
-          )}
-
-          {/* Connection */}
-          {connection && connection.length !== 0 && (
-            <div className="detail__connection">
-              <h2 className="detail__header">
-                <FcPhone />
-                聯絡資訊
-              </h2>
-              {connection.map((item: string, index: number) => (
-                <p key={`detail-connection-${index}`}>
-                  {item}
-                </p>
-              ))}
-            </div>
-          )}
-
-          {/* Holder */}
-          {holder && holder.length !== 0 && (
-            <div className="detail__holder">
-              <h2 className="detail__header">
-                <FcGraduationCap />
-                主辦單位
-              </h2>
-              {holder.map((item: string, index:number) => (
-                <p key={`detail-holder-${index}`}>
-                  {item}
-                </p>
-              ))}
-            </div>
-          )}
-
+        {/* Content */}
+        <div className="detail__content">
+          <h2 className="detail__header">
+            <FcList />
+            活動內容
+          </h2>
+          <div
+            className="detail__content__main"
+            // eslint-disable-next-line
+              dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
+
+        {/* Sources */}
+        {sources && sources.length !== 0 && (
+          <div className="detail__source">
+            <h2 className="detail__header">
+              <FcShare />
+              原始來源
+            </h2>
+            {sources.map((source: string, index: number) => (
+              <a
+                href={source}
+                target="_blank"
+                className="detail__a"
+                key={`detail__source-${index}`}
+                rel="noreferrer"
+              >
+                {source}
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Connection */}
+        {connection && connection.length !== 0 && (
+          <div className="detail__connection">
+            <h2 className="detail__header">
+              <FcPhone />
+              聯絡資訊
+            </h2>
+            {connection.map((item: string, index: number) => (
+              <p key={`detail-connection-${index}`}>
+                {item}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {/* Holder */}
+        {holder && holder.length !== 0 && (
+          <div className="detail__holder">
+            <h2 className="detail__header">
+              <FcGraduationCap />
+              主辦單位
+            </h2>
+            {holder.map((item: string, index:number) => (
+              <p key={`detail-holder-${index}`}>
+                {item}
+              </p>
+            ))}
+          </div>
+        )}
+
       </div>
     </div>
   );

@@ -1,30 +1,36 @@
 import React from 'react';
-import Carousel from 'components/Carousel';
-import { IconLogo } from 'components/Icons';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import './index.scss';
 
 interface DetailImagesType {
-  images?: string[] | null;
-  activityId: number;
+  images: string[] | null;
   altText: string
 }
 
-function DetailImage({ images, activityId, altText }: DetailImagesType) {
-  if (images) {
-    return (
-      <Carousel
-        slides={images.map((img: any, index: number) => (
-          <img key={`img-${activityId}${index}`} src={img} alt={altText} />
-        ))}
-      />
-    );
-  }
+function DetailImage({ images, altText }: DetailImagesType) {
   return (
-    <IconLogo />
+    <div className="detail__image">
+      {
+        images ? (
+          <Swiper
+            navigation
+            modules={[Navigation]}
+
+          >
+            {images.map((image) => (
+              <SwiperSlide>
+                <img src={image} alt={altText} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : <img src="/DefaultActivityPng.png" alt={altText} />
+
+      }
+    </div>
   );
 }
-
-DetailImage.defaultProps = {
-  images: null,
-};
 
 export default DetailImage;

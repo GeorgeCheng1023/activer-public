@@ -7,6 +7,7 @@ interface ButtonVariantType {
   round?: boolean;
   colorReverse?: boolean;
   square? :boolean;
+  underline? :boolean
 }
 interface ButtonType extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'secondary' | 'success' | 'dark' | 'white' | 'danger' | 'transparent';
@@ -29,6 +30,7 @@ function Button({
     'button--round': variant?.round,
     'button--reverse-color': variant?.colorReverse,
     'button--square': variant?.square,
+    'button--underline': variant?.underline,
   }, customClassName);
 
   return (

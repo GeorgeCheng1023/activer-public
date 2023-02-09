@@ -72,6 +72,7 @@ $btn-config: (
     }
   }
 
+  position: relative;
   display: flex;
   gap: 0.5em;
   justify-content: center;
@@ -132,6 +133,40 @@ $btn-config: (
   &.button--square {
     width: 3em;
     height: 3em;
+  }
+
+  // underline variant
+  &.button--underline {
+    @each $name,
+      $value in $btn-config {
+      $class: map.get($value, class);
+      $color: map.get($value, color);
+      $bg: map.get($value, bg);
+
+      &.button--#{$class} {
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0.2em;
+          display: none;
+          width: 75%;
+          height: 1px;
+          background-color: $color;
+        }
+
+        &:hover {
+          background: $bg;
+
+          &::after {
+            display: block;
+          }
+        }
+
+        &:active {
+          background: $bg;
+        }
+      }
+    }
   }
 
   * {
