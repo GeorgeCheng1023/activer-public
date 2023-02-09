@@ -28,7 +28,7 @@ function NewActivity() {
       </div>
 
       <div className="home__card-container">
-        {loaderData.newestActivityResData
+        {loaderData.newestActivityResData.searchResultData
           .map((activity: ActivityDataType) => (
             <MainCard activity={activity} />
           ))

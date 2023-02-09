@@ -4,7 +4,7 @@ export interface BaseActivityDataType {
   images: string[] | null;
 }
 
-export default interface ActivityDataType extends BaseActivityDataType {
+export interface ActivityDataType extends BaseActivityDataType {
   tags: ActivityTagDataType[] | null;
   branches: BranchDataType[];
   content: string;
@@ -54,13 +54,18 @@ export interface SearchResultDataType {
   activity: ActivityDataType;
   weights: number; // for sorting result
 }
-export interface SearchResponseDataType {
+export interface SegmentResponseDataType {
   maxSegment: number;// maximun request page
   minSegment: number;// minimun request page
   currentSegment: number;// current page
   countPerSegment: number; // max number of data in its page
-  searchResultData: SearchResultDataType[]; // main result data
   totalCount: number; // total data
+}
+export interface SearchResponseDataType extends SegmentResponseDataType {
+  searchResultData: SearchResultDataType[]; // main result data
+}
+export interface ActivityResponseDataType extends SegmentResponseDataType {
+  searchResultData: ActivityDataType[];
 }
 export interface ManageResponseDataType extends BaseActivityDataType {
   tags: TagDataType[];
@@ -79,8 +84,8 @@ export interface SearchLoaderType {
   keywords: string | null;
 }
 export interface homeLoaderDataType {
-  trendActivityResData:ActivityDataType[];
-  newestActivityResData:ActivityDataType[];
+  trendActivityResData:ActivityResponseDataType;
+  newestActivityResData:ActivityResponseDataType;
 }
 export interface ManageLoaderType {
   all :UserActivityDataType[];
@@ -91,3 +96,5 @@ export interface ManageLoaderType {
 export interface HistoryLoaderDataType {
   newestActivityResData:ActivityDataType[];
 }
+
+export default ActivityDataType;

@@ -22,7 +22,7 @@ function TrendActivity() {
         <Button color="white" text={screenWidth > 768 ? '更多熱門活動' : '更多'} iconAfter={<BsArrowRight />} />
       </div>
       <div className="home__card-container">
-        {loaderData.trendActivityResData
+        {loaderData.trendActivityResData.searchResultData
           .map((activity) => (
             <MainCard activity={activity} />
           ))

@@ -19,7 +19,7 @@ import './index.scss';
 import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
 
 export async function loader() {
-  const newestActivityRes = await getNewestActivity();
+  const newestActivityRes = await getNewestActivity(5, 1);
   return ({
     newestActivityResData: newestActivityRes.data,
   });

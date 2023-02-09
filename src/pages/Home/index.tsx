@@ -6,8 +6,8 @@ import {
 import './index.scss';
 
 export async function loader() {
-  const trendActivityRes = await getTrendActivity();
-  const newestActivityRes = await getNewestActivity();
+  const trendActivityRes = await getTrendActivity(5, 1);
+  const newestActivityRes = await getNewestActivity(5, 1);
   return ({
     trendActivityResData: trendActivityRes.data,
     newestActivityResData: newestActivityRes.data,
