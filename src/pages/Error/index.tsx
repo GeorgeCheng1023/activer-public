@@ -24,21 +24,39 @@ function generateErrorMessage(errorCode: number): string {
   return '似乎發生一些未預期的錯誤';
 }
 
+export class CustomError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+export function throwError(message: string, status: number) {
+  throw new CustomError(message, status);
+}
+
 function RootErrorBoundary() {
   const navigate = useNavigate();
   const error = useRouteError() as any;
   const [errorMessage, setErrorMessage] = useState<string | null>('似乎發生一些未預期的錯誤');
+  const [errorDetail, setErrorDetail] = useState<string | null>();
 
-  /** react-router-dom */
-  if (isRouteErrorResponse(error)) {
-    setErrorMessage(generateErrorMessage(error.status));
-  }
-
-  /** Axios */
-  if (error.response) {
-    setErrorMessage(error.response.status);
-  }
   useEffect(() => {
+    if (isRouteErrorResponse(error)) {
+      /** react-router-dom */
+      setErrorMessage(generateErrorMessage(error.status));
+      setErrorDetail('React router dom error');
+    } else if (error.response) {
+      /** Axios Error */
+      setErrorMessage(error.response.status);
+      setErrorDetail('Axios Error');
+    } else if (error instanceof CustomError) {
+      /** Custom Error */
+      setErrorMessage(generateErrorMessage(error.status));
+    }
+
+    // show in console
     console.error(error);
   }, []);
 
@@ -46,8 +64,15 @@ function RootErrorBoundary() {
     <div className="error">
       <Header />
       <div className="error__main">
+        {error.message
+        && (
+          <h1 className="error__title">
+            {error.message}
+          </h1>
+        )}
         <div className="error__message">
           {errorMessage}
+          {errorDetail && errorDetail}
         </div>
         <Button text="問題回報" />
         <Button

@@ -18,7 +18,7 @@ export const getActivityById = (
   id: string,
   accessToken: string,
 ) => (
-  activityRequest.get(`/${id}`, {
+  activityRequest.get<ActivityDataType>(`/${id}`, {
     headers: {
       'Content-Type': 'text/plain',
       Authorization: `Bearer ${accessToken}`,

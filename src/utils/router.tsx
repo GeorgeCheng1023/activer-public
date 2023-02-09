@@ -12,7 +12,7 @@ import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
 import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
-import Detail from 'pages/Detail';
+import Detail, { loader as detailLoader } from 'pages/Detail';
 import Admin from 'pages/Login/components/Admin';
 import NotFound from 'pages/Error/NotFound';
 import Loading from 'pages/Loading';
@@ -57,7 +57,8 @@ export const routerConfig = [
             element: <Search />,
           },
           {
-            path: '/detail/:id',
+            path: '/detail/:id?',
+            loader: detailLoader,
             element: <Detail />,
           },
           {

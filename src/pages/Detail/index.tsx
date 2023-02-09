@@ -1,62 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 // api
 import { getActivityById } from 'api/activity';
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
 // components
-import { BsPlus } from 'react-icons/bs';
-import {
-  FcReading, FcList, FcShare, FcPhone, FcGraduationCap,
-} from 'react-icons/fc';
 import Button from 'components/Button';
 import ManageNav from 'components/ManageNav';
 import Tag, { TagType } from 'components/Tag';
+import { throwError } from 'pages/Error';
 import Loading from 'pages/Loading';
-import VotePanel from './components/VotePanel';
+import { BsPlus } from 'react-icons/bs';
+import {
+  FcGraduationCap, FcList, FcPhone, FcReading, FcShare,
+} from 'react-icons/fc';
+import getCookie from 'utils/getCookies';
 import {
   DetailImage,
   DetailProperties,
   LinkWrapper,
 } from './components';
-
-// style
+import VotePanel from './components/VotePanel';
 import './index.scss';
-// initial state
-import { initialDataState, initialBranchesState } from './utils/initialData';
+
+export async function loader({ params }: any) {
+  const { id } = params;
+  if (!id) {
+    throwError('請提供活動ID!', 404);
+  }
+  const res = await getActivityById(id.toString(), getCookie('sessionToken'));
+  return res.data;
+}
 
 function Detail() {
-  const { id } = useParams();
-  const [cookies] = useCookies<string>(['user']);
-
-  // init state
-  const [data, setData] = useState<ActivityDataType>(initialDataState);
-  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(initialBranchesState);
   const [displayVotePanel, setDisplayVotePanel] = useState(false);
+  const data = useLoaderData() as ActivityDataType;
+  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(data.branches[0]);
 
   // handle click branch name event
   const handleChangeFilter = (selectedId : string) => {
     setCurrentBranch(data.branches?.find((branch) => branch.id.toString() === selectedId)!);
   };
-
-  // get data
-  useEffect(() => {
-    const dataFetch = async () => {
-      try {
-        if (!id) throw new Error('No id provided');
-        const res = await getActivityById(id.toString(), cookies.sessionToken);
-        setData(res.data);
-
-        // if data branch existed, set branch to first one
-        if (res.data.branches) {
-          setCurrentBranch(res.data.branches[0]);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    dataFetch();
-  }, []);
 
   // show vote tag panel
   const handleShowVotePanel:
