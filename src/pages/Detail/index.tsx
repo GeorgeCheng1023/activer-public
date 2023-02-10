@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Buffer } from 'buffer';
 // api
 import { getActivityById } from 'api/activity';
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
@@ -168,8 +169,7 @@ function Detail() {
           </h2>
           <div
             className="detail__content__main"
-            // eslint-disable-next-line
-              dangerouslySetInnerHTML={{ __html: content }}
+            dangerouslySetInnerHTML={{ __html: Buffer.from(content, 'base64').toString('utf-8') }}
           />
         </div>
 
