@@ -1,6 +1,6 @@
+import { Buffer } from 'buffer';
 import React, { useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { Buffer } from 'buffer';
 // api
 import { getActivityById } from 'api/activity';
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
@@ -52,7 +52,7 @@ function Detail() {
   // destructing data
   const {
     id: activityId,
-    images, title, subTitle, tags, holder, objective, content, sources, branches, connection,
+    title, subTitle, tags, holder, objective, content, sources, branches, connection,
   } = data;
 
   if (!data) {
@@ -76,7 +76,7 @@ function Detail() {
 
           {/* Image */}
           <DetailImage
-            images={images}
+            images={['https://images.unsplash.com/photo-1675935123413-1dc267f74a31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80', 'https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80']}
             altText={title}
           />
 
