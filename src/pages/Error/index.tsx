@@ -4,7 +4,6 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Button from 'components/Button';
 import './index.scss';
-import { AxiosError } from 'axios';
 
 function generateErrorMessage(errorCode: number | undefined): string {
   if (errorCode === 404) {
@@ -45,22 +44,24 @@ function RootErrorBoundary() {
   const [errorDetail, setErrorDetail] = useState<string>();
 
   useEffect(() => {
-    if (isRouteErrorResponse(error)) {
+    if (error instanceof CustomError) {
+      /** Custom Error */
+      setErrorTitle(error.message);
+      setErrorMessage(generateErrorMessage(error.status));
+    } else if (isRouteErrorResponse(error)) {
       /** react-router-dom */
       setErrorTitle(error.statusText);
       setErrorMessage(`${error.status}: ${generateErrorMessage(error.status)}`);
       setErrorDetail('React router dom error');
-    } else if (error instanceof AxiosError<any>) {
+    } else if (error.name === 'AxiosError') {
       /** Axios Error */
-      setErrorTitle(error.response?.data);
+      setErrorTitle(error.response?.statusText);
       setErrorMessage(
         `${error.response?.status} ${generateErrorMessage(error.response?.status)}`,
       );
       setErrorDetail('Axios Error');
-    } else if (error instanceof CustomError) {
-      /** Custom Error */
-      setErrorMessage(generateErrorMessage(error.status));
     }
+
     // show in console
     console.error(error);
   }, []);

@@ -46,7 +46,6 @@ function parseManageResponseToUserActivity(data: ManageResponseDataType[])
 }
 
 export async function loader() {
-  console.log('call loader');
   const res = await getManageActivity(getCookie('sessionToken'));
   const parseActivites = parseManageResponseToUserActivity(res.data);
   const returnData = {
