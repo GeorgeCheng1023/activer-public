@@ -72,7 +72,7 @@ export interface ManageResponseDataType extends BaseActivityDataType {
   branches: BranchDataType[]
 }
 export interface SearchHistoryResponseType {
-  sequence: number;
+  id: number;
   keyword: string;
   tags: TagDataType[];
   createAt:string;

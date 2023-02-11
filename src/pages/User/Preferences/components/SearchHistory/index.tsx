@@ -23,7 +23,7 @@ function SearchHistory({ history }: SearchHistoryType) {
   React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     setIsCheckAll(!isCheckAll);
-    setIsCheckList(history.map((el) => el.sequence));
+    setIsCheckList(history.map((el) => el.id));
 
     if (isCheckAll) {
       setIsCheckList([]);
@@ -72,8 +72,8 @@ function SearchHistory({ history }: SearchHistoryType) {
       {history.map((item) => (
         <motion.div
           className="search-history__item search-history__col"
-          id={`search-history__item-${item.sequence}`}
-          key={`search-history__item-${item.sequence}`}
+          id={`search-history__item-${item.id}`}
+          key={`search-history__item-${item.id}`}
           initial={{ x: '-10%', opacity: 0, backgroundColor: '#ffffff' }}
           whileInView={{ x: 0, opacity: 1 }}
           whileHover={{ backgroundColor: '#e3e3e3' }}
@@ -87,9 +87,9 @@ function SearchHistory({ history }: SearchHistoryType) {
         >
           <div className="search-history__checkbox">
             <input
-              id={item.sequence.toString()}
+              id={item.id.toString()}
               type="checkbox"
-              checked={isCheckList.includes(item.sequence)}
+              checked={isCheckList.includes(item.id)}
               onChange={handleClickCheckbox}
             />
           </div>
@@ -100,7 +100,7 @@ function SearchHistory({ history }: SearchHistoryType) {
               return (
                 <Tag
                   {...parseTag}
-                  key={`search-history-${item.sequence}-tag-${tag.id}`}
+                  key={`search-history-${item.id}-tag-${tag.id}`}
                 />
               );
             })}
