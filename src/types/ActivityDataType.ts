@@ -80,7 +80,7 @@ export interface SearchHistoryResponseType {
 
 /** Router loaeder return type */
 export interface SearchLoaderType {
-  data: SearchResponseDataType;
+  data: SearchResponseDataType | null;
   keywords: string | null;
 }
 export interface homeLoaderDataType {
