@@ -27,7 +27,7 @@ export const getActivityById = (
 
 // POST: get newest activity
 export const getNewestActivity = (countPerSegment: number, currentSegment: number) => (
-  activityRequest.post(
+  activityRequest.post<ActivityResponseDataType>(
     '/Newest',
     {
       countPerSegment, currentSegment,

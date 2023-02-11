@@ -1,24 +1,20 @@
-import Button from 'components/Button';
-import useWindowWidth from 'hooks/window/useWindowWidth';
 import React from 'react';
-import { useLoaderData, useSearchParams } from 'react-router-dom';
+import Button from 'components/Button';
+import useGetSearchParam from 'hooks/router/useGetSearchParam';
+import useSetSearchParam from 'hooks/router/useSetSearchParam';
+import useWindowWidth from 'hooks/window/useWindowWidth';
+import { useLoaderData } from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import './index.scss';
 
 function Pagination() {
   const loaderData = useLoaderData() as SearchLoaderType;
-  const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get('page') || '1';
+  const setParam = useSetSearchParam();
+  const page = useGetSearchParam('page', '1');
   const screenWidth = useWindowWidth();
 
   const handleSetParms = (pageNumber: number) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setSearchParams(
-      () => {
-        searchParams.set('page', pageNumber.toString());
-        return searchParams;
-      },
-    );
+    setParam('page', pageNumber.toString());
   };
 
   if (loaderData.data.searchResultData.length > 0) {
