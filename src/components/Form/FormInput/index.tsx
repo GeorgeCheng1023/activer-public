@@ -14,6 +14,13 @@ function FormInput({
   label, errorMessage, formValue, onChange, control, ...props
 }: FormInputType) {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    if (!props.placeholder && !formValue[props.name as keyof typeof formValue]) {
+      setActive(false);
+    }
+  }, []);
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange(event.target.name, event.target.value);
@@ -24,12 +31,6 @@ function FormInput({
     }
   };
 
-  useEffect(() => {
-    if (props.type === 'date' || props.placeholder) {
-      document.getElementById(`from-input__label-${props.id}`)?.classList.add('active');
-    }
-  }, []);
-
   return (
     <div className={`form-input ${props.disabled ? 'disabled' : ''}`}>
       <div className="form-input__container">
@@ -38,12 +39,11 @@ function FormInput({
           placeholder={props.placeholder ? props.placeholder : ''}
           className="form-input__input"
           onFocus={() => {
-            document.getElementById(`from-input__label-${props.id}`)?.classList.add('active');
+            setActive(true);
           }}
           onBlur={() => {
-            const getLabel = document.getElementById(`from-input__label-${props.id}`);
             if (formValue[props.name as keyof typeof formValue] === '' && !(props.type === 'date')) {
-              getLabel?.classList.remove('active');
+              setActive(false);
               setShowErrorMessage(false);
             }
           }}
@@ -55,7 +55,7 @@ function FormInput({
             <label
               id={`from-input__label-${props.id}`}
               htmlFor={props.id}
-              className="form-input__label"
+              className={`form-input__label ${active ? 'active' : ''}`}
             >
               {label}
             </label>
