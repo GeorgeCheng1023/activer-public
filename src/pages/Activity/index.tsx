@@ -1,5 +1,6 @@
 import React from 'react';
 import { getNewestActivity, getTrendActivity } from 'api/activity';
+import Pagination from 'components/Pagination';
 import Button from 'components/Button';
 import MainCard from 'components/Card/MainCard';
 import { useLoaderData } from 'react-router-dom';
@@ -8,6 +9,7 @@ import useSetSearchParam from 'hooks/router/useSetSearchParam';
 import useGetSearchParam from 'hooks/router/useGetSearchParam';
 import getUrlSearchParams from 'utils/getUrlParams';
 import { CustomError } from 'pages/Error';
+import './index.scss';
 
 export async function loader({ request }: any) {
   const type = getUrlSearchParams(request.url, 'type');
@@ -35,17 +37,20 @@ function Activity() {
     <div className="activity">
       <div className="activity__head">
         <h1>所有活動</h1>
-        <Button
-          text="熱門活動"
-          variant={{ outline: type === 'trend' }}
-          onClick={() => setSearchParams('type', 'trend')}
-        />
+        <div className="activity__head__type">
+          <Button
+            text="熱門活動"
+            variant={{ outline: type === 'trend' }}
+            onClick={() => setSearchParams('type', 'trend')}
+          />
 
-        <Button
-          text="最新活動"
-          variant={{ outline: type === 'new' }}
-          onClick={() => setSearchParams('type', 'new')}
-        />
+          <Button
+            text="最新活動"
+            color="secondary"
+            variant={{ outline: type === 'new' }}
+            onClick={() => setSearchParams('type', 'new')}
+          />
+        </div>
 
       </div>
       <div className="activity__items">
@@ -54,6 +59,9 @@ function Activity() {
             <MainCard activity={activity} />
           ))
         }
+      </div>
+      <div className="activity__footer">
+        <Pagination maxSegment={loaderData.maxSegment} />
       </div>
     </div>
   );
