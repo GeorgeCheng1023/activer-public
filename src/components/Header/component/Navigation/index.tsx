@@ -20,7 +20,7 @@ function Navagation() {
         link="/search"
 
       />
-      <NavbarItem label="熱門活動" link="/detail/1" />
+      <NavbarItem label="熱門活動" link="/activity?type=trend" />
       <NavbarItem label="探索" afterIcon={<IoMdArrowDropdown />}>
         <NavbarDropdown defaultMenu="main">
           <NavbarDropdownMenu name="main" order="primary">
