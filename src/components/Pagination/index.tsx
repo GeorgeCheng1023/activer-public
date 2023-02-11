@@ -20,10 +20,10 @@ function Pagination({ maxSegment } : PaginationType) {
 
   if (maxSegment > 0) {
     return (
-      <div className="search__pagination">
+      <div className="pagination">
 
         <div
-          className={`search__pagination__prev${Number(page) > 1 ? '--active' : ''} search__pagination__item`}
+          className={`pagination__prev${Number(page) > 1 ? '--active' : ''} pagination__item`}
         >
 
           <Button
@@ -40,23 +40,29 @@ function Pagination({ maxSegment } : PaginationType) {
           />
 
         </div>
-        <div className="search__pagination__main search__pagination__item">
+        <div className="pagination__main pagination__item">
           {
-            Array.from({ length: maxSegment }, (_, index) => {
+            Array.from({ length: maxSegment > 5 ? 5 : maxSegment }, (_, index) => {
               const pageNumber = (index + 1);
               return (
                 <Button
                   text={pageNumber.toString()}
                   variant={{ outline: Number(page) === index + 1, square: true }}
-                  key={`search__pagination-${index}`}
+                  key={`pagination-${index}`}
                   onClick={() => handleSetParms(pageNumber)}
                 />
               );
             })
           }
+          {
+            maxSegment > 5
+            && (
+              <span>...</span>
+            )
+          }
         </div>
 
-        <div className={`search__pagination__next${Number(page) < maxSegment ? '--active' : ''} search__pagination__item`}>
+        <div className={`pagination__next${Number(page) < maxSegment ? '--active' : ''} pagination__item`}>
 
           <Button
             type="button"

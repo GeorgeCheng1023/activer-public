@@ -4,7 +4,7 @@ const useSetSearchParam = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const setParam = (key: string, value: string) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0 });
     setSearchParams(
       () => {
         searchParams.set(key, value);

@@ -1,15 +1,18 @@
 @import "/src/styles/variables";
 @import "/src/styles/global";
 
-.search__pagination {
+.pagination {
   @include container-main;
 
   display: flex;
   justify-content: space-around;
+  align-items: flex-end;
   margin: 1em auto;
+  font-size: 0.8em;
 
   &__main {
     flex: 0 0 auto;
+    align-items: flex-end;
   }
 
   &__item {
