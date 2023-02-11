@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ManageLoaderType, UserActivityDataType } from 'types/ActivityDataType';
 import Card from 'components/Card';
-import { postActivityStatus } from 'api/activity';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { useRouteLoaderData, useParams } from 'react-router-dom';
 import ManageCardControl from '../ManageCardControl';
-
-// manage update status
-export async function action({ request }: any) {
-  const formData = await request.formData();
-  const res = await postActivityStatus(
-    formData.get('activityId'),
-    formData.get('branchId'),
-    formData.get('status'),
-    formData.get('sessionToken'),
-  );
-  return res.data;
-}
 
 function ManageActivity() {
   const loaderData = useRouteLoaderData('manage') as ManageLoaderType;

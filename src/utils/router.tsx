@@ -5,8 +5,8 @@ import Register from 'pages/Login/components/Register';
 import User, {
   Basic, Account, History, Preferences, Manage, Main,
 } from 'pages/User';
-import { loader as manageLoader } from 'pages/User/Manage';
-import ManageActivity, { action as manageAction } from 'pages/User/Manage/components/ManageActivity';
+import { loader as manageLoader, action as manageAction } from 'pages/User/Manage';
+import ManageActivity from 'pages/User/Manage/components/ManageActivity';
 import { loader as preferenceLoader } from 'pages/User/Preferences';
 import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';

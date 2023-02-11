@@ -2,7 +2,7 @@ import React from 'react';
 import ManageNav from 'components/ManageNav';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
 import { BranchDataType, ManageResponseDataType, UserActivityDataType } from 'types/ActivityDataType';
-import { getManageActivity } from 'api/activity';
+import { getManageActivity, postActivityStatus } from 'api/activity';
 import getCookie from 'utils/getCookies';
 import {
   Outlet, redirect, useNavigate, useParams,
@@ -55,6 +55,18 @@ export async function loader() {
   };
   redirect(encodeURI('/全部'));
   return returnData;
+}
+
+// manage update status
+export async function action({ request }: any) {
+  const formData = await request.formData();
+  const res = await postActivityStatus(
+    formData.get('activityId'),
+    formData.get('branchId'),
+    formData.get('status'),
+    formData.get('sessionToken'),
+  );
+  return res.data;
 }
 
 function Manage() {
