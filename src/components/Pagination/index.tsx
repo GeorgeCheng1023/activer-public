@@ -3,12 +3,13 @@ import Button from 'components/Button';
 import useGetSearchParam from 'hooks/router/useGetSearchParam';
 import useSetSearchParam from 'hooks/router/useSetSearchParam';
 import useWindowWidth from 'hooks/window/useWindowWidth';
-import { useLoaderData } from 'react-router-dom';
-import { SearchLoaderType } from 'types/ActivityDataType';
 import './index.scss';
 
-function Pagination() {
-  const loaderData = useLoaderData() as SearchLoaderType;
+interface PaginationType {
+  maxSegment: number;
+}
+
+function Pagination({ maxSegment } : PaginationType) {
   const setParam = useSetSearchParam();
   const page = useGetSearchParam('page', '1');
   const screenWidth = useWindowWidth();
@@ -17,7 +18,7 @@ function Pagination() {
     setParam('page', pageNumber.toString());
   };
 
-  if (loaderData.data.searchResultData.length > 0) {
+  if (maxSegment > 0) {
     return (
       <div className="search__pagination">
 
@@ -41,7 +42,7 @@ function Pagination() {
         </div>
         <div className="search__pagination__main search__pagination__item">
           {
-            Array.from({ length: loaderData.data.maxSegment }, (_, index) => {
+            Array.from({ length: maxSegment }, (_, index) => {
               const pageNumber = (index + 1);
               return (
                 <Button
@@ -55,7 +56,7 @@ function Pagination() {
           }
         </div>
 
-        <div className={`search__pagination__next${Number(page) < loaderData.data.maxSegment ? '--active' : ''} search__pagination__item`}>
+        <div className={`search__pagination__next${Number(page) < maxSegment ? '--active' : ''} search__pagination__item`}>
 
           <Button
             type="button"
@@ -67,7 +68,7 @@ function Pagination() {
             type="button"
             color="white"
             text={`${screenWidth > 768 ? '最後一頁' : ''} >>`}
-            onClick={() => handleSetParms(loaderData.data.maxSegment)}
+            onClick={() => handleSetParms(maxSegment)}
           />
 
         </div>

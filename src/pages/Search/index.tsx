@@ -7,7 +7,7 @@ import { setKeyword, setResults } from 'store/searchPanel';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import Loading from 'pages/Loading';
 import getCookie from 'utils/getCookies';
-import Pagination from './components/Pagination';
+import Pagination from '../../components/Pagination';
 import Result from './components/Result';
 import './index.scss';
 
@@ -55,8 +55,12 @@ function Search() {
       <SearchPanel />
       {searching
         ? <Loading />
-        : <Result />}
-      <Pagination />
+        : (
+          <>
+            <Result />
+            <Pagination maxSegment={loaderData.data.maxSegment} />
+          </>
+        )}
     </div>
   );
 }
