@@ -8,12 +8,16 @@ import { SearchHistoryResponseType } from 'types/ActivityDataType';
 import SearchHistory from './components/SearchHistory';
 
 export async function loader() {
-  const res = await getSearchHistory(getCookie('sessionToken'));
+  const res = await getSearchHistory(
+    20,
+    1,
+    getCookie('sessionToken'),
+  );
   return res.data;
 }
 
 function Preferences() {
-  const loaderData = useLoaderData() as SearchHistoryResponseType[];
+  const loaderData = useLoaderData() as SearchHistoryResponseType;
 
   return (
     <div className="preferences">
@@ -24,7 +28,7 @@ function Preferences() {
         {/* Title */}
         <h3>搜尋紀錄</h3>
 
-        <SearchHistory history={loaderData} />
+        <SearchHistory history={loaderData.searchResultData} />
       </div>
 
     </div>

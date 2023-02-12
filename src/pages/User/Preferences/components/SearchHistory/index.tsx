@@ -1,17 +1,20 @@
 import Button from 'components/Button';
 import Tag from 'components/Tag';
+import {
+  Form, createSearchParams, useNavigate,
+} from 'react-router-dom';
 import React, { useState } from 'react';
 import { BiSend } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import './index.scss';
-import { SearchHistoryResponseType } from 'types/ActivityDataType';
+import { SearchHistoryResponseType, SearchHistoryResultDataType } from 'types/ActivityDataType';
 import { parseTagDataToTag } from 'utils/parseTag';
 import { motion } from 'framer-motion';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+
 import formatDateString from 'utils/convertDate';
 
 interface SearchHistoryType {
-  history: SearchHistoryResponseType[];
+  history: SearchHistoryResponseType['searchResultData'];
 }
 
 function SearchHistory({ history }: SearchHistoryType) {
@@ -40,18 +43,20 @@ function SearchHistory({ history }: SearchHistoryType) {
     }
   };
 
-  const handleNavigate = (inputData : SearchHistoryResponseType) => {
+  const handleNavigate = (inputData : SearchHistoryResultDataType) => {
     navigate({
       pathname: '/search',
       search: `?${createSearchParams({
         keywords: inputData.keyword,
         tags: inputData.tags.map((tag) => tag.text),
       })}`,
+    }, {
+      replace: true,
     });
   };
 
   return (
-    <div className="search-history">
+    <Form className="search-history" method="post">
 
       <div className="search-history__head search-history__col">
         <div className="search-history__checkbox">
@@ -65,6 +70,7 @@ function SearchHistory({ history }: SearchHistoryType) {
           <Button
             variant={{ round: true }}
             iconBefore={<BsTrash />}
+            type="submit"
             color="white"
           />
         </div>
@@ -113,6 +119,7 @@ function SearchHistory({ history }: SearchHistoryType) {
             <Button
               iconBefore={<BiSend />}
               variant={{ round: true }}
+              type="button"
               color="transparent"
               onClick={() => handleNavigate(item)}
             />
@@ -121,7 +128,7 @@ function SearchHistory({ history }: SearchHistoryType) {
         </motion.div>
       ))}
 
-    </div>
+    </Form>
   );
 }
 

@@ -54,6 +54,12 @@ export interface SearchResultDataType {
   activity: ActivityDataType;
   weights: number; // for sorting result
 }
+export interface SearchHistoryResultDataType {
+  id: number;
+  keyword: string;
+  tags: TagDataType[];
+  createAt:string;
+}
 export interface SegmentResponseDataType {
   maxSegment: number;// maximun request page
   minSegment: number;// minimun request page
@@ -61,7 +67,8 @@ export interface SegmentResponseDataType {
   countPerSegment: number; // max number of data in its page
   totalCount: number; // total data
 }
-export interface SearchResponseDataType extends SegmentResponseDataType {
+export interface SearchResponseDataType
+  extends SegmentResponseDataType {
   searchResultData: SearchResultDataType[]; // main result data
 }
 export interface ActivityResponseDataType extends SegmentResponseDataType {
@@ -71,11 +78,8 @@ export interface ManageResponseDataType extends BaseActivityDataType {
   tags: TagDataType[];
   branches: BranchDataType[]
 }
-export interface SearchHistoryResponseType {
-  id: number;
-  keyword: string;
-  tags: TagDataType[];
-  createAt:string;
+export interface SearchHistoryResponseType extends SegmentResponseDataType {
+  searchResultData: SearchHistoryResultDataType[];
 }
 
 /** Router loaeder return type */

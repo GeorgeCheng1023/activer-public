@@ -118,11 +118,22 @@ export const getManageActivity = (accessToken: string) => (
 );
 
 // GET: fetch user's search history
-export const getSearchHistory = (accessToken: string) => (
-  activityRequest.get<SearchHistoryResponseType[]>('/searchHistory', {
-    headers: {
-      accept: 'text/plain',
-      Authorization: `Bearer ${accessToken}`,
+export const getSearchHistory = (
+  countPerSegment: number,
+  currentSegment: number,
+  accessToken: string,
+) => (
+  activityRequest.post<SearchHistoryResponseType>(
+    '/searchHistory',
+    {
+      countPerSegment,
+      currentSegment,
     },
-  })
+    {
+      headers: {
+        accept: 'text/plain',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
 );
