@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
-import { BranchDataType, ManageResponseDataType, UserActivityDataType } from 'types/ActivityDataType';
+import {
+  BranchDataType, ManageLoaderType, ManageResponseDataType, UserActivityDataType,
+} from 'types/ActivityDataType';
 import { getManageActivity, postActivityStatus } from 'api/activity';
 import { MdDownloadDone } from 'react-icons/md';
 import getCookie from 'utils/getCookies';
 import {
-  Outlet, redirect,
+  useLoaderData, useParams,
 } from 'react-router-dom';
 import ManageNavLink from './components/ManageNavLink';
+import ManageActivity from './components/ManageActivity';
 import './index.scss';
 
 function parseManageResponseToUserActivity(data: ManageResponseDataType[])
@@ -30,7 +33,6 @@ function parseManageResponseToUserActivity(data: ManageResponseDataType[])
 
 export async function loader() {
   const res = await getManageActivity(getCookie('sessionToken'));
-  console.log('load');
   const parseActivites = parseManageResponseToUserActivity(res.data);
   const returnData = {
     all: parseActivites,
@@ -38,7 +40,6 @@ export async function loader() {
     enroll: parseActivites.filter((activity) => activity.branch.status === '已報名'),
     done: parseActivites.filter((activity) => activity.branch.status === '已完成'),
   };
-  redirect(encodeURI('/全部'));
   return returnData;
 }
 
@@ -54,12 +55,34 @@ export async function action({ request }: any) {
   return res.data;
 }
 
+// prevent reload in navigation
+export function revalidate({ currentParams, nextParams }: any) {
+  const shouldRevalidate = (currentParams.filter === nextParams.filter);
+  return shouldRevalidate;
+}
+
 function Manage() {
   /** State init
    * @userActivities  User's activity
    * @currentFilterId ManageNav Curreent Filter is which, will based on upper filters.id
    * @currentActivities Filtering {userActivities} based on currentFilterId
    */
+  const [currentActivities, setCurrentActivities] = useState<UserActivityDataType[]>([]);
+  const loaderData = useLoaderData() as ManageLoaderType;
+  const { filter } = useParams();
+
+  // set activiy display base on filterId in params
+  useEffect(() => {
+    if (filter === '願望') {
+      setCurrentActivities(loaderData.dream);
+    } else if (filter === '已報名') {
+      setCurrentActivities(loaderData.enroll);
+    } else if (filter === '已完成') {
+      setCurrentActivities(loaderData.done);
+    } else {
+      setCurrentActivities(loaderData.all);
+    }
+  }, [filter, loaderData]);
 
   return (
     <div className="manage">
@@ -71,7 +94,7 @@ function Manage() {
         <ManageNavLink name="已報名" icon={<BiEdit />} />
         <ManageNavLink name="已完成" icon={<MdDownloadDone />} />
       </div>
-      <Outlet />
+      <ManageActivity activities={currentActivities} />
     </div>
   );
 }

@@ -48,7 +48,7 @@ function SideBar() {
       </Link>
       <SideBarLink text="基本資料" url="/user/basic" icon={<BiUser />} />
       <SideBarLink text="帳號安全" url="/user/account" icon={<BsFillShieldLockFill />} />
-      <SideBarLink text="管理活動" url="/user/manage" icon={<BsGearFill />} />
+      <SideBarLink text="管理活動" url="/user/manage/全部" icon={<BsGearFill />} />
       <SideBarLink text="偏好設定" url="/user/preferences" icon={<BsFillHeartFill />} />
       <SideBarLink text="活動歷程" url="/user/history" icon={<BiHistory />} />
 

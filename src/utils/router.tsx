@@ -22,8 +22,7 @@ import User, {
 } from 'pages/User';
 import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
-import { action as manageAction, loader as manageLoader } from 'pages/User/Manage';
-import ManageActivity from 'pages/User/Manage/components/ManageActivity';
+import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
 import { loader as preferenceLoader } from 'pages/User/Preferences';
 
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
@@ -121,17 +120,13 @@ export const routerConfig = [
             element: <Account />,
           },
           {
-            path: 'manage/:filterId?',
+            path: 'manage/:filter?',
             loader: manageLoader,
-            id: 'manage',
+            shouldRevalidate: manageRevalideter,
             action: manageAction,
+            id: 'manage',
             element: <Manage />,
-            children: [
-              {
-                path: '',
-                element: <ManageActivity />,
-              },
-            ],
+
           },
           {
             path: 'history',
