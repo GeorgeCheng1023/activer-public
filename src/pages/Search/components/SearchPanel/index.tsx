@@ -1,16 +1,15 @@
 import React, { useRef } from 'react';
-// hooks
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
+import { AiOutlineHistory } from 'react-icons/ai';
+import { getUserIsLoggedIn } from 'store/userAuth';
 import useOutsideClick from 'hooks/event/useOutsideClick';
-// style
-import './index.scss';
-// component
 import Button from 'components/Button';
 import { MdDoubleArrow } from 'react-icons/md';
 import SearchBar from 'components/Form/FormSearchBar';
 import SearchTag from 'components/Form/FormSearchTag';
 import { TagType } from 'components/Tag';
 import { motion } from 'framer-motion';
+import './index.scss';
 import {
   addStorage,
   fold,
@@ -23,6 +22,7 @@ import {
 import {
   Form, useSearchParams,
   useLoaderData,
+  useNavigate,
 } from 'react-router-dom';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import RecommendTag from './components/RecommendTag';
@@ -59,6 +59,8 @@ function Search() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
   const loaderData = useLoaderData() as SearchLoaderType;
+  const navigate = useNavigate();
+  const isLoggedIn = useAppSelector(getUserIsLoggedIn);
 
   // Fold when click outside of SearchPanel
   useOutsideClick(searchPanelRef, () => dispatch(fold()));
@@ -106,18 +108,35 @@ function Search() {
                 name="keywords"
               />
             </div>
-            <motion.div
-              className="search-panel__toggle"
-              animate={expended ? 'expend' : 'fold'}
-              variants={searchPanelToggleVariant}
+
+            <div
+              className="search-panel__control"
             >
               <Button
-                variant={{ round: true }}
-                iconAfter={<MdDoubleArrow />}
-                onClick={() => dispatch(toggle())}
+                color="secondary"
                 type="button"
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    navigate('/login');
+                  } else {
+                    navigate('/user/preferences');
+                  }
+                }}
+                iconBefore={<AiOutlineHistory />}
+                variant={{ round: true }}
               />
-            </motion.div>
+              <motion.div
+                animate={expended ? 'expend' : 'fold'}
+                variants={searchPanelToggleVariant}
+              >
+                <Button
+                  variant={{ round: true }}
+                  iconAfter={<MdDoubleArrow />}
+                  onClick={() => dispatch(toggle())}
+                  type="button"
+                />
+              </motion.div>
+            </div>
           </div>
 
           {/* search tag box  */}
