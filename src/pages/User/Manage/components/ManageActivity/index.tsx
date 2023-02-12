@@ -7,8 +7,7 @@ import ManageCardControl from '../ManageCardControl';
 
 function ManageActivity() {
   const loaderData = useRouteLoaderData('manage') as ManageLoaderType;
-  const [currentActivities, setCurrentActivities] = useState
-  <UserActivityDataType[] | null | undefined>();
+  const [currentActivities, setCurrentActivities] = useState<UserActivityDataType[]>([]);
   const { filterId = '全部' } = useParams();
 
   // set activiy display base on filterId in params
@@ -17,15 +16,18 @@ function ManageActivity() {
       setCurrentActivities(loaderData.dream);
     } else if (filterId === '已報名') {
       setCurrentActivities(loaderData.enroll);
+    } else if (filterId === '已完成') {
+      setCurrentActivities(loaderData.done);
     } else {
       setCurrentActivities(loaderData.all);
     }
+    console.log(currentActivities);
   }, [filterId, loaderData]);
 
   return (
     <div className="manage__activity">
       {
-        currentActivities
+        currentActivities && currentActivities.length > 0
           ? currentActivities.map((activity) => (
             <Card
               key={`manage-activity-${activity.branch.id}`}

@@ -91,6 +91,7 @@ export interface ManageLoaderType {
   all :UserActivityDataType[];
   dream: UserActivityDataType[];
   enroll: UserActivityDataType[];
+  done: UserActivityDataType[];
 }
 
 export interface HistoryLoaderDataType {

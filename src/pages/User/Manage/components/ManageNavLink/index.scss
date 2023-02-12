@@ -1,0 +1,9 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.manage__nav {
+  &--active {
+    gap: 0.5em;
+    border-bottom: 1.5px solid $primary-font-color;
+  }
+}
