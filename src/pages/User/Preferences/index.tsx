@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router-dom';
 import './index.scss';
 import { getSearchHistory, deleteSearchHistory } from 'api/activity';
 import getCookie from 'utils/getCookies';
-import { SearchHistoryResponseType } from 'types/ActivityDataType';
+import { SearchHistoryResponseType } from 'types/Response';
 import Pagination from 'components/Pagination';
 import { throwError } from 'pages/Error';
 import SearchHistory from './components/SearchHistory';

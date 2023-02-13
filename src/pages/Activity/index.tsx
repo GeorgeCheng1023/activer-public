@@ -4,7 +4,7 @@ import Pagination from 'components/Pagination';
 import Button from 'components/Button';
 import MainCard from 'components/Card/MainCard';
 import { useLoaderData } from 'react-router-dom';
-import { ActivityResponseDataType } from 'types/ActivityDataType';
+import { ActivityResponseType } from 'types/Response';
 import useSetSearchParam from 'hooks/router/useSetSearchParam';
 import useGetSearchParam from 'hooks/router/useGetSearchParam';
 import getUrlSearchParams from 'utils/getUrlParams';
@@ -29,7 +29,7 @@ export async function loader({ request }: any) {
 }
 
 function Activity() {
-  const loaderData = useLoaderData() as ActivityResponseDataType;
+  const loaderData = useLoaderData() as ActivityResponseType;
   const setSearchParams = useSetSearchParam();
   const type = useGetSearchParam('type', 'trend');
 

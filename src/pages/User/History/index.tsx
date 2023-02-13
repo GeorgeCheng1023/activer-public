@@ -5,6 +5,7 @@ import Card from 'components/Card';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
 import { getNewestActivity } from 'api/activity';
+import { HistoryLoaderType } from 'types/Loader';
 import { useLoaderData } from 'react-router-dom';
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
@@ -16,7 +17,6 @@ import './index.scss';
 // data
 // import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
-import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
 
 export async function loader() {
   const newestActivityRes = await getNewestActivity(5, 1);
@@ -26,7 +26,7 @@ export async function loader() {
 }
 
 function History() {
-  const louderData = useLoaderData() as HistoryLoaderDataType;
+  const louderData = useLoaderData() as HistoryLoaderType;
   const activity = louderData.newestActivityResData;
 
   return (

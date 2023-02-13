@@ -4,7 +4,7 @@ import { postSearchActivity } from 'api/activity';
 import { useLoaderData, useNavigation } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/redux';
 import { setKeyword, setResults } from 'store/searchPanel';
-import { SearchLoaderType } from 'types/ActivityDataType';
+import { SearchLoaderType } from 'types/Loader';
 import Loading from 'pages/Loading';
 import getCookie from 'utils/getCookies';
 import getUrlParams from 'utils/getUrlParams';

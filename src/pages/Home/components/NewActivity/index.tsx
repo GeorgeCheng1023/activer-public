@@ -5,12 +5,13 @@ import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
 import { FcPositiveDynamic } from 'react-icons/fc';
 import './index.scss';
-import ActivityDataType, { homeLoaderDataType } from 'types/ActivityDataType';
+import ActivityDataType from 'types/ActivityDataType';
+import { homeLoaderType } from 'types/Loader';
 import MainCard from 'components/Card/MainCard';
 
 function NewActivity() {
   const screenWidth = useWindowWidth();
-  const loaderData = useLoaderData() as homeLoaderDataType;
+  const loaderData = useLoaderData() as homeLoaderType;
   const navigate = useNavigate();
 
   return (
