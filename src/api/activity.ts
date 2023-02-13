@@ -139,17 +139,17 @@ export const getSearchHistory = (
 );
 // DELETE: delete user's search history
 export const deleteSearchHistory = (
-  ids: string[],
+  ids: number[],
   accessToken: string,
 ) => (
   activityRequest.delete<SearchHistoryResponseType>(
     '/searchHistory',
     {
-      data: {
-        ids,
-      },
+      data: ids,
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        accept: '*/*',
+        'Content-Type': 'application/json',
       },
     },
   )

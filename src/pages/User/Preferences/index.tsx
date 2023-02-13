@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import './index.scss';
-import { getSearchHistory } from 'api/activity';
+import { getSearchHistory, deleteSearchHistory } from 'api/activity';
 import getCookie from 'utils/getCookies';
 import { SearchHistoryResponseType } from 'types/ActivityDataType';
 import SearchHistory from './components/SearchHistory';
@@ -16,9 +16,11 @@ export async function loader() {
 }
 
 export async function action({ request }: any) {
-  const formData = await request.formData();
-  // await deleteSearchHistory(JSON.stringify({ isCheckList }));
-  console.log(formData.get('ids').isCheckList);
+  if (request.method === 'DELETE') {
+    const formData = await request.formData() as FormData;
+    const ids = formData.get('ids') as string;
+    await deleteSearchHistory(JSON.parse(ids).isCheckList, getCookie('sessionToken'));
+  }
   return null;
 }
 
