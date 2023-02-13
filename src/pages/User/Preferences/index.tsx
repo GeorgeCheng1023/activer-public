@@ -8,14 +8,14 @@ import Pagination from 'components/Pagination';
 import { throwError } from 'pages/Error';
 import SearchHistory from './components/SearchHistory';
 
-export async function loader() {
+export const loader = async () => {
   const res = await getSearchHistory(
     20,
     1,
     getCookie('sessionToken'),
   );
   return res.data;
-}
+};
 
 export async function action({ request }: any) {
   if (request.method === 'DELETE') {

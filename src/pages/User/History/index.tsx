@@ -6,7 +6,7 @@ import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
 import { getNewestActivity } from 'api/activity';
 import { HistoryLoaderType } from 'types/Loader';
-import { useLoaderData } from 'react-router-dom';
+import { LoaderFunction, useLoaderData } from 'react-router-dom';
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 // import ChartArea from './components/ChartArea';
@@ -18,12 +18,12 @@ import './index.scss';
 // import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
 
-export async function loader() {
+export const loader: LoaderFunction = async () => {
   const newestActivityRes = await getNewestActivity(5, 1);
   return ({
     newestActivityResData: newestActivityRes.data,
   });
-}
+};
 
 function History() {
   const louderData = useLoaderData() as HistoryLoaderType;

@@ -1,6 +1,6 @@
 import { Buffer } from 'buffer';
 import React, { useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { LoaderFunction, useLoaderData, useNavigate } from 'react-router-dom';
 // api
 import { getActivityById, postActivityStatus } from 'api/activity';
 import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
@@ -22,14 +22,15 @@ import {
 import VotePanel from './components/VotePanel';
 import './index.scss';
 
-export async function loader({ params }: any) {
+export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;
   if (!id) {
     throwError('請提供活動ID!', 404);
+    return null;
   }
   const res = await getActivityById(id.toString(), getCookie('sessionToken'));
   return res.data;
-}
+};
 
 export async function action({ request }: any) {
   const formData = await request.formData();
