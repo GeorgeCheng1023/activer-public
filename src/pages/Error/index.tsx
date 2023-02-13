@@ -7,11 +7,14 @@ import './index.scss';
 
 function generateErrorMessage(errorCode: number | undefined): string {
   if (errorCode === 404) {
-    return '此頁面不存在';
+    return '404: 此頁面不存在';
   }
 
   if (errorCode === 401) {
-    return '你沒有權限閱讀此頁';
+    return '401: 你沒有權限閱讀此頁';
+  }
+  if (errorCode === 400) {
+    return '400: 錯誤請求';
   }
 
   if (errorCode === 503 || errorCode === 500) {

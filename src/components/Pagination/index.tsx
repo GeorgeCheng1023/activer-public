@@ -18,7 +18,7 @@ function Pagination({ maxSegment } : PaginationType) {
     setParam('page', pageNumber.toString());
   };
 
-  if (maxSegment > 0) {
+  if (maxSegment > 1) {
     return (
       <div className="pagination">
 

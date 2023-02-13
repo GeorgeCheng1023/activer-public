@@ -79,7 +79,7 @@ export interface ManageResponseDataType extends BaseActivityDataType {
   branches: BranchDataType[]
 }
 export interface SearchHistoryResponseType extends SegmentResponseDataType {
-  searchResultData: SearchHistoryResultDataType[];
+  searchResultData: SearchHistoryResultDataType[] | undefined;
 }
 
 /** Router loaeder return type */
