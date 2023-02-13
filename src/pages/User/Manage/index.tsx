@@ -10,7 +10,9 @@ import { MdDownloadDone } from 'react-icons/md';
 import getCookie from 'utils/getCookies';
 import {
   useLoaderData, useParams,
+  LoaderFunction,
 } from 'react-router-dom';
+import { throwError } from 'pages/Error';
 import ManageNavLink from './components/ManageNavLink';
 import ManageActivity from './components/ManageActivity';
 import './index.scss';
@@ -33,8 +35,16 @@ function parseManageResponseToUserActivity(data: ManageResponseType[])
   return parseUserActivities;
 }
 
-export async function loader() {
-  const res = await getManageActivity(getCookie('sessionToken'));
+export const loader: LoaderFunction = async ({ params }) => {
+  const { orderBy } = params;
+  if (orderBy !== 'ascending' && orderBy !== 'descending') {
+    throwError('請提供正確參數', 400);
+  }
+
+  const res = await getManageActivity({
+    orderBy: (orderBy as 'ascending' | 'descending') || 'ascending',
+    accessToken: getCookie('sessionToken'),
+  });
   const parseActivites = parseManageResponseToUserActivity(res.data);
   const returnData = {
     all: parseActivites,
@@ -43,7 +53,7 @@ export async function loader() {
     done: parseActivites.filter((activity) => activity.branch.status === '已完成'),
   };
   return returnData;
-}
+};
 
 // manage update status
 export async function action({ request }: any) {

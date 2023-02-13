@@ -102,12 +102,17 @@ export const postSearchActivity = (
   )
 );
 
-export default activityRequest;
-
 // GET: Activity in Manage Page
-export const getManageActivity = (accessToken: string) => (
+interface getManageActivityType {
+  orderBy :'ascending' | 'descending',
+  accessToken: string,
+
+}
+export const getManageActivity = ({
+  orderBy, accessToken,
+}: getManageActivityType) => (
   activityRequest.get<ManageResponseType[]>(
-    '/dreamAndRegistered',
+    `/dreamAndRegistered?orderBy=${orderBy}`,
     {
       headers: {
         accept: 'text/plain',
@@ -154,3 +159,5 @@ export const deleteSearchHistory = (
     },
   )
 );
+
+export default activityRequest;
