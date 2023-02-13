@@ -2,6 +2,7 @@ import Button from 'components/Button';
 import Tag from 'components/Tag';
 import {
   Form, createSearchParams, useNavigate,
+  useSubmit,
 } from 'react-router-dom';
 import React, { useState } from 'react';
 import { BiSend } from 'react-icons/bi';
@@ -21,6 +22,7 @@ function SearchHistory({ history }: SearchHistoryType) {
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheckList, setIsCheckList] = useState<number[]>([]);
   const navigate = useNavigate();
+  const submit = useSubmit();
 
   const handleClickSelectAll:
   React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -55,6 +57,12 @@ function SearchHistory({ history }: SearchHistoryType) {
     });
   };
 
+  const handleClickDelete = () => {
+    const formData = new FormData();
+    formData.append('ids', JSON.stringify({ isCheckList }));
+    submit(formData, { method: 'delete' });
+  };
+
   return (
     <Form className="search-history" method="post">
 
@@ -70,8 +78,9 @@ function SearchHistory({ history }: SearchHistoryType) {
           <Button
             variant={{ round: true }}
             iconBefore={<BsTrash />}
-            type="submit"
+            type="button"
             color="white"
+            onClick={handleClickDelete}
           />
         </div>
       </div>

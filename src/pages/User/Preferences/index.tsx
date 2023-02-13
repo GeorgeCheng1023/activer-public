@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { useLoaderData } from 'react-router-dom';
 import './index.scss';
 import { getSearchHistory } from 'api/activity';
@@ -14,6 +13,13 @@ export async function loader() {
     getCookie('sessionToken'),
   );
   return res.data;
+}
+
+export async function action({ request }: any) {
+  const formData = await request.formData();
+  // await deleteSearchHistory(JSON.stringify({ isCheckList }));
+  console.log(formData.get('ids').isCheckList);
+  return null;
 }
 
 function Preferences() {

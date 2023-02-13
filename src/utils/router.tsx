@@ -20,10 +20,10 @@ import Search, { loader as searchLoader } from 'pages/Search';
 import User, {
   Account, Basic, History, Main, Manage, Preferences,
 } from 'pages/User';
+import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
 import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
 import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
-import { loader as preferenceLoader } from 'pages/User/Preferences';
 
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
@@ -136,6 +136,7 @@ export const routerConfig = [
           {
             path: 'preferences',
             loader: preferenceLoader,
+            action: preferenceAction,
             element: <Preferences />,
           },
           {
