@@ -21,6 +21,7 @@ import {
 } from 'store/userAuth';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { Alert, Fade } from '@mui/material';
+import scrollToTop from 'utils/scrollToTop';
 import CityCountyData from './CityCountyData.json';
 
 function Basic() {
@@ -68,6 +69,7 @@ function Basic() {
 
     updateUserDatabase(userFormData);
     setDisplaySuccess(true);
+    scrollToTop();
   };
 
   const handleCountyChange = (key: any, value: any) => {

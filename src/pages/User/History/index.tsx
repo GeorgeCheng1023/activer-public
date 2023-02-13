@@ -4,8 +4,8 @@ import React from 'react';
 import Card from 'components/Card';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
-import { getNewestActivity } from 'api/activity';
-import { useLoaderData } from 'react-router-dom';
+// import { useLoaderData } from 'react-router-dom';
+
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 // import ChartArea from './components/ChartArea';
@@ -14,20 +14,20 @@ import HistoryControl from './components/HistoryControl';
 import './index.scss';
 
 // data
-// import dummyActivityHistory from './dummyActivityHistory.json';
+import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
-import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
+// import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
 
 export async function loader() {
-  const newestActivityRes = await getNewestActivity();
+  // const newestActivityRes = await testGetActivityById(2954);
   return ({
-    newestActivityResData: newestActivityRes.data,
+    // newestActivityResData: newestActivityRes.data,
   });
 }
 
 function History() {
-  const louderData = useLoaderData() as HistoryLoaderDataType;
-  const activity = louderData.newestActivityResData;
+  // const loaderData = useLoaderData() as HistoryLoaderDataType;
+  // const activity = loaderData.newestActivityResData;
 
   return (
     <div className="history">
@@ -54,7 +54,7 @@ function History() {
       </div> */}
       <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
-        {activity.map((history) => {
+        {dummyActivityHistory.map(({ activity: history }) => {
           const parseTags: TagType[] = parseArrayTagDataToTag(history.tags || []);
 
           return (

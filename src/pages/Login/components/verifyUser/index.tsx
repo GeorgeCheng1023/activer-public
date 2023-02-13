@@ -10,6 +10,7 @@ import { apiUserVerify, apiUserLogin } from 'api/user';
 import { useCookies } from 'react-cookie';
 import { useAppSelector } from 'hooks/redux';
 import { getUserData, userLogin } from 'store/userAuth';
+import { Alert, Fade } from '@mui/material';
 import { useAppDispatch } from '../../../../hooks/redux/index';
 
 function Verify() {
@@ -19,8 +20,11 @@ function Verify() {
   const nevigate = useNavigate();
   const userData = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
+  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
 
   const [cookies] = useCookies<string>(['user']);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errmsg, setErrmsg] = useState<string>('');
 
   const verifyCodeRef = useRef<HTMLInputElement>(null);
 
@@ -35,9 +39,6 @@ function Verify() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [letters, setLetters] = useState(() => Array.from({ length: numerOfInputs }, () => ''));
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errmsg, setErrmsg] = useState<string>('');
-
   function onlyLettersAndNumbers(key: string) {
     return KEY_CHECK_REGEX.test(key);
   }
@@ -47,6 +48,7 @@ function Verify() {
       return currentIndex;
     }
 
+    setDisplaySuccess(false);
     setErrmsg('');
 
     setCurrentIndex((prevIndex) => {
@@ -62,6 +64,13 @@ function Verify() {
     nevigate(-1);
   };
 
+  const handleClear = () => {
+    setLetters(() => Array.from({ length: numerOfInputs }, () => ''));
+    inputRefsArray?.[0]?.current?.focus();
+    inputRefsArray?.[0]?.current?.select();
+    setCurrentIndex(0);
+  };
+
   const handleClick = async () => {
     setIsLoading(true);
     let verifycode = '';
@@ -75,9 +84,10 @@ function Verify() {
       nevigate('/', { replace: true });
     } catch (err: any) {
       if (err.response.status === 401) {
-        console.log('驗證碼不正確或已過期');
         setErrmsg('驗證碼不正確或已過期');
+        setDisplaySuccess(true);
       } else {
+        // eslint-disable-next-line no-console
         console.log('伺服器懶蛋');
       }
     }
@@ -98,7 +108,14 @@ function Verify() {
   return (
     <div className="verify-user__container">
       <main className="verify-user">
-        <div className="verify-user__errmsg">{errmsg}</div>
+
+        {/* update user data successfully */}
+        <div className="verify-user__error-msg-section">
+          <Fade in={displaySuccess}>
+            <Alert severity="error"><p className="verify-user__errmsg">{errmsg}</p></Alert>
+          </Fade>
+        </div>
+
         <h1 className="verify-user__title">輸入驗證碼</h1>
 
         <section className="verify-user__section">
@@ -140,6 +157,9 @@ function Verify() {
           <h5 className="verify-user__resend__text">未收到驗證碼?</h5>
           <button className="verify-user__resend__btn" type="button" onClick={handleBack}>
             重新驗證
+          </button>
+          <button className="verify-user__resend__btn" type="button" onClick={handleClear}>
+            全部清除
           </button>
         </section>
 

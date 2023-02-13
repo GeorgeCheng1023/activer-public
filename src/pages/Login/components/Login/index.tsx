@@ -15,6 +15,7 @@ import FAQTag from 'components/FAQ-Tag';
 import { apiUserLogin, apiUserResendVerify } from 'api/user';
 import { useAppSelector } from 'hooks/redux';
 import { Alert, Fade } from '@mui/material';
+import scrollToTop from 'utils/scrollToTop';
 import Button from '../../../../components/Button';
 import GoogleLoginButton from '../GoogleLogin';
 import { useAppDispatch } from '../../../../hooks/redux/index';
@@ -53,14 +54,6 @@ function LoginSection() {
     setPwd(value);
     setErrMsg('');
   };
-
-  function scrollToTop() {
-    const c = document.documentElement.scrollTop || document.body.scrollTop;
-    if (c > 0) {
-      window.requestAnimationFrame(scrollToTop);
-      window.scrollTo(0, c - c / 8);
-    }
-  }
 
   useEffect(() => {
     scrollToTop();

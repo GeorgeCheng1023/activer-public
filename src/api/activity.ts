@@ -30,6 +30,20 @@ export const getNewestActivity = () => (
   })
 );
 
+// TEST: newest activity
+export const testGetNewestActivity = () => (
+  activityRequest.post(
+    '/Newest',
+    {},
+
+    {
+      headers: {
+        accept: 'text/plain',
+      },
+    },
+  )
+);
+
 // GET: get trend activity
 export const getTrendActivity = () => (
   activityRequest.get('/trend', {

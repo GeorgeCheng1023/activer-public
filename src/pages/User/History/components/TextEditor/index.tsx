@@ -27,6 +27,8 @@ import {
   MdOutlineFormatAlignRight,
   MdOutlineFormatAlignJustify,
 } from 'react-icons/md';
+import JsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import { useCookies } from 'react-cookie';
 import Loading from 'pages/Loading';
@@ -90,7 +92,7 @@ function TextEditor() {
   const [cookies] = useCookies<string>(['user']);
   const params = useParams();
   const activityId: number = parseInt(params.activityId || '', 10);
-  // console.log(activityId);
+  const slateRef = React.useRef<HTMLDivElement | null>(null);
 
   const renderElement = useCallback(
     (props: RenderElementProps) => (
@@ -126,6 +128,27 @@ function TextEditor() {
     ),
     [],
   );
+
+  const printPDF = () => {
+    const domElement = document.getElementById('slate')!;
+    html2canvas(domElement, {
+      onclone: (document) => {
+        // eslint-disable-next-line no-param-reassign
+        document.getElementById('print')!.style.visibility = 'hidden';
+      },
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new JsPDF();
+      pdf.setFontSize(6);
+      const slateWidth = slateRef.current?.getBoundingClientRect().width;
+      const formatSlateWidth = (slateWidth || 1200) / 20;
+      const slateHeight = slateRef.current?.getBoundingClientRect().height;
+      const formatslateHeight = (slateHeight || 1200) / 20;
+      pdf.addImage(imgData, 'JPEG', 10, 10, formatSlateWidth, formatslateHeight);
+      // pdf.output('dataurlnewwindow');
+      pdf.save(`${new Date().toISOString()}.pdf`);
+    });
+  };
 
   const sendRecord = async (content: Descendant[]) => {
     try {
@@ -213,17 +236,20 @@ function TextEditor() {
           <BlockButton format="center" icon={<MdOutlineFormatAlignCenter />} />
           <BlockButton format="right" icon={<MdOutlineFormatAlignRight />} />
           <BlockButton format="justify" icon={<MdOutlineFormatAlignJustify />} />
+          <button id="print" type="button" onClick={printPDF}>PDF</button>
         </div>
-        <Editable
-          className="text-editor__textarea"
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          placeholder="寫入您的心得感想..."
-          spellCheck
-          autoFocus
-          onDOMBeforeInput={() => handleDOMBeforeInput(editor)}
-          onKeyDown={(e) => handleKeyDown(e, editor)}
-        />
+        <div id="slate" ref={slateRef}>
+          <Editable
+            className="text-editor__textarea"
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            placeholder="寫入您的心得感想..."
+            spellCheck
+            autoFocus
+            onDOMBeforeInput={() => handleDOMBeforeInput(editor)}
+            onKeyDown={(e) => handleKeyDown(e, editor)}
+          />
+        </div>
       </div>
     </Slate>
   );

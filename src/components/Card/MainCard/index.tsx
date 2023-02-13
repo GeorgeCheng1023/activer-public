@@ -44,7 +44,6 @@ function MainCard({ activity }: MainCardType) {
 
   const handleClickFollow: React.MouseEventHandler<HTMLButtonElement> = async () => {
     if (!isLoggedIn) {
-      // TODO: use popup?
       navigate('/login');
     }
 
