@@ -34,7 +34,7 @@ function NewActivity() {
       <div className="home__card-container">
         {loaderData.newestActivityResData.searchResultData
           .map((activity: ActivityDataType) => (
-            <MainCard activity={activity} />
+            <MainCard activity={activity} key={`card-${activity.id}`} />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 
