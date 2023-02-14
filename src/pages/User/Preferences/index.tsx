@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { LoaderFunction, useLoaderData } from 'react-router-dom';
 import './index.scss';
 import { getSearchHistory, deleteSearchHistory } from 'api/activity';
 import getCookie from 'utils/getCookies';
@@ -8,11 +8,25 @@ import Pagination from 'components/Pagination';
 import { throwError } from 'pages/Error';
 import SearchHistory from './components/SearchHistory';
 
-export const loader = async () => {
+export const loader: LoaderFunction = async ({ params }) => {
+  const { orderBy } = params;
+  if (!orderBy) {
+    const res = await getSearchHistory(
+      20,
+      1,
+      getCookie('sessionToken'),
+    );
+    return res.data;
+  }
+  if (orderBy !== 'ascending' && orderBy !== 'descending') {
+    throwError('請輸入正確參數!', 400);
+    return null;
+  }
   const res = await getSearchHistory(
     20,
     1,
     getCookie('sessionToken'),
+    orderBy,
   );
   return res.data;
 };

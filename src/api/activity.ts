@@ -103,16 +103,11 @@ export const postSearchActivity = (
 );
 
 // GET: Activity in Manage Page
-interface getManageActivityType {
-  orderBy :'ascending' | 'descending',
+export const getManageActivity = (
   accessToken: string,
-
-}
-export const getManageActivity = ({
-  orderBy, accessToken,
-}: getManageActivityType) => (
+) => (
   activityRequest.get<ManageResponseType[]>(
-    `/dreamAndRegistered?orderBy=${orderBy}`,
+    '/dreamAndRegistered',
     {
       headers: {
         accept: 'text/plain',
@@ -127,9 +122,10 @@ export const getSearchHistory = (
   countPerSegment: number,
   currentSegment: number,
   accessToken: string,
+  orderBy?: 'ascending' | 'descending',
 ) => (
   activityRequest.post<SearchHistoryResponseType>(
-    '/searchHistory',
+    `/searchHistory${orderBy ? `?orderBy=${orderBy}` : ''}`,
     {
       countPerSegment,
       currentSegment,
