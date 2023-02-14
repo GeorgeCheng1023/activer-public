@@ -1,32 +1,29 @@
-import Button from 'components/Button';
-import useWindowWidth from 'hooks/window/useWindowWidth';
 import React from 'react';
-import { useLoaderData, useSearchParams } from 'react-router-dom';
-import { SearchLoaderType } from 'types/ActivityDataType';
+import Button from 'components/Button';
+import useGetSearchParam from 'hooks/router/useGetSearchParam';
+import useSetSearchParam from 'hooks/router/useSetSearchParam';
+import useWindowWidth from 'hooks/window/useWindowWidth';
 import './index.scss';
 
-function Pagination() {
-  const loaderData = useLoaderData() as SearchLoaderType;
-  const [searchParams, setSearchParams] = useSearchParams();
-  const page = searchParams.get('page') || '1';
+interface PaginationType {
+  maxSegment: number;
+}
+
+function Pagination({ maxSegment } : PaginationType) {
+  const setParam = useSetSearchParam();
+  const page = useGetSearchParam('page', '1');
   const screenWidth = useWindowWidth();
 
   const handleSetParms = (pageNumber: number) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setSearchParams(
-      () => {
-        searchParams.set('page', pageNumber.toString());
-        return searchParams;
-      },
-    );
+    setParam('page', pageNumber.toString());
   };
 
-  if (loaderData.data.searchResultData.length > 0) {
+  if (maxSegment > 1) {
     return (
-      <div className="search__pagination">
+      <div className="pagination">
 
         <div
-          className={`search__pagination__prev${Number(page) > 1 ? '--active' : ''} search__pagination__item`}
+          className={`pagination__prev${Number(page) > 1 ? '--active' : ''} pagination__item`}
         >
 
           <Button
@@ -43,23 +40,29 @@ function Pagination() {
           />
 
         </div>
-        <div className="search__pagination__main search__pagination__item">
+        <div className="pagination__main pagination__item">
           {
-            Array.from({ length: loaderData.data.maxSegment }, (_, index) => {
+            Array.from({ length: maxSegment > 5 ? 5 : maxSegment }, (_, index) => {
               const pageNumber = (index + 1);
               return (
                 <Button
                   text={pageNumber.toString()}
                   variant={{ outline: Number(page) === index + 1, square: true }}
-                  key={`search__pagination-${index}`}
+                  key={`pagination-${index}`}
                   onClick={() => handleSetParms(pageNumber)}
                 />
               );
             })
           }
+          {
+            maxSegment > 5
+            && (
+              <span>...</span>
+            )
+          }
         </div>
 
-        <div className={`search__pagination__next${Number(page) < loaderData.data.maxSegment ? '--active' : ''} search__pagination__item`}>
+        <div className={`pagination__next${Number(page) < maxSegment ? '--active' : ''} pagination__item`}>
 
           <Button
             type="button"
@@ -71,7 +74,7 @@ function Pagination() {
             type="button"
             color="white"
             text={`${screenWidth > 768 ? '最後一頁' : ''} >>`}
-            onClick={() => handleSetParms(loaderData.data.maxSegment)}
+            onClick={() => handleSetParms(maxSegment)}
           />
 
         </div>

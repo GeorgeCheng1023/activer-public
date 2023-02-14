@@ -10,6 +10,9 @@ import {
   getUserData, setEmail, userLogin,
 } from 'store/userAuth';
 
+// Type
+import { UserDataType } from 'types/UserType';
+
 // Components
 import FAQTag from 'components/FAQ-Tag';
 import { apiUserLogin, apiUserResendVerify } from 'api/user';
@@ -29,7 +32,7 @@ const EMAIL_REGEX_STR = '([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})';
 
 function LoginSection() {
   const dispatch = useAppDispatch();
-  const userData: any = useAppSelector(getUserData);
+  const userData: UserDataType = useAppSelector(getUserData);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -120,8 +123,10 @@ function LoginSection() {
 
     try {
       const response = await apiUserResendVerify(cookies.sessionToken);
+      // eslint-disable-next-line no-console
       console.log(response);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
 

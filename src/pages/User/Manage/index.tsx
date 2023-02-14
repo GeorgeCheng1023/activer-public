@@ -1,31 +1,17 @@
-import React from 'react';
-import ManageNav from 'components/ManageNav';
+import React, { useEffect, useState } from 'react';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
-import { BranchDataType, ManageResponseDataType, UserActivityDataType } from 'types/ActivityDataType';
-import { getManageActivity } from 'api/activity';
+import {
+  BranchDataType, ManageLoaderType, ManageResponseDataType, UserActivityDataType,
+} from 'types/ActivityDataType';
+import { getManageActivity, postActivityStatus } from 'api/activity';
+import { MdDownloadDone } from 'react-icons/md';
 import getCookie from 'utils/getCookies';
 import {
-  Outlet, redirect, useNavigate, useParams,
+  useLoaderData, useParams,
 } from 'react-router-dom';
+import ManageNavLink from './components/ManageNavLink';
+import ManageActivity from './components/ManageActivity';
 import './index.scss';
-
-const filters = [
-  {
-    id: '全部',
-    label: '全部',
-    icon: <BiBorderAll />,
-  },
-  {
-    id: '願望',
-    label: '願望',
-    icon: <BiBookmarkHeart />,
-  },
-  {
-    id: '已報名',
-    label: '已報名',
-    icon: <BiEdit />,
-  },
-];
 
 function parseManageResponseToUserActivity(data: ManageResponseDataType[])
   : UserActivityDataType[] {
@@ -46,16 +32,33 @@ function parseManageResponseToUserActivity(data: ManageResponseDataType[])
 }
 
 export async function loader() {
-  console.log('call loader');
   const res = await getManageActivity(getCookie('sessionToken'));
   const parseActivites = parseManageResponseToUserActivity(res.data);
   const returnData = {
     all: parseActivites,
     dream: parseActivites.filter((activity) => activity.branch.status === '願望'),
     enroll: parseActivites.filter((activity) => activity.branch.status === '已報名'),
+    done: parseActivites.filter((activity) => activity.branch.status === '已完成'),
   };
-  redirect(encodeURI('/全部'));
   return returnData;
+}
+
+// manage update status
+export async function action({ request }: any) {
+  const formData = await request.formData();
+  const res = await postActivityStatus(
+    formData.get('activityId'),
+    formData.get('branchId'),
+    formData.get('status'),
+    formData.get('sessionToken'),
+  );
+  return res.data;
+}
+
+// prevent reload in navigation
+export function revalidate({ currentParams, nextParams }: any) {
+  const shouldRevalidate = (currentParams.filter === nextParams.filter);
+  return shouldRevalidate;
 }
 
 function Manage() {
@@ -64,28 +67,34 @@ function Manage() {
    * @currentFilterId ManageNav Curreent Filter is which, will based on upper filters.id
    * @currentActivities Filtering {userActivities} based on currentFilterId
    */
-  const navigate = useNavigate();
-  const { filterId } = useParams();
+  const [currentActivities, setCurrentActivities] = useState<UserActivityDataType[]>([]);
+  const loaderData = useLoaderData() as ManageLoaderType;
+  const { filter } = useParams();
 
-  const handleChangeFilter = (selectFilterId: string) => {
-    navigate(
-      `/user/manage/${selectFilterId}`,
-      {
-        replace: true,
-      },
-    );
-  };
+  // set activiy display base on filterId in params
+  useEffect(() => {
+    if (filter === '願望') {
+      setCurrentActivities(loaderData.dream);
+    } else if (filter === '已報名') {
+      setCurrentActivities(loaderData.enroll);
+    } else if (filter === '已完成') {
+      setCurrentActivities(loaderData.done);
+    } else {
+      setCurrentActivities(loaderData.all);
+    }
+  }, [filter, loaderData]);
 
   return (
     <div className="manage">
       <h2>管理活動</h2>
       {/* filter navbar */}
-      <ManageNav
-        filters={filters}
-        onChangeFilter={handleChangeFilter}
-        currentFilterId={filterId || '全部'}
-      />
-      <Outlet />
+      <div className="manage__navbar">
+        <ManageNavLink name="全部" icon={<BiBorderAll />} />
+        <ManageNavLink name="願望" icon={<BiBookmarkHeart />} />
+        <ManageNavLink name="已報名" icon={<BiEdit />} />
+        <ManageNavLink name="已完成" icon={<MdDownloadDone />} />
+      </div>
+      <ManageActivity activities={currentActivities} />
     </div>
   );
 }

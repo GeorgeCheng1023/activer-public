@@ -25,4 +25,9 @@
       height: auto;
     }
   }
+
+  &__navbar {
+    display: flex;
+    gap: 1em;
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import useWindowWidth from 'hooks/window/useWindowWidth';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import { BsArrowRight } from 'react-icons/bs';
 import { FcPositiveDynamic } from 'react-icons/fc';
@@ -11,6 +11,7 @@ import MainCard from 'components/Card/MainCard';
 function NewActivity() {
   const screenWidth = useWindowWidth();
   const loaderData = useLoaderData() as homeLoaderDataType;
+  const navigate = useNavigate();
 
   return (
     <section className="new-activity">
@@ -23,12 +24,14 @@ function NewActivity() {
         <Button
           color="white"
           text={screenWidth > 768 ? '更多熱門活動' : '更多'}
+          type="button"
           iconAfter={<BsArrowRight />}
+          onClick={() => navigate('/activity?type=new&page=1')}
         />
       </div>
 
       <div className="home__card-container">
-        {loaderData.newestActivityResData
+        {loaderData.newestActivityResData.searchResultData
           .map((activity: ActivityDataType) => (
             <MainCard activity={activity} />
           ))

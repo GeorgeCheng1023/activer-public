@@ -1,0 +1,27 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.activity {
+  @include container-main;
+
+  &__head {
+    display: flex;
+    gap: 2em;
+    align-items: flex-end;
+    margin: 1em 0;
+
+    &__type {
+      display: flex;
+      gap: 1em;
+      height: fit-content;
+      font-size: 0.7em;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    justify-content: center;
+  }
+}

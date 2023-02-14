@@ -7,18 +7,33 @@ import { setKeyword, setResults } from 'store/searchPanel';
 import { SearchLoaderType } from 'types/ActivityDataType';
 import Loading from 'pages/Loading';
 import getCookie from 'utils/getCookies';
-import Pagination from './components/Pagination';
+import getUrlParams from 'utils/getUrlParams';
+import { CustomError } from 'pages/Error';
 import Result from './components/Result';
 import './index.scss';
 
 export const loader = async ({ request }: any) : Promise<SearchLoaderType> => {
-  const url = new URL(request.url);
-  const keywords = url.searchParams.get('keywords');
-  const tags = url.searchParams.getAll('tags');
-  const page = url.searchParams.get('page');
+  const url = request.url as string;
+  const keywords = getUrlParams(url, 'keywords');
+  let tags = getUrlParams(url, 'tags');
+  const page = getUrlParams(url, 'page');
+  if (typeof tags === 'string') {
+    tags = [tags];
+  }
+  if (!keywords && !tags) {
+    return (
+      {
+        data: null,
+        keywords: null,
+      }
+    );
+  }
+  if (typeof keywords !== 'string') {
+    throw new CustomError('請提供正確搜尋參數', 403);
+  }
   const res = await postSearchActivity({
     keywords: keywords || undefined,
-    tags: tags || undefined,
+    tags: tags as string[] || undefined,
     countPerSegment: 35,
     currentSegment: Number(page) || 1,
     accessToken: getCookie('sessionToken'),
@@ -55,8 +70,9 @@ function Search() {
       <SearchPanel />
       {searching
         ? <Loading />
-        : <Result />}
-      <Pagination />
+        : (
+          <Result />
+        )}
     </div>
   );
 }

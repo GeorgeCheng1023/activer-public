@@ -38,7 +38,7 @@ function ManageCardControl({ activity } :ManageCardControlType) {
 
       <div className="manage__control__status">
         <FormDropDown
-          options={['已報名', '願望']}
+          options={['已報名', '願望', '已完成']}
           id={`manage-contro-${branchId}`}
           label="狀態"
           name="status"

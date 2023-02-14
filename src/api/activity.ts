@@ -1,6 +1,10 @@
 import axios from 'axios';
-import {
-  BranchDataType, ManageResponseDataType, SearchHistoryResponseType, SearchResponseDataType,
+import ActivityDataType, {
+  ActivityResponseDataType,
+  BranchDataType,
+  ManageResponseDataType,
+  SearchHistoryResponseType,
+  SearchResponseDataType,
 } from 'types/ActivityDataType';
 import { TEST_URL } from './user';
 
@@ -14,29 +18,39 @@ export const getActivityById = (
   id: string,
   accessToken: string,
 ) => (
-  activityRequest.get(`/${id}`, {
+  activityRequest.get<ActivityDataType>(`/${id}`, {
     headers: {
       'Content-Type': 'text/plain',
       Authorization: `Bearer ${accessToken}`,
     },
   }));
 
-// GET: newest activity
-export const getNewestActivity = () => (
-  activityRequest.get('/Newest', {
-    headers: {
-      accept: 'text/plain',
+// POST: get newest activity
+export const getNewestActivity = (countPerSegment: number, currentSegment: number) => (
+  activityRequest.post<ActivityResponseDataType>(
+    '/Newest',
+    {
+      countPerSegment, currentSegment,
     },
-  })
+    {
+      headers: {
+        accept: 'text/plain',
+      },
+    },
+  )
 );
 
-// GET: get trend activity
-export const getTrendActivity = () => (
-  activityRequest.get('/trend', {
-    headers: {
-      accept: 'text/plain',
+// POST: get trend activity
+export const getTrendActivity = (countPerSegment: number, currentSegment: number) => (
+  activityRequest.post<ActivityResponseDataType>(
+    '/trend',
+    { countPerSegment, currentSegment },
+    {
+      headers: {
+        accept: 'text/plain',
+      },
     },
-  })
+  )
 );
 
 // POST: update branch status
@@ -46,7 +60,7 @@ export const postActivityStatus = (
   status: BranchDataType['status'],
   accessToken: string,
 ) => (
-  activityRequest.post(
+  activityRequest.post<ActivityDataType>(
     '/branch/dreamStatus',
     {
       activityId,
@@ -104,11 +118,39 @@ export const getManageActivity = (accessToken: string) => (
 );
 
 // GET: fetch user's search history
-export const getSearchHistory = (accessToken: string) => (
-  activityRequest.get<SearchHistoryResponseType[]>('/searchHistory', {
-    headers: {
-      accept: 'text/plain',
-      Authorization: `Bearer ${accessToken}`,
+export const getSearchHistory = (
+  countPerSegment: number,
+  currentSegment: number,
+  accessToken: string,
+) => (
+  activityRequest.post<SearchHistoryResponseType>(
+    '/searchHistory',
+    {
+      countPerSegment,
+      currentSegment,
     },
-  })
+    {
+      headers: {
+        accept: 'text/plain',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+);
+// DELETE: delete user's search history
+export const deleteSearchHistory = (
+  ids: number[],
+  accessToken: string,
+) => (
+  activityRequest.delete<SearchHistoryResponseType>(
+    '/searchHistory',
+    {
+      data: ids,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+    },
+  )
 );

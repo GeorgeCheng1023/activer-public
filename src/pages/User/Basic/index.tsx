@@ -56,8 +56,10 @@ function Basic() {
       dispatch(userUpdate(values));
     } catch (err: any) {
       if (err.status === 401) {
+        // eslint-disable-next-line no-console
         console.log('token error');
       } else {
+        // eslint-disable-next-line no-console
         console.log('伺服器懶蛋');
       }
     }

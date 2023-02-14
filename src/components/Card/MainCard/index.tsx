@@ -32,11 +32,11 @@ function MainCard({ activity }: MainCardType) {
   const cardDetail = dateEnd && dateStart
     ? `活動時間: \n${replaceDateMinus(dateStart[Object.keys(dateStart)[0]])} ~ ${replaceDateMinus(dateEnd[0])}`
     : null;
-
   const [status, setStatus] = useState<BranchDataType['status']>(initStatus);
 
   const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
     const target = event.target as HTMLDivElement;
+    // Prevent Navigation when click Control
     if (target.id === resultItemControlId) {
       event.preventDefault();
     }

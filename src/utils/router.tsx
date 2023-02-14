@@ -1,29 +1,31 @@
 import React from 'react';
-import Home, { loader as homeLoader } from 'pages/Home';
-import Login from 'pages/Login';
-import Register from 'pages/Login/components/Register';
-import User, {
-  Basic, Account, History, Preferences, Manage, Main,
-} from 'pages/User';
-import { loader as manageLoader } from 'pages/User/Manage';
-import ManageActivity, { action as manageAction } from 'pages/User/Manage/components/ManageActivity';
-import { loader as preferenceLoader } from 'pages/User/Preferences';
-import { loader as historyLoader } from 'pages/User/History';
-import Record from 'pages/User/History/Record';
-import Root from 'pages/Root';
-import Search, { loader as searchLoader } from 'pages/Search';
-import Detail from 'pages/Detail';
-import Admin from 'pages/Login/components/Admin';
+import Activity, { loader as activityLoader } from 'pages/Activity';
+import Detail, { action as detailAction, loader as detailLoader } from 'pages/Detail';
+import RootErrorBoundary from 'pages/Error';
+import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import NotFound from 'pages/Error/NotFound';
+import SearchErrorPage from 'pages/Error/SearchErrorPage';
+import Home, { loader as homeLoader } from 'pages/Home';
 import Loading from 'pages/Loading';
-import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
-import Verify from 'pages/Login/components/verifyUser/index';
-import ForgetPwd from 'pages/Login/components/ForgetPwd';
+import Login from 'pages/Login';
+import Admin from 'pages/Login/components/Admin';
 import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
-import SearchErrorPage from 'pages/Error/SearchErrorPage';
-import HomeErrorPage from 'pages/Error/HomeErrorPage';
-import RootErrorBoundary from 'pages/Error';
+
+import ForgetPwd from 'pages/Login/components/ForgetPwd';
+import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
+import Register from 'pages/Login/components/Register';
+import Verify from 'pages/Login/components/verifyUser/index';
+import Root from 'pages/Root';
+import Search, { loader as searchLoader } from 'pages/Search';
+import User, {
+  Account, Basic, History, Main, Manage, Preferences,
+} from 'pages/User';
+import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
+import { loader as historyLoader } from 'pages/User/History';
+import Record from 'pages/User/History/Record';
+import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
+
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [
@@ -56,7 +58,9 @@ export const routerConfig = [
             element: <Search />,
           },
           {
-            path: '/detail/:id',
+            path: '/detail/:id?',
+            loader: detailLoader,
+            action: detailAction,
             element: <Detail />,
           },
           {
@@ -86,6 +90,11 @@ export const routerConfig = [
         element: <Loading />,
       },
       {
+        path: '/activity',
+        loader: activityLoader,
+        element: <Activity />,
+      },
+      {
         path: '*',
         element: <NotFound />,
       },
@@ -112,17 +121,13 @@ export const routerConfig = [
             element: <Account />,
           },
           {
-            path: 'manage/:filterId?',
+            path: 'manage/:filter?',
             loader: manageLoader,
-            id: 'manage',
+            shouldRevalidate: manageRevalideter,
             action: manageAction,
+            id: 'manage',
             element: <Manage />,
-            children: [
-              {
-                path: '',
-                element: <ManageActivity />,
-              },
-            ],
+
           },
           {
             path: 'history',
@@ -132,6 +137,7 @@ export const routerConfig = [
           {
             path: 'preferences',
             loader: preferenceLoader,
+            action: preferenceAction,
             element: <Preferences />,
           },
           {

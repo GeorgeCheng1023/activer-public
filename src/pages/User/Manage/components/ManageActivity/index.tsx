@@ -1,45 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { ManageLoaderType, UserActivityDataType } from 'types/ActivityDataType';
+import React from 'react';
+import { UserActivityDataType } from 'types/ActivityDataType';
 import Card from 'components/Card';
-import { postActivityStatus } from 'api/activity';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
-import { useRouteLoaderData, useParams } from 'react-router-dom';
+
 import ManageCardControl from '../ManageCardControl';
 
-// manage update status
-export async function action({ request }: any) {
-  const formData = await request.formData();
-  const res = await postActivityStatus(
-    formData.get('activityId'),
-    formData.get('branchId'),
-    formData.get('status'),
-    formData.get('sessionToken'),
-  );
-  return res.data;
+interface ManageActivityType {
+  activities : UserActivityDataType[] | undefined;
 }
 
-function ManageActivity() {
-  const loaderData = useRouteLoaderData('manage') as ManageLoaderType;
-  const [currentActivities, setCurrentActivities] = useState
-  <UserActivityDataType[] | null | undefined>();
-  const { filterId = '全部' } = useParams();
-
-  // set activiy display base on filterId in params
-  useEffect(() => {
-    if (filterId === '願望') {
-      setCurrentActivities(loaderData.dream);
-    } else if (filterId === '已報名') {
-      setCurrentActivities(loaderData.enroll);
-    } else {
-      setCurrentActivities(loaderData.all);
-    }
-  }, [filterId, loaderData]);
-
+function ManageActivity({ activities }: ManageActivityType) {
   return (
     <div className="manage__activity">
       {
-        currentActivities
-          ? currentActivities.map((activity) => (
+        activities && activities.length > 0
+          ? activities.map((activity) => (
             <Card
               key={`manage-activity-${activity.branch.id}`}
               id={`manage-activity-${activity.branch.id}`}

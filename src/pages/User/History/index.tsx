@@ -19,7 +19,7 @@ import dummyActivityHistory from './dummyActivityHistory.json';
 // import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
 
 export async function loader() {
-  // const newestActivityRes = await testGetActivityById(2954);
+  // const newestActivityRes = await getNewestActivity(5, 1);
   return ({
     // newestActivityResData: newestActivityRes.data,
   });
