@@ -115,7 +115,7 @@ function Register() {
       dispatch(setEmail(email));
 
       const expiresDate = new Date();
-      expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
+      expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);
 
       setCookie('sessionToken', response.data.token.accessToken, {
         expires: expiresDate,

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { UserAPIType, UserDataType, UserRecord } from 'types/UserType';
 
 const IP = '220.132.244.41';
 const PORT = '5044';
@@ -20,7 +21,7 @@ export const axiosTest = axios.create({
   baseURL: TEST_URL,
 });
 
-export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
+export const apiUserLogin = (email: string, password: string) => axiosTest.post<UserAPIType>(
   LOGIN_URL,
   JSON.stringify({ email, password }),
   {
@@ -33,7 +34,7 @@ export const apiUserRegister = (
   username: string,
   email: string,
   password: string,
-) => axiosTest.post(
+) => axiosTest.post<UserAPIType>(
   REGISTER_URL,
   JSON.stringify({ username, email, password }),
   {
@@ -45,7 +46,10 @@ export const apiUserRegister = (
   },
 );
 
-export const apiUserUpdate = (userFormData: FormData, accessToken: string) => axiosTest.put(
+export const apiUserUpdate = (
+  userFormData: FormData,
+  accessToken: string,
+) => axiosTest.put<UserDataType>(
   USER_UPDATE_URL,
   userFormData,
   {
@@ -56,7 +60,7 @@ export const apiUserUpdate = (userFormData: FormData, accessToken: string) => ax
   },
 );
 
-export const apiUserAuth = (access_token: string) => axiosTest.get(
+export const apiUserAuth = (access_token: string) => axiosTest.get<UserAPIType>(
   USER_AUTH_TOKEN_URL,
   {
     headers: {
@@ -65,7 +69,10 @@ export const apiUserAuth = (access_token: string) => axiosTest.get(
   },
 );
 
-export const apiUserVerify = (verifycode: string, accessToken: string) => axiosTest.get(
+export const apiUserVerify = (
+  verifycode: string,
+  accessToken: string,
+) => axiosTest.get<UserAPIType>(
   USER_VERIFY_URL,
   {
     headers: {
@@ -100,7 +107,7 @@ export const apiUserChangePwd = (
   newPassword: string,
   accessToken: string,
   verifycode: string,
-) => axiosTest.post(
+) => axiosTest.post<{ newPassword: string }>(
   USER_CHANGE_PWD,
   JSON.stringify({ newPassword }),
   {
@@ -130,7 +137,7 @@ export const apiUserResetPwd = (
   newPassword: string,
   verifycode: string,
   email: string,
-) => axiosTest.post(
+) => axiosTest.post<{ newPassword: string }>(
   USER_RESET_PWD,
   JSON.stringify({ newPassword }),
   {
@@ -161,7 +168,7 @@ export const apiPostUserRecord = (
 export const apiGetUserRecord = (
   activityId: number,
   accessToken: string,
-) => axiosTest.get(
+) => axiosTest.get<UserRecord>(
   `${USER_RECORD}/${activityId}`,
   {
     headers: {

@@ -75,10 +75,10 @@ function LoginSection() {
     }
 
     try {
-      const response: any = await apiUserLogin({ email: user, password: pwd });
+      const response = await apiUserLogin(user, pwd);
 
       const expiresDate = new Date();
-      expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
+      expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);
 
       setCookie('sessionToken', response.data.token.accessToken, {
         expires: expiresDate,

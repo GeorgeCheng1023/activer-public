@@ -3,6 +3,7 @@ import {
 } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 import { apiUserAuth, apiUserGoogleData } from 'api/user';
+import { UserDataType } from '../../types/UserType';
 
 interface UserState {
   IsLoggedIn: boolean,
@@ -18,8 +19,8 @@ interface UserState {
   phone: string,
   county: string,
   area: string,
-  activityHistory: Array<number>,
-  tagHistory: Array<number>,
+  activityHistory: Array<string>,
+  tagHistory: Array<string>,
   Loading: 'idle' | 'loading' | 'succeeded' | 'failed',
 }
 
@@ -57,27 +58,27 @@ const userAuthSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setRealName: (state, action: PayloadAction<any>) => ({
+    setRealName: (state, action: PayloadAction<string>) => ({
       ...state,
       realName: action.payload,
     }),
-    setEmail: (state, action: PayloadAction<any>) => ({
+    setEmail: (state, action: PayloadAction<string>) => ({
       ...state,
       email: action.payload,
     }),
-    setBirthday: (state, action: PayloadAction<any>) => ({
+    setBirthday: (state, action: PayloadAction<string>) => ({
       ...state,
       birthday: action.payload,
     }),
-    setAvatar: (state, action: PayloadAction<any>) => ({
+    setAvatar: (state, action: PayloadAction<string>) => ({
       ...state,
       avatar: action.payload,
     }),
-    userLogin: (state, action: PayloadAction<any>) => ({
+    userLogin: (state, action: PayloadAction<UserDataType>) => ({
       ...state,
+      ...action.payload,
       IsLoggedIn: true,
       Loading: 'succeeded',
-      ...action.payload,
     }),
     userLogout: (state) => ({
       ...state,
@@ -86,10 +87,10 @@ const userAuthSlice = createSlice({
       Loading: 'idle',
       accessToken: '',
     }),
-    userUpdate: (state, action: PayloadAction<any>) => ({
+    userUpdate: (state, action: PayloadAction<UserDataType>) => ({
       ...state,
-      IsLoggedIn: true,
       ...action.payload,
+      IsLoggedIn: true,
     }),
   },
   extraReducers: (builder) => {
@@ -113,10 +114,10 @@ const userAuthSlice = createSlice({
 
 export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
 export const getLoadingState = (state: RootState) => state.userAuth.Loading;
-export const getUserRealname = (state: RootState) => state.userAuth.RealName;
-export const getUserPortrait = (state: RootState): string => state.userAuth.Portrait;
+export const getUserRealname = (state: RootState) => state.userAuth.realName;
+export const getUserPortrait = (state: RootState): string => state.userAuth.avatar;
 export const getUserData = (state: RootState) => state.userAuth;
-export const getUserNickname = (state: RootState) => state.userAuth.Nickname;
+export const getUserNickname = (state: RootState) => state.userAuth.nickName;
 
 export const {
   setRealName, setEmail, setBirthday, userLogin, setAvatar, userLogout, userUpdate,

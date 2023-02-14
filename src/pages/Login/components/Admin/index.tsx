@@ -28,11 +28,11 @@ function Admin() {
         dispatch(userUpdate(response.data.user));
 
         const date = response.data.user.birthday.match(dateFormat);
-        dispatch(setBirthday(date[0]));
+        if (date) dispatch(setBirthday(date[0]));
         dispatch(setAvatar(`http://220.132.244.41:5044/api/User/avatar/${response.data.user.id}`));
 
         const expiresDate = new Date();
-        expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
+        expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);
 
         setCookie('sessionToken', response.data.token.accessToken, {
           expires: expiresDate,

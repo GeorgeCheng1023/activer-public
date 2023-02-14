@@ -24,7 +24,6 @@ import EmailLoading from 'pages/Login/components/EmailLoad';
 import SearchErrorPage from 'pages/Error/SearchErrorPage';
 import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import RootErrorBoundary from 'pages/Error';
-
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
 export const routerConfig = [

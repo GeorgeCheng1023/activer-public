@@ -6,20 +6,15 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import Button from 'components/Button';
-import { apiUserVerify, apiUserLogin } from 'api/user';
+import { apiUserVerify } from 'api/user';
 import { useCookies } from 'react-cookie';
-import { useAppSelector } from 'hooks/redux';
-import { getUserData, userLogin } from 'store/userAuth';
 import { Alert, Fade } from '@mui/material';
-import { useAppDispatch } from '../../../../hooks/redux/index';
 
 function Verify() {
   const KEY_CHECK_REGEX = /^[A-Za-z0-9]*$/;
   const WORD_REGEX = /^[A-Za-z]*$/;
 
   const nevigate = useNavigate();
-  const userData = useAppSelector(getUserData);
-  const dispatch = useAppDispatch();
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
 
   const [cookies] = useCookies<string>(['user']);
@@ -78,10 +73,7 @@ function Verify() {
 
     try {
       await apiUserVerify(verifycode, cookies.sessionToken);
-      const { email, password } = userData;
-      const response = await apiUserLogin({ email, password });
-      dispatch(userLogin(response.data.user));
-      nevigate('/', { replace: true });
+      nevigate('/login', { replace: true });
     } catch (err: any) {
       if (err.response.status === 401) {
         setErrmsg('驗證碼不正確或已過期');
