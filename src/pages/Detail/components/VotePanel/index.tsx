@@ -25,8 +25,8 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
       if (foundedTag) {
         // Change FoundTag count userVoted
         if (clickedTag.userVoted) {
-          foundedTag.tagCount -= 1;
-        } else { foundedTag.tagCount += 1; }
+          foundedTag.tagVotedCount -= 1;
+        } else { foundedTag.tagVotedCount += 1; }
         foundedTag.userVoted = !foundedTag.userVoted;
 
         // Update
@@ -54,9 +54,9 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
       if (foundTag) {
         // TagCount increase and decrease
         if (foundTag.userVoted) {
-          foundTag.tagCount += 1;
+          foundTag.tagVotedCount += 1;
         } else {
-          foundTag.tagCount -= 1;
+          foundTag.tagVotedCount -= 1;
         }
         // Update
         newTags = votedTags.map((v) => {
@@ -70,7 +70,7 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
           id: parseInt(clickedTag.id, 10),
           type: clickedTag.type as ActivityTagDataType['type'],
           text: clickedTag.text,
-          tagCount: 1,
+          tagVotedCount: 1,
           userVoted: true,
         });
       }
@@ -80,7 +80,7 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
         id: parseInt(clickedTag.id, 10),
         type: clickedTag.type as ActivityTagDataType['type'],
         text: clickedTag.text,
-        tagCount: 1,
+        tagVotedCount: 1,
         userVoted: true,
       }]);
     }
@@ -110,7 +110,7 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
               />
               <p>
                 票數:
-                {tag.tagCount}
+                {tag.tagVotedCount}
               </p>
               <Button
                 key={`vote-btn-${tag.id.toString()}`}

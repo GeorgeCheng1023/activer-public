@@ -1,4 +1,3 @@
-/** API Response Type */
 import ActivityDataType, {
   TagDataType,
   BaseActivityDataType,
@@ -6,6 +5,8 @@ import ActivityDataType, {
   SearchHistoryResultDataType,
   SearchResultDataType,
 } from 'types/ActivityDataType';
+import { TrendTagResultDataType } from '../ActivityDataType';
+/** API Response Type */
 
 export interface SegmentResponseType {
   maxSegment: number;// maximun request page
@@ -27,4 +28,8 @@ export interface ManageResponseType extends BaseActivityDataType {
 }
 export interface SearchHistoryResponseType extends SegmentResponseType {
   searchResultData: SearchHistoryResultDataType[] | undefined;
+}
+
+export interface TrendTagResponseType extends SegmentResponseType {
+  searchResultData: TrendTagResultDataType[]
 }

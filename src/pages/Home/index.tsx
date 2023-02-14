@@ -1,6 +1,8 @@
 import React from 'react';
 import { getTrendActivity, getNewestActivity } from 'api/activity';
+import { getTrendTag } from 'api/tag';
 import { LoaderFunction } from 'react-router-dom';
+import getCookies from 'utils/getCookies';
 import {
   Hero, TrendActivity, TrendTag, Feature, NewActivity,
 } from './components';
@@ -9,9 +11,15 @@ import './index.scss';
 export const loader: LoaderFunction = async () => {
   const trendActivityRes = await getTrendActivity(5, 1);
   const newestActivityRes = await getNewestActivity(5, 1);
+  const trendTagRes = await getTrendTag(
+    3,
+    1,
+    getCookies('sessionToken'),
+  );
   return ({
     trendActivityResData: trendActivityRes.data,
     newestActivityResData: newestActivityRes.data,
+    trendTagResData: trendTagRes.data,
   });
 };
 

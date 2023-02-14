@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
 import Button from 'components/Button';
 
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
-import ManageNav from 'components/ManageNav';
 import { motion } from 'framer-motion';
+import { Link, useLoaderData } from 'react-router-dom';
+import { homeLoaderType } from 'types/Loader';
 import Rocket from './Rocket.png';
 
 function TrendTag() {
   const windowWidth = useWindowWidth();
-
-  const [currentClassifyId, setCurrentClassifyId] = useState('location');
+  const loaderData = useLoaderData() as homeLoaderType;
 
   return (
     <section className="trend-tag">
@@ -23,6 +23,7 @@ function TrendTag() {
         </h2>
         <Button
           color="white"
+          type="button"
           text={windowWidth > 768 ? '更多標籤' : '更多'}
           iconAfter={<BsArrowRight />}
         />
@@ -30,43 +31,36 @@ function TrendTag() {
       </div>
 
       <div className="trend-tag__container">
-        <div className="trend-tag__class">
 
-          <ManageNav
-            filters={[{
-              id: 'area',
-              label: '專業領域',
-            },
-            {
-              id: 'location',
-              label: '地點',
-            },
-            {
-              id: 'other',
-              label: '其他',
-            },
-            ]}
-            onChangeFilter={setCurrentClassifyId}
-            currentFilterId={currentClassifyId}
-          />
-          <div className="trend-tag__class__tags">
-            {Array(3).fill(0).map((element, index) => (
-              <div className="trend-tag__item" key={`trend-tag-item-${element}${index}`}>
-                <div className="trend-tag__item__hashtag">
-                  <Button
-                    color="primary"
-                    text="#"
-                    variant={{ round: true, outline: true }}
-                  />
-                </div>
-                <div className="trend-tag__item__text">
-                  <p className="trend-tag__item__text__title">網頁設計</p>
-                  <p className="trend-tag__item__text__description">1000+ 相關活動</p>
-                </div>
+        <div className="trend-tag__class__tags">
+          {loaderData.trendTagResData.searchResultData.map((tag, index) => (
+            <div
+              className="trend-tag__item"
+              key={`trend-tag-item-${tag.id}${index}`}
+            >
+              <Link
+                to={`/search?tags=${tag.text}`}
+                className="trend-tag__item__hashtag"
+              >
+                <Button
+                  color="primary"
+                  text="#"
+                  variant={{ round: true, outline: true }}
+                />
+              </Link>
+              <div className="trend-tag__item__text">
+                <Link to={`/search?tags=${tag.text}`} className="trend-tag__item__text__title">
+                  {tag.text}
+                </Link>
+                <p className="trend-tag__item__text__description">
+                  {tag.activityAmount}
+                  {' '}
+                  相關活動
+                </p>
               </div>
-            ))}
+            </div>
+          ))}
 
-          </div>
         </div>
         <motion.img
           src={Rocket}

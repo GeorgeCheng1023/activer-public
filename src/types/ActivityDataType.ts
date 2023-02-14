@@ -23,7 +23,7 @@ export interface TagDataType {
 }
 
 export interface ActivityTagDataType extends TagDataType {
-  tagCount: number; // user voted tag count
+  tagVotedCount: number; // user voted tag count
   userVoted: boolean; // check if user voted this tag
 }
 
@@ -59,6 +59,11 @@ export interface SearchHistoryResultDataType {
 export interface UserActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
   branch: BranchDataType;
+}
+
+export interface TrendTagResultDataType extends ActivityTagDataType {
+  tagTrend: number;
+  activityAmount: number;
 }
 
 export default ActivityDataType;

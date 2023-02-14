@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { TrendTagResponseType } from 'types/Response';
 import { TEST_URL } from './user';
 
 const tagRequest = axios.create({
@@ -12,6 +13,27 @@ export const getAllTags = () => (
     {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
+      },
+    },
+  )
+);
+// GET: Trend Tag
+export const getTrendTag = (
+  countPerSegment: number,
+  currentSegment: number,
+  accessToken: string,
+) => (
+  tagRequest.post<TrendTagResponseType>(
+    '/trend',
+    {
+      countPerSegment,
+      currentSegment,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        accept: '*/*',
+        'Content-Type': 'application/json',
       },
     },
   )
