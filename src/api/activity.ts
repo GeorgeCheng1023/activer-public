@@ -123,21 +123,24 @@ export const getSearchHistory = (
   currentSegment: number,
   accessToken: string,
   orderBy?: 'ascending' | 'descending',
-) => (
-  activityRequest.post<SearchHistoryResponseType>(
-    `/searchHistory${orderBy ? `?orderBy=${orderBy}` : ''}`,
-    {
-      countPerSegment,
-      currentSegment,
-    },
-    {
-      headers: {
-        accept: 'text/plain',
-        Authorization: `Bearer ${accessToken}`,
+) => {
+  console.log(orderBy);
+  return (
+    activityRequest.post<SearchHistoryResponseType>(
+      `/searchHistory${orderBy ? `?orderBy=${orderBy}` : ''}`,
+      {
+        countPerSegment,
+        currentSegment,
       },
-    },
-  )
-);
+      {
+        headers: {
+          accept: 'text/plain',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    )
+  );
+};
 // DELETE: delete user's search history
 export const deleteSearchHistory = (
   ids: number[],

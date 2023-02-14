@@ -52,8 +52,8 @@ function RootErrorBoundary() {
       setErrorTitle(error.message);
       setErrorMessage(generateErrorMessage(error.status));
     } else if (isRouteErrorResponse(error)) {
-      /** react-router-dom */
-      setErrorTitle(error.statusText);
+      /** react-router-dom: erro */
+      setErrorTitle(error.statusText || error.data);
       setErrorMessage(`${error.status}: ${generateErrorMessage(error.status)}`);
       setErrorDetail('React router dom error');
     } else if (error.name === 'AxiosError') {

@@ -6,10 +6,11 @@ import getCookie from 'utils/getCookies';
 import { SearchHistoryResponseType } from 'types/Response';
 import Pagination from 'components/Pagination';
 import { throwError } from 'pages/Error';
+import getUrlParams from 'utils/getUrlParams';
 import SearchHistory from './components/SearchHistory';
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const { orderBy } = params;
+export const loader: LoaderFunction = async ({ request }) => {
+  const orderBy = getUrlParams(request.url, 'orderBy');
   if (!orderBy) {
     const res = await getSearchHistory(
       20,
@@ -19,8 +20,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     return res.data;
   }
   if (orderBy !== 'ascending' && orderBy !== 'descending') {
-    throwError('請輸入正確參數!', 400);
-    return null;
+    throw new Response('請輸入正確參數', { status: 400 });
   }
   const res = await getSearchHistory(
     20,

@@ -4,8 +4,10 @@ import {
   Form, createSearchParams, useNavigate,
   useSubmit,
 } from 'react-router-dom';
+import useSetSearchParam from 'hooks/router/useSetSearchParam';
+import useGetSearchParam from 'hooks/router/useGetSearchParam';
 import React, { useEffect, useState } from 'react';
-import { BiSend } from 'react-icons/bi';
+import { BiSend, BiSortAlt2 } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import './index.scss';
 import { SearchHistoryResponseType } from 'types/Response';
@@ -23,6 +25,8 @@ function SearchHistory({ history }: SearchHistoryType) {
   const [isCheckList, setIsCheckList] = useState<number[]>([]);
   const navigate = useNavigate();
   const submit = useSubmit();
+  const setSearchParam = useSetSearchParam();
+  const orderBy = useGetSearchParam('orderBy', 'ascending');
 
   const handleClickSelectAll:
   React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -45,7 +49,6 @@ function SearchHistory({ history }: SearchHistoryType) {
   const handleClickCheckbox:
   React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { id, checked } = e.target as HTMLInputElement;
-
     setIsCheckList([...isCheckList, parseInt(id, 10)]);
     if (!checked) {
       setIsCheckList(isCheckList.filter((item) => item !== parseInt(id, 10)));
@@ -70,6 +73,14 @@ function SearchHistory({ history }: SearchHistoryType) {
     submit(formData, { method: 'delete' });
   };
 
+  const handleClickTimeSort = () => {
+    if (orderBy === 'ascending') {
+      setSearchParam('orderBy', 'descending');
+    } else if (orderBy === 'descending') {
+      setSearchParam('orderBy', 'ascending');
+    }
+  };
+
   return (
     <Form className="search-history" method="post">
 
@@ -83,7 +94,18 @@ function SearchHistory({ history }: SearchHistoryType) {
         </div>
         <div className="search-history__keyword">關鍵字</div>
         <div className="search-history__tag">標籤</div>
-        <div className="search-history__time">搜尋時間</div>
+        <div className="search-history__time">
+          搜尋時間
+          <Button
+            iconBefore={<BiSortAlt2 />}
+            variant={{ round: true }}
+            color="white"
+            type="button"
+            className="search-history__sort"
+            onClick={handleClickTimeSort}
+          />
+
+        </div>
         <div className="search-history__navigate">
           {' '}
           <Button
