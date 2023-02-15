@@ -38,7 +38,44 @@ function Verify() {
     return KEY_CHECK_REGEX.test(key);
   }
 
+  const handleBack = () => {
+    nevigate(-1);
+  };
+
+  const handleClear = () => {
+    setLetters(() => Array.from({ length: numerOfInputs }, () => ''));
+    inputRefsArray?.[0]?.current?.focus();
+    inputRefsArray?.[0]?.current?.select();
+    setCurrentIndex(0);
+  };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    let verifycode = '';
+    letters.forEach((code) => { verifycode = verifycode.concat(code); });
+
+    try {
+      await apiUserVerify(verifycode, cookies.sessionToken);
+      nevigate('/login', { replace: true });
+    } catch (err: any) {
+      if (err.response.status === 401) {
+        setErrmsg('驗證碼不正確或已過期');
+        setDisplaySuccess(true);
+        setIsLoading(false);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('伺服器懶蛋');
+        // setErrmsg('伺服器懶蛋');
+        setErrmsg('驗證碼不正確或已過期');
+        setDisplaySuccess(true);
+        setIsLoading(false);
+      }
+    }
+  };
+
   const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') return;
     if (!onlyLettersAndNumbers(e.key) || e.key === 'Backspace') {
       return currentIndex;
     }
@@ -55,37 +92,6 @@ function Verify() {
     });
   };
 
-  const handleBack = () => {
-    nevigate(-1);
-  };
-
-  const handleClear = () => {
-    setLetters(() => Array.from({ length: numerOfInputs }, () => ''));
-    inputRefsArray?.[0]?.current?.focus();
-    inputRefsArray?.[0]?.current?.select();
-    setCurrentIndex(0);
-  };
-
-  const handleClick = async () => {
-    setIsLoading(true);
-    let verifycode = '';
-    letters.forEach((code) => { verifycode = verifycode.concat(code); });
-
-    try {
-      await apiUserVerify(verifycode, cookies.sessionToken);
-      nevigate('/login', { replace: true });
-    } catch (err: any) {
-      if (err.response.status === 401) {
-        setErrmsg('驗證碼不正確或已過期');
-        setDisplaySuccess(true);
-      } else {
-        // eslint-disable-next-line no-console
-        console.log('伺服器懶蛋');
-      }
-    }
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     if (inputRefsArray?.[0]?.current) {
       inputRefsArray?.[0]?.current?.focus();
@@ -99,7 +105,7 @@ function Verify() {
 
   return (
     <div className="verify-user__container">
-      <form className="verify-user">
+      <form className="verify-user" onSubmit={handleSubmit}>
 
         {/* update user data successfully */}
         <div className="verify-user__error-msg-section">
@@ -157,7 +163,7 @@ function Verify() {
 
         {isLoading
           ? <div className="verify-user__load-animation" />
-          : <Button type="submit" color="secondary" text="寄出" onClick={handleClick} />}
+          : <Button type="submit" color="secondary" text="寄出" />}
       </form>
     </div>
   );
