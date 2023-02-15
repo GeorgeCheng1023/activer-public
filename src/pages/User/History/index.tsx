@@ -2,10 +2,20 @@ import React from 'react';
 
 // components
 import Card from 'components/Card';
-import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
 // import { useLoaderData } from 'react-router-dom';
 
+// api
+import { getNewestActivity } from 'api/activity';
+
+// utils
+import { parseArrayTagDataToTag } from 'utils/parseTag';
+// import getCookie from 'utils/getCookies';
+
+// type
+// import { HistoryLoaderDataType, ActivityDataType } from 'types/ActivityDataType';
+
+// components
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 // import ChartArea from './components/ChartArea';
@@ -16,18 +26,18 @@ import './index.scss';
 // data
 import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
-// import { HistoryLoaderDataType } from '../../../types/ActivityDataType';
 
 export async function loader() {
-  // const newestActivityRes = await getNewestActivity(5, 1);
+  // const newestActivityRes = await getActivityHistory(getCookie('sessionToken'));
+  const newestActivityRes = await getNewestActivity(5, 1);
   return ({
-    // newestActivityResData: newestActivityRes.data,
+    newestActivityResData: newestActivityRes.data,
   });
 }
 
 function History() {
   // const loaderData = useLoaderData() as HistoryLoaderDataType;
-  // const activity = loaderData.newestActivityResData;
+  // const activities: ActivityDataType[] = loaderData.newestActivityResData;
 
   return (
     <div className="history">

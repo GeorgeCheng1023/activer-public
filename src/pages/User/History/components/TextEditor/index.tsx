@@ -141,9 +141,9 @@ function TextEditor() {
       const pdf = new JsPDF();
       pdf.setFontSize(6);
       const slateWidth = slateRef.current?.getBoundingClientRect().width;
-      const formatSlateWidth = (slateWidth || 1200) / 20;
+      const formatSlateWidth = (slateWidth || 1200) / 8;
       const slateHeight = slateRef.current?.getBoundingClientRect().height;
-      const formatslateHeight = (slateHeight || 1200) / 20;
+      const formatslateHeight = (slateHeight || 1200) / 8;
       pdf.addImage(imgData, 'JPEG', 10, 10, formatSlateWidth, formatslateHeight);
       // pdf.output('dataurlnewwindow');
       pdf.save(`${new Date().toISOString()}.pdf`);

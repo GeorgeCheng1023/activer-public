@@ -21,6 +21,7 @@ export const axiosTest = axios.create({
   baseURL: TEST_URL,
 });
 
+// POST: signin
 export const apiUserLogin = (email: string, password: string) => axiosTest.post<UserAPIType>(
   LOGIN_URL,
   JSON.stringify({ email, password }),
@@ -30,6 +31,7 @@ export const apiUserLogin = (email: string, password: string) => axiosTest.post<
   },
 );
 
+// POST: register
 export const apiUserRegister = (
   username: string,
   email: string,
@@ -46,6 +48,7 @@ export const apiUserRegister = (
   },
 );
 
+// PUT: user update data
 export const apiUserUpdate = (
   userFormData: FormData,
   accessToken: string,
@@ -60,6 +63,7 @@ export const apiUserUpdate = (
   },
 );
 
+// GET: user auth
 export const apiUserAuth = (access_token: string) => axiosTest.get<UserAPIType>(
   USER_AUTH_TOKEN_URL,
   {
@@ -69,6 +73,7 @@ export const apiUserAuth = (access_token: string) => axiosTest.get<UserAPIType>(
   },
 );
 
+// GET: verify user
 export const apiUserVerify = (
   verifycode: string,
   accessToken: string,
@@ -85,6 +90,7 @@ export const apiUserVerify = (
   },
 );
 
+// GET: resend
 export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
   USER_RESEND_VERIFY_URL,
   {
@@ -94,6 +100,7 @@ export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
   },
 );
 
+// GET: verify user before change pwd
 export const apiUserVerifyAndChangePwd = (accessToken: string) => axiosTest.get(
   USER_CHANGE_PWD,
   {
@@ -103,6 +110,7 @@ export const apiUserVerifyAndChangePwd = (accessToken: string) => axiosTest.get(
   },
 );
 
+// POST: send new pwd
 export const apiUserChangePwd = (
   newPassword: string,
   accessToken: string,
@@ -121,6 +129,7 @@ export const apiUserChangePwd = (
   },
 );
 
+// GET: verify user before reset pwd
 export const apiUserVerifyAndResetPwd = (email: string) => axiosTest.get(
   USER_RESET_PWD,
   {
@@ -133,6 +142,7 @@ export const apiUserVerifyAndResetPwd = (email: string) => axiosTest.get(
   },
 );
 
+// POST: send new pwd
 export const apiUserResetPwd = (
   newPassword: string,
   verifycode: string,
@@ -151,6 +161,7 @@ export const apiUserResetPwd = (
   },
 );
 
+// POST: send user's record
 export const apiPostUserRecord = (
   activityId: number,
   content: string,
@@ -165,6 +176,7 @@ export const apiPostUserRecord = (
   },
 );
 
+// GET: get user's record
 export const apiGetUserRecord = (
   activityId: number,
   accessToken: string,
