@@ -1,5 +1,6 @@
 import React from 'react';
 import Activity, { loader as activityLoader } from 'pages/Activity';
+import Tag, { loader as tagLoader } from 'pages/Tag';
 import Detail, { action as detailAction, loader as detailLoader } from 'pages/Detail';
 import RootErrorBoundary from 'pages/Error';
 import HomeErrorPage from 'pages/Error/HomeErrorPage';
@@ -92,6 +93,11 @@ export const routerConfig = [
         path: '/activity',
         loader: activityLoader,
         element: <Activity />,
+      },
+      {
+        path: '/tag',
+        loader: tagLoader,
+        element: <Tag />,
       },
       {
         path: '*',

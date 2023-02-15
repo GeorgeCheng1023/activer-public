@@ -21,12 +21,14 @@ function TrendTag() {
           <FaHotjar />
           熱門標籤
         </h2>
-        <Button
-          color="white"
-          type="button"
-          text={windowWidth > 768 ? '更多標籤' : '更多'}
-          iconAfter={<BsArrowRight />}
-        />
+        <Link to="/tag">
+          <Button
+            color="white"
+            type="button"
+            text={windowWidth > 768 ? '更多標籤' : '更多'}
+            iconAfter={<BsArrowRight />}
+          />
+        </Link>
 
       </div>
 
