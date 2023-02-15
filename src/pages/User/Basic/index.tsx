@@ -94,6 +94,16 @@ function Basic() {
     handleCropPanelShow();
   }, [imageSrc]);
 
+  const alertUser = () => {
+    // eslint-disable-next-line no-console
+    console.log('alert');
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('beforeunload', alertUser);
+    return () => window.removeEventListener('beforeunload', alertUser);
+  }, []);
+
   return (
     <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
       <h2>基本資料</h2>

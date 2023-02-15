@@ -157,7 +157,7 @@ function LoginSection() {
         </div>
       </Modal>
 
-      <main className="login-section">
+      <form className="login-section">
 
         <div className="login-section__err-msg-section">
           <Fade in={errMsg !== ''}>
@@ -215,7 +215,7 @@ function LoginSection() {
         <section className="login-section__btn-group">
           <Button
             color="primary"
-            type="button"
+            type="submit"
             text="登入"
             onClick={
               (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e)
@@ -231,7 +231,7 @@ function LoginSection() {
           </Link>
         </section>
 
-      </main>
+      </form>
 
       <aside className="or-aside" />
 

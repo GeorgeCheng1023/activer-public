@@ -99,7 +99,7 @@ function Verify() {
 
   return (
     <div className="verify-user__container">
-      <main className="verify-user">
+      <form className="verify-user">
 
         {/* update user data successfully */}
         <div className="verify-user__error-msg-section">
@@ -157,8 +157,8 @@ function Verify() {
 
         {isLoading
           ? <div className="verify-user__load-animation" />
-          : <Button color="secondary" text="寄出" onClick={handleClick} />}
-      </main>
+          : <Button type="submit" color="secondary" text="寄出" onClick={handleClick} />}
+      </form>
     </div>
   );
 }

@@ -138,7 +138,7 @@ function Register() {
 
   return (
     <div className="register-container">
-      <section className="register-section">
+      <form className="register-section">
 
         <div className="register-section__err-msg-section">
           <Fade in={errMsg !== ''}>
@@ -221,6 +221,7 @@ function Register() {
           ? (
             <div className="register-section__button">
               <Button
+                type="submit"
                 color="primary"
                 variant={{ outline: true }}
                 text="註冊"
@@ -229,7 +230,7 @@ function Register() {
             </div>
           )
           : <div className="register-section__load-animation" />}
-      </section>
+      </form>
     </div>
   );
 }

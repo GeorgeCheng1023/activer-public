@@ -55,7 +55,7 @@ function EmailVerify() {
 
   return (
     <div className="forgot-pwd__container">
-      <main className="forgot-pwd">
+      <form className="forgot-pwd">
 
         <div className="forgot-pwd__err-msg-section">
           <Fade in={errMsg !== ''}>
@@ -87,10 +87,10 @@ function EmailVerify() {
           ? <div className="forgot-pwd__button-load-animation" />
           : (
             <div className="forgot-pwd__submit-btn">
-              <Button text="寄出" color="secondary" onClick={handleClick} />
+              <Button type="submit" text="寄出" color="secondary" onClick={handleClick} />
             </div>
           )}
-      </main>
+      </form>
     </div>
   );
 }
