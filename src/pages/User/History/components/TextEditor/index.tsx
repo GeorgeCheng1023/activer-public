@@ -140,7 +140,6 @@ function TextEditor() {
     fetchRecord(activityId);
   }, []);
 
-  // todo: use loader
   if (loading) return <Loading />;
 
   return (

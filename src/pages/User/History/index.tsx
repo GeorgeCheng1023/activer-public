@@ -3,17 +3,17 @@ import React from 'react';
 // components
 import Card from 'components/Card';
 import { TagType } from 'components/Tag';
-// import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 
 // api
-import { getNewestActivity } from 'api/activity';
+import { getActivityHistory } from 'api/activity';
 
 // utils
 import { parseArrayTagDataToTag } from 'utils/parseTag';
-// import getCookie from 'utils/getCookies';
+import getCookie from 'utils/getCookies';
 
 // type
-// import { HistoryLoaderDataType, ActivityDataType } from 'types/ActivityDataType';
+import { HistoryLoaderDataType, ActivityDataType } from 'types/ActivityDataType';
 
 // components
 import HistoryControl from './components/HistoryControl';
@@ -24,20 +24,21 @@ import HistoryControl from './components/HistoryControl';
 import './index.scss';
 
 // data
-import dummyActivityHistory from './dummyActivityHistory.json';
+// import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
 
 export async function loader() {
-  // const newestActivityRes = await getActivityHistory(getCookie('sessionToken'));
-  const newestActivityRes = await getNewestActivity(5, 1);
+  const newestActivityRes = await getActivityHistory(getCookie('sessionToken'));
+  // test api
+  // const newestActivityRes = await getNewestActivity(5, 1);
   return ({
     newestActivityResData: newestActivityRes.data,
   });
 }
 
 function History() {
-  // const loaderData = useLoaderData() as HistoryLoaderDataType;
-  // const activities: ActivityDataType[] = loaderData.newestActivityResData;
+  const loaderData = useLoaderData() as HistoryLoaderDataType;
+  const activities: ActivityDataType[] = loaderData.newestActivityResData;
 
   return (
     <div className="history">
@@ -64,7 +65,7 @@ function History() {
       </div> */}
       <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
-        {dummyActivityHistory.map(({ activity: history }) => {
+        {activities.map((history) => {
           const parseTags: TagType[] = parseArrayTagDataToTag(history.tags || []);
 
           return (
