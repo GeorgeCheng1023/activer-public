@@ -5,19 +5,20 @@ const PORT = '5044';
 
 export const TEST_URL = `http://${IP}:${PORT}`;
 
-const USER_UPDATE_URL = '/api/user';
 // api/user/auth
-const LOGIN_URL = '/api/user/auth/signin';
-const REGISTER_URL = '/api/user/auth/signup';
-const USER_AUTH_TOKEN_URL = '/api/user/auth/token';
-const USER_VERIFY_URL = '/api/user/auth/verify/email';
-const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
-const USER_CHANGE_PWD = '/api/User/auth/changepassword';
-const USER_RESET_PWD = '/api/User/auth/resetpassword';
-const USER_RECORD = 'api/User/activity/record';
+const LOGIN_URL = '/auth/signin';
+const REGISTER_URL = '/auth/signup';
+const USER_AUTH_TOKEN_URL = '/auth/token';
+const USER_VERIFY_URL = '/auth/verify/email';
+const USER_RESEND_VERIFY_URL = '/auth/resendVerify/email';
+const USER_CHANGE_PWD = '/auth/changepassword';
+const USER_RESET_PWD = '/auth/resetpassword';
+const USER_RECORD = '/activity/record';
+const USER_ADD_COMMENT = '/comment';
+const USER_GET_ALL_COMMENT = '/comments';
 
 export const axiosTest = axios.create({
-  baseURL: TEST_URL,
+  baseURL: TEST_URL.concat('/api/user'),
 });
 
 export const apiUserLogin = ({ email, password }: userLogin) => axiosTest.post(
@@ -46,7 +47,7 @@ export const apiUserRegister = (
 );
 
 export const apiUserUpdate = (userFormData: FormData, accessToken: string) => axiosTest.put(
-  USER_UPDATE_URL,
+  '',
   userFormData,
   {
     headers: {
@@ -178,6 +179,48 @@ export const apiUserGoogleData = (access_token: string) => axios.get(
       Authorization: `Bearer ${access_token}`,
     },
   },
+);
+
+export const postComment = (
+  activityId: number,
+  comment: string | null,
+  star: number,
+  access_token: string,
+) => (
+  axiosTest.post(
+    USER_ADD_COMMENT,
+    {
+      activityId,
+      comment,
+      star,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    },
+  )
+);
+
+export const getComment = (
+  countPerSegment: number,
+  currentSegment: number,
+  activityId: number,
+  access_token: string,
+) => (
+  axiosTest.post(
+    USER_GET_ALL_COMMENT,
+    {
+      currentSegment,
+      countPerSegment,
+      activityId,
+    },
+    {
+      headers: {
+        Authrization: `Bearer ${access_token}`,
+      },
+    },
+  )
 );
 
 export default axiosTest;

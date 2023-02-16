@@ -1,10 +1,14 @@
 import React from 'react';
+import { CommentResultDataType } from 'types/ActivityDataType';
 import Star from './Star';
-
-// style
 import './index.scss';
 
-function Comment() {
+interface CommentType {
+  comment: CommentResultDataType;
+}
+
+function Comment({ comment }: CommentType) {
+  const { createAt } = comment;
   return (
     <div className="comment">
       <div className="comment__username">
@@ -25,7 +29,7 @@ function Comment() {
           <Star />
         </div>
         <div className="comment__detail__time">
-          <p>10個月前</p>
+          <p>{createAt}</p>
         </div>
 
       </div>

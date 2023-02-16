@@ -11,6 +11,7 @@ export interface PopupDisplayType {
 interface PopupType extends PopupDisplayType {
   children: React.ReactNode,
   effectCallback?: React.EffectCallback
+  portalId?: string
 }
 /**
  * @effectCallback {React.EffectCallback} execute when popup show or close
@@ -20,6 +21,7 @@ function Popup({
   onClose,
   display,
   effectCallback,
+  portalId,
 }: PopupType) {
   const handleClickBackdrop:
   React.MouseEventHandler<HTMLDivElement> = useCallback((e) => {
@@ -59,7 +61,7 @@ function Popup({
           {children}
         </div>
       </>,
-      document.getElementById('root')!,
+      document.getElementById(portalId || 'root')!,
     );
   }
   return null;

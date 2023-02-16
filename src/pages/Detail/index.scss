@@ -56,10 +56,6 @@
 
   // Main
   &__main {
-    >* {
-      @include detail-section-container;
-    }
-
     .detail__header {
       position: relative;
       display: flex;
@@ -88,6 +84,12 @@
       object-fit: contain;
       width: 100%;
       height: fit-content;
+    }
+  }
+
+  &__comment {
+    &__add {
+      font-size: 0.5em;
     }
   }
 }

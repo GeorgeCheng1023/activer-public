@@ -7,14 +7,14 @@ import './index.scss';
 
 function generateErrorMessage(errorCode: number | undefined): string {
   if (errorCode === 404) {
-    return '404: 此頁面不存在';
+    return '此頁面不存在';
   }
 
   if (errorCode === 401) {
-    return '401: 你沒有權限閱讀此頁';
+    return '你沒有權限閱讀此頁';
   }
   if (errorCode === 400) {
-    return '400: 錯誤請求';
+    return '錯誤請求';
   }
 
   if (errorCode === 503 || errorCode === 500) {
@@ -45,23 +45,25 @@ function RootErrorBoundary() {
   const [errorTitle, setErrorTitle] = useState<string>('Oops!');
   const [errorMessage, setErrorMessage] = useState<string>('似乎發生一些未預期的錯誤');
   const [errorDetail, setErrorDetail] = useState<string>();
+  const [errorCode, setErrorCode] = useState<number>();
 
   useEffect(() => {
     if (error instanceof CustomError) {
       /** Custom Error */
       setErrorTitle(error.message);
       setErrorMessage(generateErrorMessage(error.status));
+      setErrorCode(error.status);
     } else if (isRouteErrorResponse(error)) {
       /** react-router-dom: erro */
       setErrorTitle(error.statusText || error.data);
-      setErrorMessage(`${error.status}: ${generateErrorMessage(error.status)}`);
+      setErrorMessage(generateErrorMessage(error.status));
+      setErrorCode(error.status);
       setErrorDetail('React router dom error');
     } else if (error.name === 'AxiosError') {
       /** Axios Error */
       setErrorTitle(error.response?.statusText);
-      setErrorMessage(
-        `${error.response?.status} ${generateErrorMessage(error.response?.status)}`,
-      );
+      setErrorCode(error.response?.status);
+      setErrorMessage(generateErrorMessage(error.response?.status));
       setErrorDetail('Axios Error');
     }
 
@@ -79,6 +81,9 @@ function RootErrorBoundary() {
         </h1>
 
         <div className="error__message">
+          {errorCode}
+          :
+          {' '}
           {errorMessage}
         </div>
         {errorDetail

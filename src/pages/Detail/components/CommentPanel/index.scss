@@ -2,9 +2,25 @@
 @import "/src/styles/global";
 
 .comment-panel {
-  padding: 1em;
-  border-radius: 1em;
-  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $zindex-modal-backdrop;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(91 112 131 / 40%);
+
+  &__container {
+    z-index: $zindex-modal-panel;
+    width: fit-content;
+    height: fit-content;
+    padding: 1em;
+    border-radius: 5px;
+    background-color: white;
+  }
 
   &__control {
     display: flex;

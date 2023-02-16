@@ -66,4 +66,13 @@ export interface TrendTagResultDataType extends ActivityTagDataType {
   activityAmount: number;
 }
 
+export interface CommentResultDataType {
+  createAt: string;
+  id: number;
+  content: string;
+  star: number;
+  userId: number;
+  activityId: number;
+  // TODO: user and activity Type
+}
 export default ActivityDataType;

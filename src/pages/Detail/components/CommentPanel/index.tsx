@@ -1,31 +1,52 @@
 import React, { useRef } from 'react';
-// components
 import Button from 'components/Button';
-import Popup, { PopupDisplayType } from 'components/Popup';
+import {
+  useSubmit, useNavigate, useFetcher, useParams,
+  ActionFunction,
+} from 'react-router-dom';
+import { postComment } from 'api/user';
+import getCookie from 'utils/getCookies';
 import Star from '../Comment/Star';
 
-// style
 import './index.scss';
 
-interface Props extends PopupDisplayType {
-  onSubmit: (starValue: number, content: string) => void;
-}
+export const action: ActionFunction = async ({ request, params }) => {
+  const { id } = params;
+  const formData = await request.formData();
+  const comment = formData.get('comment') as string | null;
+  const star = formData.get('star') as string;
+  if (!comment && star === '0') {
+    throw new Response('請撰寫評論內容!', { status: 400 });
+  }
+  if (!id) {
+    throw new Response('請提供活動ID!', { status: 400 });
+  }
+  const res = await postComment(
+    Number(id),
+    comment,
+    Number(star),
+    getCookie('sessionToken'),
+  );
+  return res.data;
+};
 
-function CommentPanel({ onClose, display, onSubmit }: Props) {
+function CommentPanel() {
   const starRef = useRef(0);
-  const contentRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const submit = useSubmit();
+  const navigate = useNavigate();
+  const fetcher = useFetcher();
+  const { id } = useParams();
 
   // handle submit comment
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    onSubmit(starRef.current, contentRef.current.value);
-    onClose();
-  };
-
-  // handle cancel write comment
-  const handelCancel = (e: any) => {
-    e.preventDefault();
-    onClose();
+  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.set('comment', contentRef.current?.value || '');
+    formData.set('star', starRef.current.toString());
+    submit(formData, {
+      method: 'post',
+    });
   };
 
   const handleChangeRating = (newRating: number) => {
@@ -33,9 +54,22 @@ function CommentPanel({ onClose, display, onSubmit }: Props) {
   };
 
   return (
-    <Popup display={display} onClose={onClose}>
-
-      <div className="comment-panel">
+    <div
+      className="comment-panel"
+      aria-hidden
+      data-type="backdrop"
+      onClick={(event) => {
+        if ((event.target as HTMLElement).getAttribute('data-type') === 'backdrop') {
+          navigate(`/detail/${id}`);
+        }
+      }}
+    >
+      <fetcher.Form
+        onSubmit={handleSubmit}
+        action="new"
+        method="post"
+        className="comment-panel__container"
+      >
         <h2>撰寫評論 </h2>
         <Star
           onChangeRating={handleChangeRating}
@@ -50,11 +84,16 @@ function CommentPanel({ onClose, display, onSubmit }: Props) {
           ref={contentRef}
         />
         <div className="comment-panel__control">
-          <Button onClick={handleSubmit} text="張貼" />
-          <Button onClick={handelCancel} text="取消" variant={{ outline: true }} />
+          <Button text="張貼" type="submit" />
+          <Button
+            onClick={() => navigate(`/detail/${id}`)}
+            text="取消"
+            type="button"
+            variant={{ outline: true }}
+          />
         </div>
-      </div>
-    </Popup>
+      </fetcher.Form>
+    </div>
   );
 }
 
