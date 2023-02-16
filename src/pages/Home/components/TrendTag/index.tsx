@@ -8,6 +8,7 @@ import { FaHotjar } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Link, useLoaderData } from 'react-router-dom';
 import { homeLoaderType } from 'types/Loader';
+import DetailTag from 'components/Tag/DetailTag';
 import Rocket from './Rocket.png';
 
 function TrendTag() {
@@ -35,32 +36,8 @@ function TrendTag() {
       <div className="trend-tag__container">
 
         <div className="trend-tag__class__tags">
-          {loaderData.trendTagResData.searchResultData.map((tag, index) => (
-            <div
-              className="trend-tag__item"
-              key={`trend-tag-item-${tag.id}${index}`}
-            >
-              <Link
-                to={`/search?tags=${tag.text}`}
-                className="trend-tag__item__hashtag"
-              >
-                <Button
-                  color="primary"
-                  text="#"
-                  variant={{ round: true, outline: true }}
-                />
-              </Link>
-              <div className="trend-tag__item__text">
-                <Link to={`/search?tags=${tag.text}`} className="trend-tag__item__text__title">
-                  {tag.text}
-                </Link>
-                <p className="trend-tag__item__text__description">
-                  {tag.activityAmount}
-                  {' '}
-                  相關活動
-                </p>
-              </div>
-            </div>
+          {loaderData.trendTagResData.searchResultData.map((tag) => (
+            <DetailTag {...tag} />
           ))}
 
         </div>

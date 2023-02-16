@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './index.scss';
 import {
   BsArrowsMove, BsPlus,
@@ -11,7 +12,8 @@ interface TagVariantType {
   reverse?: boolean;
 }
 
-export type TagType = {
+export interface TagType extends
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   id: string;
   text: string;
   disabled?: boolean;
@@ -19,8 +21,7 @@ export type TagType = {
   type?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
   size?: 'sm' | 'lg';
-  onClick?: (clickedTag: TagType) => void;
-};
+}
 
 function TagIcon(icon: TagType['icon']) {
   switch (icon) {
@@ -45,13 +46,8 @@ const getColor = (type: TagType['type']) : string => {
 };
 
 function Tag({
-  type, text, icon, id, size, onClick, disabled, variant,
+  type, text, icon, id, size, disabled, variant,
 }: TagType) {
-  const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-    if (onClick) { onClick({ type, text, id }); }
-  };
-
   const tagClasses = classNames({
     tag: true,
     [`tag--${getColor(type)}`]: true,
@@ -68,7 +64,6 @@ function Tag({
       type="button"
       className={tagClasses}
       id={id.toString()}
-      onClick={handleClick}
       disabled={disabled}
     >
       <p className="tag__text">
@@ -85,13 +80,14 @@ function Tag({
   );
 }
 
-Tag.defaultProps = {
-  type: 'area',
-  icon: undefined,
-  size: undefined,
-  onClick: undefined,
-  disabled: false,
-  variant: undefined,
-};
+export function LinkTag({ ...props }: TagType) {
+  return (
+    <Link
+      to={`/search?tags=${props.text}`}
+    >
+      <Tag {...props} />
+    </Link>
+  );
+}
 
 export default Tag;

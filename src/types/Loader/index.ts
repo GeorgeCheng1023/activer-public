@@ -1,5 +1,5 @@
 import { SearchResponseType, ActivityResponseType } from 'types/Response';
-import ActivityDataType, { UserActivityDataType } from 'types/ActivityDataType';
+import ActivityDataType, { ActivityTagDataType, UserActivityDataType } from 'types/ActivityDataType';
 import { TrendTagResponseType } from '../Response/index';
 
 /** Router loader return type */
@@ -21,4 +21,10 @@ export interface ManageLoaderType {
 
 export interface HistoryLoaderType {
   newestActivityResData:ActivityDataType[];
+}
+
+export interface tagsLoaderType {
+  locationTags: ActivityTagDataType[],
+  areaTags: ActivityTagDataType[],
+  otherTags: ActivityTagDataType[]
 }

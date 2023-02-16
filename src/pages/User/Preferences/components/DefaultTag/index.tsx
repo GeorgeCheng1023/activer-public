@@ -49,7 +49,7 @@ function DefaultTag() {
               id={tag.id.toString()}
               type={tag.type}
               text={tag.text}
-              onClick={handleDefaultTagClick}
+              onClick={() => handleDefaultTagClick(tag)}
               icon="minus"
             />
           ))}
