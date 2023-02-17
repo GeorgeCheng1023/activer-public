@@ -27,6 +27,7 @@
     "escape-html": "^1.0.3",
     "firebase": "^9.14.0",
     "framer-motion": "^8.4.0",
+    "history": "^5.3.0",
     "html2canvas": "^1.4.1",
     "image-extensions": "^1.1.0",
     "immutability-helper": "^3.1.1",
