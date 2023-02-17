@@ -143,7 +143,7 @@ function Basic() {
             onClose={() => setDisplayCropPanel(false)}
             display={displayCropPanel}
           />
-          <img className="user-basic__portrait img" src={values?.avatar || '/user.png'} alt="user-portrait" />
+          <img className="user-basic__portrait img" src={imageSrc || '/user.png'} alt="user-portrait" />
           <div className="user-basic__portrait upload-button">
             <FormInputFile
               name="avatar"

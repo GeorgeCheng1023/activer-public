@@ -144,7 +144,6 @@ export const routerConfig = [
             path: 'record/:activityId',
             element: <Record />,
           },
-
         ],
       },
     ],

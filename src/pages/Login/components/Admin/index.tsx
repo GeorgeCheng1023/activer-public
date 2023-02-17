@@ -8,6 +8,7 @@ import {
   setBirthday, userUpdate,
 } from 'store/userAuth';
 import { useAppDispatch } from 'hooks/redux';
+import { apiGetAvatar } from '../../../../api/user';
 
 function Admin() {
   const [cookies, setCookie] = useCookies<string>(['user']);
@@ -22,14 +23,27 @@ function Admin() {
       navigate('/login');
     }
 
+    const getAvatar = async (userID: number) => {
+      try {
+        const response = await apiGetAvatar(userID);
+        return `${response.config.baseURL}${response.config.url}`;
+      } catch (err) {
+        return '/user.png';
+      }
+    };
+
     const verifyUser = async () => {
       try {
         const response = await apiUserAuth(sessionToken);
         dispatch(userUpdate(response.data.user));
 
-        const date = response.data.user.birthday.match(dateFormat);
-        if (date) dispatch(setBirthday(date[0]));
-        dispatch(setAvatar(`http://220.132.244.41:5044/api/User/avatar/${response.data.user.id}`));
+        if (response.data.user.birthday) {
+          const date = response.data.user.birthday.match(dateFormat);
+          if (date) dispatch(setBirthday(date[0]));
+        }
+        const avatar = await getAvatar(response.data.user.id);
+        console.log(avatar);
+        dispatch(setAvatar(avatar));
 
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);
@@ -42,9 +56,10 @@ function Admin() {
         setLoading(false);
       } catch (err: any) {
         if (err.status === 401) {
+          // eslint-disable-next-line no-console
           console.log('Admin page 驗證失敗');
         }
-        navigate('/', { replace: true });
+        // navigate('/', { replace: true });
         setLoading(false);
       }
     };

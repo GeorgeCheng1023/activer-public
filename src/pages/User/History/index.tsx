@@ -31,6 +31,7 @@ export async function loader() {
   const newestActivityRes = await getActivityHistory(getCookie('sessionToken'));
   // test api
   // const newestActivityRes = await getNewestActivity(5, 1);
+  console.log('0.0');
   return ({
     newestActivityResData: newestActivityRes.data,
   });

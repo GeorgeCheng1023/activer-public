@@ -112,11 +112,12 @@ const userAuthSlice = createSlice({
   },
 });
 
-export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
+export const getUserIsLoggedIn = (state: RootState): boolean => state.userAuth.IsLoggedIn;
 export const getLoadingState = (state: RootState) => state.userAuth.Loading;
-export const getUserRealname = (state: RootState) => state.userAuth.realName;
+export const getUserRealname = (state: RootState): string => state.userAuth.realName;
 export const getUserPortrait = (state: RootState): string => state.userAuth.avatar;
-export const getUserData = (state: RootState) => state.userAuth;
+export const getUserId = (state: RootState): number => state.userAuth.id;
+export const getUserData = (state: RootState): UserState => state.userAuth;
 export const getUserNickname = (state: RootState) => state.userAuth.nickName;
 
 export const {

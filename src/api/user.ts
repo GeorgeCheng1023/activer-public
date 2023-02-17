@@ -42,7 +42,6 @@ export const apiUserRegister = (
   {
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
     },
     withCredentials: false,
   },
@@ -187,6 +186,10 @@ export const apiGetUserRecord = (
       Authorization: `Bearer ${accessToken}`,
     },
   },
+);
+
+export const apiGetAvatar = (userId: number) => axiosTest.get(
+  `/api/User/avatar/${userId}`,
 );
 
 // google

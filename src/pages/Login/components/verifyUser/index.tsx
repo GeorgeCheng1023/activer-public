@@ -15,9 +15,9 @@ function Verify() {
   const WORD_REGEX = /^[A-Za-z]*$/;
 
   const nevigate = useNavigate();
-  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
-
   const [cookies] = useCookies<string>(['user']);
+
+  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errmsg, setErrmsg] = useState<string>('');
 
@@ -57,7 +57,7 @@ function Verify() {
 
     try {
       await apiUserVerify(verifycode, cookies.sessionToken);
-      nevigate('/login', { replace: true });
+      nevigate('/', { replace: true });
     } catch (err: any) {
       if (err.response.status === 401) {
         setErrmsg('驗證碼不正確或已過期');

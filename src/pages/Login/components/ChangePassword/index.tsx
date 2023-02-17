@@ -16,8 +16,8 @@ function NewPwd() {
   const [confirmNewPassword, setconfirmNewPassword] = useState<string>('');
   const [errmsg, setErrmsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const [cookies] = useCookies<string>(['user']);
   const [success, setSuccess] = useState<boolean>(false);
+  const [cookies] = useCookies<string>(['user']);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const verifycode = searchParams.get('verifycode');
