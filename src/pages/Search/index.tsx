@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import SearchPanel from 'pages/Search/components/SearchPanel';
 import { postSearchActivity } from 'api/activity';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { LoaderFunction, useLoaderData, useNavigation } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/redux';
 import { setKeyword, setResults } from 'store/searchPanel';
 import { SearchLoaderType } from 'types/Loader';
 import Loading from 'pages/Loading';
 import getCookie from 'utils/getCookies';
 import getUrlParams from 'utils/getUrlParams';
-import { CustomError } from 'pages/Error';
 import Result from './components/Result';
 import './index.scss';
 
-export const loader = async ({ request }: any) : Promise<SearchLoaderType> => {
+export const loader: LoaderFunction = async ({ request }) : Promise<SearchLoaderType> => {
   const url = request.url as string;
   const keywords = getUrlParams(url, 'keywords');
   let tags = getUrlParams(url, 'tags');
@@ -28,11 +27,11 @@ export const loader = async ({ request }: any) : Promise<SearchLoaderType> => {
       }
     );
   }
-  if (typeof keywords !== 'string') {
-    throw new CustomError('請提供正確搜尋參數', 403);
+  if (Array.isArray(keywords)) {
+    throw new Response('請提供正確搜尋參數', { status: 400 });
   }
   const res = await postSearchActivity({
-    keywords: keywords || undefined,
+    keywords: keywords || '',
     tags: tags as string[] || undefined,
     countPerSegment: 35,
     currentSegment: Number(page) || 1,

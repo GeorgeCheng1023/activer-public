@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './index.scss';
 import {
   BsArrowsMove, BsPlus,
@@ -7,6 +6,7 @@ import {
 import { BiMinus } from 'react-icons/bi';
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 interface TagVariantType {
   reverse?: boolean;
@@ -21,6 +21,7 @@ export interface TagType extends
   type?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
   size?: 'sm' | 'lg';
+  link?: boolean;
 }
 
 function TagIcon(icon: TagType['icon']) {
@@ -36,7 +37,7 @@ function TagIcon(icon: TagType['icon']) {
   }
 }
 
-const getColor = (type: TagType['type']) : string => {
+export const getColor = (type: string | undefined) :'primary' | 'secondary' | 'success' => {
   switch (type) {
     case 'area': return 'primary';
     case 'location': return 'secondary';
@@ -46,8 +47,10 @@ const getColor = (type: TagType['type']) : string => {
 };
 
 function Tag({
-  type, text, icon, id, size, disabled, variant,
+  type, text, icon, id, size, disabled, variant, link,
 }: TagType) {
+  const navigate = useNavigate();
+
   const tagClasses = classNames({
     tag: true,
     [`tag--${getColor(type)}`]: true,
@@ -63,6 +66,14 @@ function Tag({
       }}
       type="button"
       className={tagClasses}
+      onClick={() => {
+        if (link) {
+          navigate({
+            pathname: 'search',
+            search: `?tags=${text}`,
+          });
+        }
+      }}
       id={id.toString()}
       disabled={disabled}
     >
@@ -77,16 +88,6 @@ function Tag({
         </div>
       ) }
     </motion.button>
-  );
-}
-
-export function LinkTag({ ...props }: TagType) {
-  return (
-    <Link
-      to={`/search?tags=${props.text}`}
-    >
-      <Tag {...props} />
-    </Link>
   );
 }
 

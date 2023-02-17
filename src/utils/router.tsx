@@ -3,9 +3,7 @@ import Activity, { loader as activityLoader } from 'pages/Activity';
 import Tag, { loader as tagLoader } from 'pages/Tag';
 import Detail, { action as detailAction, loader as detailLoader } from 'pages/Detail';
 import RootErrorBoundary from 'pages/Error';
-import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import NotFound from 'pages/Error/NotFound';
-import SearchErrorPage from 'pages/Error/SearchErrorPage';
 import Home, { loader as homeLoader } from 'pages/Home';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
@@ -40,7 +38,6 @@ export const routerConfig = [
           {
             path: '/',
             loader: homeLoader,
-            errorElement: <HomeErrorPage />,
             element: <Home />,
           },
           {
@@ -54,7 +51,6 @@ export const routerConfig = [
           {
             path: '/search',
             loader: searchLoader,
-            errorElement: <SearchErrorPage />,
             element: <Search />,
           },
           {

@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import Button from 'components/Button';
-
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
@@ -37,7 +36,13 @@ function TrendTag() {
 
         <div className="trend-tag__class__tags">
           {loaderData.trendTagResData.searchResultData.map((tag) => (
-            <DetailTag {...tag} />
+            <DetailTag
+              id={`trend-tag-${tag.id}`}
+              text={tag.text}
+              activityAmount={tag.activityAmount}
+              tagTrend={tag.tagTrend}
+              type={tag.type}
+            />
           ))}
 
         </div>

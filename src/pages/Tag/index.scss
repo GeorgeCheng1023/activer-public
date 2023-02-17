@@ -4,6 +4,9 @@
 .tag-page {
   @include container-main;
 
+  display: flex;
+  flex-direction: column;
+
   h1,
   h2 {
     text-align: center;
@@ -21,6 +24,8 @@
     font-size: 0.8em;
 
     .tag {
+      display: inline-block;
+      flex-grow: 1;
       margin-bottom: 1em;
     }
   }

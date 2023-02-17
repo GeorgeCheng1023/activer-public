@@ -1,7 +1,7 @@
 import React from 'react';
 import { getAllTags } from 'api/tag';
 import { LoaderFunction, useLoaderData } from 'react-router-dom';
-import { LinkTag, TagType } from 'components/Tag';
+import DetailTag from 'components/Tag/DetailTag';
 import './index.scss';
 import { tagsLoaderType } from 'types/Loader';
 
@@ -26,30 +26,36 @@ function TagPage() {
       <h2>地區標籤</h2>
       <div className="tag-page__tags tag-page__location ">
         {loaderData.locationTags.map((tag) => (
-          <LinkTag
-            id={tag.id.toString()}
+          <DetailTag
+            id={`tag-${tag.id}`}
             text={tag.text}
-            type={tag.type as TagType['type']}
+            activityAmount={tag.activityAmount}
+            tagTrend={tag.tagTrend}
+            type={tag.type}
           />
         )) }
       </div>
       <h2>領域標籤</h2>
       <div className="tag-page__tags tag-page__area">
         {loaderData.areaTags.map((tag) => (
-          <LinkTag
-            id={tag.id.toString()}
+          <DetailTag
+            id={`tag-${tag.id}`}
             text={tag.text}
-            type={tag.type as TagType['type']}
+            activityAmount={tag.activityAmount}
+            tagTrend={tag.tagTrend}
+            type={tag.type}
           />
         )) }
       </div>
       <h2>其他標籤</h2>
       <div className="tag-page__tags tag-page__area">
         {loaderData.otherTags.map((tag) => (
-          <LinkTag
-            id={tag.id.toString()}
+          <DetailTag
+            id={`tag-${tag.id}`}
             text={tag.text}
-            type={tag.type as TagType['type']}
+            activityAmount={tag.activityAmount}
+            tagTrend={tag.tagTrend}
+            type={tag.type}
           />
         )) }
       </div>

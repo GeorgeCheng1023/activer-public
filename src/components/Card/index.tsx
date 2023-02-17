@@ -1,6 +1,6 @@
 // components/Card/Default
 import React from 'react';
-import { LinkTag, TagType } from 'components/Tag';
+import Tag, { TagType } from 'components/Tag';
 import './index.scss';
 
 export interface CardType {
@@ -35,12 +35,13 @@ function CardDefault({
         && (
           <div className="card__tag">
             {tags.splice(0, 3).map((tag) => (
-              <LinkTag
+              <Tag
                 key={`${id}-${tag.id}`}
                 type={tag.type}
                 text={tag.text}
                 icon={tag.icon}
                 id={`${id}-${tag.id}`}
+                link
               />
             )).slice(0, 5)}
           </div>
