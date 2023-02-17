@@ -1,5 +1,6 @@
 import React from 'react';
 import { CommentResultDataType } from 'types/ActivityDataType';
+import { formateDateSimple } from 'utils/convertDate';
 import Star from './Star';
 import './index.scss';
 
@@ -8,7 +9,7 @@ interface CommentType {
 }
 
 function Comment({ comment }: CommentType) {
-  const { createAt } = comment;
+  const { star, createdAt, content } = comment;
   return (
     <div className="comment">
       <div className="comment__username">
@@ -22,23 +23,21 @@ function Comment({ comment }: CommentType) {
         </div>
         <div className="comment__username__name">
           Doggie
+
         </div>
       </div>
       <div className="comment__detail">
         <div className="comment__detail__star">
-          <Star />
+          <Star value={star} />
         </div>
         <div className="comment__detail__time">
-          <p>{createAt}</p>
+          <p>{formateDateSimple(createdAt)}</p>
         </div>
 
       </div>
       <div className="comment__detail__content">
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore rem fugit deleniti temp
-          oribus ullam, laborum qui iusto reicien
-          dis, debitis libero ut aperiam, quam amet explicabo officiis sed quia a asperiores.
-
+          {content}
         </p>
       </div>
     </div>

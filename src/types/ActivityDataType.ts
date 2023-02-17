@@ -67,7 +67,7 @@ export interface TrendTagResultDataType extends ActivityTagDataType {
 }
 
 export interface CommentResultDataType {
-  createAt: string;
+  createdAt: string;
   id: number;
   content: string;
   star: number;

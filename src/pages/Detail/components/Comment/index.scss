@@ -4,9 +4,10 @@
 .comment {
   display: flex;
   flex-direction: column;
+  margin: 1em 0;
   padding: 1em;
-  border: 1.2px solid $secondary-font-color;
-  border-radius: 1em;
+  border-radius: 0.2em;
+  box-shadow: rgb(0 0 0 / 10%) 0 4px 12px;
 
   &__username {
     display: flex;

@@ -271,7 +271,7 @@ function Detail() {
             </Link>
           </h2>
           {data.commentData.searchResultData.map((comment) => (
-            <Comment comment={comment} />
+            <Comment comment={comment} key={`comment-${comment.id}`} />
           ))}
         </div>
 
