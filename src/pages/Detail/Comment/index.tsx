@@ -1,54 +1,71 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Button from 'components/Button';
 import {
   useSubmit, useNavigate, useFetcher, useParams,
   ActionFunction,
+  useRouteLoaderData,
+
 } from 'react-router-dom';
 import { deleteComment, postComment } from 'api/user';
 import getCookie from 'utils/getCookies';
 import ReactStars from 'react-stars';
 
 import './index.scss';
+import { DetailLoaderType } from 'types/Loader';
 
-export const action: ActionFunction = async ({ request, params }) => {
-  switch (request.method) {
-    case 'DELETE': {
-      const { id } = params;
-      if (!id) {
-        throw new Response('請提供活動ID!', { status: 400 });
-      }
-      await deleteComment(id, getCookie('sessionToken'));
-      return null;
-    }
-    default: {
-      const { id } = params;
-      const formData = await request.formData();
-      const comment = formData.get('comment') as string | null;
-      const star = formData.get('star') as string;
-      if (!comment && star === '0') {
-        throw new Response('請撰寫評論內容!', { status: 400 });
-      }
-      if (!id) {
-        throw new Response('請提供活動ID!', { status: 400 });
-      }
-      const res = await postComment(
-        Number(id),
-        comment,
-        Number(star),
-        getCookie('sessionToken'),
-      );
-      return res.data;
-    }
+export const deleteCommentAction: ActionFunction = async ({ params }) => {
+  const { commentId, id } = params;
+  if (!commentId) {
+    throw new Response('請提供活動ID!', { status: 400 });
   }
+  await deleteComment(commentId as string, getCookie('sessionToken'));
+  return new Response('', {
+    status: 302,
+    headers: {
+      Location: `/detail/${id}`,
+    },
+  });
 };
 
-function CommentPanel() {
+export const addCommentAction: ActionFunction = async ({ request, params }) => {
+  const { id } = params;
+  const formData = await request.formData();
+  const comment = formData.get('comment') as string | null;
+  const star = formData.get('star') as string;
+  if (!comment && star === '0') {
+    throw new Response('請撰寫評論內容!', { status: 400 });
+  }
+  if (!id) {
+    throw new Response('請提供活動ID!', { status: 400 });
+  }
+  await postComment(
+    Number(id),
+    comment,
+    Number(star),
+    getCookie('sessionToken'),
+  );
+  return new Response('', {
+    status: 302,
+    headers: {
+      Location: `/detail/${id}`,
+    },
+  });
+};
+
+function Comment() {
   const starRef = useRef(0);
-  const contentRef = useRef<HTMLTextAreaElement>(null);
   const submit = useSubmit();
+  const detailLoaderData = useRouteLoaderData('detail') as DetailLoaderType;
+  const contentRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
   const fetcher = useFetcher();
-  const { id } = useParams();
+  const { id: activityId } = useParams();
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.value = detailLoaderData.userCommentData?.content || '';
+    }
+  }, []);
 
   // handle submit comment
   const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
@@ -58,6 +75,7 @@ function CommentPanel() {
     formData.set('star', starRef.current.toString());
     submit(formData, {
       method: 'post',
+      action: `/detail/${activityId}/comment/new`,
     });
   };
 
@@ -72,7 +90,7 @@ function CommentPanel() {
       data-type="backdrop"
       onClick={(event) => {
         if ((event.target as HTMLElement).getAttribute('data-type') === 'backdrop') {
-          navigate(`/detail/${id}`);
+          navigate(`/detail/${activityId}`);
         }
       }}
     >
@@ -87,6 +105,9 @@ function CommentPanel() {
           onChange={handleChangeRating}
           edit
           size={35}
+          value={detailLoaderData.userCommentData
+            ? detailLoaderData.userCommentData.star
+            : 0}
         />
         <textarea
           className="comment-panel__content"
@@ -98,7 +119,7 @@ function CommentPanel() {
         <div className="comment-panel__control">
           <Button text="張貼" type="submit" />
           <Button
-            onClick={() => navigate(`/detail/${id}`)}
+            onClick={() => navigate(`/detail/${activityId}`)}
             text="取消"
             type="button"
             variant={{ outline: true }}
@@ -109,4 +130,4 @@ function CommentPanel() {
   );
 }
 
-export default CommentPanel;
+export default Comment;

@@ -218,7 +218,7 @@ export const getComment = (
     },
     {
       headers: {
-        Authrization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     },
   )
@@ -233,7 +233,7 @@ export const deleteComment = (
     {
 
       headers: {
-        Authrization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     },
 
@@ -253,7 +253,7 @@ export const getTagVote = (
         tagId,
       },
       headers: {
-        Authrization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     },
   )

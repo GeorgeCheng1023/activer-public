@@ -43,7 +43,7 @@ function FormDropDown({
         name={name}
         className="dropdown__select"
         onChange={handleChange}
-        value={value}
+        value={value || undefined}
       >
         {options.map((option: string, index: number) => (
           <option

@@ -4,20 +4,23 @@ import { formateDateSimple } from 'utils/convertDate';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiOutlineEdit } from 'react-icons/ai';
 import Button from 'components/Button';
-import { useAppSelector } from 'hooks/redux';
-import { getUserId } from 'store/userAuth';
-import { Form } from 'react-router-dom';
+import { TEST_URL } from 'api/user';
+import {
+  Form, useNavigate,
+} from 'react-router-dom';
 import ReactStars from 'react-stars';
 import './index.scss';
 
 interface CommentType {
   comment: CommentResultDataType;
+  controllable?: boolean;
 }
 
-function CommentItem({ comment }: CommentType) {
-  const selectUserId = useAppSelector(getUserId);
+function CommentItem({ comment, controllable }: CommentType) {
+  const navigate = useNavigate();
+
   const {
-    id, star, createdAt, content, userId, username, userAvatar,
+    id, star, createdAt, content, username, userAvatar,
   } = comment;
   return (
     <div className="comment-item">
@@ -27,8 +30,8 @@ function CommentItem({ comment }: CommentType) {
         >
           <img
             className="comment-item__portrait"
-            src={userAvatar}
-            alt="test"
+            src={userAvatar ? `${TEST_URL}${userAvatar}` : '/public/user.png'}
+            alt={username}
           />
 
           <div className="comment-item__title">
@@ -37,7 +40,7 @@ function CommentItem({ comment }: CommentType) {
             </span>
             <div className="comment-item__description">
               <div className="comment-item__description__star">
-                <ReactStars edit={false} value={star / 10} />
+                <ReactStars edit={false} value={star} />
               </div>
               <span className="comment-item__description__time">
                 {formateDateSimple(createdAt)}
@@ -46,23 +49,44 @@ function CommentItem({ comment }: CommentType) {
           </div>
 
         </div>
-        {userId === selectUserId
-          && (
-            <div className="comment-item__control">
-              <Form method="delete" action={`/detail/${id}/comment`}>
-                <Button
-                  color="white"
-                  variant={{ round: true }}
-                  iconBefore={<RiDeleteBin6Line />}
-                />
-              </Form>
+        { controllable && (
+
+          <div className="comment-item__control">
+            {/* Delete Button */}
+            <Form
+              method="delete"
+              action={`comment/delete/${id}`}
+              onSubmit={(event) => {
+                if (
+                  // eslint-disable-next-line
+                  !confirm(
+                    '確認刪除?',
+                  )
+                  // TODO: custom confirm
+                ) {
+                  event.preventDefault();
+                }
+              }}
+            >
               <Button
                 color="white"
                 variant={{ round: true }}
-                iconBefore={<AiOutlineEdit />}
+                iconBefore={<RiDeleteBin6Line />}
               />
-            </div>
-          ) }
+            </Form>
+
+            {/* Edit Button */}
+
+            <Button
+              color="white"
+              variant={{ round: true }}
+              iconBefore={<AiOutlineEdit />}
+              type="button"
+              onClick={() => navigate('comment')}
+            />
+
+          </div>
+        ) }
       </div>
 
       <p className="comment-item__content">

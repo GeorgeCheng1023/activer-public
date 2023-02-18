@@ -56,7 +56,7 @@ function Activity() {
       <div className="activity__items">
         {
           loaderData.searchResultData.map((activity) => (
-            <MainCard activity={activity} />
+            <MainCard activity={activity} key={`activity-${activity.id}`} />
           ))
         }
       </div>

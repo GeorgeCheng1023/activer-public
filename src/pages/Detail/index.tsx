@@ -258,20 +258,22 @@ function Detail() {
           <h2 className="detail__header">
             <FcGraduationCap />
             評論
-            <Link to={`/detail/${activityId}/comment`}>
-              <Button
-                className="detail__comment__add"
-                type="button"
-                color="primary"
-                iconBefore={<BsPlus />}
-                text="建立"
-
-              />
-            </Link>
+            {!loaderData.userCommentData
+            && (
+              <Link to={`/detail/${activityId}/comment`}>
+                <Button
+                  className="detail__comment__add"
+                  type="button"
+                  color="primary"
+                  iconBefore={<BsPlus />}
+                  text="建立"
+                />
+              </Link>
+            )}
           </h2>
           {loaderData.userCommentData
             && (
-              <CommentItem comment={loaderData.userCommentData} />
+              <CommentItem comment={loaderData.userCommentData} controllable />
             )}
           {loaderData.commentData.searchResultData.map((comment) => (
             <CommentItem

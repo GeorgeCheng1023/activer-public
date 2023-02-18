@@ -30,7 +30,10 @@ function TrendActivity() {
       <div className="home__card-container">
         {loaderData.trendActivityResData.searchResultData
           .map((activity) => (
-            <MainCard activity={activity} />
+            <MainCard
+              activity={activity}
+              key={`trend-activity-${activity.id}`}
+            />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 

@@ -5,7 +5,7 @@ import Detail, { action as detailAction, loader as detailLoader } from 'pages/De
 import RootErrorBoundary from 'pages/Error';
 import NotFound from 'pages/Error/NotFound';
 import Home, { loader as homeLoader } from 'pages/Home';
-import Comment, { action as commentAction } from 'pages/Detail/Comment';
+import Comment, { addCommentAction, deleteCommentAction } from 'pages/Detail/Comment';
 import Vote, { action as voteAction } from 'pages/Detail/Vote';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
@@ -24,7 +24,7 @@ import User, {
 import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
 import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
-import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
+import { action as manageAction, loader as manageLoader } from 'pages/User/Manage';
 
 import EmailVerify from '../pages/Login/components/EmailVerify/index';
 
@@ -56,16 +56,27 @@ export const routerConfig = [
             element: <Search />,
           },
           {
-            path: '/detail/:id?',
+            path: '/detail/:id',
             id: 'detail',
-            loader: detailLoader,
             action: detailAction,
+            loader: detailLoader,
             element: <Detail />,
             children: [
               {
                 path: 'comment',
-                action: commentAction,
                 element: <Comment />,
+                children: [
+                  {
+                    path: 'delete/:commentId',
+                    action: deleteCommentAction,
+                    element: null,
+                  },
+                  {
+                    path: 'new',
+                    action: addCommentAction,
+                    element: null,
+                  },
+                ],
               },
               {
                 path: 'vote',
@@ -139,7 +150,7 @@ export const routerConfig = [
           {
             path: 'manage/:filter?',
             loader: manageLoader,
-            shouldRevalidate: manageRevalideter,
+            // shouldRevalidate: manageRevalideter,
             action: manageAction,
             id: 'manage',
             element: <Manage />,
