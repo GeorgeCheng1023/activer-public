@@ -16,20 +16,29 @@ export const loader: LoaderFunction = async ({ request }) : Promise<SearchLoader
   const keywords = getUrlParams(url, 'keywords');
   let tags = getUrlParams(url, 'tags');
   const page = getUrlParams(url, 'page');
+
+  // if only one tags set type to string[]
   if (typeof tags === 'string') {
     tags = [tags];
   }
+
+  // prevent empty search
   if (!keywords && !tags) {
     return (
       {
         data: null,
         keywords: null,
+        tags: null,
       }
     );
   }
+
+  // if keywords is dulplicate, response error
   if (Array.isArray(keywords)) {
     throw new Response('請提供正確搜尋參數', { status: 400 });
   }
+
+  // POST: search
   const res = await postSearchActivity({
     keywords: keywords || '',
     tags: tags as string[] || undefined,
@@ -37,9 +46,11 @@ export const loader: LoaderFunction = async ({ request }) : Promise<SearchLoader
     currentSegment: Number(page) || 1,
     accessToken: getCookie('sessionToken'),
   });
+
   return ({
     data: res.data,
     keywords,
+    tags,
   });
 };
 
@@ -53,6 +64,7 @@ function Search() {
       'keywords',
     );
 
+  // set result
   useEffect(() => {
     if (loaderData.data) {
       dispatch(
@@ -60,6 +72,7 @@ function Search() {
       );
     }
   }, [loaderData]);
+  // set keyword and tags
   useEffect(() => {
     dispatch(setKeyword(loaderData.keywords || ''));
   }, []);

@@ -7,6 +7,7 @@ import { CommentResponseType, TrendTagResponseType } from '../Response/index';
 export interface SearchLoaderType {
   data: SearchResponseType | null;
   keywords: string | null;
+  tags: string[] | null;
 }
 export interface homeLoaderType {
   trendActivityResData:ActivityResponseType;
