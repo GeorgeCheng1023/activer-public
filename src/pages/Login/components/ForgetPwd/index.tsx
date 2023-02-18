@@ -126,7 +126,7 @@ function ForgetPwd() {
             ? <div className="new-pwd__button-load-animation" />
             : (
               <div className="new-pwd__submit-btn">
-                <Button color="secondary" text="修改" disabled={!submitGate()} />
+                <Button type="submit" color="secondary" text="修改" disabled={!submitGate()} />
               </div>
             )}
         </form>

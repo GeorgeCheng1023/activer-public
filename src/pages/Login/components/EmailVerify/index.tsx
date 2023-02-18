@@ -42,7 +42,7 @@ function EmailVerify() {
         } else if (err.response.status === 404) {
           setErrmsg('此電子信箱尚未註冊');
         } else {
-          setErrmsg('速福氣懶蛋');
+          setErrmsg('伺服器懶蛋');
           // eslint-disable-next-line no-console
           console.log(err);
         }
@@ -55,7 +55,7 @@ function EmailVerify() {
 
   return (
     <div className="forgot-pwd__container">
-      <main className="forgot-pwd">
+      <form className="forgot-pwd">
 
         <div className="forgot-pwd__err-msg-section">
           <Fade in={errMsg !== ''}>
@@ -87,10 +87,10 @@ function EmailVerify() {
           ? <div className="forgot-pwd__button-load-animation" />
           : (
             <div className="forgot-pwd__submit-btn">
-              <Button text="寄出" color="secondary" onClick={handleClick} />
+              <Button type="submit" text="寄出" color="secondary" onClick={handleClick} />
             </div>
           )}
-      </main>
+      </form>
     </div>
   );
 }

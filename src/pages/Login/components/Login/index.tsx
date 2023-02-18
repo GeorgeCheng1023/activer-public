@@ -10,11 +10,15 @@ import {
   getUserData, setEmail, userLogin,
 } from 'store/userAuth';
 
+// Type
+import { UserDataType } from 'types/UserType';
+
 // Components
 import FAQTag from 'components/FAQ-Tag';
 import { apiUserLogin, apiUserResendVerify } from 'api/user';
 import { useAppSelector } from 'hooks/redux';
 import { Alert, Fade } from '@mui/material';
+import scrollToTop from 'utils/scrollToTop';
 import Button from '../../../../components/Button';
 import GoogleLoginButton from '../GoogleLogin';
 import { useAppDispatch } from '../../../../hooks/redux/index';
@@ -28,7 +32,7 @@ const EMAIL_REGEX_STR = '([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})';
 
 function LoginSection() {
   const dispatch = useAppDispatch();
-  const userData: any = useAppSelector(getUserData);
+  const userData: UserDataType = useAppSelector(getUserData);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,14 +58,6 @@ function LoginSection() {
     setErrMsg('');
   };
 
-  function scrollToTop() {
-    const c = document.documentElement.scrollTop || document.body.scrollTop;
-    if (c > 0) {
-      window.requestAnimationFrame(scrollToTop);
-      window.scrollTo(0, c - c / 8);
-    }
-  }
-
   useEffect(() => {
     scrollToTop();
     userRef.current?.focus();
@@ -82,10 +78,10 @@ function LoginSection() {
     }
 
     try {
-      const response: any = await apiUserLogin({ email: user, password: pwd });
+      const response = await apiUserLogin(user, pwd);
 
       const expiresDate = new Date();
-      expiresDate.setDate(expiresDate.getMinutes + response.data.token.expireIn);
+      expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);
 
       setCookie('sessionToken', response.data.token.accessToken, {
         expires: expiresDate,
@@ -127,8 +123,10 @@ function LoginSection() {
 
     try {
       const response = await apiUserResendVerify(cookies.sessionToken);
+      // eslint-disable-next-line no-console
       console.log(response);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
 
@@ -159,7 +157,7 @@ function LoginSection() {
         </div>
       </Modal>
 
-      <main className="login-section">
+      <form className="login-section">
 
         <div className="login-section__err-msg-section">
           <Fade in={errMsg !== ''}>
@@ -217,7 +215,7 @@ function LoginSection() {
         <section className="login-section__btn-group">
           <Button
             color="primary"
-            type="button"
+            type="submit"
             text="登入"
             onClick={
               (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e)
@@ -233,7 +231,7 @@ function LoginSection() {
           </Link>
         </section>
 
-      </main>
+      </form>
 
       <aside className="or-aside" />
 

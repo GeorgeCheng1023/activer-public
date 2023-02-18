@@ -13,7 +13,7 @@ function EmailLoading() {
 
   const handleResent = async () => {
     setLoading(true);
-    if (userData.isLoggedIn) {
+    if (userData.IsLoggedIn) {
       await apiUserVerifyAndChangePwd(cookies.sessionToken);
     } else {
       await apiUserVerifyAndResetPwd(userData.email);

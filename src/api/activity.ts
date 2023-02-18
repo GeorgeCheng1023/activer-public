@@ -156,4 +156,15 @@ export const deleteSearchHistory = (
   )
 );
 
+// GET: get activity history
+export const getActivityHistory = (
+  accessToken: string,
+) => (
+  activityRequest.get<ActivityDataType>('/history', {
+    headers: {
+      'Content-Type': 'text/plain',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  }));
+
 export default activityRequest;

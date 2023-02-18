@@ -2,11 +2,20 @@ import React from 'react';
 
 // components
 import Card from 'components/Card';
-import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { TagType } from 'components/Tag';
-import { getNewestActivity } from 'api/activity';
+import { useLoaderData } from 'react-router-dom';
+
+// api
+import { getActivityHistory } from 'api/activity';
+
+// utils
+import { parseArrayTagDataToTag } from 'utils/parseTag';
+import getCookie from 'utils/getCookies';
+
+// type
+import { ActivityDataType } from 'types/ActivityDataType';
 import { HistoryLoaderType } from 'types/Loader';
-import { LoaderFunction, useLoaderData } from 'react-router-dom';
+// components
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
 // import ChartArea from './components/ChartArea';
@@ -18,16 +27,19 @@ import './index.scss';
 // import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
 
-export const loader: LoaderFunction = async () => {
-  const newestActivityRes = await getNewestActivity(5, 1);
+export async function loader() {
+  const newestActivityRes = await getActivityHistory(getCookie('sessionToken'));
+  // test api
+  // const newestActivityRes = await getNewestActivity(5, 1);
+  console.log('0.0');
   return ({
     newestActivityResData: newestActivityRes.data,
   });
-};
+}
 
 function History() {
-  const louderData = useLoaderData() as HistoryLoaderType;
-  const activity = louderData.newestActivityResData;
+  const loaderData = useLoaderData() as HistoryLoaderType;
+  const activities: ActivityDataType[] = loaderData.newestActivityResData;
 
   return (
     <div className="history">
@@ -54,7 +66,7 @@ function History() {
       </div> */}
       <h2 className="history__h2">活動歷程</h2>
       <div className="history__activity">
-        {activity.map((history) => {
+        {activities.map((history) => {
           const parseTags: TagType[] = parseArrayTagDataToTag(history.tags || []);
 
           return (

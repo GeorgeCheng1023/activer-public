@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import useOutsideClick from 'hooks/event/useOutsideClick';
 // redux
-import { getUserIsLoggedIn, userLogout, getUserPortrait } from 'store/userAuth';
+import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
 import Button from 'components/Button';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 // components
@@ -24,7 +24,7 @@ function LoginLogoutButton() {
   const restrictedPage = ['/email/verify', '/email/loading', '/register', '/login'];
 
   const userIsLoggined = useAppSelector(getUserIsLoggedIn);
-  const userPortrait = useAppSelector(getUserPortrait);
+  // const userPortrait = useAppSelector(getUserPortrait);
   const windowWidth = useWindowWidth();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -72,9 +72,10 @@ function LoginLogoutButton() {
         ref={dropdownRef}
       >
         <Button
-          iconAfter={userPortrait ? (
-            <img src={userPortrait} alt="user-portrait" />)
-            : <HiUser />}
+          // iconAfter={userPortrait ? (
+          //   <img src={userPortrait} alt="user-portrait" />)
+          //   : <HiUser />}
+          iconAfter={<HiUser />}
           onClick={() => {
             if (windowWidth <= 768) {
               setDisplayUserAuthDroppdown(true);

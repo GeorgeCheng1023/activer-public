@@ -4,7 +4,7 @@ import './index.scss';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export interface PopupDisplayType {
-  display: boolean,
+  display: boolean | (() => void),
   onClose: () => void,
 }
 
@@ -23,8 +23,7 @@ function Popup({
   effectCallback,
   portalId,
 }: PopupType) {
-  const handleClickBackdrop:
-  React.MouseEventHandler<HTMLDivElement> = useCallback((e) => {
+  const handleClickBackdrop: React.MouseEventHandler<HTMLDivElement> = useCallback((e) => {
     e.preventDefault();
     onClose();
   }, []);

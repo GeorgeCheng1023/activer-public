@@ -12,6 +12,7 @@ import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
 import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
+
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 import Register from 'pages/Login/components/Register';
@@ -171,7 +172,6 @@ export const routerConfig = [
             path: 'record/:activityId',
             element: <Record />,
           },
-
         ],
       },
     ],

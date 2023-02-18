@@ -15,7 +15,13 @@ const PWD_REGEX_STR = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$';
 function Account() {
   const nevigate = useNavigate();
   const userData = useAppSelector(getUserData);
-  const [accountValue, setAccountValue] = useState(userData);
+
+  const initAccountType = {
+    account: userData.email,
+    password: '',
+  };
+
+  const [accountValue, setAccountValue] = useState(initAccountType);
   const [cookies] = useCookies<string>(['user']);
   const [errMsg, setErrMsg] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,7 +36,7 @@ function Account() {
 
     setLoading(true);
     try {
-      await apiUserLogin({ email: userData.email, password: accountValue.password });
+      await apiUserLogin(userData.email, accountValue.password);
       const response = await apiUserVerifyAndChangePwd(cookies.sessionToken);
       console.log(response);
       nevigate('/email/loading');

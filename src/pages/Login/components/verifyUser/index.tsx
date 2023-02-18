@@ -6,21 +6,20 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import Button from 'components/Button';
-import { apiUserVerify, apiUserLogin } from 'api/user';
+import { apiUserVerify } from 'api/user';
 import { useCookies } from 'react-cookie';
-import { useAppSelector } from 'hooks/redux';
-import { getUserData, userLogin } from 'store/userAuth';
-import { useAppDispatch } from '../../../../hooks/redux/index';
+import { Alert, Fade } from '@mui/material';
 
 function Verify() {
   const KEY_CHECK_REGEX = /^[A-Za-z0-9]*$/;
   const WORD_REGEX = /^[A-Za-z]*$/;
 
   const nevigate = useNavigate();
-  const userData = useAppSelector(getUserData);
-  const dispatch = useAppDispatch();
-
   const [cookies] = useCookies<string>(['user']);
+
+  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errmsg, setErrmsg] = useState<string>('');
 
   const verifyCodeRef = useRef<HTMLInputElement>(null);
 
@@ -35,18 +34,53 @@ function Verify() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [letters, setLetters] = useState(() => Array.from({ length: numerOfInputs }, () => ''));
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errmsg, setErrmsg] = useState<string>('');
-
   function onlyLettersAndNumbers(key: string) {
     return KEY_CHECK_REGEX.test(key);
   }
 
+  const handleBack = () => {
+    nevigate(-1);
+  };
+
+  const handleClear = () => {
+    setLetters(() => Array.from({ length: numerOfInputs }, () => ''));
+    inputRefsArray?.[0]?.current?.focus();
+    inputRefsArray?.[0]?.current?.select();
+    setCurrentIndex(0);
+  };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    let verifycode = '';
+    letters.forEach((code) => { verifycode = verifycode.concat(code); });
+
+    try {
+      await apiUserVerify(verifycode, cookies.sessionToken);
+      nevigate('/', { replace: true });
+    } catch (err: any) {
+      if (err.response.status === 401) {
+        setErrmsg('驗證碼不正確或已過期');
+        setDisplaySuccess(true);
+        setIsLoading(false);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('伺服器懶蛋');
+        // setErrmsg('伺服器懶蛋');
+        setErrmsg('驗證碼不正確或已過期');
+        setDisplaySuccess(true);
+        setIsLoading(false);
+      }
+    }
+  };
+
   const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') return;
     if (!onlyLettersAndNumbers(e.key) || e.key === 'Backspace') {
       return currentIndex;
     }
 
+    setDisplaySuccess(false);
     setErrmsg('');
 
     setCurrentIndex((prevIndex) => {
@@ -56,32 +90,6 @@ function Verify() {
       nextInput.select();
       return nextIndex;
     });
-  };
-
-  const handleBack = () => {
-    nevigate(-1);
-  };
-
-  const handleClick = async () => {
-    setIsLoading(true);
-    let verifycode = '';
-    letters.forEach((code) => { verifycode = verifycode.concat(code); });
-
-    try {
-      await apiUserVerify(verifycode, cookies.sessionToken);
-      const { email, password } = userData;
-      const response = await apiUserLogin({ email, password });
-      dispatch(userLogin(response.data.user));
-      nevigate('/', { replace: true });
-    } catch (err: any) {
-      if (err.response.status === 401) {
-        console.log('驗證碼不正確或已過期');
-        setErrmsg('驗證碼不正確或已過期');
-      } else {
-        console.log('伺服器懶蛋');
-      }
-    }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -97,8 +105,15 @@ function Verify() {
 
   return (
     <div className="verify-user__container">
-      <main className="verify-user">
-        <div className="verify-user__errmsg">{errmsg}</div>
+      <form className="verify-user" onSubmit={handleSubmit}>
+
+        {/* update user data successfully */}
+        <div className="verify-user__error-msg-section">
+          <Fade in={displaySuccess}>
+            <Alert severity="error"><p className="verify-user__errmsg">{errmsg}</p></Alert>
+          </Fade>
+        </div>
+
         <h1 className="verify-user__title">輸入驗證碼</h1>
 
         <section className="verify-user__section">
@@ -141,12 +156,15 @@ function Verify() {
           <button className="verify-user__resend__btn" type="button" onClick={handleBack}>
             重新驗證
           </button>
+          <button className="verify-user__resend__btn" type="button" onClick={handleClear}>
+            全部清除
+          </button>
         </section>
 
         {isLoading
           ? <div className="verify-user__load-animation" />
-          : <Button color="secondary" text="寄出" onClick={handleClick} />}
-      </main>
+          : <Button type="submit" color="secondary" text="寄出" />}
+      </form>
     </div>
   );
 }
