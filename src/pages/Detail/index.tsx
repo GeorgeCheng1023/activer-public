@@ -26,7 +26,6 @@ import {
   DetailProperties,
 } from './components';
 
-import VotePanel from './components/VotePanel';
 import './index.scss';
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -67,7 +66,6 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function Detail() {
-  const [displayVotePanel, setDisplayVotePanel] = useState(false);
   const data = useLoaderData() as DetailLoaderType;
   const [currentBranch, setCurrentBranch] = useState<BranchDataType>(data.activityData.branches[0]);
   const navigate = useNavigate();
@@ -80,12 +78,6 @@ function Detail() {
     );
   };
 
-  // show vote tag panel
-  const handleShowVotePanel:
-  React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-    setDisplayVotePanel(true);
-  };
   // destructing data
   const {
     id: activityId,
@@ -144,16 +136,11 @@ function Detail() {
           {/* Add Tag Button */}
           <Button
             text="新增標籤"
-            onClick={handleShowVotePanel}
+            onClick={() => navigate(`/detail/${activityId}/vote`, {
+              replace: true,
+            })}
             color="dark"
             iconAfter={<BsPlus />}
-          />
-
-          {/* Tag Vote Panel */}
-          <VotePanel
-            display={displayVotePanel}
-            onClose={() => setDisplayVotePanel(false)}
-            tags={tags}
           />
 
         </div>

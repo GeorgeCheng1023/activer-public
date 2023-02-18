@@ -6,6 +6,7 @@ import RootErrorBoundary from 'pages/Error';
 import NotFound from 'pages/Error/NotFound';
 import Home, { loader as homeLoader } from 'pages/Home';
 import Comment, { action as commentAction } from 'pages/Detail/Comment';
+import Vote, { action as voteAction } from 'pages/Detail/Vote';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
@@ -56,6 +57,7 @@ export const routerConfig = [
           },
           {
             path: '/detail/:id?',
+            id: 'detail',
             loader: detailLoader,
             action: detailAction,
             element: <Detail />,
@@ -64,6 +66,11 @@ export const routerConfig = [
                 path: 'comment',
                 action: commentAction,
                 element: <Comment />,
+              },
+              {
+                path: 'vote',
+                action: voteAction,
+                element: <Vote />,
               },
             ],
           },

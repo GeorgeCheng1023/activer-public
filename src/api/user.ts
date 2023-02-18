@@ -239,4 +239,23 @@ export const deleteComment = (
   )
 );
 
+export const getTagVote = (
+  activityId: number,
+  tagId: number,
+  access_token: string,
+) => (
+  axiosTest.get(
+    'tagVote',
+    {
+      params: {
+        activityId,
+        tagId,
+      },
+      headers: {
+        Authrization: `Bearer ${access_token}`,
+      },
+    },
+  )
+);
+
 export default axiosTest;

@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import Popup, { PopupDisplayType } from 'components/Popup';
 import FormSearchTag from 'components/Form/FormSearchTag';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import './index.scss';
 import { ActivityTagDataType } from 'types/ActivityDataType';
+import { ActionFunction, useRouteLoaderData } from 'react-router-dom';
+import { DetailLoaderType } from 'types/Loader';
+import Popup from './Popup';
+import './index.scss';
 
-interface Props extends PopupDisplayType {
-  tags: ActivityTagDataType[] | null;
-}
+export const action : ActionFunction = () => null;
 
-function VotePanel({ display, onClose, tags = [] }: Props) {
-  const [votedTags, setVotedTags] = useState<ActivityTagDataType[] | null>(tags);
-
-  const effectCallback = () => {
-    setVotedTags(tags);
-  };
+function Vote() {
+  const detailLoaderData = useRouteLoaderData('detail') as DetailLoaderType;
+  const { id, tags } = detailLoaderData.activityData;
+  const [votedTags, setVotedTags] = useState<ActivityTagDataType[] | null>(
+    tags,
+  );
 
   const handleVotedButtonClick = (clickedTag: ActivityTagDataType) => {
     if (votedTags) {
@@ -88,11 +88,9 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
 
   return (
     <Popup
-      display={display}
-      onClose={onClose}
-      effectCallback={effectCallback}
+      backLink={`/detail/${id}`}
     >
-      <div className="vote-panel">
+      <div className="vote">
         <FormSearchTag
           placeholder="搜尋標籤"
           onSuggestionClick={handleSuggestionClick}
@@ -101,10 +99,10 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
         {votedTags && votedTags.map((tag: ActivityTagDataType) => {
           const variant = tag.type as TagType['type'];
           return (
-            <div className="vote-panel__item" key={`vote-pael-item-${tag.id.toString()}`}>
+            <div className="vote__item" key={`vote-pael-item-${tag.id.toString()}`}>
               <Tag
-                id={`vote-tag-${tag.id.toString()}`}
-                key={`vote-tag-${tag.id.toString()}`}
+                id={`vote__tag-${tag.id.toString()}`}
+                key={`vote__tag-${tag.id.toString()}`}
                 text={tag.text}
                 type={variant}
               />
@@ -113,7 +111,7 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
                 {tag.tagVotedCount}
               </p>
               <Button
-                key={`vote-btn-${tag.id.toString()}`}
+                key={`vote__btn-${tag.id.toString()}`}
                 iconAfter={tag.userVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
                 color="dark"
                 variant={{ outline: !tag.userVoted }}
@@ -127,4 +125,4 @@ function VotePanel({ display, onClose, tags = [] }: Props) {
   );
 }
 
-export default VotePanel;
+export default Vote;
