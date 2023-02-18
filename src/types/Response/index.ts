@@ -38,5 +38,6 @@ export interface TrendTagResponseType extends SegmentResponseType {
 export interface CommentResponseType extends
   SegmentResponseType {
   searchResultData: CommentResultDataType[]
+  userComment:CommentResultDataType | null;
   acitivityId: number;
 }

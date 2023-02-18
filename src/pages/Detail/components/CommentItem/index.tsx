@@ -17,7 +17,7 @@ interface CommentType {
 function CommentItem({ comment }: CommentType) {
   const selectUserId = useAppSelector(getUserId);
   const {
-    id, star, createdAt, content, userId,
+    id, star, createdAt, content, userId, username, userAvatar,
   } = comment;
   return (
     <div className="comment-item">
@@ -27,13 +27,13 @@ function CommentItem({ comment }: CommentType) {
         >
           <img
             className="comment-item__portrait"
-            src="https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
+            src={userAvatar}
             alt="test"
           />
 
           <div className="comment-item__title">
             <span className="comment-item__name">
-              Doggie
+              {username}
             </span>
             <div className="comment-item__description">
               <div className="comment-item__description__star">

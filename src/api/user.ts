@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { CommentResponseType } from '../types/Response/index';
 
 const IP = '220.132.244.41';
 const PORT = '5044';
@@ -208,7 +209,7 @@ export const getComment = (
   activityId: number,
   access_token: string,
 ) => (
-  axiosTest.post(
+  axiosTest.post<CommentResponseType>(
     USER_GET_ALL_COMMENT,
     {
       currentSegment,

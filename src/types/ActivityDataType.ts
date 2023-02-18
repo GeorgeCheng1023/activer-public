@@ -72,7 +72,7 @@ export interface CommentResultDataType {
   content: string;
   star: number;
   userId: number;
-  activityId: number;
-  // TODO: user and activity Type
+  username: string;
+  userAvatar:string;
 }
 export default ActivityDataType;

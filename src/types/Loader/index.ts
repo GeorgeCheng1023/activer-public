@@ -1,5 +1,5 @@
 import { SearchResponseType, ActivityResponseType } from 'types/Response';
-import ActivityDataType, { UserActivityDataType } from 'types/ActivityDataType';
+import ActivityDataType, { UserActivityDataType, CommentResultDataType } from 'types/ActivityDataType';
 import { TrendTagResultDataType } from '../ActivityDataType';
 import { CommentResponseType, TrendTagResponseType } from '../Response/index';
 
@@ -23,7 +23,8 @@ export interface ManageLoaderType {
 
 export interface DetailLoaderType {
   activityData: ActivityDataType,
-  commentData : CommentResponseType
+  commentData : CommentResponseType,
+  userCommentData: CommentResultDataType | null,
 }
 
 export interface HistoryLoaderType {

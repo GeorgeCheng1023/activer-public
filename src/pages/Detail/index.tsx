@@ -10,7 +10,6 @@ import { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
 import Button from 'components/Button';
 import ManageNav from 'components/ManageNav';
 import Tag, { TagType } from 'components/Tag';
-import { throwError } from 'pages/Error';
 import Loading from 'pages/Loading';
 import { BsPlus } from 'react-icons/bs';
 import {
@@ -28,17 +27,20 @@ import {
 
 import './index.scss';
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params }) :
+Promise<DetailLoaderType> => {
   const { id } = params;
 
   // if not given id, throw error
   if (!id) {
-    throwError('請提供活動ID!', 404);
-    return null;
+    throw new Response('請提供活動ID!', { status: 404 });
   }
 
   // GET: activity data
-  const activityRes = await getActivityById(id.toString(), getCookie('sessionToken'));
+  const activityRes = await getActivityById(
+    id.toString(),
+    getCookie('sessionToken'),
+  );
 
   // GET: comment data
   const commentRes = await getComment(
@@ -51,6 +53,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return {
     activityData: activityRes.data,
     commentData: commentRes.data,
+    userCommentData: commentRes.data.userComment,
   };
 };
 
@@ -66,14 +69,16 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function Detail() {
-  const data = useLoaderData() as DetailLoaderType;
-  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(data.activityData.branches[0]);
+  const loaderData = useLoaderData() as DetailLoaderType;
+  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(
+    loaderData.activityData.branches[0],
+  );
   const navigate = useNavigate();
 
   // handle click branch name event
   const handleChangeFilter = (selectedId : string) => {
     setCurrentBranch(
-      data.activityData.branches?.find((branch: BranchDataType) => (
+      loaderData.activityData.branches?.find((branch: BranchDataType) => (
         branch.id.toString() === selectedId))!,
     );
   };
@@ -82,9 +87,9 @@ function Detail() {
   const {
     id: activityId,
     title, subTitle, tags, holder, objective, images, content, sources, branches, connection,
-  } = data.activityData;
+  } = loaderData.activityData;
 
-  if (!data) {
+  if (!loaderData) {
     return <Loading />;
   }
 
@@ -264,7 +269,11 @@ function Detail() {
               />
             </Link>
           </h2>
-          {data.commentData.searchResultData.map((comment) => (
+          {loaderData.userCommentData
+            && (
+              <CommentItem comment={loaderData.userCommentData} />
+            )}
+          {loaderData.commentData.searchResultData.map((comment) => (
             <CommentItem
               comment={comment}
               key={`comment-${comment.id}`}
