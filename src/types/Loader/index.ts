@@ -1,7 +1,7 @@
 import { SearchResponseType, ActivityResponseType } from 'types/Response';
-import ActivityDataType, { ActivityTagDataType, UserActivityDataType } from 'types/ActivityDataType';
+import ActivityDataType, { UserActivityDataType } from 'types/ActivityDataType';
 import { TrendTagResultDataType } from '../ActivityDataType';
-import { TrendTagResponseType } from '../Response/index';
+import { CommentResponseType, TrendTagResponseType } from '../Response/index';
 
 /** Router loader return type */
 export interface SearchLoaderType {
@@ -18,6 +18,11 @@ export interface ManageLoaderType {
   dream: UserActivityDataType[];
   enroll: UserActivityDataType[];
   done: UserActivityDataType[];
+}
+
+export interface DetailLoaderType {
+  activityData: ActivityDataType,
+  commentData : CommentResponseType
 }
 
 export interface HistoryLoaderType {

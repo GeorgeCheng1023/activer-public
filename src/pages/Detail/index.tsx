@@ -1,10 +1,12 @@
 import { Buffer } from 'buffer';
 import React, { useState } from 'react';
-import { LoaderFunction, useLoaderData, useNavigate } from 'react-router-dom';
-// api
+import {
+  LoaderFunction, useLoaderData, useNavigate, ActionFunction,
+  Outlet,
+  Link,
+} from 'react-router-dom';
 import { getActivityById, postActivityStatus } from 'api/activity';
-import ActivityDataType, { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
-// components
+import { ActivityTagDataType, BranchDataType } from 'types/ActivityDataType';
 import Button from 'components/Button';
 import ManageNav from 'components/ManageNav';
 import Tag, { TagType } from 'components/Tag';
@@ -15,43 +17,67 @@ import {
   FcGraduationCap, FcList, FcPhone, FcReading, FcShare,
 } from 'react-icons/fc';
 import getCookie from 'utils/getCookies';
+import { getComment } from 'api/user';
+import { DetailLoaderType } from 'types/Loader';
+import CommentItem from './components/CommentItem';
+
 import {
   DetailImage,
   DetailProperties,
 } from './components';
+
 import VotePanel from './components/VotePanel';
 import './index.scss';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;
+
+  // if not given id, throw error
   if (!id) {
     throwError('請提供活動ID!', 404);
     return null;
   }
-  const res = await getActivityById(id.toString(), getCookie('sessionToken'));
+
+  // GET: activity data
+  const activityRes = await getActivityById(id.toString(), getCookie('sessionToken'));
+
+  // GET: comment data
+  const commentRes = await getComment(
+    20,
+    1,
+    Number(id),
+    getCookie('sessionToken'),
+  );
+
+  return {
+    activityData: activityRes.data,
+    commentData: commentRes.data,
+  };
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const res = await postActivityStatus(
+    formData.get('activityId') as string,
+    formData.get('branchId') as string,
+    formData.get('status') as string,
+    formData.get('sessionToken') as string,
+  );
   return res.data;
 };
 
-export async function action({ request }: any) {
-  const formData = await request.formData();
-  const res = await postActivityStatus(
-    formData.get('activityId'),
-    formData.get('branchId'),
-    formData.get('status'),
-    formData.get('sessionToken'),
-  );
-  return res.data;
-}
-
 function Detail() {
   const [displayVotePanel, setDisplayVotePanel] = useState(false);
-  const data = useLoaderData() as ActivityDataType;
-  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(data.branches[0]);
+  const data = useLoaderData() as DetailLoaderType;
+  const [currentBranch, setCurrentBranch] = useState<BranchDataType>(data.activityData.branches[0]);
   const navigate = useNavigate();
 
   // handle click branch name event
   const handleChangeFilter = (selectedId : string) => {
-    setCurrentBranch(data.branches?.find((branch) => branch.id.toString() === selectedId)!);
+    setCurrentBranch(
+      data.activityData.branches?.find((branch: BranchDataType) => (
+        branch.id.toString() === selectedId))!,
+    );
   };
 
   // show vote tag panel
@@ -60,19 +86,18 @@ function Detail() {
     e.preventDefault();
     setDisplayVotePanel(true);
   };
-
   // destructing data
   const {
     id: activityId,
     title, subTitle, tags, holder, objective, images, content, sources, branches, connection,
-  } = data;
+  } = data.activityData;
 
   if (!data) {
     return <Loading />;
   }
 
   return (
-    <div className="detail">
+    <div className="detail" id="detail">
 
       {/* Introduction */}
       <div className="detail__hero">
@@ -236,6 +261,32 @@ function Detail() {
           </div>
         )}
 
+        {/* Comment */}
+        <div className="detail__comment">
+          <h2 className="detail__header">
+            <FcGraduationCap />
+            評論
+            <Link to={`/detail/${activityId}/comment`}>
+              <Button
+                className="detail__comment__add"
+                type="button"
+                color="primary"
+                iconBefore={<BsPlus />}
+                text="建立"
+
+              />
+            </Link>
+          </h2>
+          {data.commentData.searchResultData.map((comment) => (
+            <CommentItem
+              comment={comment}
+              key={`comment-${comment.id}`}
+            />
+          ))}
+        </div>
+
+        {/* Popup */}
+        <Outlet />
       </div>
     </div>
   );

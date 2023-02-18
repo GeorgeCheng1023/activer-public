@@ -1,0 +1,51 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.comment-item {
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+  padding: 1em;
+  box-shadow: rgb(0 0 0 / 16%) 0 1px 4px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__user {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+  }
+
+  &__name {
+    font-size: 1.2em;
+  }
+
+  &__portrait {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+  }
+
+  &__control {
+    display: flex;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__time {
+      flex: 1 0 auto;
+      color: $secondary-font-color;
+      font-size: 0.8em;
+    }
+  }
+
+  &__content {
+    padding: 0.5em;
+  }
+}

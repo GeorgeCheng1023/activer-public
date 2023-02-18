@@ -110,7 +110,7 @@ const userAuthSlice = createSlice({
       }));
   },
 });
-
+export const getUserId = (state: RootState) => state.userAuth.id;
 export const getUserIsLoggedIn = (state: RootState) => state.userAuth.IsLoggedIn;
 export const getLoadingState = (state: RootState) => state.userAuth.Loading;
 export const getUserRealname = (state: RootState) => state.userAuth.RealName;

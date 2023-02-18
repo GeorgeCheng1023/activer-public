@@ -5,7 +5,8 @@ import ActivityDataType, {
   SearchHistoryResultDataType,
   SearchResultDataType,
 } from 'types/ActivityDataType';
-import { TrendTagResultDataType } from '../ActivityDataType';
+import { CommentResultDataType, TrendTagResultDataType } from '../ActivityDataType';
+
 /** API Response Type */
 
 export interface SegmentResponseType {
@@ -32,4 +33,10 @@ export interface SearchHistoryResponseType extends SegmentResponseType {
 
 export interface TrendTagResponseType extends SegmentResponseType {
   searchResultData: TrendTagResultDataType[]
+}
+
+export interface CommentResponseType extends
+  SegmentResponseType {
+  searchResultData: CommentResultDataType[]
+  acitivityId: number;
 }

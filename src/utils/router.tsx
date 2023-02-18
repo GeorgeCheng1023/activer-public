@@ -5,6 +5,7 @@ import Detail, { action as detailAction, loader as detailLoader } from 'pages/De
 import RootErrorBoundary from 'pages/Error';
 import NotFound from 'pages/Error/NotFound';
 import Home, { loader as homeLoader } from 'pages/Home';
+import Comment, { action as commentAction } from 'pages/Detail/Comment';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
@@ -58,6 +59,13 @@ export const routerConfig = [
             loader: detailLoader,
             action: detailAction,
             element: <Detail />,
+            children: [
+              {
+                path: 'comment',
+                action: commentAction,
+                element: <Comment />,
+              },
+            ],
           },
           {
             path: '/resetpwd',
