@@ -6,17 +6,18 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import Button from 'components/Button';
 import { useAppSelector } from 'hooks/redux';
 import { getUserId } from 'store/userAuth';
-import Star from './Star';
+import { Form } from 'react-router-dom';
+import ReactStars from 'react-stars';
 import './index.scss';
 
 interface CommentType {
   comment: CommentResultDataType;
 }
 
-function Comment({ comment }: CommentType) {
+function CommentItem({ comment }: CommentType) {
   const selectUserId = useAppSelector(getUserId);
   const {
-    star, createdAt, content, userId,
+    id, star, createdAt, content, userId,
   } = comment;
   return (
     <div className="comment-item">
@@ -36,7 +37,7 @@ function Comment({ comment }: CommentType) {
             </span>
             <div className="comment-item__description">
               <div className="comment-item__description__star">
-                <Star value={star} />
+                <ReactStars edit={false} value={star / 10} />
               </div>
               <span className="comment-item__description__time">
                 {formateDateSimple(createdAt)}
@@ -48,11 +49,13 @@ function Comment({ comment }: CommentType) {
         {userId === selectUserId
           && (
             <div className="comment-item__control">
-              <Button
-                color="white"
-                variant={{ round: true }}
-                iconBefore={<RiDeleteBin6Line />}
-              />
+              <Form method="delete" action={`/detail/${id}/comment`}>
+                <Button
+                  color="white"
+                  variant={{ round: true }}
+                  iconBefore={<RiDeleteBin6Line />}
+                />
+              </Form>
               <Button
                 color="white"
                 variant={{ round: true }}
@@ -69,4 +72,4 @@ function Comment({ comment }: CommentType) {
   );
 }
 
-export default Comment;
+export default CommentItem;

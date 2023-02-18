@@ -4,30 +4,42 @@ import {
   useSubmit, useNavigate, useFetcher, useParams,
   ActionFunction,
 } from 'react-router-dom';
-import { postComment } from 'api/user';
+import { deleteComment, postComment } from 'api/user';
 import getCookie from 'utils/getCookies';
-import Star from '../Comment/Star';
+import ReactStars from 'react-stars';
 
 import './index.scss';
 
 export const action: ActionFunction = async ({ request, params }) => {
-  const { id } = params;
-  const formData = await request.formData();
-  const comment = formData.get('comment') as string | null;
-  const star = formData.get('star') as string;
-  if (!comment && star === '0') {
-    throw new Response('請撰寫評論內容!', { status: 400 });
+  switch (request.method) {
+    case 'DELETE': {
+      const { id } = params;
+      if (!id) {
+        throw new Response('請提供活動ID!', { status: 400 });
+      }
+      await deleteComment(id, getCookie('sessionToken'));
+      return null;
+    }
+    default: {
+      const { id } = params;
+      const formData = await request.formData();
+      const comment = formData.get('comment') as string | null;
+      const star = formData.get('star') as string;
+      if (!comment && star === '0') {
+        throw new Response('請撰寫評論內容!', { status: 400 });
+      }
+      if (!id) {
+        throw new Response('請提供活動ID!', { status: 400 });
+      }
+      const res = await postComment(
+        Number(id),
+        comment,
+        Number(star),
+        getCookie('sessionToken'),
+      );
+      return res.data;
+    }
   }
-  if (!id) {
-    throw new Response('請提供活動ID!', { status: 400 });
-  }
-  const res = await postComment(
-    Number(id),
-    comment,
-    Number(star),
-    getCookie('sessionToken'),
-  );
-  return res.data;
 };
 
 function CommentPanel() {
@@ -71,8 +83,8 @@ function CommentPanel() {
         className="comment-panel__container"
       >
         <h2>撰寫評論 </h2>
-        <Star
-          onChangeRating={handleChangeRating}
+        <ReactStars
+          onChange={handleChangeRating}
           edit
           size={35}
         />

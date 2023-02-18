@@ -223,4 +223,20 @@ export const getComment = (
   )
 );
 
+export const deleteComment = (
+  commentId: string,
+  access_token: string,
+) => (
+  axiosTest.delete(
+    `/comment/${commentId}`,
+    {
+
+      headers: {
+        Authrization: `Bearer ${access_token}`,
+      },
+    },
+
+  )
+);
+
 export default axiosTest;

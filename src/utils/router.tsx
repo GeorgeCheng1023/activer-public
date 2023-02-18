@@ -7,7 +7,7 @@ import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import NotFound from 'pages/Error/NotFound';
 import SearchErrorPage from 'pages/Error/SearchErrorPage';
 import Home, { loader as homeLoader } from 'pages/Home';
-import CommentPanel, { action as commentPanelAction } from 'pages/Detail/components/CommentPanel';
+import Comment, { action as commentAction } from 'pages/Detail/Comment';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
@@ -66,8 +66,8 @@ export const routerConfig = [
             children: [
               {
                 path: 'comment',
-                action: commentPanelAction,
-                element: <CommentPanel />,
+                action: commentAction,
+                element: <Comment />,
               },
             ],
           },

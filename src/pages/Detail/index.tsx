@@ -19,7 +19,7 @@ import {
 import getCookie from 'utils/getCookies';
 import { getComment } from 'api/user';
 import { DetailLoaderType } from 'types/Loader';
-import Comment from './components/Comment';
+import CommentItem from './components/CommentItem';
 
 import {
   DetailImage,
@@ -31,11 +31,17 @@ import './index.scss';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;
+
+  // if not given id, throw error
   if (!id) {
     throwError('請提供活動ID!', 404);
     return null;
   }
+
+  // GET: activity data
   const activityRes = await getActivityById(id.toString(), getCookie('sessionToken'));
+
+  // GET: comment data
   const commentRes = await getComment(
     20,
     1,
@@ -264,14 +270,18 @@ function Detail() {
               <Button
                 className="detail__comment__add"
                 type="button"
-                color="secondary"
+                color="primary"
                 iconBefore={<BsPlus />}
                 text="建立"
+
               />
             </Link>
           </h2>
           {data.commentData.searchResultData.map((comment) => (
-            <Comment comment={comment} key={`comment-${comment.id}`} />
+            <CommentItem
+              comment={comment}
+              key={`comment-${comment.id}`}
+            />
           ))}
         </div>
 
