@@ -5,19 +5,14 @@ import RootErrorBoundary from 'pages/Error';
 import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import NotFound from 'pages/Error/NotFound';
 import SearchErrorPage from 'pages/Error/SearchErrorPage';
-import Home, { loader as homeLoader } from 'pages/Home';
-import Loading from 'pages/Loading';
-import Login from 'pages/Login';
-import Admin from 'pages/Login/components/Admin';
-import ResetPwd from 'pages/Login/components/ChangePassword';
-import EmailLoading from 'pages/Login/components/EmailLoad';
 
-import ForgetPwd from 'pages/Login/components/ForgetPwd';
-import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
-import Register from 'pages/Login/components/Register';
-import Verify from 'pages/Login/components/verifyUser/index';
+import Home, { loader as homeLoader } from 'pages/Home';
+
+import Loading from 'pages/Loading';
+
 import Root from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
+
 import User, {
   Account, Basic, History, Main, Manage, Preferences,
 } from 'pages/User';
@@ -26,7 +21,10 @@ import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
 import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
 
-import EmailVerify from '../pages/Login/components/EmailVerify/index';
+import Login from 'pages/Login';
+import {
+  Admin, ResetPwd, EmailLoading, EmailVerify, ForgetPwd, Register, Verify, PersistLogin,
+} from '../pages/Login';
 
 export const routerConfig = [
   {
