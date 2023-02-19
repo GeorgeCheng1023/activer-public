@@ -6,23 +6,23 @@ const PORT = '5044';
 
 export const TEST_URL = `http://${IP}:${PORT}`;
 
-const USER_UPDATE_URL = '/api/user';
+const USER_UPDATE_URL = '/';
 // api/user/auth
-const LOGIN_URL = '/api/user/auth/signin';
-const REGISTER_URL = '/api/user/auth/signup';
-const USER_AUTH_TOKEN_URL = '/api/user/auth/token';
-const USER_VERIFY_URL = '/api/user/auth/verify/email';
-const USER_RESEND_VERIFY_URL = '/api/user/auth/resendVerify/email';
-const USER_CHANGE_PWD = '/api/User/auth/changepassword';
-const USER_RESET_PWD = '/api/User/auth/resetpassword';
-const USER_RECORD = 'api/User/activity/record';
+const LOGIN_URL = '/auth/signin';
+const REGISTER_URL = '/auth/signup';
+const USER_AUTH_TOKEN_URL = '/auth/token';
+const USER_VERIFY_URL = '/auth/verify/email';
+const USER_RESEND_VERIFY_URL = '/auth/resendVerify/email';
+const USER_CHANGE_PWD = '/auth/changepassword';
+const USER_RESET_PWD = '/auth/resetpassword';
+const USER_RECORD = '/activity/record';
 
-export const axiosTest = axios.create({
-  baseURL: TEST_URL,
+export const userRequest = axios.create({
+  baseURL: TEST_URL.concat('/api/user'),
 });
 
 // POST: signin
-export const apiUserLogin = (email: string, password: string) => axiosTest.post<UserAPIType>(
+export const apiUserLogin = (email: string, password: string) => userRequest.post<UserAPIType>(
   LOGIN_URL,
   JSON.stringify({ email, password }),
   {
@@ -36,7 +36,7 @@ export const apiUserRegister = (
   username: string,
   email: string,
   password: string,
-) => axiosTest.post<UserAPIType>(
+) => userRequest.post<UserAPIType>(
   REGISTER_URL,
   JSON.stringify({ username, email, password }),
   {
@@ -51,7 +51,7 @@ export const apiUserRegister = (
 export const apiUserUpdate = (
   userFormData: FormData,
   accessToken: string,
-) => axiosTest.put<UserDataType>(
+) => userRequest.put<UserDataType>(
   USER_UPDATE_URL,
   userFormData,
   {
@@ -63,7 +63,7 @@ export const apiUserUpdate = (
 );
 
 // GET: user auth
-export const apiUserAuth = (access_token: string) => axiosTest.get<UserAPIType>(
+export const apiUserAuth = (access_token: string) => userRequest.get<UserAPIType>(
   USER_AUTH_TOKEN_URL,
   {
     headers: {
@@ -76,7 +76,7 @@ export const apiUserAuth = (access_token: string) => axiosTest.get<UserAPIType>(
 export const apiUserVerify = (
   verifycode: string,
   accessToken: string,
-) => axiosTest.get<UserAPIType>(
+) => userRequest.get<UserAPIType>(
   USER_VERIFY_URL,
   {
     headers: {
@@ -90,7 +90,7 @@ export const apiUserVerify = (
 );
 
 // GET: resend
-export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
+export const apiUserResendVerify = (accessToken: string) => userRequest.get(
   USER_RESEND_VERIFY_URL,
   {
     headers: {
@@ -100,7 +100,7 @@ export const apiUserResendVerify = (accessToken: string) => axiosTest.get(
 );
 
 // GET: verify user before change pwd
-export const apiUserVerifyAndChangePwd = (accessToken: string) => axiosTest.get(
+export const apiUserVerifyAndChangePwd = (accessToken: string) => userRequest.get(
   USER_CHANGE_PWD,
   {
     headers: {
@@ -114,7 +114,7 @@ export const apiUserChangePwd = (
   newPassword: string,
   accessToken: string,
   verifycode: string,
-) => axiosTest.post<{ newPassword: string }>(
+) => userRequest.post<{ newPassword: string }>(
   USER_CHANGE_PWD,
   JSON.stringify({ newPassword }),
   {
@@ -129,7 +129,7 @@ export const apiUserChangePwd = (
 );
 
 // GET: verify user before reset pwd
-export const apiUserVerifyAndResetPwd = (email: string) => axiosTest.get(
+export const apiUserVerifyAndResetPwd = (email: string) => userRequest.get(
   USER_RESET_PWD,
   {
     headers: {
@@ -146,7 +146,7 @@ export const apiUserResetPwd = (
   newPassword: string,
   verifycode: string,
   email: string,
-) => axiosTest.post<{ newPassword: string }>(
+) => userRequest.post<{ newPassword: string }>(
   USER_RESET_PWD,
   JSON.stringify({ newPassword }),
   {
@@ -165,7 +165,7 @@ export const apiPostUserRecord = (
   activityId: number,
   content: string,
   accessToken: string,
-) => axiosTest.post(
+) => userRequest.post(
   USER_RECORD,
   { activityId, content },
   {
@@ -179,7 +179,7 @@ export const apiPostUserRecord = (
 export const apiGetUserRecord = (
   activityId: number,
   accessToken: string,
-) => axiosTest.get<UserRecord>(
+) => userRequest.get<UserRecord>(
   `${USER_RECORD}/${activityId}`,
   {
     headers: {
@@ -188,8 +188,8 @@ export const apiGetUserRecord = (
   },
 );
 
-export const apiGetAvatar = (userId: number) => axiosTest.get(
-  `/api/User/avatar/${userId}`,
+export const apiGetAvatar = (userId: number) => userRequest.get(
+  `/avatar/${userId}`,
 );
 
 // google
@@ -202,4 +202,4 @@ export const apiUserGoogleData = (access_token: string) => axios.get(
   },
 );
 
-export default axiosTest;
+export default userRequest;
