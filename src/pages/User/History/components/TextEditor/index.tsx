@@ -95,16 +95,26 @@ function TextEditor() {
     [],
   );
 
+  function formatHeight(slateWidth: number, slateHeight: number, pdfWidth: number) {
+    return slateHeight * (pdfWidth / slateWidth);
+  }
+
   const printPDF = () => {
     const domElement = document.getElementById('slate')!;
     html2canvas(domElement).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new JsPDF();
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+
       // Grab the ratio of length and width
-      const slateWidth = slateRef.current?.getBoundingClientRect().width;
-      const formatSlateWidth = (slateWidth || 1200) / 6;
-      const slateHeight = slateRef.current?.getBoundingClientRect().height;
-      const formatslateHeight = (slateHeight || 1200) / 6;
+      const slateWidth = slateRef.current?.getBoundingClientRect().width!;
+      const slateHeight = slateRef.current?.getBoundingClientRect().height!;
+
+      // minus board
+      const formatSlateWidth = pdfWidth - 20;
+      const formatslateHeight = formatHeight(slateWidth, slateHeight, pdfWidth);
+
       pdf.addImage(imgData, 'JPEG', 10, 10, formatSlateWidth, formatslateHeight);
       pdf.save(`${new Date().toISOString()}.pdf`);
     });

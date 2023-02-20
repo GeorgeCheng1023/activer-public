@@ -3,7 +3,8 @@
 @import "/src/styles/global";
 
 .text-editor {
-  margin: 1em;
+  width: 75%;
+  margin: 1em auto;
   padding: 1.5em;
   border: 1px solid $secondary-font-color;
   background-color: white;
