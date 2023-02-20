@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import FormSearchTag from 'components/Form/FormSearchTag';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
@@ -12,6 +12,7 @@ import { DetailLoaderType } from 'types/Loader';
 import { getTagUnvote, getTagVote } from 'api/user';
 import getCookie from 'utils/getCookies';
 import Popup from './Popup';
+
 import './index.scss';
 
 export const votedAction : ActionFunction = async ({ params }) => {
@@ -81,10 +82,6 @@ function Vote() {
     }
   };
 
-  useEffect(() => {
-    console.log(navigate.state);
-  }, [navigate.state]);
-
   const handleSuggestionClick = (clickedTag: TagType) => {
     if (tags) {
       const foundTag = tags.find((tag) => tag.id.toString() === clickedTag.id);
@@ -142,10 +139,16 @@ function Vote() {
   };
 
   return (
+
     <Popup
       backLink={`/detail/${activityId}`}
     >
-      <div className="vote">
+      <motion.div
+        className="vote"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
+      >
         <FormSearchTag
           placeholder="搜尋標籤"
           onSuggestionClick={handleSuggestionClick}
@@ -179,8 +182,9 @@ function Vote() {
             </div>
           );
         })}
-      </div>
+      </motion.div>
     </Popup>
+
   );
 }
 

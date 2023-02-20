@@ -26,6 +26,7 @@ import {
 } from './components';
 
 import './index.scss';
+import { AnimatePresence } from 'framer-motion';
 
 export const loader: LoaderFunction = async ({ params }) :
 Promise<DetailLoaderType> => {
@@ -285,7 +286,9 @@ function Detail() {
         </div>
 
         {/* Popup */}
-        <Outlet />
+        <AnimatePresence>
+          <Outlet />
+        </AnimatePresence>
       </div>
     </div>
   );

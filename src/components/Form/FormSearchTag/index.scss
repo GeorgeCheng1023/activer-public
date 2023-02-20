@@ -6,6 +6,8 @@
 .search-tag {
   @include style-search-bar;
 
+  font-size: 0.6em;
+
   &--expend {
     border-radius: 1em 1em 0 0;
   }

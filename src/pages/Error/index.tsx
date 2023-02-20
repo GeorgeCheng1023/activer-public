@@ -61,6 +61,11 @@ function RootErrorBoundary() {
       setErrorDetail('React router dom error');
     } else if (error.name === 'AxiosError') {
       /** Axios Error */
+      // if authorization error
+      if (error.response.status === 401) {
+        navigate('/login');
+      }
+
       setErrorTitle(error.response?.statusText);
       setErrorCode(error.response?.status);
       setErrorMessage(generateErrorMessage(error.response?.status));

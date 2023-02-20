@@ -1,4 +1,4 @@
-import { ActivityTagDataType } from 'types/ActivityDataType';
+import { TrendTagDataType } from 'types/ActivityDataType';
 import axios from 'axios';
 import { TrendTagResponseType } from 'types/Response';
 import { TEST_URL } from './user';
@@ -9,7 +9,7 @@ const tagRequest = axios.create({
 
 // GET: all tags
 export const getAllTags = () => (
-  tagRequest.get<ActivityTagDataType[]>(
+  tagRequest.get<TrendTagDataType[]>(
     '/',
     {
       headers: {

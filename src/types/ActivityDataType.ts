@@ -61,7 +61,7 @@ export interface UserActivityDataType extends BaseActivityDataType {
   branch: BranchDataType;
 }
 
-export interface TrendTagResultDataType extends ActivityTagDataType {
+export interface TrendTagDataType extends ActivityTagDataType {
   tagTrend: number;
   activityAmount: number;
 }

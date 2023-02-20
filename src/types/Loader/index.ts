@@ -1,9 +1,13 @@
 import { SearchResponseType, ActivityResponseType } from 'types/Response';
 import ActivityDataType, { UserActivityDataType, CommentResultDataType } from 'types/ActivityDataType';
-import { TrendTagResultDataType } from '../ActivityDataType';
+import { TrendTagDataType } from '../ActivityDataType';
 import { CommentResponseType, TrendTagResponseType } from '../Response/index';
 
 /** Router loader return type */
+export interface RootLoaderType {
+  allTags: TrendTagDataType[]
+}
+
 export interface SearchLoaderType {
   data: SearchResponseType | null;
   keywords: string | null;
@@ -32,7 +36,7 @@ export interface HistoryLoaderType {
 }
 
 export interface tagsLoaderType {
-  locationTags: TrendTagResultDataType[],
-  areaTags: TrendTagResultDataType[],
-  otherTags: TrendTagResultDataType[],
+  locationTags: TrendTagDataType[],
+  areaTags: TrendTagDataType[],
+  otherTags: TrendTagDataType[],
 }

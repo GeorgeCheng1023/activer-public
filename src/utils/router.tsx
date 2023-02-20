@@ -12,12 +12,11 @@ import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
 import ResetPwd from 'pages/Login/components/ChangePassword';
 import EmailLoading from 'pages/Login/components/EmailLoad';
-
 import ForgetPwd from 'pages/Login/components/ForgetPwd';
 import PersistLogin from 'pages/Login/components/PersistLogin/PersistLogin';
 import Register from 'pages/Login/components/Register';
 import Verify from 'pages/Login/components/verifyUser/index';
-import Root from 'pages/Root';
+import Root, { rootLoader } from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
 import User, {
   Account, Basic, History, Main, Manage, Preferences,
@@ -33,6 +32,8 @@ export const routerConfig = [
   {
     path: '/',
     element: <Root />,
+    id: 'root',
+    loader: rootLoader,
     errorElement: <RootErrorBoundary />,
     children: [
       {
