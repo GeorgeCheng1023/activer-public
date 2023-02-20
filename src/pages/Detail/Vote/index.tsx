@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormSearchTag from 'components/Form/FormSearchTag';
 import Tag, { TagType } from 'components/Tag';
 import Button from 'components/Button';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { ActivityTagDataType } from 'types/ActivityDataType';
+import { motion } from 'framer-motion';
 import {
-  ActionFunction, useFetcher, useRouteLoaderData, useSubmit,
+  ActionFunction, useFetcher, useNavigation, useRouteLoaderData, useSubmit,
 } from 'react-router-dom';
 import { DetailLoaderType } from 'types/Loader';
 import { getTagUnvote, getTagVote } from 'api/user';
@@ -53,6 +54,7 @@ export const unvotedAction: ActionFunction = async ({ params }) => {
 function Vote() {
   const detailLoaderData = useRouteLoaderData('detail') as DetailLoaderType;
   const { id: activityId, tags } = detailLoaderData.activityData;
+  const navigate = useNavigation();
 
   const fetcher = useFetcher();
   const submit = useSubmit();
@@ -78,6 +80,10 @@ function Vote() {
       }
     }
   };
+
+  useEffect(() => {
+    console.log(navigate.state);
+  }, [navigate.state]);
 
   const handleSuggestionClick = (clickedTag: TagType) => {
     if (tags) {
@@ -117,6 +123,24 @@ function Vote() {
     }
   };
 
+  const getVoteButton = (userVoted: boolean) => {
+    if (navigate.state === 'loading' || navigate.state === 'submitting') {
+      return (
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ ease: 'linear', duration: 0.5, repeat: Infinity }}
+        >
+          <AiOutlineLoading3Quarters />
+
+        </motion.div>
+      );
+    }
+    if (userVoted) {
+      return <AiOutlineMinus />;
+    }
+    return <AiOutlinePlus />;
+  };
+
   return (
     <Popup
       backLink={`/detail/${activityId}`}
@@ -145,7 +169,7 @@ function Vote() {
               <fetcher.Form>
                 <Button
                   key={`vote__btn-${tag.id.toString()}`}
-                  iconAfter={tag.userVoted ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                  iconAfter={getVoteButton(tag.userVoted)}
                   color="dark"
                   type="button"
                   variant={{ outline: !tag.userVoted }}

@@ -41,16 +41,16 @@ function Button({
     >
       {iconBefore
       && (
-        <span className="button__icon">
+        <i className="button__icon">
           {iconBefore}
-        </span>
+        </i>
       )}
       {text}
       {iconAfter
       && (
-        <span className="button__icon">
+        <i className="button__icon">
           {iconAfter}
-        </span>
+        </i>
       )}
     </button>
   );

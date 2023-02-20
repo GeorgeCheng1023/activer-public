@@ -140,6 +140,7 @@ function Detail() {
 
           {/* Add Tag Button */}
           <Button
+            className="detail__add-tag"
             text="新增標籤"
             onClick={() => navigate(`/detail/${activityId}/vote`, {
               replace: true,
