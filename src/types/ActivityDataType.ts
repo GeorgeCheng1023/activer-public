@@ -23,7 +23,7 @@ export interface TagDataType {
 }
 
 export interface ActivityTagDataType extends TagDataType {
-  tagVotedCount: number; // user voted tag count
+  tagVoteCount: number; // user voted tag count
   userVoted: boolean; // check if user voted this tag
 }
 

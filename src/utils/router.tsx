@@ -6,7 +6,7 @@ import RootErrorBoundary from 'pages/Error';
 import NotFound from 'pages/Error/NotFound';
 import Home, { loader as homeLoader } from 'pages/Home';
 import Comment, { addCommentAction, deleteCommentAction } from 'pages/Detail/Comment';
-import Vote, { action as voteAction } from 'pages/Detail/Vote';
+import Vote, { votedAction, unvotedAction } from 'pages/Detail/Vote';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
@@ -57,7 +57,7 @@ export const routerConfig = [
             element: <Search />,
           },
           {
-            path: '/detail/:id',
+            path: '/detail/:activityId',
             id: 'detail',
             action: detailAction,
             loader: detailLoader,
@@ -81,8 +81,19 @@ export const routerConfig = [
               },
               {
                 path: 'vote',
-                action: voteAction,
                 element: <Vote />,
+                children: [
+                  {
+                    action: votedAction,
+                    path: 'voted/:tagId',
+                    element: null,
+                  },
+                  {
+                    action: unvotedAction,
+                    path: 'unvoted/:tagId',
+                    element: null,
+                  },
+                ],
               },
             ],
           },

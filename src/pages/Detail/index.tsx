@@ -29,16 +29,16 @@ import './index.scss';
 
 export const loader: LoaderFunction = async ({ params }) :
 Promise<DetailLoaderType> => {
-  const { id } = params;
+  const { activityId } = params;
 
   // if not given id, throw error
-  if (!id) {
+  if (!activityId) {
     throw new Response('請提供活動ID!', { status: 404 });
   }
 
   // GET: activity data
   const activityRes = await getActivityById(
-    id.toString(),
+    activityId.toString(),
     getCookie('sessionToken'),
   );
 
@@ -46,7 +46,7 @@ Promise<DetailLoaderType> => {
   const commentRes = await getComment(
     20,
     1,
-    Number(id),
+    Number(activityId),
     getCookie('sessionToken'),
   );
 

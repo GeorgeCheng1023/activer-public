@@ -14,7 +14,7 @@ import './index.scss';
 import { DetailLoaderType } from 'types/Loader';
 
 export const deleteCommentAction: ActionFunction = async ({ params }) => {
-  const { commentId, id } = params;
+  const { commentId, activityId } = params;
   if (!commentId) {
     throw new Response('請提供活動ID!', { status: 400 });
   }
@@ -22,24 +22,24 @@ export const deleteCommentAction: ActionFunction = async ({ params }) => {
   return new Response('', {
     status: 302,
     headers: {
-      Location: `/detail/${id}`,
+      Location: `/detail/${activityId}`,
     },
   });
 };
 
 export const addCommentAction: ActionFunction = async ({ request, params }) => {
-  const { id } = params;
+  const { activityId } = params;
   const formData = await request.formData();
   const comment = formData.get('comment') as string | null;
   const star = formData.get('star') as string;
   if (!comment && star === '0') {
     throw new Response('請撰寫評論內容!', { status: 400 });
   }
-  if (!id) {
+  if (!activityId) {
     throw new Response('請提供活動ID!', { status: 400 });
   }
   await postComment(
-    Number(id),
+    Number(activityId),
     comment,
     Number(star),
     getCookie('sessionToken'),
@@ -47,7 +47,7 @@ export const addCommentAction: ActionFunction = async ({ request, params }) => {
   return new Response('', {
     status: 302,
     headers: {
-      Location: `/detail/${id}`,
+      Location: `/detail/${activityId}`,
     },
   });
 };
@@ -59,7 +59,7 @@ function Comment() {
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
   const fetcher = useFetcher();
-  const { id: activityId } = useParams();
+  const { activityId } = useParams();
 
   useEffect(() => {
     if (contentRef.current) {
@@ -90,7 +90,7 @@ function Comment() {
       data-type="backdrop"
       onClick={(event) => {
         if ((event.target as HTMLElement).getAttribute('data-type') === 'backdrop') {
-          navigate(`/detail/${activityId}`);
+          navigate(`/detail/${activityId}`, { replace: true });
         }
       }}
     >
