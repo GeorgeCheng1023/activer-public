@@ -6,16 +6,12 @@ import { useCookies } from 'react-cookie';
 import { Outlet, unstable_usePrompt, useNavigate } from 'react-router-dom';
 import { FormInput, FormDropDown } from 'components/Form';
 import Button from 'components/Button';
-
-// api
 import { apiUserUpdate } from 'api/user';
-
-// hook
-
-// redux
 import {
+  getUserPortrait,
   getUserData, userUpdate,
 } from 'store/userAuth';
+
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { Alert, Fade } from '@mui/material';
 import scrollToTop from 'utils/scrollToTop';
@@ -24,14 +20,15 @@ import CityCountyData from './CityCountyData.json';
 function Basic() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
+  const userPortrait = useAppSelector(getUserPortrait);
   const [cookies] = useCookies<string>(['user']);
 
   // init state
   const [isBlocking, setIsBlocking] = useState(false);
   const [values, setValues] = useState(userData);
+
   const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
-  // const [imageSrc, setImageSrc] = useState<string>(userData.avatar);
   const navigate = useNavigate();
 
   const handleChange = (key: any, value: any) => {
@@ -118,7 +115,7 @@ function Basic() {
         <h2>基本資訊</h2>
         {/* Portrait */}
         <div className="user-basic__portrait">
-          <img className="user-basic__portrait img" src="/user.png" alt="user-portrait" />
+          <img className="user-basic__portrait img" src={userPortrait} alt="user-portrait" />
           <div className="user-basic__portrait upload-button">
             {/* <FormInputFile
               name="avatar"
@@ -128,7 +125,7 @@ function Basic() {
               label="上傳頭像"
             /> */}
             <Button
-              text="裁切"
+              text="更改頭像"
               type="button"
               onClick={() => navigate('crop', { replace: true })}
             />
