@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CommentResultDataType } from 'types/ActivityDataType';
+import useIsOverflow from 'hooks/react/useIsOverflow';
 import { formateDateSimple } from 'utils/convertDate';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { AiOutlineEdit } from 'react-icons/ai';
@@ -18,6 +19,13 @@ interface CommentType {
 
 function CommentItem({ comment, controllable }: CommentType) {
   const navigate = useNavigate();
+  const [expended, setExpended] = useState(false);
+  const contentRef = useRef<HTMLParagraphElement>(null);
+  const isOverflow = useIsOverflow(contentRef);
+
+  useEffect(() => {
+    console.log(isOverflow);
+  }, []);
 
   const {
     id, star, createdAt, content, username, userAvatar,
@@ -89,9 +97,29 @@ function CommentItem({ comment, controllable }: CommentType) {
         ) }
       </div>
 
-      <p className="comment-item__content">
+      <p
+        ref={contentRef}
+        className={`comment-item__content${expended ? '--expend' : ''}`}
+      >
         {content}
       </p>
+      {isOverflow
+         && !expended
+          && (
+            <Button
+              className="comment-item__expend"
+              type="button"
+              text="展開"
+              onClick={() => setExpended(true)}
+            />
+          )}
+      {expended && (
+        <Button
+          type="button"
+          text="關閉"
+          onClick={() => setExpended(false)}
+        />
+      )}
     </div>
   );
 }
