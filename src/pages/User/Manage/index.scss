@@ -3,27 +3,25 @@
 @import "../index";
 
 .manage {
-  @include user-main-container;
-
   &__activity {
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
 
-    .card {
-      @include media(laptop, desktop) { width: 15em; }
+    // .card {
+    //   @include media(laptop, desktop) { width: 15em; }
 
-      @include media(mobile, tablet) {
-        flex-direction: column;
-        height: fit-content;
+    //   @include media(mobile, tablet) {
+    //     flex-direction: column;
+    //     height: fit-content;
 
-        &__image {
-          height: 8em;
-        }
-      }
+    //     &__image {
+    //       height: 8em;
+    //     }
+    //   }
 
-      height: auto;
-    }
+    //   height: auto;
+    // }
   }
 
   &__navbar {

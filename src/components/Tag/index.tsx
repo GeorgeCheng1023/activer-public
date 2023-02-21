@@ -69,7 +69,7 @@ function Tag({
       onClick={() => {
         if (link) {
           navigate({
-            pathname: 'search',
+            pathname: '/search',
             search: `?tags=${text}`,
           });
         }
