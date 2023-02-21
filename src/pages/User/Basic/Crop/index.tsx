@@ -1,23 +1,15 @@
 import React, { useCallback, useState, useRef } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
-// component
 import Button from 'components/Button';
+import Popup from 'components/Popup';
 import { RotationScroll, ZoomScroll } from './components';
-// utils
 import getCroppedImg from './utils/cropImages';
-// style
 import './index.scss';
 
-interface CropType {
-  onCropped: (croppedImage: string) => void,
-  image: string,
-}
-
-function Crop({
-  onCropped, image,
-}: CropType) {
+function Crop() {
   /* state */
+  const image = '/user.png';
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
@@ -38,7 +30,13 @@ function Crop({
       );
       if (getCroppedImage) {
         croppedImage.current = getCroppedImage;
-        onCropped(croppedImage.current);
+        // handle the portrait crop
+
+        // handleChange('avatar', croppedImage);
+        // setDisplaySuccess(false);
+        // setIsBlocking(true);
+
+        // onCropped(croppedImage.current);
       }
     } catch (error) {
       console.error(error);
@@ -51,38 +49,39 @@ function Crop({
   };
 
   return (
+    <Popup backLink="/user/basic">
 
-    <div className="crop-panel">
-      <div className="crop-panel__container">
-        <Cropper
-          image={image}
-          crop={crop}
-          zoom={zoom}
-          rotation={rotation}
-          aspect={1}
-          onCropChange={setCrop}
-          onZoomChange={setZoom}
-          onRotationChange={setRotation}
-          onCropComplete={handleCropComplete}
-        />
+      <div className="crop-panel">
+        <div className="crop-panel__container">
+          <Cropper
+            image={image}
+            crop={crop}
+            zoom={zoom}
+            rotation={rotation}
+            aspect={1}
+            onCropChange={setCrop}
+            onZoomChange={setZoom}
+            onRotationChange={setRotation}
+            onCropComplete={handleCropComplete}
+          />
+        </div>
+        <div className="crop-panel__control">
+          <ZoomScroll zoom={zoom} setZoom={setZoom} />
+          <RotationScroll rotation={rotation} setRotation={setRotation} />
+        </div>
+        <div className="crop-panel__buttons">
+          <Button
+            text="裁切"
+            onClick={handleCropImage}
+          />
+          <Button
+            text="取消"
+            variant={{ outline: true }}
+            onClick={handleCloseCropPanel}
+          />
+        </div>
       </div>
-      <div className="crop-panel__control">
-        <ZoomScroll zoom={zoom} setZoom={setZoom} />
-        <RotationScroll rotation={rotation} setRotation={setRotation} />
-      </div>
-      <div className="crop-panel__buttons">
-        <Button
-          text="裁切"
-          onClick={handleCropImage}
-        />
-        <Button
-          text="取消"
-          variant={{ outline: true }}
-          onClick={handleCloseCropPanel}
-        />
-      </div>
-    </div>
-
+    </Popup>
   );
 }
 

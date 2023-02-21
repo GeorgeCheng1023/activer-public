@@ -7,6 +7,7 @@ import NotFound from 'pages/Error/NotFound';
 import Home, { loader as homeLoader } from 'pages/Home';
 import Comment, { addCommentAction, deleteCommentAction } from 'pages/Detail/Comment';
 import Vote, { votedAction, unvotedAction } from 'pages/Detail/Vote';
+import Crop from 'pages/User/Basic/Crop';
 import Loading from 'pages/Loading';
 import Login from 'pages/Login';
 import Admin from 'pages/Login/components/Admin';
@@ -155,6 +156,12 @@ export const routerConfig = [
           {
             path: 'basic',
             element: <Basic />,
+            children: [
+              {
+                path: 'crop',
+                element: <Crop />,
+              },
+            ],
           },
           {
             path: 'account',
