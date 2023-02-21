@@ -2,24 +2,11 @@
 @import "/src/styles/global";
 
 .comment-panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: $zindex-modal-backdrop;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgb(91 112 131 / 40%);
-
-  &__container {
-    z-index: $zindex-modal-panel;
-    width: fit-content;
-    height: fit-content;
-    padding: 1em;
-    border-radius: 5px;
-    background-color: white;
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    height: 100%;
   }
 
   &__control {
@@ -29,8 +16,15 @@
   }
 
   &__content {
+    flex-grow: 1;
     width: 100%;
     padding: 1em;
     font-size: 1.3em;
+  }
+
+  &__control {
+    @include media(mobile, tablet) {
+      margin-top: auto;
+    }
   }
 }

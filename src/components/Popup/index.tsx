@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './index.scss';
+import useWindowWidth from 'hooks/window/useWindowWidth';
 
 interface PopupType {
   className?: string;
@@ -13,6 +14,7 @@ interface PopupType {
 function Popup({ className, backLink, children } : PopupType) {
   const navigate = useNavigate();
   const classes = classNames('popup', className);
+  const windowWidth = useWindowWidth();
 
   return (
     <div
@@ -28,8 +30,14 @@ function Popup({ className, backLink, children } : PopupType) {
       }}
     >
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
+        className="popup__inner"
+        initial={windowWidth > 768
+          ? { scale: 0 }
+          : { y: '100%' }}
+        animate={windowWidth > 768
+          ? { scale: 1 }
+          : { y: 0 }}
+        transition={{ type: 'linear', duration: 0.5 }}
         exit={{ scale: 0 }}
       >
         {children}
