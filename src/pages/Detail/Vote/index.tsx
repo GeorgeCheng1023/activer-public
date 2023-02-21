@@ -11,7 +11,7 @@ import {
 import { DetailLoaderType } from 'types/Loader';
 import { getTagUnvote, getTagVote } from 'api/user';
 import getCookie from 'utils/getCookies';
-import Popup from './Popup';
+import Popup from '../../../components/Popup';
 
 import './index.scss';
 

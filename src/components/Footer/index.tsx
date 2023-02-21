@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.scss';
 import {
   BsFacebook, BsGithub, BsLine, BsInstagram,
 } from 'react-icons/bs';
-import ProblemReport from './components/ProblemReport';
 
 function Footer() {
-  const [displayProblemReport, setDisplayProblemReport] = useState<boolean>(false);
-
   return (
     <footer className="footer">
       <div className="footer__connection">
@@ -32,16 +29,7 @@ function Footer() {
       </div>
       <div className="footer__other">
         <h3 className="footer__title">其他</h3>
-        <button
-          type="button"
-          onClick={() => setDisplayProblemReport(true)}
-        >
-          問題回報
-        </button>
-        <ProblemReport
-          display={displayProblemReport}
-          onClose={() => setDisplayProblemReport(false)}
-        />
+
         <a href="/">關於我們</a>
         <a href="/">Sitemap</a>
       </div>

@@ -14,7 +14,6 @@ import Button from 'components/Button';
 import { apiUserUpdate } from 'api/user';
 
 // hook
-import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
 // redux
 import {
@@ -34,7 +33,6 @@ function Basic() {
   const [isBlocking, setIsBlocking] = useState(false);
   const [values, setValues] = useState(userData);
   const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
-  const [displayCropPanel, setDisplayCropPanel] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>(userData.avatar);
 
@@ -83,12 +81,6 @@ function Basic() {
   };
 
   // crop
-  const handleCropPanelShow = () => {
-    setDisplayCropPanel(true);
-  };
-  useNonInitialEffect(() => {
-    handleCropPanelShow();
-  }, [imageSrc]);
 
   // navigate other pages
   unstable_usePrompt({
@@ -140,8 +132,6 @@ function Basic() {
           <Crop
             image={imageSrc}
             onCropped={handleCropped}
-            onClose={() => setDisplayCropPanel(false)}
-            display={displayCropPanel}
           />
           <img className="user-basic__portrait img" src={imageSrc || '/user.png'} alt="user-portrait" />
           <div className="user-basic__portrait upload-button">
