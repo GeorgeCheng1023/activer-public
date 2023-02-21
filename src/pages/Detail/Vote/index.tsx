@@ -143,11 +143,8 @@ function Vote() {
     <Popup
       backLink={`/detail/${activityId}`}
     >
-      <motion.div
+      <div
         className="vote"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0 }}
       >
         <FormSearchTag
           placeholder="搜尋標籤"
@@ -182,7 +179,7 @@ function Vote() {
             </div>
           );
         })}
-      </motion.div>
+      </div>
     </Popup>
 
   );

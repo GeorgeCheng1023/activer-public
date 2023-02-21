@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './index.scss';
 
 interface PopupType {
@@ -26,7 +27,13 @@ function Popup({ className, backLink, children } : PopupType) {
         }
       }}
     >
-      {children}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
+      >
+        {children}
+      </motion.div>
     </div>
   );
 }
