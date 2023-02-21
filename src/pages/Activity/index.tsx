@@ -3,15 +3,15 @@ import { getNewestActivity, getTrendActivity } from 'api/activity';
 import Pagination from 'components/Pagination';
 import Button from 'components/Button';
 import MainCard from 'components/Card/MainCard';
-import { useLoaderData } from 'react-router-dom';
-import { ActivityResponseDataType } from 'types/ActivityDataType';
+import { useLoaderData, LoaderFunction } from 'react-router-dom';
+import { ActivityResponseType } from 'types/Response';
 import useSetSearchParam from 'hooks/router/useSetSearchParam';
 import useGetSearchParam from 'hooks/router/useGetSearchParam';
 import getUrlSearchParams from 'utils/getUrlParams';
 import { CustomError } from 'pages/Error';
 import './index.scss';
 
-export async function loader({ request }: any) {
+export const loader: LoaderFunction = async ({ request }) => {
   const type = getUrlSearchParams(request.url, 'type');
   const page = getUrlSearchParams(request.url, 'page', '1');
   if (typeof type !== 'string' || typeof page !== 'string') {
@@ -26,10 +26,10 @@ export async function loader({ request }: any) {
     throw new CustomError('請提供正確的網址!', 404);
   }
   return res.data;
-}
+};
 
 function Activity() {
-  const loaderData = useLoaderData() as ActivityResponseDataType;
+  const loaderData = useLoaderData() as ActivityResponseType;
   const setSearchParams = useSetSearchParam();
   const type = useGetSearchParam('type', 'trend');
 
@@ -56,7 +56,7 @@ function Activity() {
       <div className="activity__items">
         {
           loaderData.searchResultData.map((activity) => (
-            <MainCard activity={activity} />
+            <MainCard activity={activity} key={`activity-${activity.id}`} />
           ))
         }
       </div>

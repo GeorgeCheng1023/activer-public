@@ -13,8 +13,8 @@ import { parseArrayTagDataToTag } from 'utils/parseTag';
 import getCookie from 'utils/getCookies';
 
 // type
-import { HistoryLoaderDataType, ActivityDataType } from 'types/ActivityDataType';
-
+import { ActivityDataType } from 'types/ActivityDataType';
+import { HistoryLoaderType } from 'types/Loader';
 // components
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';
@@ -38,7 +38,7 @@ export async function loader() {
 }
 
 function History() {
-  const loaderData = useLoaderData() as HistoryLoaderDataType;
+  const loaderData = useLoaderData() as HistoryLoaderType;
   const activities: ActivityDataType[] = loaderData.newestActivityResData;
 
   return (

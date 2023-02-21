@@ -1,11 +1,11 @@
 import axios from 'axios';
-import ActivityDataType, {
-  ActivityResponseDataType,
-  BranchDataType,
-  ManageResponseDataType,
+import ActivityDataType, { BranchDataType } from 'types/ActivityDataType';
+import {
+  ActivityResponseType,
+  ManageResponseType,
   SearchHistoryResponseType,
-  SearchResponseDataType,
-} from 'types/ActivityDataType';
+  SearchResponseType,
+} from 'types/Response';
 import { TEST_URL } from './user';
 
 // activity api
@@ -27,7 +27,7 @@ export const getActivityById = (
 
 // POST: get newest activity
 export const getNewestActivity = (countPerSegment: number, currentSegment: number) => (
-  activityRequest.post<ActivityResponseDataType>(
+  activityRequest.post<ActivityResponseType>(
     '/Newest',
     {
       countPerSegment, currentSegment,
@@ -42,7 +42,7 @@ export const getNewestActivity = (countPerSegment: number, currentSegment: numbe
 
 // POST: get trend activity
 export const getTrendActivity = (countPerSegment: number, currentSegment: number) => (
-  activityRequest.post<ActivityResponseDataType>(
+  activityRequest.post<ActivityResponseType>(
     '/trend',
     { countPerSegment, currentSegment },
     {
@@ -89,7 +89,7 @@ interface getSearchActivityPropsType {
 export const postSearchActivity = (
   reqBody: getSearchActivityPropsType,
 ) => (
-  activityRequest.post<SearchResponseDataType>(
+  activityRequest.post<SearchResponseType>(
     '/search',
     reqBody,
     {
@@ -102,11 +102,11 @@ export const postSearchActivity = (
   )
 );
 
-export default activityRequest;
-
 // GET: Activity in Manage Page
-export const getManageActivity = (accessToken: string) => (
-  activityRequest.get<ManageResponseDataType[]>(
+export const getManageActivity = (
+  accessToken: string,
+) => (
+  activityRequest.get<ManageResponseType[]>(
     '/dreamAndRegistered',
     {
       headers: {
@@ -122,9 +122,10 @@ export const getSearchHistory = (
   countPerSegment: number,
   currentSegment: number,
   accessToken: string,
+  orderBy?: 'ascending' | 'descending',
 ) => (
   activityRequest.post<SearchHistoryResponseType>(
-    '/searchHistory',
+    `/searchHistory${orderBy ? `?orderBy=${orderBy}` : ''}`,
     {
       countPerSegment,
       currentSegment,
@@ -165,3 +166,5 @@ export const getActivityHistory = (
       Authorization: `Bearer ${accessToken}`,
     },
   }));
+
+export default activityRequest;

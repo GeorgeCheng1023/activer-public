@@ -20,42 +20,11 @@
     flex-flow: column;
 
     &__tags {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5em;
+      width: 30%;
 
       >*:not(:last-child) {
         padding-bottom: 0.5em;
         border-bottom: 1px solid $tertiary-font-color;
-      }
-    }
-  }
-
-  &__item {
-    display: flex;
-    gap: 1em;
-    align-items: center;
-    margin: 0.2em 0;
-    padding: 0.5em;
-    border-radius: 5px;
-    cursor: default;
-
-    &__text {
-      display: flex;
-      flex-direction: column;
-
-      &__title {
-        font-weight: bold;
-        font-size: 1.1em;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-
-      &__description {
-        color: $secondary-font-color;
-        font-size: 0.8em;
       }
     }
   }

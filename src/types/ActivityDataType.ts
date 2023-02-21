@@ -23,7 +23,7 @@ export interface TagDataType {
 }
 
 export interface ActivityTagDataType extends TagDataType {
-  tagCount: number; // user voted tag count
+  tagVoteCount: number; // user voted tag count
   userVoted: boolean; // check if user voted this tag
 }
 
@@ -43,63 +43,36 @@ interface DateType {
   [key: string]: string
 }
 
-// for Manage Page
-export interface UserActivityDataType extends BaseActivityDataType {
-  tags: TagDataType[];
-  branch: BranchDataType;
-}
-
-/** API Response Type */
 export interface SearchResultDataType {
   activity: ActivityDataType;
   weights: number; // for sorting result
 }
+
 export interface SearchHistoryResultDataType {
   id: number;
   keyword: string;
   tags: TagDataType[];
   createAt:string;
 }
-export interface SegmentResponseDataType {
-  maxSegment: number;// maximun request page
-  minSegment: number;// minimun request page
-  currentSegment: number;// current page
-  countPerSegment: number; // max number of data in its page
-  totalCount: number; // total data
-}
-export interface SearchResponseDataType
-  extends SegmentResponseDataType {
-  searchResultData: SearchResultDataType[]; // main result data
-}
-export interface ActivityResponseDataType extends SegmentResponseDataType {
-  searchResultData: ActivityDataType[];
-}
-export interface ManageResponseDataType extends BaseActivityDataType {
+
+// for Manage Page
+export interface UserActivityDataType extends BaseActivityDataType {
   tags: TagDataType[];
-  branches: BranchDataType[]
-}
-export interface SearchHistoryResponseType extends SegmentResponseDataType {
-  searchResultData: SearchHistoryResultDataType[] | undefined;
+  branch: BranchDataType;
 }
 
-/** Router loaeder return type */
-export interface SearchLoaderType {
-  data: SearchResponseDataType | null;
-  keywords: string | null;
-}
-export interface homeLoaderDataType {
-  trendActivityResData:ActivityResponseDataType;
-  newestActivityResData:ActivityResponseDataType;
-}
-export interface ManageLoaderType {
-  all :UserActivityDataType[];
-  dream: UserActivityDataType[];
-  enroll: UserActivityDataType[];
-  done: UserActivityDataType[];
+export interface TrendTagDataType extends ActivityTagDataType {
+  tagTrend: number;
+  activityAmount: number;
 }
 
-export interface HistoryLoaderDataType {
-  newestActivityResData:ActivityDataType[];
+export interface CommentResultDataType {
+  createdAt: string;
+  id: number;
+  content: string;
+  star: number;
+  userId: number;
+  username: string;
+  userAvatar:string;
 }
-
 export default ActivityDataType;

@@ -1,71 +1,41 @@
-import React, { useEffect, useCallback } from 'react';
-import { createPortal } from 'react-dom';
+import classNames from 'classnames';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './index.scss';
-import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-export interface PopupDisplayType {
-  display: boolean | (() => void),
-  onClose: () => void,
+interface PopupType {
+  className?: string;
+  backLink: string;
+  children: React.ReactNode;
 }
 
-interface PopupType extends PopupDisplayType {
-  children: React.ReactNode,
-  effectCallback?: React.EffectCallback
+function Popup({ className, backLink, children } : PopupType) {
+  const navigate = useNavigate();
+  const classes = classNames('popup', className);
+
+  return (
+    <div
+      className={classes}
+      aria-hidden
+      data-type="backdrop"
+      onClick={(event) => {
+        if ((event.target as HTMLElement).getAttribute('data-type') === 'backdrop') {
+          navigate(backLink, {
+            replace: true,
+          });
+        }
+      }}
+    >
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0 }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
 }
-/**
- * @effectCallback {React.EffectCallback} execute when popup show or close
- */
-function Popup({
-  children,
-  onClose,
-  display,
-  effectCallback,
-}: PopupType) {
-  const handleClickBackdrop: React.MouseEventHandler<HTMLDivElement> = useCallback((e) => {
-    e.preventDefault();
-    onClose();
-  }, []);
-
-  // hidden window scroll to avoid scrolling backdrop page
-  useEffect(() => {
-    if (display) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  }, [display]);
-
-  if (effectCallback) {
-    useEffect(effectCallback, [display]);
-  }
-
-  if (display) {
-    return createPortal(
-      <>
-        <div
-          className="popup__backdrop"
-          aria-hidden="true"
-          onClick={handleClickBackdrop}
-        />
-        <div
-          className="popup__close-button"
-          onClick={() => onClose()}
-          aria-hidden
-        >
-          <AiOutlineCloseCircle />
-        </div>
-        <div className="popup__panel">
-          {children}
-        </div>
-      </>,
-      document.getElementById('root')!,
-    );
-  }
-  return null;
-}
-
-Popup.defaultProps = {
-  effectCallback: undefined,
-};
 
 export default Popup;

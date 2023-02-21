@@ -56,20 +56,12 @@
 
   // Main
   &__main {
-    >* {
-      @include detail-section-container;
-    }
-
     .detail__header {
       position: relative;
       display: flex;
       gap: 0.25em;
       align-items: center;
-      margin-bottom: 0.5em;
-
-      svg {
-        font-size: 0.8em;
-      }
+      margin: 1em 0;
 
       &::after {
         content: "";
@@ -89,5 +81,24 @@
       width: 100%;
       height: fit-content;
     }
+  }
+
+  &__comment {
+    &__add {
+      padding: 0.3em;
+      font-size: 0.5em;
+    }
+  }
+
+  &__add-tag {
+    font-size: 0.5em;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    font-size: 0.8em;
   }
 }

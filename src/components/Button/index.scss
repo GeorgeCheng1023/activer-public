@@ -178,10 +178,17 @@ $btn-config: (
   &__icon {
     display: flex;
     align-items: center;
+    width: 1em;
+    height: 1em;
     stroke: inherit;
 
     svg,
-    path { stroke: inherit; }
+    path {
+      display: block;
+      width: 100%;
+      height: 100%;
+      stroke: inherit;
+    }
   }
 
   &:disabled {

@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { BiBorderAll, BiBookmarkHeart, BiEdit } from 'react-icons/bi';
 import {
-  BranchDataType, ManageLoaderType, ManageResponseDataType, UserActivityDataType,
+  BranchDataType, UserActivityDataType,
 } from 'types/ActivityDataType';
+import { ManageLoaderType } from 'types/Loader';
+import { ManageResponseType } from 'types/Response';
 import { getManageActivity, postActivityStatus } from 'api/activity';
 import { MdDownloadDone } from 'react-icons/md';
 import getCookie from 'utils/getCookies';
 import {
   useLoaderData, useParams,
+  LoaderFunction,
 } from 'react-router-dom';
 import ManageNavLink from './components/ManageNavLink';
 import ManageActivity from './components/ManageActivity';
 import './index.scss';
 
-function parseManageResponseToUserActivity(data: ManageResponseDataType[])
+function parseManageResponseToUserActivity(data: ManageResponseType[])
   : UserActivityDataType[] {
   const parseUserActivities:UserActivityDataType[] = [];
   data.forEach((activity) => {
@@ -31,8 +34,10 @@ function parseManageResponseToUserActivity(data: ManageResponseDataType[])
   return parseUserActivities;
 }
 
-export async function loader() {
-  const res = await getManageActivity(getCookie('sessionToken'));
+export const loader: LoaderFunction = async () => {
+  const res = await getManageActivity(
+    getCookie('sessionToken'),
+  );
   const parseActivites = parseManageResponseToUserActivity(res.data);
   const returnData = {
     all: parseActivites,
@@ -41,7 +46,7 @@ export async function loader() {
     done: parseActivites.filter((activity) => activity.branch.status === '已完成'),
   };
   return returnData;
-}
+};
 
 // manage update status
 export async function action({ request }: any) {

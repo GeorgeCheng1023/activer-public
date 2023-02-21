@@ -26,7 +26,7 @@ function StorageTag() {
         variant={{ reverse: true }}
         text={tag.text}
         id={tag.id}
-        onClick={handleRemoveTag}
+        onClick={() => handleRemoveTag(tag)}
       />
 
     );

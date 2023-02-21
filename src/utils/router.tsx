@@ -1,16 +1,16 @@
 import React from 'react';
 import Activity, { loader as activityLoader } from 'pages/Activity';
+import Tag, { loader as tagLoader } from 'pages/Tag';
 import Detail, { action as detailAction, loader as detailLoader } from 'pages/Detail';
 import RootErrorBoundary from 'pages/Error';
-import HomeErrorPage from 'pages/Error/HomeErrorPage';
 import NotFound from 'pages/Error/NotFound';
-import SearchErrorPage from 'pages/Error/SearchErrorPage';
-
 import Home, { loader as homeLoader } from 'pages/Home';
-
+import Comment, { addCommentAction, deleteCommentAction } from 'pages/Detail/Comment';
+import Vote, { votedAction, unvotedAction } from 'pages/Detail/Vote';
+import Crop from 'pages/User/Basic/Crop';
 import Loading from 'pages/Loading';
-
-import Root from 'pages/Root';
+import Login from 'pages/Login';
+import Root, { rootLoader } from 'pages/Root';
 import Search, { loader as searchLoader } from 'pages/Search';
 
 import User, {
@@ -19,9 +19,8 @@ import User, {
 import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
 import { loader as historyLoader } from 'pages/User/History';
 import Record from 'pages/User/History/Record';
-import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
+import { action as manageAction, loader as manageLoader } from 'pages/User/Manage';
 
-import Login from 'pages/Login';
 import {
   Admin, ResetPwd, EmailLoading, EmailVerify, ForgetPwd, Register, Verify, PersistLogin,
 } from '../pages/Login';
@@ -30,6 +29,8 @@ export const routerConfig = [
   {
     path: '/',
     element: <Root />,
+    id: 'root',
+    loader: rootLoader,
     errorElement: <RootErrorBoundary />,
     children: [
       {
@@ -38,7 +39,6 @@ export const routerConfig = [
           {
             path: '/',
             loader: homeLoader,
-            errorElement: <HomeErrorPage />,
             element: <Home />,
           },
           {
@@ -52,14 +52,48 @@ export const routerConfig = [
           {
             path: '/search',
             loader: searchLoader,
-            errorElement: <SearchErrorPage />,
             element: <Search />,
           },
           {
-            path: '/detail/:id?',
-            loader: detailLoader,
+            path: '/detail/:activityId',
+            id: 'detail',
             action: detailAction,
+            loader: detailLoader,
             element: <Detail />,
+            children: [
+              {
+                path: 'comment',
+                element: <Comment />,
+                children: [
+                  {
+                    path: 'delete/:commentId',
+                    action: deleteCommentAction,
+                    element: null,
+                  },
+                  {
+                    path: 'new',
+                    action: addCommentAction,
+                    element: null,
+                  },
+                ],
+              },
+              {
+                path: 'vote',
+                element: <Vote />,
+                children: [
+                  {
+                    action: votedAction,
+                    path: 'voted/:tagId',
+                    element: null,
+                  },
+                  {
+                    action: unvotedAction,
+                    path: 'unvoted/:tagId',
+                    element: null,
+                  },
+                ],
+              },
+            ],
           },
           {
             path: '/resetpwd',
@@ -93,6 +127,11 @@ export const routerConfig = [
         element: <Activity />,
       },
       {
+        path: '/tag',
+        loader: tagLoader,
+        element: <Tag />,
+      },
+      {
         path: '*',
         element: <NotFound />,
       },
@@ -113,6 +152,12 @@ export const routerConfig = [
           {
             path: 'basic',
             element: <Basic />,
+            children: [
+              {
+                path: 'crop',
+                element: <Crop />,
+              },
+            ],
           },
           {
             path: 'account',
@@ -121,7 +166,7 @@ export const routerConfig = [
           {
             path: 'manage/:filter?',
             loader: manageLoader,
-            shouldRevalidate: manageRevalideter,
+            // shouldRevalidate: manageRevalideter,
             action: manageAction,
             id: 'manage',
             element: <Manage />,

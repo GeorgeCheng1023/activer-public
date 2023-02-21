@@ -1,21 +1,35 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { LoaderFunction, useLoaderData } from 'react-router-dom';
 import './index.scss';
 import { getSearchHistory, deleteSearchHistory } from 'api/activity';
 import getCookie from 'utils/getCookies';
-import { SearchHistoryResponseType } from 'types/ActivityDataType';
+import { SearchHistoryResponseType } from 'types/Response';
 import Pagination from 'components/Pagination';
 import { throwError } from 'pages/Error';
+import getUrlParams from 'utils/getUrlParams';
 import SearchHistory from './components/SearchHistory';
 
-export async function loader() {
+export const loader: LoaderFunction = async ({ request }) => {
+  const orderBy = getUrlParams(request.url, 'orderBy');
+  if (!orderBy) {
+    const res = await getSearchHistory(
+      20,
+      1,
+      getCookie('sessionToken'),
+    );
+    return res.data;
+  }
+  if (orderBy !== 'ascending' && orderBy !== 'descending') {
+    throw new Response('請輸入正確參數', { status: 400 });
+  }
   const res = await getSearchHistory(
     20,
     1,
     getCookie('sessionToken'),
+    orderBy,
   );
   return res.data;
-}
+};
 
 export async function action({ request }: any) {
   if (request.method === 'DELETE') {

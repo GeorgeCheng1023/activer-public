@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { UserAPIType, UserDataType, UserRecord } from 'types/UserType';
+import { UserAPIType, UserRecord } from 'types/UserType';
+import { CommentResponseType } from '../types/Response/index';
 
 const IP = '220.132.244.41';
 const PORT = '5044';
@@ -16,8 +17,10 @@ const USER_RESEND_VERIFY_URL = '/auth/resendVerify/email';
 const USER_CHANGE_PWD = '/auth/changepassword';
 const USER_RESET_PWD = '/auth/resetpassword';
 const USER_RECORD = '/activity/record';
+const USER_ADD_COMMENT = '/comment';
+const USER_GET_ALL_COMMENT = '/comments';
 
-export const userRequest = axios.create({
+const userRequest = axios.create({
   baseURL: TEST_URL.concat('/api/user'),
 });
 
@@ -51,7 +54,7 @@ export const apiUserRegister = (
 export const apiUserUpdate = (
   userFormData: FormData,
   accessToken: string,
-) => userRequest.put<UserDataType>(
+) => userRequest.put(
   USER_UPDATE_URL,
   userFormData,
   {
@@ -200,6 +203,102 @@ export const apiUserGoogleData = (access_token: string) => axios.get(
       Authorization: `Bearer ${access_token}`,
     },
   },
+);
+
+export const postComment = (
+  activityId: number,
+  comment: string | null,
+  star: number,
+  access_token: string,
+) => (
+  userRequest.post(
+    USER_ADD_COMMENT,
+    {
+      activityId,
+      comment,
+      star,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    },
+  )
+);
+
+export const getComment = (
+  countPerSegment: number,
+  currentSegment: number,
+  activityId: number,
+  access_token: string,
+) => (
+  userRequest.post<CommentResponseType>(
+    USER_GET_ALL_COMMENT,
+    {
+      currentSegment,
+      countPerSegment,
+      activityId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    },
+  )
+);
+
+export const deleteComment = (
+  commentId: string,
+  access_token: string,
+) => (
+  userRequest.delete(
+    `/comment/${commentId}`,
+    {
+
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    },
+
+  )
+);
+
+export const getTagVote = (
+  activityId: string,
+  tagId: string,
+  access_token: string,
+) => (
+  userRequest.get(
+    'tagVote',
+    {
+      params: {
+        activityId,
+        tagId,
+      },
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    },
+  )
+);
+
+export const getTagUnvote = (
+  activityId: string,
+  tagId: string,
+  access_token: string,
+) => (
+  userRequest.get(
+    'tagUnVote',
+    {
+      params: {
+        activityId,
+        tagId,
+      },
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    },
+  )
 );
 
 export default userRequest;
