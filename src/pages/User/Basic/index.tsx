@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import './index.scss';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { Tooltip } from 'react-tooltip';
@@ -34,7 +34,7 @@ import getCookie from 'utils/getCookies';
 import CityCountyData from './CityCountyData.json';
 
 export async function loader({ params }: LoaderFunctionArgs): Promise<UserDataType> {
-  if (!params.userId) throwError('page not found', 404);
+  if (!params.userId) throwError('Page not found', 404);
   const userId = parseInt(params.userId || '1', 10);
   const res = await apiGetUser(userId);
   const formatRes = formatUserData(res.data);
@@ -42,13 +42,15 @@ export async function loader({ params }: LoaderFunctionArgs): Promise<UserDataTy
 }
 
 export async function action({ params, request }: ActionFunctionArgs) {
-  if (!params.userId) throwError('page not found', 404);
+  if (!params.userId) throwError('Page not found', 404);
   const userId = parseInt(params.userId || '1', 10);
 
+  // get previous data
   const prevData = await apiGetUser(userId);
 
-  if (!prevData.statusText) return throwError('user not found', 404);
+  if (!prevData.statusText) return throwError('User not found', 404);
 
+  // get form data
   const userFormData = await request.formData();
   const userData = Object.fromEntries(userFormData);
 
@@ -58,7 +60,7 @@ export async function action({ params, request }: ActionFunctionArgs) {
   await apiUserUpdate(postUserData, getCookie('sessionToken'));
 
   scrollToTop();
-  return null;
+  return { ok: true };
 }
 
 function Basic() {
@@ -80,6 +82,7 @@ function Basic() {
   const userLoaderData = useLoaderData() as UserDataType;
   React.useEffect(() => {
     dispatch(updateUser({ ...userLoaderData }));
+    setSelectCounty(userLoaderData.county);
   }, []);
 
   const handleChange = async (key: any, value: any) => {
@@ -110,9 +113,9 @@ function Basic() {
     handleCropPanelShow();
   }, [imageSrc]);
 
-  // navigate other pages
+  // reload 會出錯
   // unstable_usePrompt({
-  //   when: isBlocking,
+  //   when: true,
   //   message: '你確定要離開此頁面嗎?',
   // });
 
@@ -125,10 +128,20 @@ function Basic() {
   // useNonInitialEffect(() => {
   //   window.addEventListener('beforeunload', alertUser);
   //   return () => window.removeEventListener('beforeunload', alertUser);
-  // }, [isBlocking]);
+  // }, [displaySuccess]);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    console.log(event.target);
+  };
 
   return (
-    <Form method="post" action={`/user/basic/${userData.id}`} name="userFormData" className="user-basic">
+    <Form
+      method="post"
+      action={`/user/basic/${userData.id}`}
+      onSubmit={handleSubmit}
+      name="userFormData"
+      className="user-basic"
+    >
       <h2>基本資料</h2>
       <div className="user-basic__container user-basic__basic">
 
