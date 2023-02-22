@@ -22,18 +22,18 @@ function CardDefault({
         <img src={encodeURI(imgUrl)} alt={altText} />
       </div>
       <div className="card__content">
+        {/* title */}
         <p className="card__title">{title}</p>
-        {detail
-      && (
-        <p
-          className="card__detail"
-        >
+
+        {/* detail */}
+        <p className="card__detail">
           {detail}
         </p>
-      )}
+
+        {/* tags */}
         {tags
         && (
-          <div className="card__tag">
+          <div className="card__tags">
             {tags.splice(0, 3).map((tag) => (
               <Tag
                 key={`${id}-${tag.id}`}
@@ -46,6 +46,7 @@ function CardDefault({
             )).slice(0, 5)}
           </div>
         ) }
+        {/* Contorls */}
         {control && <div className="card__control">{control}</div>}
       </div>
     </div>
