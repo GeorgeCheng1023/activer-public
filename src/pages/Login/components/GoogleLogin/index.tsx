@@ -3,7 +3,7 @@ import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import './index.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getUserGoogleData } from 'store/userAuth';
+import { getUserGoogleData } from 'store/user';
 import { useAppDispatch } from 'hooks/redux';
 
 function GoogleLoginButton() {
@@ -23,7 +23,7 @@ function GoogleLoginButton() {
         console.log(err);
       }
     },
-    onError: (error :any) => {
+    onError: (error: any) => {
       console.log(error);
     },
   });

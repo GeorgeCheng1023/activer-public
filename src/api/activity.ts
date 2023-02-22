@@ -159,7 +159,7 @@ export const deleteSearchHistory = (
 export const getActivityHistory = (
   accessToken: string,
 ) => (
-  activityRequest.get<ActivityDataType>('/history', {
+  activityRequest.get<ActivityDataType[]>('/history', {
     headers: {
       'Content-Type': 'text/plain',
       Authorization: `Bearer ${accessToken}`,

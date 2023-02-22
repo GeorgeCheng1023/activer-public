@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import './index.scss';
 import Button from 'components/Button';
 import { useAppSelector } from 'hooks/redux';
-import { getUserData } from 'store/userAuth';
+import { getUserIsLoggedIn } from 'store/auth';
+import { getUserData } from 'store/user';
 import { useCookies } from 'react-cookie';
 import { apiUserVerifyAndChangePwd, apiUserVerifyAndResetPwd } from 'api/user';
 
 function EmailLoading() {
   const userData = useAppSelector(getUserData);
+  const isLoggedIn = useAppSelector(getUserIsLoggedIn);
   const [cookies] = useCookies<string>(['user']);
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleResent = async () => {
     setLoading(true);
-    if (userData.IsLoggedIn) {
+    if (isLoggedIn) {
       await apiUserVerifyAndChangePwd(cookies.sessionToken);
     } else {
       await apiUserVerifyAndResetPwd(userData.email);

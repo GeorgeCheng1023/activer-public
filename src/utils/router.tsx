@@ -18,6 +18,7 @@ import User, {
 } from 'pages/User';
 import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
 import { loader as historyLoader } from 'pages/User/History';
+import { loader as basicLoader } from 'pages/User/Basic';
 import Record from 'pages/User/History/Record';
 import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
 
@@ -111,7 +112,8 @@ export const routerConfig = [
             element: <Main />,
           },
           {
-            path: 'basic',
+            path: 'basic/:userId',
+            loader: basicLoader,
             element: <Basic />,
           },
           {
@@ -125,7 +127,6 @@ export const routerConfig = [
             action: manageAction,
             id: 'manage',
             element: <Manage />,
-
           },
           {
             path: 'history',

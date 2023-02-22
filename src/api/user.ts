@@ -6,7 +6,6 @@ const PORT = '5044';
 
 export const TEST_URL = `http://${IP}:${PORT}`;
 
-const USER_UPDATE_URL = '/';
 // api/user/auth
 const LOGIN_URL = '/auth/signin';
 const REGISTER_URL = '/auth/signup';
@@ -47,12 +46,25 @@ export const apiUserRegister = (
   },
 );
 
+// GET: single user data
+export const apiGetUser = (
+  userId: number,
+) => userRequest.get<UserDataType>(
+  `/${userId}`,
+  {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      // Authorization: `Bearer ${accessToken}`,
+    },
+  },
+);
+
 // PUT: user update data
 export const apiUserUpdate = (
-  userFormData: FormData,
+  userFormData: UserDataType,
   accessToken: string,
 ) => userRequest.put<UserDataType>(
-  USER_UPDATE_URL,
+  '/',
   userFormData,
   {
     headers: {

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { useAppSelector } from 'hooks/redux';
 import Footer from 'components/Footer';
 import Header from '../components/Header';
-import { getLoadingState } from '../store/userAuth/index';
+import { getLoadingState } from '../store/loading/index';
 import Loading from './Loading';
 
 function Root() {

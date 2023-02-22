@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchPanelReducer from './searchPanel';
-import userAuthSlice from './userAuth';
+import loadingReducer from './loading';
+import userReducer from './user';
+import authReducer from './auth';
 
 const store = configureStore({
   reducer: {
     searchPanel: searchPanelReducer,
-    userAuth: userAuthSlice,
+    Loading: loadingReducer,
+    user: userReducer,
+    auth: authReducer,
   },
   devTools: true,
 });

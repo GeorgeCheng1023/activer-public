@@ -5,7 +5,8 @@ import { Outlet } from 'react-router-dom';
 import Loading from 'pages/Loading';
 import { apiUserAuth } from 'api/user';
 import { useAppDispatch } from 'hooks/redux';
-import { setBirthday, userUpdate } from 'store/userAuth';
+import { updateUser } from 'store/user';
+import { UserDataType } from '../../../../types/UserType';
 
 function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,9 +20,12 @@ function PersistLogin() {
     const verifyUser = async () => {
       try {
         const response = await apiUserAuth(sessionToken);
-        dispatch(userUpdate(response.data.user));
-        const date = response.data.user.birthday.match(dateFormat);
-        if (date) dispatch(setBirthday(date[0]));
+        const userData: UserDataType = response.data.user;
+        dispatch(updateUser(userData));
+
+        // format to yyyy-mm-dd
+        const date = userData.birthday.match(dateFormat);
+        if (date) dispatch(updateUser({ ...userData, birthday: date[0] }));
 
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);

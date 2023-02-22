@@ -8,7 +8,7 @@ import { initialBranchesState } from 'pages/Detail/utils/initialData';
 import { postActivityStatus } from 'api/activity';
 import { parseArrayTagDataToTag } from 'utils/parseTag';
 import { replaceDateMinus } from 'utils/convertDate';
-import { getUserIsLoggedIn } from 'store/userAuth';
+import { getUserIsLoggedIn } from 'store/auth';
 import { useAppSelector } from 'hooks/redux';
 
 interface MainCardType {

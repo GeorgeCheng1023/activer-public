@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // api
 import { apiUserRegister } from 'api/user';
 
-// components
-import FormInput from 'components/Form/FormInput';
-import { useCookies } from 'react-cookie';
-import { setEmail, setRealName } from 'store/userAuth';
-import { Alert, Fade } from '@mui/material';
-import Button from '../../../../components/Button';
-import { useAppDispatch } from '../../../../hooks/redux/index';
+// redux
+import { updateUser, getUserData } from 'store/user';
+import { useAppDispatch, useAppSelector } from 'hooks/redux/index';
 
-// Regex
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+// components
+import { Alert, Fade } from '@mui/material';
+import FormInput from 'components/Form/FormInput';
+import Button from '../../../../components/Button';
 
 function Register() {
+  // Regex
+  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+  // eslint-disable-next-line no-useless-escape
+  const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
 
   const [user, setUser] = useState<string>('');
 
@@ -111,8 +114,7 @@ function Register() {
       const response = await apiUserRegister(user, email, pwd);
       navigate('/verify');
 
-      dispatch(setRealName(user));
-      dispatch(setEmail(email));
+      dispatch(updateUser({ ...userData, realName: user, email }));
 
       const expiresDate = new Date();
       expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);

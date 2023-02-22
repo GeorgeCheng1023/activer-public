@@ -98,8 +98,4 @@ export interface ManageLoaderType {
   done: UserActivityDataType[];
 }
 
-export interface HistoryLoaderDataType {
-  newestActivityResData:ActivityDataType[];
-}
-
 export default ActivityDataType;

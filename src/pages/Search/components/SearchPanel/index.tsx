@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useAppSelector, useAppDispatch } from 'hooks/redux';
 import { AiOutlineHistory } from 'react-icons/ai';
-import { getUserIsLoggedIn } from 'store/userAuth';
+import { getUserIsLoggedIn } from 'store/auth';
 import useOutsideClick from 'hooks/event/useOutsideClick';
 import Button from 'components/Button';
 import { MdDoubleArrow } from 'react-icons/md';

@@ -3,7 +3,7 @@ import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import './index.scss';
 import { useAppSelector } from 'hooks/redux';
-import { getUserData } from 'store/userAuth';
+import { getUserData } from 'store/user';
 // import dummyAccountData from './dummyAccountData.json';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
@@ -37,8 +37,7 @@ function Account() {
     setLoading(true);
     try {
       await apiUserLogin(userData.email, accountValue.password);
-      const response = await apiUserVerifyAndChangePwd(cookies.sessionToken);
-      console.log(response);
+      await apiUserVerifyAndChangePwd(cookies.sessionToken);
       nevigate('/email/loading');
     } catch (err: any) {
       if (!err?.response) {

@@ -6,14 +6,14 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { Form, useNavigate, useSubmit } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
-import { getUserIsLoggedIn } from 'store/userAuth';
+import { getUserIsLoggedIn } from 'store/auth';
 import './index.scss';
 
 interface FollowButtonType {
   followed: boolean;
   activityId: string;
   branchId: string;
-  setFollowed:React.Dispatch<React.SetStateAction<boolean>>
+  setFollowed: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function FollowButton({
@@ -25,7 +25,7 @@ function FollowButton({
   const submit = useSubmit();
 
   const formData = new FormData();
-  const handleClick:React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     if (!isLoggedIn) {
       navigate('/login');
     } else {

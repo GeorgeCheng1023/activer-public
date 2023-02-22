@@ -13,7 +13,7 @@ import { parseArrayTagDataToTag } from 'utils/parseTag';
 import getCookie from 'utils/getCookies';
 
 // type
-import { HistoryLoaderDataType, ActivityDataType } from 'types/ActivityDataType';
+import { ActivityDataType } from 'types/ActivityDataType';
 
 // components
 import HistoryControl from './components/HistoryControl';
@@ -27,19 +27,14 @@ import './index.scss';
 // import dummyActivityHistory from './dummyActivityHistory.json';
 // import dummyUserTagHistory from './dummyUserTagHistory.json';
 
-export async function loader() {
+export async function loader(): Promise<ActivityDataType[]> {
   const newestActivityRes = await getActivityHistory(getCookie('sessionToken'));
-  // test api
-  // const newestActivityRes = await getNewestActivity(5, 1);
-  console.log('0.0');
-  return ({
-    newestActivityResData: newestActivityRes.data,
-  });
+  return newestActivityRes.data;
 }
 
 function History() {
-  const loaderData = useLoaderData() as HistoryLoaderDataType;
-  const activities: ActivityDataType[] = loaderData.newestActivityResData;
+  const loaderData = useLoaderData() as ActivityDataType[];
+  const activities: ActivityDataType[] = loaderData;
 
   return (
     <div className="history">

@@ -3,7 +3,7 @@ import './index.scss';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { Tooltip } from 'react-tooltip';
 import { useCookies } from 'react-cookie';
-import { unstable_usePrompt } from 'react-router-dom';
+import { unstable_usePrompt, LoaderFunctionArgs } from 'react-router-dom';
 
 // components
 import Crop from 'components/Crop';
@@ -17,13 +17,20 @@ import { apiUserUpdate } from 'api/user';
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
 // redux
-import {
-  getUserData, userUpdate,
-} from 'store/userAuth';
+import { getUserData, updateUser } from 'store/user';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
+
 import { Alert, Fade } from '@mui/material';
+import { UserDataType } from 'types/UserType';
 import scrollToTop from 'utils/scrollToTop';
+
+// data
 import CityCountyData from './CityCountyData.json';
+
+export async function loader({ params }: LoaderFunctionArgs) {
+  console.log(params);
+  return null;
+}
 
 function Basic() {
   const dispatch = useAppDispatch();
@@ -32,7 +39,6 @@ function Basic() {
 
   // init state
   const [isBlocking, setIsBlocking] = useState(false);
-  const [values, setValues] = useState(userData);
   const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
@@ -40,37 +46,29 @@ function Basic() {
 
   const handleChange = (key: any, value: any) => {
     // setValues({ ...values, [key]: value });
-    setValues((prevData: any) => ({ ...prevData, [key]: value }));
+    dispatch(updateUser({ ...userData, [key]: value }));
+
     setDisplaySuccess(false);
     setIsBlocking(true);
-  };
-
-  // submit userData
-  const updateUserDatabase = async (userFormData: FormData) => {
-    const userDataEntries = Object.entries(userData);
-    userDataEntries.forEach((entry: any) => {
-      if (entry[0] !== 'IsLoggedIn' && entry[0] !== 'Loading' && !userFormData.has(`${entry[0]}`)) {
-        userFormData.append(`${entry[0]}`, entry[1]);
-      }
-    });
-
-    await apiUserUpdate(userFormData, cookies.sessionToken);
-    dispatch(userUpdate(values));
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    updateUserDatabase(userFormData);
-    setDisplaySuccess(true);
+    const postUserData: UserDataType = { ...userFormData, ...userData };
+    await apiUserUpdate(postUserData, cookies.sessionToken);
+
     scrollToTop();
+    setDisplaySuccess(true);
     setIsBlocking(false);
   };
 
   const handleCountyChange = (key: any, value: any) => {
+    // county
     setSelectCounty(value);
     handleChange(key, value);
+
     setDisplaySuccess(false);
     setIsBlocking(true);
   };
@@ -78,6 +76,7 @@ function Basic() {
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('avatar', croppedImage);
+
     setDisplaySuccess(false);
     setIsBlocking(true);
   };
@@ -105,7 +104,7 @@ function Basic() {
   React.useEffect(() => {
     window.addEventListener('beforeunload', alertUser);
     return () => window.removeEventListener('beforeunload', alertUser);
-  }, [values]);
+  }, [isBlocking]);
 
   // save it off before users navigate away
   // useBeforeUnload(
@@ -164,7 +163,7 @@ function Basic() {
             // placeholder="輸入暱稱姓名"
             errorMessage="暱稱不可超過15字"
             pattern="[\u4E00-\u9FFFA-Za-z]{1,15}"
-            formValue={values}
+            formValue={userData}
             onChange={handleChange}
           />
         </div>
@@ -178,7 +177,7 @@ function Basic() {
             // placeholder="輸入真實姓名"
             errorMessage="真實只能接受2-6字"
             pattern="[\u4E00-\u9FFF]{2,6}"
-            formValue={values}
+            formValue={userData}
             onChange={handleChange}
           />
         </div>
@@ -189,7 +188,7 @@ function Basic() {
             label="性別"
             name="gender"
             options={['男性', '女性', '其他', '隱藏']}
-            value={values.gender}
+            value={userData.gender}
             onChange={handleChange}
           />
         </div>
@@ -201,7 +200,7 @@ function Basic() {
             label="生日"
             type="date"
             placeholder="請選擇出生年月日"
-            formValue={values}
+            formValue={userData}
             onChange={handleChange}
           />
         </div>
@@ -213,7 +212,7 @@ function Basic() {
             label="職業"
             type="text"
             // placeholder="請選擇輸入您的職業"
-            formValue={values}
+            formValue={userData}
             onChange={handleChange}
           />
         </div>
@@ -228,7 +227,7 @@ function Basic() {
             label="縣市"
             name="county"
             options={CityCountyData.map((c) => c.CityName)}
-            value={values.county}
+            value={userData.county}
             onChange={handleCountyChange}
           />
         </div>
@@ -241,7 +240,7 @@ function Basic() {
             options={CityCountyData.find(
               (c) => c.CityName === selectedCounty,
             )?.AreaList.map((a) => a.AreaName) || []}
-            value={values.area}
+            value={userData.area}
             onChange={handleChange}
           />
         </div>
@@ -265,7 +264,7 @@ function Basic() {
             // placeholder="請選擇輸入您的電話"
             pattern="[0-9]{10}"
             errorMessage="電話必須是10位數字"
-            formValue={values}
+            formValue={userData}
             onChange={handleChange}
           />
         </div>

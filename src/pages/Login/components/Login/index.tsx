@@ -6,9 +6,7 @@ import { useCookies } from 'react-cookie';
 import './index.scss';
 
 // Slice
-import {
-  getUserData, setEmail, userLogin,
-} from 'store/userAuth';
+import { getUserData, updateUser } from 'store/user';
 
 // Type
 import { UserDataType } from 'types/UserType';
@@ -19,6 +17,7 @@ import { apiUserLogin, apiUserResendVerify } from 'api/user';
 import { useAppSelector } from 'hooks/redux';
 import { Alert, Fade } from '@mui/material';
 import scrollToTop from 'utils/scrollToTop';
+import { signIn } from 'store/auth';
 import Button from '../../../../components/Button';
 import GoogleLoginButton from '../GoogleLogin';
 import { useAppDispatch } from '../../../../hooks/redux/index';
@@ -92,9 +91,10 @@ function LoginSection() {
       // 使用者是否已用信箱驗證
       if (response.data.user.verify === false) {
         setEmailVerified(false);
-        dispatch(setEmail(response.data.user.email));
+        dispatch(updateUser({ ...userData, email: response.data.user.email }));
       } else {
-        dispatch(userLogin(response.data.user));
+        dispatch(updateUser(response.data.user));
+        dispatch(signIn());
         const searchParams = new URLSearchParams(location.search);
         const nextPage = searchParams.get('next');
         navigate(nextPage || '/user/basic', { replace: true });

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import './index.scss';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch } from 'hooks/redux';
-import { userLogout } from 'store/userAuth';
+import { signOut } from 'store/auth';
 import SideBarLink from './components/SidebarLink';
 
 function SideBar() {
@@ -28,7 +28,7 @@ function SideBar() {
   });
 
   const handleLogout = useCallback(() => {
-    dispatch(userLogout());
+    dispatch(signOut());
     removeCookie('sessionToken', { path: '/' });
   }, []);
 

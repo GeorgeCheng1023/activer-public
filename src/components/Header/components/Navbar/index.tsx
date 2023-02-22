@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 // style
 import './index.scss';
 // redux
-import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
+import { getUserIsLoggedIn, signOut } from 'store/auth';
 // import { show as showSearchPanel } from 'store/searchPanel';
 // hook
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ function Navbar() {
     }
   };
   const handleLogout = () => {
-    dispatch(userLogout());
+    dispatch(signOut());
     removeCookie('sessionToken', { path: '/' });
     navigate('/');
   };

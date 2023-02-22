@@ -4,7 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import useOutsideClick from 'hooks/event/useOutsideClick';
 // redux
-import { getUserIsLoggedIn, userLogout } from 'store/userAuth';
+import { getUserIsLoggedIn, signOut } from 'store/auth';
+import { getUserData } from 'store/user';
 import Button from 'components/Button';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 // components
@@ -20,6 +21,7 @@ function LoginLogoutButton() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
   const [, , removeCookie] = useCookies<string>(['user']);
   const restrictedPage = ['/email/verify', '/email/loading', '/register', '/login'];
 
@@ -30,7 +32,7 @@ function LoginLogoutButton() {
 
   // Logout Handler
   const handleLogout = useCallback(() => {
-    dispatch(userLogout());
+    dispatch(signOut());
     removeCookie('sessionToken', { path: '/' });
     navigate('/');
   }, []);
@@ -91,7 +93,7 @@ function LoginLogoutButton() {
 
                 <NavbarDropdownMenu name="user-main" order="primary">
 
-                  <NavbarDropdownItem link="/user/basic">基本資料</NavbarDropdownItem>
+                  <NavbarDropdownItem link={`/user/basic/${userData.id}`}>基本資料</NavbarDropdownItem>
                   <NavbarDropdownItem link="/user/manage">管理活動</NavbarDropdownItem>
                   <NavbarDropdownItem link="/user/preferences">偏好設定</NavbarDropdownItem>
                   <NavbarDropdownItem link="/user/history">歷史活動</NavbarDropdownItem>
