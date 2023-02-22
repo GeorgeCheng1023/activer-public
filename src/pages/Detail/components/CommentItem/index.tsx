@@ -102,9 +102,11 @@ function CommentItem({ comment, controllable }: CommentType) {
       {isOverflow
          && (
            <Button
-             className="comment-item__expend"
+             className="comment-item__expend-btn"
              type="button"
-             text={expended ? '關閉' : '展開'}
+             color="white"
+             text={expended ? '收起留言' : '展開留言'}
+             variant={{ underline: true }}
              onClick={() => setExpended(!expended)}
            />
          )}
