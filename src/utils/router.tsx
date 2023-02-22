@@ -8,24 +8,23 @@ import SearchErrorPage from 'pages/Error/SearchErrorPage';
 
 import Home, { loader as homeLoader } from 'pages/Home';
 
-import Loading from 'pages/Loading';
-
-import Root from 'pages/Root';
+// loader action
 import Search, { loader as searchLoader } from 'pages/Search';
+import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
+import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
+import { loader as historyLoader } from 'pages/User/History';
+import { action as basicAction, loader as basicLoader } from 'pages/User/Basic';
 
+// pages
+import Root from 'pages/Root';
+import Loading from 'pages/Loading';
 import User, {
   Account, Basic, History, Main, Manage, Preferences,
 } from 'pages/User';
-import { action as preferenceAction, loader as preferenceLoader } from 'pages/User/Preferences';
-import { loader as historyLoader } from 'pages/User/History';
-import { loader as basicLoader } from 'pages/User/Basic';
 import Record from 'pages/User/History/Record';
-import { revalidate as manageRevalideter, action as manageAction, loader as manageLoader } from 'pages/User/Manage';
-
-import Login from 'pages/Login';
-import {
+import Login, {
   Admin, ResetPwd, EmailLoading, EmailVerify, ForgetPwd, Register, Verify, PersistLogin,
-} from '../pages/Login';
+} from 'pages/Login';
 
 export const routerConfig = [
   {
@@ -114,6 +113,7 @@ export const routerConfig = [
           {
             path: 'basic/:userId',
             loader: basicLoader,
+            action: basicAction,
             element: <Basic />,
           },
           {

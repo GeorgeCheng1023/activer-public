@@ -43,12 +43,12 @@ function Crop({
         onClose();
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   }, [croppedAreaPixels, rotation]);
   // exit
-  const handleCloseCropPanel:
-  React.MouseEventHandler<HTMLButtonElement | HTMLDivElement> = (e) => {
+  const handleCloseCropPanel: React.MouseEventHandler<HTMLButtonElement | HTMLDivElement> = (e) => {
     e.preventDefault();
     onClose();
   };

@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import './index.scss';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { Tooltip } from 'react-tooltip';
-import { useCookies } from 'react-cookie';
 import {
-  unstable_usePrompt, LoaderFunctionArgs, useLoaderData,
+  LoaderFunctionArgs, useLoaderData, Form, ActionFunctionArgs, useParams,
 } from 'react-router-dom';
 
 // components
@@ -13,7 +12,7 @@ import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
 import Button from 'components/Button';
 
 // api
-import { apiUserUpdate, apiGetUser } from 'api/user';
+import { apiGetUser, apiUserUpdate } from 'api/user';
 
 // hook
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
@@ -22,61 +21,70 @@ import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 import { updateUser, getUserData } from 'store/user';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
+import scrollToTop from 'utils/scrollToTop';
 import { throwError } from 'pages/Error';
 import { Alert, Fade } from '@mui/material';
 import { UserDataType } from 'types/UserType';
-import scrollToTop from 'utils/scrollToTop';
+
+// utils
+import formatUserData from 'utils/formatUserData';
+import getCookie from 'utils/getCookies';
 
 // data
-import formatUserData from 'utils/formatUserData';
 import CityCountyData from './CityCountyData.json';
 
 export async function loader({ params }: LoaderFunctionArgs): Promise<UserDataType> {
-  if (!params.userId) throwError('user id not found', 404);
+  if (!params.userId) throwError('page not found', 404);
   const userId = parseInt(params.userId || '1', 10);
   const res = await apiGetUser(userId);
   const formatRes = formatUserData(res.data);
   return formatRes;
 }
 
+export async function action({ params, request }: ActionFunctionArgs) {
+  if (!params.userId) throwError('page not found', 404);
+  const userId = parseInt(params.userId || '1', 10);
+
+  const prevData = await apiGetUser(userId);
+
+  if (!prevData.statusText) return throwError('user not found', 404);
+
+  const userFormData = await request.formData();
+  const userData = Object.fromEntries(userFormData);
+
+  const postUserData = { ...prevData.data, ...userData };
+
+  // send your post request
+  await apiUserUpdate(postUserData, getCookie('sessionToken'));
+
+  scrollToTop();
+  return null;
+}
+
 function Basic() {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserData);
-  const [cookies] = useCookies<string>(['user']);
+  const params = useParams();
 
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
   const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
-  const [imageSrc, setImageSrc] = useState<string>(userData.avatar);
+
+  const imageUrl = `http://220.132.244.41:5044/api/user/avatar/${params.userId}`;
+  const [imageSrc, setImageSrc] = useState<string>(imageUrl);
 
   // ui
-  const [isBlocking, setIsBlocking] = useState(false);
+  // const [isBlocking, setIsBlocking] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
 
   // init state
   const userLoaderData = useLoaderData() as UserDataType;
   React.useEffect(() => {
     dispatch(updateUser({ ...userLoaderData }));
-    setImageSrc(userLoaderData.avatar);
   }, []);
 
   const handleChange = async (key: any, value: any) => {
     setDisplaySuccess(false);
-    setIsBlocking(true);
     dispatch(updateUser({ ...userData, [key]: value }));
-    console.log(key, value);
-    // dispatch(updateSingleData('nickName'));
-  };
-
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
-    const userFormData = new FormData(event.target as HTMLFormElement);
-
-    const postUserData: UserDataType = { ...userData, ...userFormData };
-    await apiUserUpdate(postUserData, cookies.sessionToken);
-
-    scrollToTop();
-    setDisplaySuccess(true);
-    setIsBlocking(false);
   };
 
   const handleCountyChange = (key: any, value: any) => {
@@ -85,15 +93,13 @@ function Basic() {
     handleChange(key, value);
 
     setDisplaySuccess(false);
-    setIsBlocking(true);
   };
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('avatar', croppedImage);
-    console.log('0.0');
+    setImageSrc(croppedImage);
     setDisplaySuccess(false);
-    setIsBlocking(true);
   };
 
   // crop
@@ -105,39 +111,24 @@ function Basic() {
   }, [imageSrc]);
 
   // navigate other pages
-  unstable_usePrompt({
-    when: isBlocking,
-    message: '你確定要離開此頁面嗎?',
-  });
+  // unstable_usePrompt({
+  //   when: isBlocking,
+  //   message: '你確定要離開此頁面嗎?',
+  // });
 
-  const alertUser = (e: BeforeUnloadEvent) => {
-    e.preventDefault();
-    e.returnValue = '';
-  };
+  // const alertUser = (e: BeforeUnloadEvent) => {
+  //   e.preventDefault();
+  //   e.returnValue = '';
+  // };
 
   // reload or navigate other website
-  useNonInitialEffect(() => {
-    window.addEventListener('beforeunload', alertUser);
-    return () => window.removeEventListener('beforeunload', alertUser);
-  }, [isBlocking]);
-
-  // save it off before users navigate away
-  // useBeforeUnload(
-  //   React.useCallback(() => {
-  //     localStorage.setItem('userData', JSON.stringify(values));
-  //   }, [values]),
-  // );
-
-  // read it in when they return
-  // React.useEffect(() => {
-  //   if (values === userData && localStorage.getItem('userData') != null) {
-  //     setValues(JSON.parse(localStorage.getItem('userData') ?? ''));
-  //   }
-  //   console.log(JSON.parse(localStorage.getItem('userData') ?? ''));
-  // }, [values]);
+  // useNonInitialEffect(() => {
+  //   window.addEventListener('beforeunload', alertUser);
+  //   return () => window.removeEventListener('beforeunload', alertUser);
+  // }, [isBlocking]);
 
   return (
-    <form onSubmit={handleSubmit} name="userFormData" className="user-basic">
+    <Form method="post" action={`/user/basic/${userData.id}`} name="userFormData" className="user-basic">
       <h2>基本資料</h2>
       <div className="user-basic__container user-basic__basic">
 
@@ -288,7 +279,7 @@ function Basic() {
       <div className="user-basic__submit">
         <Button type="submit" text="確認修改" />
       </div>
-    </form>
+    </Form>
   );
 }
 
