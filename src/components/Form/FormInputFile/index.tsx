@@ -3,13 +3,13 @@ import './index.scss';
 
 interface FormInputFileType extends React.InputHTMLAttributes<HTMLInputElement> {
   setImageSrc?: React.Dispatch<React.SetStateAction<string>>,
-  label:string
+  label: string
 }
 
 function FormInputFile({
   label, setImageSrc, ...props
 }: FormInputFileType) {
-  const handleOnPreview:React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
+  const handleOnPreview: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     const file = event.target.files![0];
     const reader = new FileReader();
 

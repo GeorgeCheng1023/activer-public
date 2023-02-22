@@ -3,7 +3,9 @@ import './index.scss';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { Tooltip } from 'react-tooltip';
 import { useCookies } from 'react-cookie';
-import { unstable_usePrompt, LoaderFunctionArgs } from 'react-router-dom';
+import {
+  unstable_usePrompt, LoaderFunctionArgs, useLoaderData,
+} from 'react-router-dom';
 
 // components
 import Crop from 'components/Crop';
@@ -11,25 +13,30 @@ import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
 import Button from 'components/Button';
 
 // api
-import { apiUserUpdate } from 'api/user';
+import { apiUserUpdate, apiGetUser } from 'api/user';
 
 // hook
 import useNonInitialEffect from 'hooks/react/useNonInitialEffect';
 
 // redux
-import { getUserData, updateUser } from 'store/user';
+import { updateUser, getUserData } from 'store/user';
 import { useAppDispatch, useAppSelector } from 'hooks/redux';
 
+import { throwError } from 'pages/Error';
 import { Alert, Fade } from '@mui/material';
 import { UserDataType } from 'types/UserType';
 import scrollToTop from 'utils/scrollToTop';
 
 // data
+import formatUserData from 'utils/formatUserData';
 import CityCountyData from './CityCountyData.json';
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  console.log(params);
-  return null;
+export async function loader({ params }: LoaderFunctionArgs): Promise<UserDataType> {
+  if (!params.userId) throwError('user id not found', 404);
+  const userId = parseInt(params.userId || '1', 10);
+  const res = await apiGetUser(userId);
+  const formatRes = formatUserData(res.data);
+  return formatRes;
 }
 
 function Basic() {
@@ -37,26 +44,34 @@ function Basic() {
   const userData = useAppSelector(getUserData);
   const [cookies] = useCookies<string>(['user']);
 
-  // init state
-  const [isBlocking, setIsBlocking] = useState(false);
-  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
   const [displayCropPanel, setDisplayCropPanel] = useState(false);
-  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
+  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
   const [imageSrc, setImageSrc] = useState<string>(userData.avatar);
 
-  const handleChange = (key: any, value: any) => {
-    // setValues({ ...values, [key]: value });
-    dispatch(updateUser({ ...userData, [key]: value }));
+  // ui
+  const [isBlocking, setIsBlocking] = useState(false);
+  const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
 
+  // init state
+  const userLoaderData = useLoaderData() as UserDataType;
+  React.useEffect(() => {
+    dispatch(updateUser({ ...userLoaderData }));
+    setImageSrc(userLoaderData.avatar);
+  }, []);
+
+  const handleChange = async (key: any, value: any) => {
     setDisplaySuccess(false);
     setIsBlocking(true);
+    dispatch(updateUser({ ...userData, [key]: value }));
+    console.log(key, value);
+    // dispatch(updateSingleData('nickName'));
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     const userFormData = new FormData(event.target as HTMLFormElement);
 
-    const postUserData: UserDataType = { ...userFormData, ...userData };
+    const postUserData: UserDataType = { ...userData, ...userFormData };
     await apiUserUpdate(postUserData, cookies.sessionToken);
 
     scrollToTop();
@@ -76,7 +91,7 @@ function Basic() {
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('avatar', croppedImage);
-
+    console.log('0.0');
     setDisplaySuccess(false);
     setIsBlocking(true);
   };
@@ -101,7 +116,7 @@ function Basic() {
   };
 
   // reload or navigate other website
-  React.useEffect(() => {
+  useNonInitialEffect(() => {
     window.addEventListener('beforeunload', alertUser);
     return () => window.removeEventListener('beforeunload', alertUser);
   }, [isBlocking]);

@@ -3,11 +3,14 @@ import { useCookies } from 'react-cookie';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Loading from 'pages/Loading';
 import { apiUserAuth } from 'api/user';
+import { useAppDispatch } from 'hooks/redux';
+import { signIn } from 'store/auth';
 
 function Admin() {
   const [cookies, setCookie] = useCookies<string>(['user']);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   // const dateFormat = /\d{4}-\d{2}-\d{2}/;
 
   useEffect(() => {
@@ -37,6 +40,7 @@ function Admin() {
         // }
         // const avatar = await getAvatar(resUserData.id);
         // dispatch(updateUser({ ...resUserData, avatar }));
+        dispatch(signIn());
 
         const expiresDate = new Date();
         expiresDate.setDate(expiresDate.getMinutes() + response.data.token.expireIn);
@@ -52,7 +56,7 @@ function Admin() {
           // eslint-disable-next-line no-console
           console.log('Admin page 驗證失敗');
         }
-        // navigate('/', { replace: true });
+        navigate('/', { replace: true });
         setLoading(false);
       }
     };

@@ -10,13 +10,15 @@ import { Link } from 'react-router-dom';
 
 import './index.scss';
 import { useCookies } from 'react-cookie';
-import { useAppDispatch } from 'hooks/redux';
+import { useAppDispatch, useAppSelector } from 'hooks/redux';
 import { signOut } from 'store/auth';
+import { getUserData } from 'store/user';
 import SideBarLink from './components/SidebarLink';
 
 function SideBar() {
   const sideBarRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
   const [, , removeCookie] = useCookies<string>(['user']);
 
   const sidebarClasses = classNames({
@@ -46,7 +48,7 @@ function SideBar() {
         <IconLogo />
         使用者專區
       </Link>
-      <SideBarLink text="基本資料" url="/user/basic" icon={<BiUser />} />
+      <SideBarLink text="基本資料" url={`/user/basic/${userData.id}`} icon={<BiUser />} />
       <SideBarLink text="帳號安全" url="/user/account" icon={<BsFillShieldLockFill />} />
       <SideBarLink text="管理活動" url="/user/manage/全部" icon={<BsGearFill />} />
       <SideBarLink text="偏好設定" url="/user/preferences" icon={<BsFillHeartFill />} />
