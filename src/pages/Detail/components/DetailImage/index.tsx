@@ -50,7 +50,7 @@ function DetailImage({ images, altText }: DetailImagesType) {
             />
 
           </Swiper>
-        ) : <img src="/DefaultActivityPng.png" alt={altText} />
+        ) : <img src="/DefaultActivityImage.svg" alt={altText} />
 
       }
     </div>
