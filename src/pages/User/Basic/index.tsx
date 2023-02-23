@@ -87,9 +87,9 @@ function Basic() {
   }, []);
 
   const handleChange = async (key: any, value: any) => {
-    setDisplaySuccess(false);
     dispatch(updateUser({ ...userData, [key]: value }));
     setIsBlocking(true);
+    setDisplaySuccess(false);
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = () => {
@@ -101,15 +101,12 @@ function Basic() {
     // county
     setSelectCounty(value);
     handleChange(key, value);
-
-    setDisplaySuccess(false);
   };
 
   // handle the portrait crop
   const handleCropped = (croppedImage: string) => {
     handleChange('avatar', croppedImage);
     setImageSrc(croppedImage);
-    setDisplaySuccess(false);
   };
 
   // crop
