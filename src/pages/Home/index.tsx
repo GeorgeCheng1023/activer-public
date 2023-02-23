@@ -9,10 +9,10 @@ import {
 import './index.scss';
 
 export const loader: LoaderFunction = async () => {
-  const trendActivityRes = await getTrendActivity(5, 1);
-  const newestActivityRes = await getNewestActivity(5, 1);
+  const trendActivityRes = await getTrendActivity(4, 1);
+  const newestActivityRes = await getNewestActivity(4, 1);
   const trendTagRes = await getTrendTag(
-    3,
+    4,
     1,
     getCookies('sessionToken'),
   );

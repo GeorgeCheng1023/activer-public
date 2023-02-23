@@ -9,11 +9,15 @@
     height: 10em;
   }
 
+  @include media(laptop) {
+    width: 14em;
+  }
+
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  width: 12em;
+  width: 11.5em;
   border-radius: 0.2em;
   box-shadow: rgb(0 0 0 / 16%) 0 1px 4px;
 
@@ -21,6 +25,10 @@
     @include media(mobilt, tablet) {
       flex: 0 0 10em;
       padding-bottom: 2px; // escape ::after color bar
+    }
+
+    @include media(laptop) {
+      flex: 0 0 8em;
     }
 
     flex: 0 0 6em;

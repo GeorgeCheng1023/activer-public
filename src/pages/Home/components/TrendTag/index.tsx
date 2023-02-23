@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.scss';
+import { motion } from 'framer-motion';
 import Button from 'components/Button';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 import { Link, useLoaderData } from 'react-router-dom';
 import { homeLoaderType } from 'types/Loader';
 import DetailTag from 'components/Tag/DetailTag';
@@ -34,9 +34,10 @@ function TrendTag() {
 
       <div className="trend-tag__container">
 
-        <div className="trend-tag__class__tags">
+        <div className="trend-tag__tags">
           {loaderData.trendTagResData.searchResultData.map((tag) => (
             <DetailTag
+              key={`trend-tag-${tag.id}`}
               id={`trend-tag-${tag.id}`}
               text={tag.text}
               activityAmount={tag.activityAmount}
@@ -48,14 +49,17 @@ function TrendTag() {
         </div>
         <motion.img
           src={Rocket}
+          initial={{ rotate: 330 }}
+          animate={{ y: [0, -20, 0] }}
+          exit={{ y: 0 }}
+          transition={{
+            type: 'linear',
+            duration: 3,
+            repeat: Infinity,
+          }}
           alt="rocket"
           className="trend-tag__rocket"
-          initial={{
-            x: 200, y: 200, rotate: -30, opacity: 0,
-          }}
-          whileInView={{ x: [200, 100, 0], y: [200, 100, 0], opacity: [0, 0, 1] }}
-          viewport={{ once: false, amount: 0.5 }}
-          // transition={{ delay: 0.5 }}
+
         />
       </div>
 

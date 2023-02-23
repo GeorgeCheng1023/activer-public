@@ -79,7 +79,7 @@ function MainCard({ activity }: MainCardType) {
         id={id.toString()}
         tags={tags ? parseArrayTagDataToTag(tags) : []}
         title={title}
-        imgUrl={images ? images[0] : '/DefaultActivityImage.svg'}
+        imgUrl={images ? new URL(images[0]).href : '/DefaultActivityImage.svg'}
         altText={title}
         detail={cardDetail}
         control={(

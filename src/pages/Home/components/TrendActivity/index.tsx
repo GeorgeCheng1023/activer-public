@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'components/Button';
 import MainCard from 'components/Card/MainCard';
 import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import ActivityDataType from 'types/ActivityDataType';
 import { homeLoaderType } from 'types/Loader';
 import './index.scss';
 
@@ -12,6 +13,18 @@ function TrendActivity() {
   const screenWidth = useWindowWidth();
   const loaderData = useLoaderData() as homeLoaderType;
   const navigate = useNavigate();
+  const [trendActivities, setTrendActivities] = useState<ActivityDataType[]>(
+    loaderData.trendActivityResData.searchResultData,
+  );
+
+  useEffect(() => {
+    if (screenWidth < 1024) {
+      setTrendActivities(loaderData.trendActivityResData.searchResultData.slice(0, 3));
+    } else {
+      setTrendActivities(loaderData.trendActivityResData.searchResultData);
+    }
+  }, [screenWidth]);
+
   return (
     <section className="trend-activity">
       <div className="home__header">
@@ -28,15 +41,14 @@ function TrendActivity() {
         />
       </div>
       <div className="home__card-container">
-        {loaderData.trendActivityResData.searchResultData
+        {trendActivities
           .map((activity) => (
             <MainCard
               activity={activity}
               key={`trend-activity-${activity.id}`}
             />
           ))
-          .splice(0, screenWidth > 1024 ? 5 : 4)}
-
+          .slice(0, screenWidth > 1024 ? 4 : 3)}
       </div>
     </section>
   );
