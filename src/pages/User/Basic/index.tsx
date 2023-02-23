@@ -68,17 +68,16 @@ function Basic() {
   const userData = useAppSelector(getUserData);
   const params = useParams();
 
-  const [displayCropPanel, setDisplayCropPanel] = useState(false);
-  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
-
-  const imageUrl = `http://220.132.244.41:5044/api/user/avatar/${params.userId}`;
-  const [imageSrc, setImageSrc] = useState<string>(imageUrl);
-
   // ui
   // const [isBlocking, setIsBlocking] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
 
   // init state
+  const imageUrl = `http://220.132.244.41:5044/api/user/avatar/${params.userId}`;
+  const [imageSrc, setImageSrc] = useState<string>(imageUrl);
+  const [displayCropPanel, setDisplayCropPanel] = useState(false);
+  const [selectedCounty, setSelectCounty] = useState(userData.county || '臺北市');
+
   const userLoaderData = useLoaderData() as UserDataType;
   React.useEffect(() => {
     dispatch(updateUser({ ...userLoaderData }));
@@ -88,6 +87,10 @@ function Basic() {
   const handleChange = async (key: any, value: any) => {
     setDisplaySuccess(false);
     dispatch(updateUser({ ...userData, [key]: value }));
+  };
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = () => {
+    setDisplaySuccess(true);
   };
 
   const handleCountyChange = (key: any, value: any) => {
@@ -129,10 +132,6 @@ function Basic() {
   //   window.addEventListener('beforeunload', alertUser);
   //   return () => window.removeEventListener('beforeunload', alertUser);
   // }, [displaySuccess]);
-
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    console.log(event.target);
-  };
 
   return (
     <Form
