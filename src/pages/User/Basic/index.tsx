@@ -5,11 +5,13 @@ import { Tooltip } from 'react-tooltip';
 import {
   LoaderFunctionArgs, useLoaderData, Form, ActionFunctionArgs, useParams,
 } from 'react-router-dom';
+import ReactRouterPrompt from 'react-router-prompt';
 
 // components
 import Crop from 'components/Crop';
 import { FormInputFile, FormInput, FormDropDown } from 'components/Form';
 import Button from 'components/Button';
+import Popup from 'components/Popup';
 
 // api
 import { apiGetUser, apiUserUpdate } from 'api/user';
@@ -69,7 +71,7 @@ function Basic() {
   const params = useParams();
 
   // ui
-  // const [isBlocking, setIsBlocking] = useState(false);
+  const [isBlocking, setIsBlocking] = useState(false);
   const [displaySuccess, setDisplaySuccess] = useState<boolean>(false);
 
   // init state
@@ -87,10 +89,12 @@ function Basic() {
   const handleChange = async (key: any, value: any) => {
     setDisplaySuccess(false);
     dispatch(updateUser({ ...userData, [key]: value }));
+    setIsBlocking(true);
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = () => {
     setDisplaySuccess(true);
+    setIsBlocking(false);
   };
 
   const handleCountyChange = (key: any, value: any) => {
@@ -116,23 +120,6 @@ function Basic() {
     handleCropPanelShow();
   }, [imageSrc]);
 
-  // reload 會出錯
-  // unstable_usePrompt({
-  //   when: true,
-  //   message: '你確定要離開此頁面嗎?',
-  // });
-
-  // const alertUser = (e: BeforeUnloadEvent) => {
-  //   e.preventDefault();
-  //   e.returnValue = '';
-  // };
-
-  // reload or navigate other website
-  // useNonInitialEffect(() => {
-  //   window.addEventListener('beforeunload', alertUser);
-  //   return () => window.removeEventListener('beforeunload', alertUser);
-  // }, [displaySuccess]);
-
   return (
     <Form
       method="post"
@@ -141,6 +128,22 @@ function Basic() {
       name="userFormData"
       className="user-basic"
     >
+
+      {/* prompt */}
+      <ReactRouterPrompt when={isBlocking}>
+        {({ isActive, onConfirm, onCancel }) => (
+          <Popup display={isActive} onClose={onCancel}>
+            <div className="user-basic__modal">
+              <h3>你確定要離開此頁面?</h3>
+              <div className="user-basic__modal-button">
+                <Button text="取消" type="button" onClick={onCancel} />
+                <Button text="確定" color="secondary" type="submit" onClick={onConfirm} />
+              </div>
+            </div>
+          </Popup>
+        )}
+      </ReactRouterPrompt>
+
       <h2>基本資料</h2>
       <div className="user-basic__container user-basic__basic">
 
