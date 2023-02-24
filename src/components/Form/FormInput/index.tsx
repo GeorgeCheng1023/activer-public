@@ -48,7 +48,7 @@ function FormInput({
             }
           }}
           onChange={handleChange}
-          value={formValue[props.name as keyof typeof formValue]}
+          value={formValue[props.name as keyof typeof formValue] || undefined}
         />
         {label
           && (

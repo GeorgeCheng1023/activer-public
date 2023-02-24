@@ -2,15 +2,13 @@ import React, {
   useState, useCallback, useRef, useEffect,
 } from 'react';
 import classNames from 'classnames';
-// component
 import { TagType } from 'components/Tag';
 import { FiSearch } from 'react-icons/fi';
+import { useRouteLoaderData } from 'react-router-dom';
 import Button from 'components/Button';
-// style
-import './index.scss';
-import { TagDataType } from 'types/ActivityDataType';
 import { parseTagDataToTag } from 'utils/parseTag';
-import { getAllTags } from 'api/tag';
+import { RootLoaderType } from 'types/Loader';
+import './index.scss';
 
 interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> {
   onSuggestionClick: (clickedSuggestion: TagType) => void
@@ -19,25 +17,13 @@ interface FormSearchTagType extends React.InputHTMLAttributes<HTMLInputElement> 
 function FormSearchTag({
   onSuggestionClick, ...props
 }: FormSearchTagType) {
-  // INIT: state
-  const [allTags, setAllTags] = useState<TagDataType[]>([]);
+  const rootLoaderData = useRouteLoaderData('root') as RootLoaderType;
+
+  const { allTags } = rootLoaderData;
   const [suggestionDisplay, setSuggestionDisplay] = useState(false);
   const [suggestionTags, setSuggestionTags] = useState<JSX.Element[] | null>();
   const [currentFocusSuggestionIndex, setCurrentSuggestionIndex] = useState(-1);
   const inputValueRef = useRef<HTMLInputElement>(null);
-
-  // API: get all tags
-  useEffect(() => {
-    const dataFetch = async () => {
-      try {
-        const res = await getAllTags();
-        setAllTags(res.data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    dataFetch();
-  }, []);
 
   // HANDLER: suggestion click
   const handleSuggestionClick = useCallback((clickedTag: TagType) => {
@@ -176,13 +162,13 @@ function FormSearchTag({
     <div
       className={searchTagClassNames}
     >
-      <div className="search-tag__button">
-        <Button
-          iconAfter={<FiSearch />}
-          color="white"
-          variant={{ round: true }}
-        />
-      </div>
+      <Button
+        className="search-tag__button"
+        iconAfter={<FiSearch />}
+        color="white"
+        variant={{ round: true }}
+      />
+
       <input
         {...props}
         ref={inputValueRef}

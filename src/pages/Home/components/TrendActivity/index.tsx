@@ -5,12 +5,12 @@ import useWindowWidth from 'hooks/window/useWindowWidth';
 import { BsArrowRight } from 'react-icons/bs';
 import { FaHotjar } from 'react-icons/fa';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { homeLoaderDataType } from 'types/ActivityDataType';
+import { homeLoaderType } from 'types/Loader';
 import './index.scss';
 
 function TrendActivity() {
   const screenWidth = useWindowWidth();
-  const loaderData = useLoaderData() as homeLoaderDataType;
+  const loaderData = useLoaderData() as homeLoaderType;
   const navigate = useNavigate();
   return (
     <section className="trend-activity">
@@ -30,7 +30,10 @@ function TrendActivity() {
       <div className="home__card-container">
         {loaderData.trendActivityResData.searchResultData
           .map((activity) => (
-            <MainCard activity={activity} />
+            <MainCard
+              activity={activity}
+              key={`trend-activity-${activity.id}`}
+            />
           ))
           .splice(0, screenWidth > 1024 ? 5 : 4)}
 

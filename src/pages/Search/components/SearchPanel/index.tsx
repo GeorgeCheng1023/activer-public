@@ -24,7 +24,7 @@ import {
   useLoaderData,
   useNavigate,
 } from 'react-router-dom';
-import { SearchLoaderType } from 'types/ActivityDataType';
+import { SearchLoaderType } from 'types/Loader';
 import RecommendTag from './components/RecommendTag';
 import SortTag from './components/SortTag';
 import StorageTag from './components/StorageTag';

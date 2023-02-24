@@ -22,6 +22,11 @@ const initialState: UserDataType = {
   tagHistory: [],
 };
 
+interface UpdateSingleDataType {
+  key: string,
+  value: any,
+}
+
 // async action
 export const getUserGoogleData = createAsyncThunk('auth/getUserGoogleData', async (accessToken: string) => {
   const response = await apiUserGoogleData(accessToken);
@@ -36,10 +41,18 @@ const userSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    updateSingleData: (state, action: PayloadAction<string>) => {
-      console.log(action.payload);
+    updateSingleData: (state, action: PayloadAction<UpdateSingleDataType>) => {
+      const { key, value } = action.payload;
+
+      // if (key as keyof UserDataType) {
+      //   console.log(key);
+      // } else {
+      //   return { ...state };
+      // }
+
       return {
         ...state,
+        [key]: value,
       };
     },
   },

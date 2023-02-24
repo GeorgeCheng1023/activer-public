@@ -20,7 +20,7 @@ export interface UserTokenType {
   expireIn: number,
 }
 
-export interface UserAPIType {
+export interface UserResponseType {
   user: UserDataType,
   token: UserTokenType,
 }

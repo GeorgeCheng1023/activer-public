@@ -14,7 +14,6 @@ import getCookie from 'utils/getCookies';
 
 // type
 import { ActivityDataType } from 'types/ActivityDataType';
-
 // components
 import HistoryControl from './components/HistoryControl';
 // import ChartHistoryTag, { dataType } from './components/ChartHistoryTag';

@@ -1,0 +1,35 @@
+@import "/src/styles/variables";
+@import "/src/styles/global";
+
+.detail-tag {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  width: 10em;
+  cursor: default;
+
+  &__hashtag {
+    width: fit-content;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      font-weight: bold;
+      font-size: 1.1em;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &__description {
+      display: felx;
+      align-content: baseline;
+      color: $secondary-font-color;
+      font-size: 0.8em;
+    }
+  }
+}

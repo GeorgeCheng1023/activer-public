@@ -3,7 +3,7 @@ import { useAppSelector } from 'hooks/redux';
 import { selectResults } from 'store/searchPanel';
 import './index.scss';
 import { useLoaderData } from 'react-router-dom';
-import { SearchLoaderType } from 'types/ActivityDataType';
+import { SearchLoaderType } from 'types/Loader';
 import MainCard from 'components/Card/MainCard';
 import Pagination from 'components/Pagination';
 

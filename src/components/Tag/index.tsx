@@ -6,12 +6,14 @@ import {
 import { BiMinus } from 'react-icons/bi';
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 interface TagVariantType {
   reverse?: boolean;
 }
 
-export type TagType = {
+export interface TagType extends
+  Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   id: string;
   text: string;
   disabled?: boolean;
@@ -19,8 +21,8 @@ export type TagType = {
   type?: 'area' | 'location' | 'other';
   icon?: 'minus' | 'plus' | 'move';
   size?: 'sm' | 'lg';
-  onClick?: (clickedTag: TagType) => void;
-};
+  link?: boolean;
+}
 
 function TagIcon(icon: TagType['icon']) {
   switch (icon) {
@@ -35,7 +37,7 @@ function TagIcon(icon: TagType['icon']) {
   }
 }
 
-const getColor = (type: TagType['type']) : string => {
+export const getColor = (type: string | undefined) :'primary' | 'secondary' | 'success' => {
   switch (type) {
     case 'area': return 'primary';
     case 'location': return 'secondary';
@@ -45,12 +47,9 @@ const getColor = (type: TagType['type']) : string => {
 };
 
 function Tag({
-  type, text, icon, id, size, onClick, disabled, variant,
+  type, text, icon, id, size, disabled, variant, link,
 }: TagType) {
-  const handleClick:React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-    if (onClick) { onClick({ type, text, id }); }
-  };
+  const navigate = useNavigate();
 
   const tagClasses = classNames({
     tag: true,
@@ -67,8 +66,15 @@ function Tag({
       }}
       type="button"
       className={tagClasses}
+      onClick={() => {
+        if (link) {
+          navigate({
+            pathname: '/search',
+            search: `?tags=${text}`,
+          });
+        }
+      }}
       id={id.toString()}
-      onClick={handleClick}
       disabled={disabled}
     >
       <p className="tag__text">
@@ -84,14 +90,5 @@ function Tag({
     </motion.button>
   );
 }
-
-Tag.defaultProps = {
-  type: 'area',
-  icon: undefined,
-  size: undefined,
-  onClick: undefined,
-  disabled: false,
-  variant: undefined,
-};
 
 export default Tag;
