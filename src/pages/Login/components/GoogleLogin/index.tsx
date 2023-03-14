@@ -2,6 +2,7 @@
 import React from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import './index.scss';
+import { FcGoogle } from 'react-icons/fc';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getUserGoogleData } from 'store/user';
 import { useAppDispatch } from 'hooks/redux';
@@ -30,7 +31,7 @@ function GoogleLoginButton() {
 
   return (
     <button className="google-button" type="button" onClick={() => login()}>
-      <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+      <FcGoogle />
       Sign in with Google
     </button>
   );
