@@ -149,16 +149,18 @@ $btn-config: (
           position: absolute;
           bottom: 0.2em;
           display: none;
+          display: block;
           width: 75%;
           height: 1px;
           background-color: $color;
         }
 
         &:hover {
+          color: color.adjust($color, $lightness: 30%);
           background: $bg;
 
           &::after {
-            display: block;
+            background-color: color.adjust($color, $lightness: 30%);
           }
         }
 

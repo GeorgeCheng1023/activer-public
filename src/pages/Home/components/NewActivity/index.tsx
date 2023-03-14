@@ -36,7 +36,7 @@ function NewActivity() {
           .map((activity: ActivityDataType) => (
             <MainCard activity={activity} key={`card-${activity.id}`} />
           ))
-          .splice(0, screenWidth > 1024 ? 5 : 4)}
+          .slice(0, screenWidth > 1024 ? 4 : 3)}
 
       </div>
     </section>

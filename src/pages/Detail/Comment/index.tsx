@@ -12,6 +12,7 @@ import ReactStars from 'react-stars';
 
 import './index.scss';
 import { DetailLoaderType } from 'types/Loader';
+import Popup from 'components/Popup';
 
 export const deleteCommentAction: ActionFunction = async ({ params }) => {
   const { commentId, activityId } = params;
@@ -84,21 +85,15 @@ function Comment() {
   };
 
   return (
-    <div
+    <Popup
+      backLink={`/detail/${activityId}`}
       className="comment-panel"
-      aria-hidden
-      data-type="backdrop"
-      onClick={(event) => {
-        if ((event.target as HTMLElement).getAttribute('data-type') === 'backdrop') {
-          navigate(`/detail/${activityId}`, { replace: true });
-        }
-      }}
     >
       <fetcher.Form
         onSubmit={handleSubmit}
         action="new"
         method="post"
-        className="comment-panel__container"
+        className="comment-panel__inner"
       >
         <h2>撰寫評論 </h2>
         <ReactStars
@@ -126,7 +121,7 @@ function Comment() {
           />
         </div>
       </fetcher.Form>
-    </div>
+    </Popup>
   );
 }
 

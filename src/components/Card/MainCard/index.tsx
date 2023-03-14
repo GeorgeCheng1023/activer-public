@@ -34,13 +34,15 @@ function MainCard({ activity }: MainCardType) {
     : null;
   const [status, setStatus] = useState<BranchDataType['status']>(initStatus);
 
-  const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
-    const target = event.target as HTMLDivElement;
-    // Prevent Navigation when click Control
-    if (target.id === resultItemControlId) {
-      event.preventDefault();
-    }
-  };
+  // const handleClick: React.MouseEventHandler<HTMLAnchorElement> = (event) => {
+  //   event.preventDefault();
+  //   const target = event.target as HTMLDivElement;
+  //   // Prevent Navigation when click Control
+  //   if (target.id === resultItemControlId) {
+  //     event.preventDefault();
+  //   }
+
+  // };
 
   const handleClickFollow: React.MouseEventHandler<HTMLButtonElement> = async () => {
     if (!isLoggedIn) {
@@ -71,13 +73,13 @@ function MainCard({ activity }: MainCardType) {
     <Link
       className="result__item"
       to={`/detail/${id}`}
-      onClick={handleClick}
+      onClick={() => window.scrollTo(0, 0)}
     >
       <Card
         id={id.toString()}
         tags={tags ? parseArrayTagDataToTag(tags) : []}
         title={title}
-        imgUrl={images ? images[0] : '/DefaultActivityPng.png'}
+        imgUrl={images ? new URL(images[0]).href : '/DefaultActivityImage.svg'}
         altText={title}
         detail={cardDetail}
         control={(

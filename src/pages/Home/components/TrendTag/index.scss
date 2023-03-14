@@ -8,24 +8,28 @@
   flex-direction: column;
 
   &__container {
+    @include media(mobile, tablet) {
+      flex-direction: column;
+    }
+
     display: flex;
     flex-wrap: wrap;
+    gap: 1em;
     justify-content: flex-start;
+    margin-left: 1em;
 
     // overflow: hidden;
   }
 
-  &__class {
+  &__tags {
     display: flex;
     flex-flow: column;
+    justify-content: space-around;
+    width: 30%;
 
-    &__tags {
-      width: 30%;
-
-      >*:not(:last-child) {
-        padding-bottom: 0.5em;
-        border-bottom: 1px solid $tertiary-font-color;
-      }
+    >*:not(:last-child) {
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid $tertiary-font-color;
     }
   }
 
